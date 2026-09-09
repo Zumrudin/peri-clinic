@@ -11,6 +11,12 @@
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
 import { writeFileSync, readFileSync, existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+// Load ./.env next to this file (pm2 does not read env files itself).
+try {
+  process.loadEnvFile(fileURLToPath(new URL('./.env', import.meta.url)));
+} catch {}
 
 const PORT = Number(process.env.REBUILD_PORT || 8787);
 const TOKEN = process.env.REBUILD_TOKEN;
