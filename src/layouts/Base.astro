@@ -2,7 +2,7 @@
 import '../styles/tokens.css';
 import '../styles/base.css';
 import ContactSheet from '../components/shell/ContactSheet.astro';
-import site from '../data/site.json';
+import { getSiteSettings } from '../lib/siteContent';
 
 interface Props {
   title: string;
@@ -10,6 +10,7 @@ interface Props {
   ogImage?: string;
 }
 const { title, description, ogImage } = Astro.props;
+const site = await getSiteSettings();
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = ogImage ?? new URL('/og-default.jpg', Astro.site).href;
 ---

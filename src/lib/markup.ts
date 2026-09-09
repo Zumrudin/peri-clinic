@@ -28,3 +28,10 @@ export function whatsappHref(phone: string, text?: string): string {
   const base = `https://wa.me/${phoneDigits(phone)}`;
   return text ? `${base}?text=${encodeURIComponent(text)}` : base;
 }
+
+/** Directus `date` fields come back as ISO `YYYY-MM-DD`; the design shows Russian `DD.MM.YYYY`. */
+export function formatRuDate(iso: string | null | undefined): string {
+  if (!iso) return '';
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  return m ? `${m[3]}.${m[2]}.${m[1]}` : iso;
+}

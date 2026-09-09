@@ -1,6 +1,8 @@
 ---
-import site from '../../data/site.json';
+import { getSiteSettings } from '../../lib/siteContent';
 import { telHref, whatsappHref } from '../../lib/markup';
+
+const site = await getSiteSettings();
 
 const rows = [
   { goal: 'contact_call', label: 'Позвонить', hint: site.phone, href: telHref(site.phone), icon: 'phone', attrs: {} },

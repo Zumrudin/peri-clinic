@@ -1,10 +1,11 @@
 ---
 import { Picture } from 'astro:assets';
 import { em } from '../../lib/markup';
-import { homeImage } from '../../lib/images';
-import site from '../../data/site.json';
-import home from '../../data/home.json';
+import { getSiteSettings } from '../../lib/siteContent';
+import { getHomeContent } from '../../lib/homeContent';
 
+const site = await getSiteSettings();
+const home = await getHomeContent();
 const { hero } = home;
 ---
 
@@ -32,11 +33,13 @@ const { hero } = home;
   <div class="hero__visual reveal">
     <div class="hero__image-wrap">
       <Picture
-        src={homeImage(hero.image)}
+        src={hero.image.src}
+        inferSize
         alt={hero.image_alt}
         widths={[480, 840, 1200]}
         sizes="(max-width: 800px) 100vw, 48vw"
         formats={['avif', 'webp']}
+        fallbackFormat="jpg"
         loading="eager"
         fetchpriority="high"
         decoding="async"

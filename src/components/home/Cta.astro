@@ -1,10 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import { em, telHref, whatsappHref } from '../../lib/markup';
-import { homeImage } from '../../lib/images';
-import site from '../../data/site.json';
-import home from '../../data/home.json';
+import { getSiteSettings } from '../../lib/siteContent';
+import { getHomeContent } from '../../lib/homeContent';
 
+const site = await getSiteSettings();
+const home = await getHomeContent();
 const { cta } = home;
 const quick = [
   { label: 'Позвонить', href: telHref(site.phone), external: false },
@@ -17,7 +18,7 @@ const quick = [
 <section class="booking" id="booking" aria-labelledby="booking-title">
   <div class="booking__image reveal">
     <Image
-      src={homeImage(cta.image)}
+      src={cta.image.src}
       alt={cta.image_alt}
       width={900}
       height={1100}

@@ -8,7 +8,9 @@ import Devices from '../components/home/Devices.astro';
 import Cases from '../components/home/Cases.astro';
 import Reviews from '../components/home/Reviews.astro';
 import Cta from '../components/home/Cta.astro';
-import home from '../data/home.json';
+import { getHomeContent } from '../lib/homeContent';
+
+const home = await getHomeContent();
 ---
 
 <Page title={home.seo.title} description={home.seo.description}>

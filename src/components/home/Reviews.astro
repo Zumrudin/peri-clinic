@@ -1,7 +1,8 @@
 ---
 import { em } from '../../lib/markup';
-import home from '../../data/home.json';
+import { getHomeContent } from '../../lib/homeContent';
 
+const home = await getHomeContent();
 const { reviews } = home;
 const stars = '★★★★★';
 ---

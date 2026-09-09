@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { em, telHref, whatsappHref, phoneDigits } from './markup.ts';
+import { em, telHref, whatsappHref, phoneDigits, formatRuDate } from './markup.ts';
 
 test('em(): underscores become <em>, newlines become <br>, html is escaped', () => {
   assert.equal(em('Красота,\n_основанная_\nна медицине'), 'Красота,<br><em>основанная</em><br>на медицине');
@@ -21,4 +21,11 @@ test('whatsappHref(): wa.me link with encoded prefilled text', () => {
     'https://wa.me/79250177778?text=' + encodeURIComponent('Здравствуйте! Хочу записаться на Volnewmer'),
   );
   assert.equal(whatsappHref('+7 925 017-77-78'), 'https://wa.me/79250177778');
+});
+
+test('formatRuDate(): ISO date becomes DD.MM.YYYY', () => {
+  assert.equal(formatRuDate('2026-08-12'), '12.08.2026');
+  assert.equal(formatRuDate('2026-08-12T00:00:00.000Z'), '12.08.2026');
+  assert.equal(formatRuDate(null), '');
+  assert.equal(formatRuDate(''), '');
 });

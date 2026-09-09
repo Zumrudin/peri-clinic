@@ -2,9 +2,9 @@
 import { Image } from 'astro:assets';
 import SectionHeading from '../ui/SectionHeading.astro';
 import { em } from '../../lib/markup';
-import { homeImage } from '../../lib/images';
-import home from '../../data/home.json';
+import { getHomeContent } from '../../lib/homeContent';
 
+const home = await getHomeContent();
 const { categories } = home;
 ---
 
@@ -16,7 +16,7 @@ const { categories } = home;
       categories.items.map((item, i) => (
         <a class="service-card reveal" href={`/${item.slug}`}>
           <Image
-            src={homeImage(item.cover)}
+            src={item.cover.src}
             alt={item.alt}
             width={700}
             height={900}

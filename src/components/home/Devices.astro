@@ -1,9 +1,9 @@
 ---
 import { Image } from 'astro:assets';
 import { em } from '../../lib/markup';
-import { homeImage } from '../../lib/images';
-import home from '../../data/home.json';
+import { getHomeContent } from '../../lib/homeContent';
 
+const home = await getHomeContent();
 const { devices } = home;
 ---
 
@@ -23,7 +23,8 @@ const { devices } = home;
         <a class="machine-card reveal" href={d.href}>
           <span>{String(i + 1).padStart(2, '0')}</span>
           <Image
-            src={homeImage(d.image)}
+            src={d.image.src}
+            inferSize
             alt={d.name}
             height={410}
             widths={[300, 500]}

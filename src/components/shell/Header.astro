@@ -1,8 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import site from '../../data/site.json';
+import { getSiteSettings } from '../../lib/siteContent';
 import { telHref } from '../../lib/markup';
 import logo from '../../assets/home/logo.png';
+
+const site = await getSiteSettings();
 ---
 
 <header class="header" data-header>

@@ -1,16 +1,16 @@
 ---
 import { Image } from 'astro:assets';
 import { em } from '../../lib/markup';
-import { homeImage } from '../../lib/images';
-import home from '../../data/home.json';
+import { getHomeContent } from '../../lib/homeContent';
 
+const home = await getHomeContent();
 const { approach } = home;
 ---
 
 <section class="approach" id="approach" aria-labelledby="approach-title">
   <div class="approach__image reveal">
     <Image
-      src={homeImage(approach.image)}
+      src={approach.image.src}
       alt={approach.image_alt}
       width={900}
       height={1100}
