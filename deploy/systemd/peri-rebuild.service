@@ -1,0 +1,17 @@
+[Unit]
+Description=Peri Clinic — rebuild webhook receiver
+After=network.target
+# Reference unit for production; on the shared dev VPS this process instead runs
+# under pm2 (see deploy/pm2/ecosystem.config.cjs) alongside other tenants' apps.
+
+[Service]
+Type=simple
+User=peri
+EnvironmentFile=/srv/peri/rebuild/.env
+ExecStart=/usr/bin/env node /srv/peri/rebuild/server.mjs
+Restart=always
+RestartSec=3
+WorkingDirectory=/srv/peri/rebuild
+
+[Install]
+WantedBy=multi-user.target

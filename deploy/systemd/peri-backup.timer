@@ -1,0 +1,10 @@
+[Unit]
+Description=Peri Clinic — daily backup at 03:30 (Moscow time on production; UTC here)
+
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

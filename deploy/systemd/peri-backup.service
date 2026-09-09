@@ -1,0 +1,10 @@
+[Unit]
+Description=Peri Clinic — backup Directus DB + uploads
+After=network.target
+
+[Service]
+Type=oneshot
+User=root
+Environment=PERI_ROOT=/srv/peri
+# Environment=RCLONE_REMOTE=peri-s3:peri-clinic-backups
+ExecStart=/usr/bin/env bash /srv/peri/site/deploy/backup.sh
