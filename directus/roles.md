@@ -2,11 +2,14 @@
 
 ## База данных
 
-Postgres на управляемом инстансе Beget (`googugiherie.beget.app`), тот же сервер, что и у
-LoyalPro, но **отдельная база** (`periclinic`) и **отдельный SSH-туннель**:
-`peri-db-tunnel.service` (`deploy/systemd/peri-db-tunnel.service`) держит
-`127.0.0.1:5434 → googugiherie.beget.app:5432` через `root@217.114.0.254`. Отдельный туннель
-нужен, чтобы падение/рестарт туннеля LoyalPro не роняло админку Peri, и наоборот.
+Postgres 16 на управляемом инстансе Beget (`googugiherie.beget.app`), тот же сервер, что и у
+LoyalPro, но **отдельная база** (`peri_clinic_site`, роль без `CREATEDB`/`SUPERUSER` — обычное
+ограничение управляемого хостинга) и **отдельный SSH-туннель**: `peri-db-tunnel.service`
+(`deploy/systemd/peri-db-tunnel.service`) держит `127.0.0.1:5434 → googugiherie.beget.app:5432`
+через `root@217.114.0.254`. Отдельный туннель нужен, чтобы падение/рестарт туннеля LoyalPro не
+роняло админку Peri, и наоборот. Мигрировали со стендового SQLite на эту базу 2026-09-09,
+данные в SQLite были тестовыми — просто сделали `directus bootstrap` заново; старый файл лежит
+в `/srv/peri/backups/pre-postgres-sqlite.db` на всякий случай.
 
 Почему не SQLite: локальный SQLite-файл требовал пересборки нативного модуля `sqlite3` из
 исходников под конкретную glibc (см. ниже) — хрупко и пришлось бы повторять на продакшен-сервере.
@@ -15,12 +18,32 @@ Postgres на Beget — уже готовая, российская, управ�
 Эта же база остаётся постоянной и после переезда сайта на выделенный российский VPS — туда
 переедут только Astro и Directus (через тот же туннель), не сама БД.
 
+**Важно про версию клиента:** сервер — Postgres 16.x, а Ubuntu 22.04 из коробки ставит
+`postgresql-client` версии 14 — `pg_dump`/`pg_restore` при таком рассинхроне версий отказываются
+работать («server version mismatch»). Нужен официальный репозиторий PGDG:
+
+```bash
+install -d /usr/share/postgresql-common/pgdg
+curl -sSf -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc
+echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" \
+  > /etc/apt/sources.list.d/pgdg.list
+apt-get update && apt-get install -y postgresql-client-16
+```
+
 Восстановление из бэкапа (`deploy/backup.sh`, дамп в `pg_dump -Fc`):
 
 ```bash
-PGPASSWORD=... pg_restore -h 127.0.0.1 -p 5434 -U periclinic -d periclinic --clean --if-exists \
+PGPASSWORD=... pg_restore -h 127.0.0.1 -p 5434 -U peri_clinic_site -d peri_clinic_site --clean --if-exists \
   /srv/peri/backups/<дата>/data.dump
 ```
+
+Тренировка восстановления **пройдена не «на словах»**: роль без `CREATEDB` не может поднять
+отдельную временную базу, поэтому дамп конвертировали в текстовый SQL (`pg_restore -f`),
+подставили схему `drill_restore` вместо `public` и прогнали через `psql` в ту же базу —
+таблицы и счётчики строк (`directus_fields`, `directus_collections`, `directus_users`)
+совпали с оригиналом 1:1, временную схему удалили. Если понадобится настоящее
+изолированное восстановление (не в той же БД), нужна либо вторая схема/база от Beget, либо
+временный грант `CREATEDB` на роль.
 
 | Роль | Политика | Доступ |
 |---|---|---|
