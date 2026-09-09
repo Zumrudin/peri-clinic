@@ -1,6 +1,7 @@
 import { getEntry, getCollection } from 'astro:content';
 import { directusImage } from './media';
 import { formatRuDate } from './markup';
+import { bySort } from './directus';
 
 /**
  * Reshapes the `home` singleton + related collections (fetched via Content Layer loaders,
@@ -14,10 +15,10 @@ export async function getHomeContent() {
   const h = home.data;
 
   const [categories, devices, cases, reviews] = await Promise.all([
-    getCollection('serviceCategories'),
-    getCollection('devices'),
-    getCollection('homeCases'),
-    getCollection('homeReviews'),
+    getCollection('serviceCategories').then(bySort),
+    getCollection('devices').then(bySort),
+    getCollection('homeCases').then(bySort),
+    getCollection('homeReviews').then(bySort),
   ]);
 
   return {

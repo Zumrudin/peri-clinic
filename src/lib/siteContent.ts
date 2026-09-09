@@ -1,5 +1,6 @@
 import { getEntry, getCollection } from 'astro:content';
 import { nav, clientLinks } from '../config/nav';
+import { bySort } from './directus';
 
 /**
  * Reshapes the `site_settings` singleton into the same shape the former
@@ -10,7 +11,7 @@ export async function getSiteSettings() {
   const settings = await getEntry('siteSettings', 'siteSettings');
   if (!settings) throw new Error('Directus "site_settings" singleton is empty — run directus/setup/seed-home.mjs');
   const s = settings.data;
-  const categories = await getCollection('serviceCategories');
+  const categories = bySort(await getCollection('serviceCategories'));
 
   return {
     name: 'PERI CLINIC',

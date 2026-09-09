@@ -47,3 +47,13 @@ export function directusQuery(params: Record<string, string | undefined>): strin
   const usable = Object.entries(params).filter(([, v]) => v !== undefined && v !== '');
   return usable.length ? '?' + usable.map(([k, v]) => `${k}=${encodeURIComponent(v as string)}`).join('&') : '';
 }
+
+/**
+ * Astro's Content Layer persists each collection re-sorted by entry ID (string compare),
+ * discarding whatever order the loader fetched in — so a Directus `sort` field survives the
+ * query but not `getCollection()`. Re-sort by it explicitly after every `getCollection()` call
+ * for any collection where display order matters (editors reorder via drag-and-drop in Directus).
+ */
+export function bySort<T extends { data: { sort?: number | null } }>(entries: T[]): T[] {
+  return [...entries].sort((a, b) => (a.data.sort ?? 0) - (b.data.sort ?? 0));
+}

@@ -194,7 +194,7 @@ const serviceCategories = defineCollection({
   loader: directusLoader('serviceCategories', () =>
     directusGet(
       `/items/service_categories${directusQuery({
-        fields: `id,slug,title,short_title,tagline,cover_alt,${fileFields('cover')}`,
+        fields: `id,sort,slug,title,short_title,tagline,cover_alt,${fileFields('cover')}`,
         filter: JSON.stringify({ status: { _eq: 'published' } }),
         sort: 'sort',
       })}`,
@@ -202,6 +202,7 @@ const serviceCategories = defineCollection({
   ),
   schema: z.object({
     id: z.number(),
+    sort: z.number().nullable().optional(),
     slug: z.string(),
     title: z.string(),
     short_title: z.string().nullable().optional(),
@@ -215,7 +216,7 @@ const devices = defineCollection({
   loader: directusLoader('devices', () =>
     directusGet(
       `/items/devices${directusQuery({
-        fields: `id,name,short,procedure.slug,${fileFields('image')}`,
+        fields: `id,sort,name,short,procedure.slug,${fileFields('image')}`,
         filter: JSON.stringify({ status: { _eq: 'published' }, show_on_home: { _eq: true } }),
         sort: 'sort',
       })}`,
@@ -223,6 +224,7 @@ const devices = defineCollection({
   ),
   schema: z.object({
     id: z.number(),
+    sort: z.number().nullable().optional(),
     name: z.string(),
     short: z.string().nullable().optional(),
     image: fileRef,
@@ -234,7 +236,7 @@ const homeCases = defineCollection({
   loader: directusLoader('homeCases', () =>
     directusGet(
       `/items/before_after_cases${directusQuery({
-        fields: `id,title,result,category.title,${fileFields('after')},${fileFields('combined')}`,
+        fields: `id,sort,title,result,category.title,${fileFields('after')},${fileFields('combined')}`,
         filter: JSON.stringify({ status: { _eq: 'published' }, show_on_home: { _eq: true }, needs_review: { _eq: false } }),
         sort: 'sort',
       })}`,
@@ -242,6 +244,7 @@ const homeCases = defineCollection({
   ),
   schema: z.object({
     id: z.number(),
+    sort: z.number().nullable().optional(),
     title: z.string(),
     result: z.string().nullable().optional(),
     after: fileRef,
@@ -254,7 +257,7 @@ const homeReviews = defineCollection({
   loader: directusLoader('homeReviews', () =>
     directusGet(
       `/items/reviews${directusQuery({
-        fields: 'id,author_name,date,text,procedure_label',
+        fields: 'id,sort,author_name,date,text,procedure_label',
         filter: JSON.stringify({ status: { _eq: 'published' }, show_on_home: { _eq: true } }),
         sort: 'sort',
       })}`,
@@ -262,6 +265,7 @@ const homeReviews = defineCollection({
   ),
   schema: z.object({
     id: z.number(),
+    sort: z.number().nullable().optional(),
     author_name: z.string(),
     date: z.string().nullable().optional(),
     text: z.string(),
