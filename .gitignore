@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+scripts/migrate/raw/
+scripts/migrate/media/
+*.log
+.DS_Store
