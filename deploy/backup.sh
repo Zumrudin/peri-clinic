@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-# Daily backup of the Directus SQLite database + uploads + schema snapshot + a git bundle
-# of the site repo. Keeps 14 local copies; rclone-syncs to a Russian S3 provider if
-# RCLONE_REMOTE is set (see deploy/systemd/peri-backup.service).
+# Daily backup of the Directus Postgres database (on Beget, via peri-db-tunnel) + uploads +
+# schema snapshot + a git bundle of the site repo. Keeps 14 local copies; rclone-syncs to a
+# Russian S3 provider if RCLONE_REMOTE is set (see deploy/systemd/peri-backup.service).
+#
+# Beget's managed Postgres has its own backups too — this is a second, independent copy we
+# control directly, and the fast path for a local restore drill or a dev-machine clone.
 set -euo pipefail
 
 PERI_ROOT=${PERI_ROOT:-/srv/peri}
@@ -13,8 +16,13 @@ mkdir -p "$DEST"
 
 echo "[backup] $DATE"
 
-# --- Directus SQLite (online-safe .backup, not a plain file copy) ---
-sqlite3 "$PERI_ROOT/directus/database/data.db" ".backup '$DEST/data.db'"
+# --- Directus Postgres (custom-format dump: compact, restorable with pg_restore) ---
+if [ -f "$PERI_ROOT/directus/.env" ]; then
+  set -a; . "$PERI_ROOT/directus/.env"; set +a
+fi
+PGPASSWORD="${DB_PASSWORD:-}" pg_dump \
+  -h "${DB_HOST:-127.0.0.1}" -p "${DB_PORT:-5434}" -U "${DB_USER:-periclinic}" -d "${DB_DATABASE:-periclinic}" \
+  -Fc -f "$DEST/data.dump"
 
 # --- Uploaded files (hardlink against the previous backup to save space) ---
 PREV=$(ls -1dt "$BACKUPS"/*/ 2>/dev/null | sed -n 2p || true)

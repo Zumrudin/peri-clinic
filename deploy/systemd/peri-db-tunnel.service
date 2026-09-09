@@ -1,0 +1,27 @@
+[Unit]
+Description=Peri Clinic dev DB SSH tunnel (dev -> prod 217.114.0.254 -> Beget Postgres 5432)
+Documentation=memory:dev-vps-infra
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Environment=AUTOSSH_GATETIME=0
+# Dedicated tunnel (own local port, own process) so a LoyalPro tunnel restart/outage
+# cannot take down the Peri Clinic Directus admin panel, and vice versa. Same remote
+# Postgres instance as loyalpro-db-tunnel.service, but Peri gets its own database
+# inside it (see directus/setup, DB_DATABASE=periclinic in /srv/peri/directus/.env).
+ExecStart=/usr/bin/autossh -M 0 -N \
+  -o StrictHostKeyChecking=accept-new \
+  -o ExitOnForwardFailure=yes \
+  -o ServerAliveInterval=30 \
+  -o ServerAliveCountMax=3 \
+  -o TCPKeepAlive=yes \
+  -L 127.0.0.1:5434:googugiherie.beget.app:5432 \
+  root@217.114.0.254
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
