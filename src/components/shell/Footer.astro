@@ -1,0 +1,181 @@
+---
+import { Image } from 'astro:assets';
+import site from '../../data/site.json';
+import { em, telHref } from '../../lib/markup';
+import logo from '../../assets/home/logo.png';
+
+const year = new Date().getFullYear();
+const socials = [
+  site.telegram_url && { label: 'Telegram', href: site.telegram_url },
+  site.vk_url && { label: 'ВКонтакте', href: site.vk_url },
+  site.instagram_url && { label: 'Instagram*', href: site.instagram_url },
+].filter(Boolean) as Array<{ label: string; href: string }>;
+---
+
+<footer class="footer" id="contacts">
+  <div class="footer__top">
+    <a class="footer__logo" href="/" aria-label={`${site.name} — на главную`}>
+      <Image src={logo} alt={site.name} width={190} densities={[1, 2]} loading="lazy" />
+    </a>
+    <p set:html={em(site.tagline)} />
+    <a class="footer__phone" href={telHref(site.phone)}>{site.phone}</a>
+  </div>
+
+  <div class="footer__grid">
+    <div>
+      <h3>Навигация</h3>
+      {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </div>
+    <div>
+      <h3>Услуги</h3>
+      {site.categories.map((c) => <a href={`/${c.slug}`}>{c.title}</a>)}
+      <a href={site.shop_url} target="_blank" rel="noopener">Интернет-магазин ↗</a>
+    </div>
+    <div>
+      <h3>Контакты</h3>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      <p set:html={em(site.address_short.replace(', 28', ',\n28'))} />
+      <p>{site.hours}</p>
+    </div>
+    <div>
+      <h3>Клиентам</h3>
+      {site.client_links.map((item) => <a href={item.href}>{item.label}</a>)}
+      <h3 class="footer__sub">Социальные сети</h3>
+      {
+        socials.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener">
+            {s.label} ↗
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <p class="footer__disclaimer">{site.contraindications_text}</p>
+
+  <div class="footer__bottom">
+    <span>© {site.name}, {year}</span>
+    <a href={site.privacy_url}>Политика конфиденциальности</a>
+    <p>{site.non_offer_text} {site.instagram_disclaimer}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--sand);
+    padding: 80px var(--gutter-wide) 30px;
+  }
+  .footer__top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    padding-bottom: 55px;
+    border-bottom: 1px solid var(--line);
+  }
+  .footer__logo img {
+    width: 190px;
+    height: auto;
+  }
+  .footer__top > p {
+    text-align: center;
+    margin: 0;
+    color: var(--gold-deep);
+    font: italic 19px/1.25 var(--display);
+  }
+  .footer__phone {
+    justify-self: end;
+    font: 26px var(--display);
+  }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.2fr 1.2fr;
+    gap: 60px;
+    padding: 55px 0 45px;
+  }
+  .footer__grid h3 {
+    margin: 0 0 22px;
+    color: var(--gold-deep);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+  .footer__sub {
+    margin-top: 28px !important;
+  }
+  .footer__grid a,
+  .footer__grid p {
+    display: block;
+    margin: 0 0 10px;
+    color: var(--ink-2);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .footer__grid a:hover {
+    color: var(--gold-deep);
+  }
+  .footer__disclaimer {
+    margin: 0 0 20px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+    color: var(--ink-2);
+    font: 500 12px/1.4 var(--sans);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .footer__bottom {
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 20px;
+    color: #66635a;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .footer__bottom a {
+    text-align: center;
+  }
+  .footer__bottom p {
+    text-align: right;
+    margin: 0;
+  }
+
+  @media (max-width: 1100px) {
+    .footer__grid {
+      gap: 30px;
+    }
+  }
+  @media (max-width: 800px) {
+    .footer {
+      padding: 60px 18px 25px;
+    }
+    .footer__top {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 24px;
+      padding-bottom: 35px;
+    }
+    .footer__top > p {
+      text-align: left;
+    }
+    .footer__phone {
+      font-size: 23px;
+    }
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 38px 18px;
+      padding: 40px 0;
+    }
+    .footer__bottom {
+      display: block;
+    }
+    .footer__bottom a,
+    .footer__bottom p {
+      display: block;
+      text-align: left;
+      margin-top: 12px;
+    }
+  }
+</style>

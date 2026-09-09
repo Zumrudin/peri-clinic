@@ -1,0 +1,51 @@
+---
+import { em } from '../../lib/markup';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  id?: string;
+  /** 'grid' = eyebrow spans, title left, lead right-bottom (draft default); 'block' = stacked */
+  layout?: 'grid' | 'block';
+  class?: string;
+}
+const { eyebrow, title, lead, id, layout = 'grid', class: className } = Astro.props;
+---
+
+<div class:list={['section-heading', `section-heading--${layout}`, 'reveal', className]}>
+  <div>
+    <p class="eyebrow">{eyebrow}</p>
+    <h2 id={id} set:html={em(title)} />
+  </div>
+  {lead && <p class="section-heading__lead">{lead}</p>}
+</div>
+
+<style>
+  .section-heading {
+    margin-bottom: 66px;
+  }
+  .section-heading--grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(280px, 400px);
+    align-items: end;
+    gap: 24px 40px;
+  }
+  .section-heading__lead {
+    margin: 0 0 5px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  @media (max-width: 800px) {
+    .section-heading,
+    .section-heading--grid {
+      display: block;
+      margin-bottom: 35px;
+    }
+    .section-heading__lead {
+      margin-top: 25px;
+      font-size: 13px;
+    }
+  }
+</style>

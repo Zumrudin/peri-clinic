@@ -1,0 +1,155 @@
+---
+import { Image } from 'astro:assets';
+import { em } from '../../lib/markup';
+import { homeImage } from '../../lib/images';
+import home from '../../data/home.json';
+
+const { approach } = home;
+---
+
+<section class="approach" id="approach" aria-labelledby="approach-title">
+  <div class="approach__image reveal">
+    <Image
+      src={homeImage(approach.image)}
+      alt={approach.image_alt}
+      width={900}
+      height={1100}
+      widths={[480, 900, 1200]}
+      sizes="(max-width: 800px) 90vw, 38vw"
+      loading="lazy"
+    />
+    <span set:html={em(approach.badge)} />
+  </div>
+  <div class="approach__content reveal">
+    <p class="eyebrow">{approach.eyebrow}</p>
+    <h2 id="approach-title" set:html={em(approach.title)} />
+    <p class="approach__lead">{approach.lead}</p>
+    <div class="principles">
+      {
+        approach.principles.map((p, i) => (
+          <article>
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <a class="text-link" href={approach.link_href}>{approach.link_label} <span>↗</span></a>
+  </div>
+</section>
+
+<style>
+  .approach {
+    display: grid;
+    grid-template-columns: minmax(360px, 0.82fr) minmax(450px, 1.18fr);
+    gap: 9.5vw;
+    align-items: center;
+    padding: 105px var(--gutter-wide) var(--section);
+    background: var(--paper);
+  }
+  .approach__image {
+    height: 790px;
+    position: relative;
+  }
+  .approach__image :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.78);
+  }
+  .approach__image > span {
+    position: absolute;
+    right: -48px;
+    bottom: 55px;
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--gold);
+    color: #fff;
+    text-align: center;
+    font: 17px/1.1 var(--display);
+    letter-spacing: 0.12em;
+  }
+  .approach__content {
+    padding: 25px 0;
+  }
+  .approach__lead {
+    max-width: 630px;
+    margin: 35px 0 46px;
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+  .principles {
+    border-top: 1px solid var(--line);
+    margin-bottom: 32px;
+  }
+  .principles article {
+    display: grid;
+    grid-template-columns: 55px 1fr;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .principles article > span {
+    font-size: 11px;
+    color: var(--gold-deep);
+    padding-top: 5px;
+  }
+  .principles h3 {
+    font: 400 20px var(--display);
+    margin: 0 0 6px;
+  }
+  .principles p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  @media (max-width: 1100px) {
+    .approach {
+      gap: 7vw;
+    }
+    .approach__image {
+      height: 680px;
+    }
+  }
+  @media (max-width: 800px) {
+    .approach {
+      display: flex;
+      flex-direction: column;
+      padding: 75px 18px 85px;
+      gap: 65px;
+    }
+    .approach__image {
+      width: calc(100% - 25px);
+      height: 540px;
+      align-self: flex-start;
+    }
+    .approach__image > span {
+      width: 92px;
+      height: 92px;
+      right: -30px;
+      bottom: -35px;
+      font-size: 13px;
+    }
+    .approach__content {
+      padding: 0;
+    }
+    .approach__lead {
+      font-size: 14px;
+      margin: 25px 0 35px;
+    }
+    .principles article {
+      grid-template-columns: 40px 1fr;
+    }
+    .principles h3 {
+      font-size: 18px;
+    }
+  }
+</style>

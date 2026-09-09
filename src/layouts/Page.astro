@@ -1,0 +1,25 @@
+---
+import Base from './Base.astro';
+import Header from '../components/shell/Header.astro';
+import Footer from '../components/shell/Footer.astro';
+import FloatingContact from '../components/shell/FloatingContact.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+const props = Astro.props;
+---
+
+<Base {...props}>
+  <slot name="head" slot="head" />
+  <div class="page" id="top">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </div>
+  <FloatingContact />
+</Base>

@@ -1,0 +1,69 @@
+---
+interface Props {
+  items: string[];
+}
+const { items } = Astro.props;
+const track = [...items, ...items];
+---
+
+<section class="ticker" aria-label="Принципы клиники">
+  <div class="ticker__track">
+    {
+      track.map((item) => (
+        <>
+          <span>{item}</span>
+          <i aria-hidden="true">✦</i>
+        </>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .ticker {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+    padding: 19px 0;
+    white-space: nowrap;
+  }
+  .ticker__track {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    animation: ticker 35s linear infinite;
+    color: #66635a;
+    will-change: transform;
+  }
+  .ticker span {
+    font: italic 18px var(--display);
+  }
+  .ticker i {
+    color: var(--gold-light);
+    font-style: normal;
+    font-size: 11px;
+  }
+  @keyframes ticker {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (max-width: 800px) {
+    .ticker {
+      padding: 14px 0;
+    }
+    .ticker__track {
+      gap: 23px;
+    }
+    .ticker span {
+      font-size: 15px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker__track {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,238 @@
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/cormorant-garamond.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('/fonts/cormorant-garamond-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Golos Text';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/golos-text.woff2') format('woff2');
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body.menu-open,
+body.sheet-open {
+  overflow: hidden;
+}
+section[id],
+footer[id] {
+  scroll-margin-top: calc(var(--header-h-sticky) + 12px);
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+img,
+picture {
+  display: block;
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+}
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+.page {
+  overflow: hidden;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+h1,
+h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+h1 em,
+h2 em {
+  color: var(--gold);
+  font-style: italic;
+  font-weight: 400;
+}
+h2 {
+  margin-bottom: 0;
+  font-size: var(--t-h2);
+  line-height: 0.98;
+}
+.eyebrow {
+  margin: 0 0 var(--s-5);
+  color: var(--gold-deep);
+  font-size: var(--t-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.lead {
+  color: var(--muted);
+  font-size: var(--t-small);
+  line-height: 1.75;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Buttons & links */
+.button {
+  display: inline-flex;
+  min-height: 55px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  border: 1px solid var(--gold-deep);
+  border-radius: var(--radius);
+  background: var(--gold-deep);
+  color: #fff;
+  padding: 0 23px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+  transition:
+    background var(--dur-fast),
+    color var(--dur-fast),
+    transform var(--dur-fast);
+}
+.button:hover {
+  background: var(--gold-hover);
+  border-color: var(--gold-hover);
+  transform: translateY(-2px);
+}
+.button span {
+  font-size: 18px;
+  font-weight: 400;
+}
+.button--small {
+  min-height: 44px;
+  padding: 0 17px;
+  font-size: 11px;
+}
+.button--outline {
+  background: transparent;
+  color: var(--gold-deep);
+}
+.button--outline:hover {
+  background: var(--gold-deep);
+  color: #fff;
+}
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 32px;
+  border-bottom: 1px solid var(--ink);
+  padding: 10px 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+.text-link span {
+  font-size: 17px;
+  color: var(--gold);
+  transition: transform var(--dur-fast);
+}
+.text-link:hover span {
+  transform: translate(3px, -3px);
+}
+
+/* Layout helpers */
+.section {
+  max-width: var(--container);
+  margin: auto;
+  padding: var(--section) var(--gutter);
+}
+.rail {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+.rail > * {
+  scroll-snap-align: start;
+}
+
+/* Motion */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s var(--ease-out);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

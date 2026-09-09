@@ -1,0 +1,290 @@
+---
+import { Picture } from 'astro:assets';
+import { em } from '../../lib/markup';
+import { homeImage } from '../../lib/images';
+import site from '../../data/site.json';
+import home from '../../data/home.json';
+
+const { hero } = home;
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__content reveal">
+    <p class="eyebrow">{hero.eyebrow}</p>
+    <h1 id="hero-title" set:html={em(hero.title)} />
+    <p class="hero__lead">{hero.lead}</p>
+    <div class="hero__actions">
+      <button class="button" type="button" data-open-sheet>{hero.primary_label} <span>↗</span></button>
+      <a class="text-link" href={hero.secondary_href}>{hero.secondary_label} <span>↓</span></a>
+    </div>
+    <div class="hero__facts" aria-label="Преимущества клиники">
+      {
+        hero.facts.map((f) => (
+          <div>
+            <strong>{f.value}</strong>
+            <span set:html={em(f.label)} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="hero__visual reveal">
+    <div class="hero__image-wrap">
+      <Picture
+        src={homeImage(hero.image)}
+        alt={hero.image_alt}
+        widths={[480, 840, 1200]}
+        sizes="(max-width: 800px) 100vw, 48vw"
+        formats={['avif', 'webp']}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+    <div class="hero__note">
+      <span class="hero__note-icon" aria-hidden="true">✦</span>
+      <p set:html={em(hero.note)} />
+    </div>
+    <div class="hero__address">
+      <span>{site.city}</span>
+      <p set:html={em(site.address_lines)} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: calc(100vh - var(--header-h));
+    max-width: var(--container-wide);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 51.5% 48.5%;
+    padding: 32px 4.1vw 46px;
+    position: relative;
+  }
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 25px 5vw 8px 1.2vw;
+  }
+  .hero h1 {
+    font-size: var(--t-h1);
+    line-height: 0.87;
+    margin: 0 0 36px;
+  }
+  .hero__lead {
+    max-width: 555px;
+    margin-bottom: 38px;
+    color: var(--ink-2);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 42px;
+  }
+  .hero__facts {
+    display: flex;
+    margin-top: auto;
+    padding-top: 60px;
+  }
+  .hero__facts div {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 155px;
+    margin-right: 28px;
+    padding-right: 28px;
+    border-right: 1px solid var(--line);
+  }
+  .hero__facts div:last-child {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+  .hero__facts strong {
+    font: 400 27px var(--display);
+    color: var(--gold-deep);
+    white-space: nowrap;
+  }
+  .hero__facts span {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .hero__visual {
+    min-height: 660px;
+    position: relative;
+  }
+  .hero__image-wrap {
+    height: 100%;
+    overflow: hidden;
+    background: #dad7ce;
+    position: relative;
+  }
+  .hero__image-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 65%, rgba(28, 25, 18, 0.18));
+  }
+  .hero__image-wrap :global(picture),
+  .hero__image-wrap :global(img) {
+    width: 100%;
+    height: 100%;
+  }
+  .hero__image-wrap :global(img) {
+    object-fit: cover;
+    object-position: center 42%;
+    transition: transform 1.2s var(--ease-out);
+  }
+  .hero__visual:hover .hero__image-wrap :global(img) {
+    transform: scale(1.025);
+  }
+  .hero__note {
+    position: absolute;
+    left: -72px;
+    top: 64px;
+    width: 168px;
+    height: 168px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(251, 250, 247, 0.95);
+    box-shadow: 0 14px 40px rgba(47, 42, 30, 0.08);
+  }
+  .hero__note-icon {
+    color: var(--gold);
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .hero__note p {
+    margin: 0;
+    font: 16px/1.25 var(--display);
+  }
+  .hero__note :global(em) {
+    color: var(--gold);
+  }
+  .hero__address {
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    color: #fff;
+    display: flex;
+    gap: 30px;
+    align-items: start;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.25);
+  }
+  .hero__address span {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding-top: 5px;
+  }
+  .hero__address p {
+    font: 17px/1.2 var(--display);
+    margin: 0;
+  }
+
+  @media (max-width: 1100px) {
+    .hero {
+      grid-template-columns: 55% 45%;
+    }
+    .hero__facts div {
+      margin-right: 15px;
+      padding-right: 15px;
+    }
+    .hero__note {
+      left: -40px;
+      width: 135px;
+      height: 135px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .hero {
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+      padding: 45px 18px 24px;
+    }
+    .hero__content {
+      display: block;
+      padding: 0;
+    }
+    .hero h1 {
+      font-size: 16.5vw;
+      line-height: 0.88;
+      margin-bottom: 28px;
+    }
+    .hero__lead {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 27px;
+    }
+    .hero__actions {
+      gap: 22px;
+      align-items: stretch;
+      flex-direction: column;
+    }
+    .hero__actions .button {
+      width: 100%;
+    }
+    .hero__actions .text-link {
+      align-self: flex-start;
+    }
+    .hero__facts {
+      margin: 40px 0 25px;
+      padding: 25px 0 0;
+      border-top: 1px solid var(--line);
+      justify-content: space-between;
+    }
+    .hero__facts div {
+      display: block;
+      min-width: auto;
+      margin: 0;
+      padding: 0 9px 0 0;
+      border: 0;
+    }
+    .hero__facts strong,
+    .hero__facts span {
+      display: block;
+    }
+    .hero__facts strong {
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+    .hero__facts span {
+      font-size: 11px;
+      letter-spacing: 0.03em;
+    }
+    .hero__visual {
+      min-height: 510px;
+      margin-top: 10px;
+    }
+    .hero__note {
+      left: 10px;
+      top: 14px;
+      width: 112px;
+      height: 112px;
+    }
+    .hero__note p {
+      font-size: 13px;
+    }
+    .hero__note-icon {
+      margin-bottom: 7px;
+    }
+    .hero__address {
+      left: 18px;
+      bottom: 20px;
+    }
+  }
+</style>

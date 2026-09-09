@@ -1,0 +1,141 @@
+---
+import { Image } from 'astro:assets';
+import { em, telHref, whatsappHref } from '../../lib/markup';
+import { homeImage } from '../../lib/images';
+import site from '../../data/site.json';
+import home from '../../data/home.json';
+
+const { cta } = home;
+const quick = [
+  { label: 'Позвонить', href: telHref(site.phone), external: false },
+  site.telegram_url && { label: 'Telegram', href: site.telegram_url, external: true },
+  { label: 'WhatsApp', href: whatsappHref(site.phone, site.whatsapp_text), external: true },
+  site.max_url && { label: 'MAX', href: site.max_url, external: true },
+].filter(Boolean) as Array<{ label: string; href: string; external: boolean }>;
+---
+
+<section class="booking" id="booking" aria-labelledby="booking-title">
+  <div class="booking__image reveal">
+    <Image
+      src={homeImage(cta.image)}
+      alt={cta.image_alt}
+      width={900}
+      height={1100}
+      widths={[480, 900]}
+      sizes="(max-width: 800px) 100vw, 40vw"
+      loading="lazy"
+    />
+  </div>
+  <div class="booking__content reveal">
+    <p class="eyebrow">{cta.eyebrow}</p>
+    <h2 id="booking-title" set:html={em(cta.title)} />
+    <p class="booking__lead">{cta.lead}</p>
+    <button class="button" type="button" data-open-sheet>{cta.button_label} <span>↗</span></button>
+    <ul class="booking__quick">
+      {
+        quick.map((q) => (
+          <li>
+            <a href={q.href} target={q.external ? '_blank' : undefined} rel={q.external ? 'noopener' : undefined}>
+              {q.label} <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="booking__hours">{site.hours} · {site.address_short}</p>
+  </div>
+</section>
+
+<style>
+  .booking {
+    max-width: var(--container);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 44% 56%;
+    padding: var(--section) var(--gutter);
+  }
+  .booking__image {
+    min-height: 680px;
+  }
+  .booking__image :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.75);
+  }
+  .booking__content {
+    background: var(--paper);
+    padding: 75px 8vw 60px 6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .booking__content h2 {
+    font-size: clamp(40px, 4.3vw, 68px);
+  }
+  .booking__lead {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 28px 0 38px;
+    max-width: 440px;
+  }
+  .booking__quick {
+    list-style: none;
+    margin: 34px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+  }
+  .booking__quick a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: border-color var(--dur-fast);
+  }
+  .booking__quick a:hover {
+    border-color: var(--gold);
+  }
+  .booking__quick span {
+    color: var(--gold);
+  }
+  .booking__hours {
+    margin: 40px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  @media (max-width: 1100px) {
+    .booking__content {
+      padding-right: 5vw;
+    }
+  }
+  @media (max-width: 800px) {
+    .booking {
+      display: block;
+      padding: 85px 18px;
+    }
+    .booking__image {
+      min-height: 440px;
+    }
+    .booking__content {
+      padding: 45px 22px;
+    }
+    .booking__content .button {
+      width: 100%;
+    }
+    .booking__lead {
+      margin: 23px 0 30px;
+    }
+    .booking__quick {
+      gap: 6px 20px;
+    }
+  }
+</style>

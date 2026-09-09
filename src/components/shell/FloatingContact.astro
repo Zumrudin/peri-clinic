@@ -1,0 +1,52 @@
+---
+---
+
+<button class="floating-contact" type="button" aria-label="Связаться с клиникой" data-open-sheet>
+  <span aria-hidden="true">↗</span>
+  <small>Связаться</small>
+</button>
+
+<style>
+  .floating-contact {
+    position: fixed;
+    z-index: 20;
+    right: 22px;
+    bottom: 22px;
+    width: 76px;
+    height: 76px;
+    border: 0;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--gold-deep);
+    color: #fff;
+    box-shadow: 0 10px 35px rgba(74, 56, 11, 0.22);
+    transition: transform var(--dur-fast);
+  }
+  .floating-contact:hover {
+    transform: scale(1.06);
+  }
+  .floating-contact span {
+    font-size: 17px;
+  }
+  .floating-contact small {
+    font-size: 11px;
+    margin-top: 3px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 800px) {
+    .floating-contact {
+      width: 64px;
+      height: 64px;
+      right: 14px;
+      bottom: 14px;
+    }
+    .floating-contact small {
+      font-size: 11px;
+      letter-spacing: 0.02em;
+    }
+  }
+</style>

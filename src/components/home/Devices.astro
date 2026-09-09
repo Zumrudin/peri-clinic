@@ -1,0 +1,156 @@
+---
+import { Image } from 'astro:assets';
+import { em } from '../../lib/markup';
+import { homeImage } from '../../lib/images';
+import home from '../../data/home.json';
+
+const { devices } = home;
+---
+
+<section class="equipment" aria-labelledby="equipment-title" data-rail-root>
+  <div class="equipment__intro reveal">
+    <p class="eyebrow">{devices.eyebrow}</p>
+    <h2 id="equipment-title" set:html={em(devices.title)} />
+    <p class="equipment__lead">{devices.lead}</p>
+    <div class="slider-controls">
+      <button type="button" aria-label="Предыдущий аппарат" data-rail-prev>←</button>
+      <button type="button" aria-label="Следующий аппарат" data-rail-next>→</button>
+    </div>
+  </div>
+  <div class="equipment__rail rail" data-rail tabindex="0" aria-label="Аппараты клиники">
+    {
+      devices.items.map((d, i) => (
+        <a class="machine-card reveal" href={d.href}>
+          <span>{String(i + 1).padStart(2, '0')}</span>
+          <Image
+            src={homeImage(d.image)}
+            alt={d.name}
+            height={410}
+            widths={[300, 500]}
+            sizes="(max-width: 800px) 82vw, 26vw"
+            loading="lazy"
+          />
+          <h3>{d.name}</h3>
+          <p>{d.short}</p>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .equipment {
+    max-width: var(--container-wide);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 32% 68%;
+    padding: var(--section) 0 var(--section) var(--gutter);
+  }
+  .equipment__intro {
+    padding: 30px 5vw 0 0;
+  }
+  .equipment__intro h2 {
+    font-size: var(--t-h2-s);
+  }
+  .equipment__lead {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+    margin: 34px 0;
+  }
+  .slider-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 50px;
+  }
+  .slider-controls button {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    transition: var(--dur-fast);
+  }
+  .slider-controls button:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #fff;
+  }
+  .equipment__rail {
+    gap: 14px;
+    padding-right: var(--gutter);
+  }
+  .machine-card {
+    flex: 0 0 39%;
+    min-width: 300px;
+    height: 580px;
+    background: var(--paper);
+    position: relative;
+    padding: 24px;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    transition:
+      border-color 0.3s,
+      transform 0.3s;
+  }
+  .machine-card:hover {
+    border-color: var(--gold-light);
+    transform: translateY(-4px);
+  }
+  .machine-card > span {
+    font-size: 11px;
+    color: var(--gold-deep);
+  }
+  .machine-card :global(img) {
+    width: 100%;
+    height: 410px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    margin: 0 auto;
+  }
+  .machine-card h3 {
+    font: 400 22px var(--display);
+    margin: 7px 0 5px;
+  }
+  .machine-card p {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 0;
+  }
+
+  @media (max-width: 1100px) {
+    .equipment {
+      grid-template-columns: 36% 64%;
+    }
+    .machine-card {
+      flex-basis: 48%;
+    }
+  }
+  @media (max-width: 800px) {
+    .equipment {
+      display: block;
+      padding: 85px 0 85px 18px;
+    }
+    .equipment__intro {
+      padding: 0 30px 0 0;
+    }
+    .equipment__lead {
+      margin: 25px 0;
+    }
+    .slider-controls {
+      margin: 28px 0;
+    }
+    .equipment__rail {
+      gap: 10px;
+      padding-right: 18px;
+    }
+    .machine-card {
+      flex-basis: 82vw;
+      min-width: 0;
+      height: 510px;
+    }
+    .machine-card :global(img) {
+      height: 355px;
+    }
+  }
+</style>

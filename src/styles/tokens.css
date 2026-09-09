@@ -1,0 +1,71 @@
+/* PERI CLINIC design tokens — see docs/superpowers/specs/2026-09-09-peri-site-design.md */
+:root {
+  /* Colour */
+  --ivory: #f6f4ef;
+  --paper: #fbfaf7;
+  --white: #fff;
+  --ink: #24241f;
+  --ink-2: #56544c;
+  --muted: #727067;
+  --gold: #aa892f;
+  --gold-light: #c5a858;
+  --gold-deep: #7f651f; /* gold for text and buttons — 5:1 on ivory, 5.5:1 with white text */
+  --gold-hover: #6f5518;
+  --dark: #292923;
+  --dark-text: #f5f2e9;
+  --sand: #ede9df;
+  --line: rgba(45, 43, 35, 0.14);
+  --line-on-dark: rgba(255, 255, 255, 0.14);
+
+  /* Type */
+  --display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Golos Text', Arial, Helvetica, sans-serif;
+  --t-h1: clamp(56px, 6.4vw, 104px);
+  --t-h2: clamp(40px, 4.6vw, 72px);
+  --t-h2-s: clamp(38px, 4.2vw, 66px);
+  --t-h3: clamp(22px, 2.4vw, 37px);
+  --t-lead: clamp(16px, 1.2vw, 18px);
+  --t-body: 15px;
+  --t-small: 13px;
+  --t-caption: 11px;
+  --t-eyebrow: 11px;
+
+  /* Space */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 140px;
+  --section: clamp(85px, 10vw, 140px);
+  --gutter: clamp(18px, 5.8vw, 96px);
+  --gutter-wide: max(5.8vw, calc((100vw - var(--container)) / 2 + 5.8vw));
+  --container: 1500px;
+  --container-wide: 1600px;
+
+  /* Shape & layers */
+  --radius: 2px;
+  --header-h: 86px;
+  --header-h-sticky: 72px;
+  --z-header: 30;
+  --z-menu: 25;
+  --z-sheet: 40;
+  --z-toast: 50;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-fast: 0.25s;
+  --dur-slow: 0.75s;
+}
+
+@media (max-width: 800px) {
+  :root {
+    --header-h: 70px;
+    --header-h-sticky: 64px;
+    --t-body: 16px;
+  }
+}

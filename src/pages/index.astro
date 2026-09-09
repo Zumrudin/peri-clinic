@@ -1,0 +1,23 @@
+---
+import Page from '../layouts/Page.astro';
+import Hero from '../components/home/Hero.astro';
+import Ticker from '../components/home/Ticker.astro';
+import Categories from '../components/home/Categories.astro';
+import Approach from '../components/home/Approach.astro';
+import Devices from '../components/home/Devices.astro';
+import Cases from '../components/home/Cases.astro';
+import Reviews from '../components/home/Reviews.astro';
+import Cta from '../components/home/Cta.astro';
+import home from '../data/home.json';
+---
+
+<Page title={home.seo.title} description={home.seo.description}>
+  <Hero />
+  <Ticker items={home.ticker} />
+  <Categories />
+  <Approach />
+  <Devices />
+  <Cases />
+  <Reviews />
+  <Cta />
+</Page>
