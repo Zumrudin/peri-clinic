@@ -5,7 +5,7 @@
  * Run: node directus/setup/roles.mjs
  */
 import { randomBytes } from 'node:crypto';
-import { get, post, patch, log } from './lib.mjs';
+import { get, post, patch, del, log } from './lib.mjs';
 import { contentCollections, filesJunctions } from './collections.mjs';
 
 const junctions = filesJunctions.map(([c]) => `${c}_files`);
@@ -32,17 +32,15 @@ async function attachPolicy(role, policy) {
 }
 
 async function setPermissions(policy, perms) {
+  // Bulk delete (one request) — SQLite is single-writer, so parallel deletes race and
+  // intermittently fail with "database is locked" on re-runs.
   const existing = await get(`/permissions?filter[policy][_eq]=${policy.id}&limit=-1`);
   if (existing.length) {
-    await Promise.all(existing.map((p) => fetchDel(p.id)));
+    await del('/permissions', existing.map((p) => p.id));
   }
   for (const p of perms) {
     await post('/permissions', { policy: policy.id, fields: ['*'], permissions: {}, validation: {}, presets: null, ...p });
   }
-}
-async function fetchDel(id) {
-  const { del } = await import('./lib.mjs');
-  return del(`/permissions/${id}`);
 }
 
 async function main() {
@@ -58,7 +56,11 @@ async function main() {
   for (const c of readable) editorPerms.push({ collection: c, action: 'read' });
   for (const c of editable) for (const action of ['create', 'update', 'delete']) editorPerms.push({ collection: c, action });
   editorPerms.push({ collection: 'site_settings', action: 'update' });
-  editorPerms.push({ collection: 'directus_users', action: 'read', fields: ['id', 'first_name', 'last_name', 'avatar'] });
+  // Directus 12 OSS gates field-restricted ("custom") permission rules behind a paid
+  // entitlement (see @directus/api license/entitlements/lib/custom-permission-rules-enabled.js).
+  // Grant full-field read instead of a restricted field list — password/token fields are
+  // redacted by Directus itself regardless of this permission.
+  editorPerms.push({ collection: 'directus_users', action: 'read' });
   await setPermissions(editorPolicy, editorPerms);
   const editorRole = await ensureRole('Редактор', { icon: 'edit_note', description: 'Сотрудники клиники' });
   await attachPolicy(editorRole, editorPolicy);
@@ -76,11 +78,11 @@ async function main() {
   const builderRole = await ensureRole('Builder', { icon: 'build', description: 'Технический аккаунт сборки' });
   await attachPolicy(builderRole, builderPolicy);
 
-  let builder = (await get(`/users?filter[email][_eq]=builder@peri.local`))[0];
+  let builder = (await get(`/users?filter[email][_eq]=builder@peri-clinic.ru`))[0];
   if (!builder) {
     const token = 'peri_' + randomBytes(24).toString('hex');
     builder = await post('/users', {
-      email: 'builder@peri.local',
+      email: 'builder@peri-clinic.ru',
       first_name: 'Builder',
       role: builderRole.id,
       status: 'active',

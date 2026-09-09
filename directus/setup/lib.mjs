@@ -37,7 +37,8 @@ export async function api(method, path, body, { ok404 = false } = {}) {
   if (res.status === 204) return null;
   const json = await res.json().catch(() => ({}));
   if (!res.ok) {
-    if (ok404 && res.status === 404) return null;
+    // Directus answers 403 (not 404) for unknown collections/items.
+    if (ok404 && (res.status === 404 || res.status === 403)) return null;
     const msg = json?.errors?.map((e) => e.message).join('; ') || res.statusText;
     throw new Error(`${method} ${path} → ${res.status}: ${msg}`);
   }
@@ -47,7 +48,7 @@ export async function api(method, path, body, { ok404 = false } = {}) {
 export const get = (p, o) => api('GET', p, undefined, o);
 export const post = (p, b) => api('POST', p, b);
 export const patch = (p, b) => api('PATCH', p, b);
-export const del = (p) => api('DELETE', p);
+export const del = (p, b) => api('DELETE', p, b);
 
 export function log(...args) {
   console.log('[directus-setup]', ...args);
