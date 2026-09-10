@@ -16,9 +16,12 @@ const props = Astro.props;
 
 <Base {...props}>
   <slot name="head" slot="head" />
+  <nav aria-label="Пропуск навигации">
+    <a href="#main-content" class="skip-link">Перейти к содержимому</a>
+  </nav>
   <div class="page" id="top">
     <Header />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />

@@ -24,7 +24,8 @@ const faq = bySort(await getCollection('allFaq'))
     <p class="services-hero__lead">Точные протоколы, сертифицированные препараты и врачебный контроль на каждом этапе. Стоимость определяется на консультации — она зависит от исходных данных и плана коррекции.</p>
   </section>
 
-  <section class="section services-grid">
+  <section class="section services-grid" aria-label="Направления услуг">
+    <h2 class="visually-hidden">Направления услуг</h2>
     <div class="services-grid__list">
       {
         categories.map((c, i) => {

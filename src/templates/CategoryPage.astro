@@ -25,6 +25,7 @@ const procedures = await getProceduresByCategory(c.slug);
   </section>
 
   <section class="section cat-grid" aria-label="Процедуры направления">
+    <h2 class="visually-hidden">Процедуры направления</h2>
     <div class="cat-grid__list">
       {
         procedures.map((p, i) => {
