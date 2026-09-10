@@ -82,6 +82,9 @@ const { cases } = home;
     transform: scale(1.025);
   }
   .result-card__image > span {
+    /* case photos can carry their own baked-in caption text near this corner —
+       stay close to opaque so the tag never has to compete with it for legibility */
+    --glass-bg: rgba(255, 253, 246, 0.92);
     position: absolute;
     z-index: 1;
     left: 16px;
