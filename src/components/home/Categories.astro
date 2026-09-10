@@ -6,15 +6,16 @@ import { getHomeContent } from '../../lib/homeContent';
 
 const home = await getHomeContent();
 const { categories } = home;
+const isBento = categories.items.length === 3;
 ---
 
 <section class="section services" id="services">
   <SectionHeading eyebrow={categories.eyebrow} title={categories.title} lead={categories.lead} />
 
-  <div class="service-grid rail">
+  <div class:list={['service-grid', 'rail', { 'service-grid--bento': isBento }]}>
     {
       categories.items.map((item, i) => (
-        <a class="service-card reveal" href={`/${item.slug}`}>
+        <a class:list={['service-card', 'reveal', { 'service-card--feature': isBento && i === 0 }]} href={`/${item.slug}`}>
           <Image
             src={item.cover.src}
             alt={item.alt}
@@ -41,9 +42,18 @@ const { categories } = home;
 <style>
   .service-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 18px;
     overflow: visible;
+  }
+  .service-grid--bento {
+    grid-template-columns: 1.3fr 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+  .service-card--feature {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    height: 100%;
   }
   .service-card {
     height: 610px;
@@ -51,13 +61,23 @@ const { categories } = home;
     overflow: hidden;
     background: #282722;
     color: #fff;
-    border-radius: var(--radius);
+    border-radius: var(--radius-lg);
+    transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast);
+  }
+  .service-card:hover {
+    transform: scale(1.015);
+    box-shadow: var(--shadow-glow);
   }
   .service-card::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(20, 20, 17, 0.05) 28%, rgba(20, 20, 17, 0.76) 100%);
+    background: linear-gradient(180deg, rgba(20, 20, 17, 0.05) 28%, rgba(20, 20, 17, 0.8) 100%);
+    backdrop-filter: blur(0);
+    transition: backdrop-filter var(--dur-fast);
+  }
+  .service-card:hover::after {
+    backdrop-filter: blur(2px);
   }
   .service-card :global(img) {
     width: 100%;
@@ -121,6 +141,7 @@ const { categories } = home;
     background: #fff;
     color: var(--ink);
     transform: rotate(45deg);
+    box-shadow: var(--shadow-glow);
   }
 
   @media (max-width: 1100px) {
@@ -129,14 +150,16 @@ const { categories } = home;
     }
   }
   @media (max-width: 800px) {
-    .service-grid {
+    .service-grid,
+    .service-grid--bento {
       display: flex;
       overflow-x: auto;
       gap: 10px;
       margin-right: -18px;
       padding-right: 18px;
     }
-    .service-card {
+    .service-card,
+    .service-card--feature {
       flex: 0 0 84vw;
       height: 520px;
       scroll-snap-align: center;

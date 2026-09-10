@@ -9,15 +9,17 @@ const { approach } = home;
 
 <section class="approach" id="approach" aria-labelledby="approach-title">
   <div class="approach__image reveal">
-    <Image
-      src={approach.image.src}
-      alt={approach.image_alt}
-      width={900}
-      height={1100}
-      widths={[480, 900, 1200]}
-      sizes="(max-width: 800px) 90vw, 38vw"
-      loading="lazy"
-    />
+    <div class="approach__image-frame">
+      <Image
+        src={approach.image.src}
+        alt={approach.image_alt}
+        width={900}
+        height={1100}
+        widths={[480, 900, 1200]}
+        sizes="(max-width: 800px) 90vw, 38vw"
+        loading="lazy"
+      />
+    </div>
     <span set:html={em(approach.badge)} />
   </div>
   <div class="approach__content reveal">
@@ -54,6 +56,11 @@ const { approach } = home;
     height: 790px;
     position: relative;
   }
+  .approach__image-frame {
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+  }
   .approach__image :global(img) {
     width: 100%;
     height: 100%;
@@ -62,6 +69,7 @@ const { approach } = home;
   }
   .approach__image > span {
     position: absolute;
+    z-index: 2;
     right: -48px;
     bottom: 55px;
     width: 116px;
@@ -74,6 +82,7 @@ const { approach } = home;
     text-align: center;
     font: 17px/1.1 var(--display);
     letter-spacing: 0.12em;
+    box-shadow: var(--shadow-glow);
   }
   .approach__content {
     padding: 25px 0;
@@ -92,8 +101,14 @@ const { approach } = home;
   .principles article {
     display: grid;
     grid-template-columns: 55px 1fr;
-    padding: 22px 0;
+    padding: 22px 18px;
+    margin: 0 -18px;
+    border-radius: var(--radius);
     border-bottom: 1px solid var(--line);
+    transition: background var(--dur-fast);
+  }
+  .principles article:hover {
+    background: var(--glass-bg);
   }
   .principles article > span {
     font-size: 11px;
