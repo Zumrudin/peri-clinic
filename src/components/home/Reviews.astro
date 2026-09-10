@@ -8,6 +8,11 @@ const stars = '★★★★★';
 ---
 
 <section class="reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="glow" aria-hidden="true">
+    <span class="glow__blob"></span>
+    <span class="glow__blob glow__blob--b"></span>
+  </div>
+
   <div class="reviews__head reveal">
     <p class="eyebrow">{reviews.eyebrow}</p>
     <h2 id="reviews-title" set:html={em(reviews.title)} />
@@ -22,7 +27,7 @@ const stars = '★★★★★';
   <div class="review-list rail">
     {
       reviews.items.map((r) => (
-        <article class="review-card reveal">
+        <article class="review-card glass-panel glass-panel--dark reveal">
           <div class="review-card__top">
             <span aria-label="5 из 5">{stars}</span>
             <small>{r.date}</small>
@@ -49,6 +54,13 @@ const stars = '★★★★★';
     display: grid;
     grid-template-columns: 32% 68%;
     gap: 4vw;
+    position: relative;
+    overflow: hidden;
+  }
+  .reviews__head,
+  .review-list {
+    position: relative;
+    z-index: 1;
   }
   .reviews .eyebrow {
     color: var(--gold-light);
@@ -89,8 +101,6 @@ const stars = '★★★★★';
   }
   .review-card {
     min-height: 300px;
-    border: 1px solid var(--line-on-dark);
-    border-radius: var(--radius);
     padding: 28px;
     display: flex;
     flex-direction: column;
@@ -130,6 +140,7 @@ const stars = '★★★★★';
     background: var(--gold);
     color: #fff;
     font: 15px var(--display);
+    box-shadow: var(--shadow-glow);
   }
   .review-card__author p {
     margin: 0;

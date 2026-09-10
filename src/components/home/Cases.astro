@@ -24,7 +24,7 @@ const { cases } = home;
               sizes={i === 0 ? '(max-width: 800px) 86vw, 50vw' : '(max-width: 800px) 86vw, 22vw'}
               loading="lazy"
             />
-            <span>до / после</span>
+            <span class="glass-panel">до / после</span>
           </div>
           <div>
             <p>{c.category}</p>
@@ -53,8 +53,13 @@ const { cases } = home;
     grid-template-columns: 51% 49%;
     min-height: 360px;
     background: var(--paper);
-    border-radius: var(--radius);
+    border-radius: var(--radius-lg);
     overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow var(--dur-fast), transform var(--dur-fast);
+  }
+  .result-card:hover {
+    box-shadow: var(--shadow-glow);
   }
   .result-card--large {
     grid-row: span 2;
@@ -78,10 +83,11 @@ const { cases } = home;
   }
   .result-card__image > span {
     position: absolute;
+    z-index: 1;
     left: 16px;
     bottom: 16px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 8px 11px;
+    border-radius: var(--radius-pill);
+    padding: 8px 15px;
     font-size: 11px;
     letter-spacing: 0.13em;
     text-transform: uppercase;
