@@ -49,12 +49,30 @@ const links = [
 
   {
     site.map_embed_src && (
-      <section class="contacts-map">
-        <iframe src={site.map_embed_src} title="Карта проезда" loading="lazy" />
+      <section class="contacts-map" data-map-embed data-src={site.map_embed_src}>
+        <button class="contacts-map__trigger" type="button" data-map-trigger>
+          Показать карту <span aria-hidden="true">↗</span>
+        </button>
       </section>
     )
   }
 </Page>
+
+{
+  site.map_embed_src && (
+    <script>
+      document.querySelectorAll<HTMLElement>('[data-map-embed]').forEach((el) => {
+        el.querySelector('[data-map-trigger]')?.addEventListener('click', () => {
+          const iframe = document.createElement('iframe');
+          iframe.src = el.dataset.src!;
+          iframe.title = 'Карта проезда';
+          iframe.loading = 'lazy';
+          el.replaceChildren(iframe);
+        });
+      });
+    </script>
+  )
+}
 
 <style>
   .contacts {
@@ -124,6 +142,21 @@ const links = [
     width: 100%;
     height: 480px;
     border: 0;
+  }
+  .contacts-map__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 240px;
+    background: var(--paper);
+    color: var(--gold-deep);
+    font: 400 18px var(--display);
+    border: 0;
+  }
+  .contacts-map__trigger:hover {
+    background: var(--sand);
   }
 
   @media (max-width: 800px) {

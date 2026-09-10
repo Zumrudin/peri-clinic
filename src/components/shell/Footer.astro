@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { getSiteSettings } from '../../lib/siteContent';
 import { em, telHref } from '../../lib/markup';
+import LegalBlock from './LegalBlock.astro';
 import logo from '../../assets/home/logo.png';
 
 const site = await getSiteSettings();
@@ -53,6 +54,8 @@ const socials = [
   </div>
 
   <p class="footer__disclaimer">{site.contraindications_text}</p>
+
+  <LegalBlock />
 
   <div class="footer__bottom">
     <span>© {site.name}, {year}</span>

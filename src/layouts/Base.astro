@@ -2,6 +2,8 @@
 import '../styles/tokens.css';
 import '../styles/base.css';
 import ContactSheet from '../components/shell/ContactSheet.astro';
+import CookieNotice from '../components/shell/CookieNotice.astro';
+import Metrika from '../components/shell/Metrika.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import { getSiteSettings } from '../lib/siteContent';
 import { medicalClinicJsonLd } from '../lib/seo';
@@ -28,6 +30,7 @@ const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL('/favic
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
+    {site.yandex_verification && <meta name="yandex-verification" content={site.yandex_verification} />}
     <meta name="theme-color" content="#f6f4ef" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
@@ -45,6 +48,8 @@ const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL('/favic
   <body>
     <slot />
     <ContactSheet />
+    <CookieNotice />
+    <Metrika />
     <script>
       import { initReveal } from '../scripts/reveal';
       import { initRails } from '../scripts/rail';

@@ -20,7 +20,10 @@ const site = await getSiteSettings();
     {p.lead && <p class="content-page__lead">{p.lead}</p>}
     {p.template === 'spravka' && site.spravka_form_url && (
       <div class="content-page__form">
-        <iframe src={site.spravka_form_url} title="Форма заявки на справку" loading="lazy" />
+        <a class="button" href={site.spravka_form_url} target="_blank" rel="noopener">
+          Открыть форму заявки <span>↗</span>
+        </a>
+        <p class="content-page__form-note">Откроется на отдельной странице — сервис заявок работает отдельно от сайта клиники.</p>
       </div>
     )}
     {p.body && <div class="prose" set:html={p.body} />}
@@ -48,12 +51,14 @@ const site = await getSiteSettings();
   }
   .content-page__form {
     margin: 0 0 40px;
+    padding: 28px;
     border: 1px solid var(--line);
+    background: var(--paper);
   }
-  .content-page__form iframe {
-    display: block;
-    width: 100%;
-    min-height: 640px;
-    border: 0;
+  .content-page__form-note {
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
   }
 </style>

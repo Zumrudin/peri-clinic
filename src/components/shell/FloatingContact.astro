@@ -38,15 +38,9 @@
     text-transform: uppercase;
   }
   @media (max-width: 800px) {
+    /* MobileCtaBar takes over the primary contact CTA on small screens. */
     .floating-contact {
-      width: 64px;
-      height: 64px;
-      right: 14px;
-      bottom: 14px;
-    }
-    .floating-contact small {
-      font-size: 11px;
-      letter-spacing: 0.02em;
+      display: none;
     }
   }
 </style>

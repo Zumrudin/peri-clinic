@@ -1,0 +1,49 @@
+---
+import { getSiteSettings } from '../../lib/siteContent';
+import { formatRuDate } from '../../lib/markup';
+
+const site = await getSiteSettings();
+const hasLegal = site.legal_entity || site.ogrn || site.inn;
+const hasLicense = site.license_number;
+---
+
+{
+  (hasLegal || hasLicense) && (
+    <div class="legal-block">
+      {hasLegal && (
+        <p>
+          {site.legal_entity}
+          {site.ogrn && ` · ОГРН ${site.ogrn}`}
+          {site.inn && ` · ИНН ${site.inn}`}
+          {site.kpp && ` · КПП ${site.kpp}`}
+        </p>
+      )}
+      {site.legal_address && <p>{site.legal_address}</p>}
+      {hasLicense && (
+        <p>
+          Лицензия № {site.license_number}
+          {site.license_date && ` от ${formatRuDate(site.license_date)}`}
+          {site.license_issuer && `, выдана: ${site.license_issuer}`}
+        </p>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .legal-block {
+    margin: 0 0 20px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .legal-block p {
+    margin: 0 0 4px;
+    color: #66635a;
+    font-size: 11px;
+    line-height: 1.6;
+  }
+  .legal-block p:last-child {
+    margin-bottom: 0;
+  }
+</style>

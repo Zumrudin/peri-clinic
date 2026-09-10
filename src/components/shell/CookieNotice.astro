@@ -1,0 +1,67 @@
+---
+---
+
+<div class="cookie-notice" data-cookie-notice hidden>
+  <p>
+    Мы используем файлы cookie для аналитики посещаемости сайта. Продолжая пользоваться сайтом, вы соглашаетесь с
+    <a href="/politika">политикой конфиденциальности</a>.
+  </p>
+  <button class="button button--small" type="button" data-cookie-accept>Принять</button>
+</div>
+
+<script>
+  const KEY = 'peri_consent';
+  const el = document.querySelector<HTMLElement>('[data-cookie-notice]');
+  if (el && !localStorage.getItem(KEY)) {
+    el.hidden = false;
+    el.querySelector('[data-cookie-accept]')?.addEventListener('click', () => {
+      localStorage.setItem(KEY, '1');
+      el.hidden = true;
+      document.dispatchEvent(new CustomEvent('peri:consent'));
+    });
+  }
+</script>
+
+<style>
+  .cookie-notice[hidden] {
+    display: none;
+  }
+  .cookie-notice {
+    position: fixed;
+    z-index: var(--z-menu);
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    max-width: 620px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 22px;
+    background: var(--dark);
+    color: var(--dark-text);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 50px rgba(20, 18, 12, 0.3);
+  }
+  .cookie-notice p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #cfccc0;
+  }
+  .cookie-notice a {
+    color: var(--gold-light);
+    text-decoration: underline;
+  }
+  .cookie-notice button {
+    flex: 0 0 auto;
+  }
+  @media (max-width: 560px) {
+    .cookie-notice {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+      bottom: 84px;
+    }
+  }
+</style>

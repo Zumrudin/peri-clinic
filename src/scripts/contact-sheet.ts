@@ -37,10 +37,10 @@ export function initContactSheet(): void {
   sheet.querySelector('[data-close-sheet]')?.addEventListener('click', close);
   sheet.addEventListener('close', () => document.body.classList.remove('sheet-open'));
 
-  // Analytics hook: Phase 6 wires Metrika goals here.
-  sheet.querySelectorAll<HTMLAnchorElement>('a[data-goal]').forEach((a) => {
-    a.addEventListener('click', () => {
-      document.dispatchEvent(new CustomEvent('peri:contact', { detail: { goal: a.dataset.goal } }));
-    });
+  // Analytics hook: any [data-goal] element site-wide (sheet rows, MobileCtaBar's call
+  // button, etc.) fires a peri:contact event that Metrika.astro turns into a reachGoal.
+  document.addEventListener('click', (e) => {
+    const el = (e.target as HTMLElement).closest<HTMLElement>('[data-goal]');
+    if (el) document.dispatchEvent(new CustomEvent('peri:contact', { detail: { goal: el.dataset.goal } }));
   });
 }
