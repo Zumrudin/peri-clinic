@@ -236,6 +236,90 @@ h2 {
   scroll-snap-align: start;
 }
 
+/* Glass panels — translucent blurred surface with a luminous gradient border.
+   Compose as an additional class (e.g. class="hero__note glass-panel"); never
+   redeclare .glass-panel inside a component's scoped <style> — Astro's scoped
+   attribute selector would win over this global rule regardless of import order. */
+.glass-panel {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  box-shadow: var(--shadow-soft);
+}
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75), var(--gold-light) 45%, rgba(255, 255, 255, 0.05) 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.glass-panel--dark {
+  background: var(--glass-bg-dark);
+}
+.glass-panel--dark::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), var(--gold-light) 45%, rgba(255, 255, 255, 0.02) 100%);
+}
+@supports (not (mask-composite: exclude)) and (not (-webkit-mask-composite: xor)) {
+  .glass-panel {
+    border: 1px solid var(--glass-border);
+  }
+  .glass-panel--dark {
+    border-color: var(--glass-border-dark);
+  }
+  .glass-panel::before {
+    display: none;
+  }
+}
+
+/* Ambient glow — decorative drifting gradient blobs behind a section.
+   Host section needs position:relative and its real content bumped to z-index:1. */
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.glow__blob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60vmax;
+  height: 60vmax;
+  margin: -30vmax 0 0 -30vmax;
+  border-radius: 50%;
+  background: var(--glow-a);
+  animation: glowDrift 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.glow__blob--b {
+  background: var(--glow-b);
+  animation-duration: 30s;
+  animation-delay: -8s;
+}
+@keyframes glowDrift {
+  0% {
+    transform: translate3d(-4%, -2%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 4%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-2%, 3%, 0) scale(0.96);
+  }
+}
+
 /* Motion */
 .reveal {
   opacity: 0;

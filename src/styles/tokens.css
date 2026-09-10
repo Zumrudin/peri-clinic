@@ -17,6 +17,21 @@
   --line: rgba(45, 43, 35, 0.14);
   --line-on-dark: rgba(255, 255, 255, 0.14);
 
+  /* Glass */
+  --glass-bg: rgba(255, 253, 246, 0.6);
+  --glass-bg-dark: rgba(41, 41, 35, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-border-dark: rgba(197, 168, 88, 0.35);
+  --blur: 20px;
+
+  /* Shadow / glow */
+  --shadow-soft: 0 20px 60px -12px rgba(36, 36, 31, 0.18);
+  --shadow-glow: 0 0 0 1px rgba(170, 137, 47, 0.18), 0 25px 80px -20px rgba(170, 137, 47, 0.45);
+
+  /* Ambient glow blobs */
+  --glow-a: radial-gradient(circle at 30% 30%, rgba(197, 168, 88, 0.55), rgba(197, 168, 88, 0) 60%);
+  --glow-b: radial-gradient(circle at 70% 60%, rgba(170, 137, 47, 0.35), rgba(170, 137, 47, 0) 65%);
+
   /* Type */
   --display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --sans: 'Golos Text', Arial, Helvetica, sans-serif;
@@ -48,7 +63,9 @@
   --container-wide: 1600px;
 
   /* Shape & layers */
-  --radius: 2px;
+  --radius: 22px;
+  --radius-lg: 32px;
+  --radius-pill: 999px;
   --header-h: 86px;
   --header-h-sticky: 72px;
   --z-header: 30;
