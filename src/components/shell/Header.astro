@@ -49,9 +49,9 @@ const site = await getSiteSettings();
     gap: 38px;
     padding: 0 4.1vw;
     border-bottom: 1px solid var(--line);
-    background: rgba(246, 244, 239, 0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(246, 244, 239, 0.82);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
     position: relative;
     z-index: var(--z-header);
     transition:
@@ -62,7 +62,7 @@ const site = await getSiteSettings();
     height: var(--header-h-sticky);
     position: fixed;
     inset: 0 0 auto;
-    box-shadow: 0 8px 30px rgba(30, 29, 25, 0.05);
+    box-shadow: 0 8px 30px rgba(170, 137, 47, 0.08);
     animation: headerIn 0.35s both;
   }
   :global(.header.is-sticky + main) {

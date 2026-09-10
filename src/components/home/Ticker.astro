@@ -22,8 +22,9 @@ const track = [...items, ...items];
 <style>
   .ticker {
     overflow: hidden;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(90deg, transparent, var(--gold-light) 50%, transparent) 1;
     background: var(--paper);
     padding: 19px 0;
     white-space: nowrap;

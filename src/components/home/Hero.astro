@@ -10,6 +10,11 @@ const { hero } = home;
 ---
 
 <section class="hero" aria-labelledby="hero-title">
+  <div class="glow" aria-hidden="true">
+    <span class="glow__blob"></span>
+    <span class="glow__blob glow__blob--b"></span>
+  </div>
+
   <div class="hero__content reveal">
     <p class="eyebrow">{hero.eyebrow}</p>
     <h1 id="hero-title" set:html={em(hero.title)} />
@@ -45,7 +50,7 @@ const { hero } = home;
         decoding="async"
       />
     </div>
-    <div class="hero__note">
+    <div class="hero__note glass-panel">
       <span class="hero__note-icon" aria-hidden="true">✦</span>
       <p set:html={em(hero.note)} />
     </div>
@@ -67,6 +72,8 @@ const { hero } = home;
     position: relative;
   }
   .hero__content {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -123,11 +130,13 @@ const { hero } = home;
   .hero__visual {
     min-height: 660px;
     position: relative;
+    z-index: 1;
   }
   .hero__image-wrap {
     height: 100%;
     overflow: hidden;
     background: #dad7ce;
+    border-radius: var(--radius-lg);
     position: relative;
   }
   .hero__image-wrap::after {
@@ -151,6 +160,7 @@ const { hero } = home;
   }
   .hero__note {
     position: absolute;
+    z-index: 2;
     left: -72px;
     top: 64px;
     width: 168px;
@@ -161,8 +171,7 @@ const { hero } = home;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: rgba(251, 250, 247, 0.95);
-    box-shadow: 0 14px 40px rgba(47, 42, 30, 0.08);
+    box-shadow: var(--shadow-glow);
   }
   .hero__note-icon {
     color: var(--gold);
