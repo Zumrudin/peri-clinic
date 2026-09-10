@@ -6,5 +6,8 @@ dist/
 !.env.example
 scripts/migrate/raw/
 scripts/migrate/media/
+scripts/migrate/out/
+scripts/migrate/manifest.json
+scripts/migrate/media-index.json
 *.log
 .DS_Store
