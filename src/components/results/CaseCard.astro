@@ -1,0 +1,103 @@
+---
+import { Image } from 'astro:assets';
+
+interface ImgRef {
+  src: string;
+  width: number;
+  height: number;
+}
+interface Props {
+  title: string;
+  result?: string;
+  category?: string;
+  before?: ImgRef | null;
+  after?: ImgRef | null;
+  combined?: ImgRef | null;
+}
+const { title, result, category, before, after, combined } = Astro.props;
+const hasPair = before && after;
+const single = combined ?? after ?? before;
+---
+
+<article class="case-card reveal">
+  {
+    hasPair ? (
+      <div class="case-card__pair">
+        <div class="case-card__half">
+          <Image src={before!.src} alt={`${title} — до`} width={500} height={620} sizes="(max-width: 800px) 43vw, 220px" loading="lazy" />
+          <span>до</span>
+        </div>
+        <div class="case-card__half">
+          <Image src={after!.src} alt={`${title} — после`} width={500} height={620} sizes="(max-width: 800px) 43vw, 220px" loading="lazy" />
+          <span>после</span>
+        </div>
+      </div>
+    ) : single ? (
+      <div class="case-card__image">
+        <Image src={single.src} alt={title} width={700} height={620} sizes="(max-width: 800px) 86vw, 30vw" loading="lazy" />
+        <span>до / после</span>
+      </div>
+    ) : null
+  }
+  <div class="case-card__body">
+    {category && <p class="case-card__category">{category}</p>}
+    <h3>{title}</h3>
+    {result && <p class="case-card__result">{result}</p>}
+  </div>
+</article>
+
+<style>
+  .case-card {
+    background: var(--paper);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .case-card__pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .case-card__half,
+  .case-card__image {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+  .case-card__half :global(img),
+  .case-card__image :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .case-card__half span,
+  .case-card__image span {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 6px 10px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .case-card__body {
+    padding: 24px;
+  }
+  .case-card__category {
+    margin: 0 0 10px;
+    color: var(--gold-deep);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .case-card h3 {
+    font: 400 24px var(--display);
+    margin: 0 0 10px;
+  }
+  .case-card__result {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,147 @@
+---
+import { Image } from 'astro:assets';
+import Page from '../layouts/Page.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import { em } from '../lib/markup';
+import { getProceduresByCategory } from '../lib/procedureContent';
+import { directusImage } from '../lib/media';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  category: CollectionEntry<'serviceCategories'>;
+}
+const { category: entry } = Astro.props;
+const c = entry.data;
+const procedures = await getProceduresByCategory(c.slug);
+---
+
+<Page title={c.seo_title || `${c.short_title || c.title.replace(/\n/g, ' ')} — PERI CLINIC`} description={c.seo_description || c.description?.replace(/<[^>]+>/g, ' ') || ''}>
+  <Breadcrumbs slot="head" items={[{ name: c.short_title || c.title.replace(/\n/g, ' '), href: `/${c.slug}` }]} />
+
+  <section class="cat-hero reveal" aria-labelledby="cat-title">
+    <p class="eyebrow">Направление</p>
+    <h1 id="cat-title" set:html={em(c.title)} />
+    {c.description && <div class="prose" set:html={c.description} />}
+  </section>
+
+  <section class="section cat-grid" aria-label="Процедуры направления">
+    <div class="cat-grid__list">
+      {
+        procedures.map((p, i) => {
+          const cover = directusImage(p.data.cover);
+          return (
+          <a class="cat-card reveal" href={`/${p.data.slug}`}>
+            {cover && (
+              <Image src={cover.src} alt={p.data.cover_alt || p.data.title} width={700} height={860} sizes="(max-width: 800px) 84vw, 30vw" loading="lazy" />
+            )}
+            <span class="cat-card__number">{String(i + 1).padStart(2, '0')}</span>
+            <div class="cat-card__content">
+              {p.data.subtitle && <p>{p.data.subtitle}</p>}
+              <h3>{p.data.title}</h3>
+              <span class="round-arrow" aria-hidden="true">
+                ↗
+              </span>
+            </div>
+          </a>
+          );
+        })
+      }
+    </div>
+  </section>
+</Page>
+
+<style>
+  .cat-hero {
+    max-width: var(--container);
+    margin: auto;
+    padding: 60px var(--gutter) 20px;
+  }
+  .cat-hero h1 {
+    font-size: clamp(40px, 6vw, 76px);
+    margin: 0 0 28px;
+  }
+  .cat-hero .prose {
+    max-width: 62ch;
+  }
+
+  .cat-grid__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+  }
+  .cat-card {
+    position: relative;
+    height: 560px;
+    overflow: hidden;
+    background: #282722;
+    color: #fff;
+    border-radius: var(--radius);
+  }
+  .cat-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 20, 17, 0.05) 28%, rgba(20, 20, 17, 0.76) 100%);
+  }
+  .cat-card :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.85);
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+  .cat-card:hover :global(img) {
+    transform: scale(1.04);
+  }
+  .cat-card__number {
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    left: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+  }
+  .cat-card__content {
+    position: absolute;
+    z-index: 2;
+    inset: auto 24px 26px;
+  }
+  .cat-card__content p {
+    margin: 0 0 10px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .cat-card__content h3 {
+    margin: 0;
+    font: 400 24px/1.1 var(--display);
+    max-width: 85%;
+  }
+  .round-arrow {
+    position: absolute;
+    right: 0;
+    bottom: 1px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    transition:
+      background var(--dur-fast),
+      color var(--dur-fast),
+      transform var(--dur-fast);
+  }
+  .cat-card:hover .round-arrow {
+    background: #fff;
+    color: var(--ink);
+    transform: rotate(45deg);
+  }
+</style>

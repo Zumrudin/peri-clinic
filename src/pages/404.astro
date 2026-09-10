@@ -1,0 +1,48 @@
+---
+import Page from '../layouts/Page.astro';
+---
+
+<Page title="Страница не найдена — PERI CLINIC" description="Запрошенная страница не найдена." noindex>
+  <section class="notfound reveal">
+    <p class="eyebrow">Ошибка 404</p>
+    <h1>Такой страницы<br /><em>не существует</em></h1>
+    <p class="notfound__lead">Возможно, ссылка устарела или содержит опечатку. Начните с главной или посмотрите наши услуги.</p>
+    <div class="notfound__actions">
+      <a class="button" href="/">На главную <span>↗</span></a>
+      <a class="text-link" href="/uslugi-i-ceny">Услуги и цены <span>↗</span></a>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .notfound {
+    max-width: var(--container);
+    margin: auto;
+    padding: 120px var(--gutter);
+    text-align: center;
+  }
+  .notfound h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(40px, 7vw, 84px);
+    line-height: 0.98;
+    margin: 0 0 24px;
+  }
+  .notfound h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .notfound__lead {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 52ch;
+    margin: 0 auto 40px;
+  }
+  .notfound__actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+</style>

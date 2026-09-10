@@ -38,6 +38,7 @@ async function main() {
     const data = JSON.parse(await readFile(new URL(`./${f}`, OUT_DIR), 'utf8'));
     if (data.cover_image) urls.add(data.cover_image);
     for (const u of data.gallery_images ?? []) urls.add(u);
+    for (const c of data.cases ?? []) if (c.image) urls.add(c.image);
   }
 
   let downloaded = 0;

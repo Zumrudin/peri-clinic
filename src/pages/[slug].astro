@@ -1,0 +1,24 @@
+---
+import CategoryPage from '../templates/CategoryPage.astro';
+import ProcedurePage from '../templates/ProcedurePage.astro';
+import ContentPage from '../templates/ContentPage.astro';
+import { getAllCategories } from '../lib/categoryContent';
+import { getAllProcedures } from '../lib/procedureContent';
+import { getAllPages } from '../lib/pageContent';
+
+export async function getStaticPaths() {
+  const [categories, procedures, pages] = await Promise.all([getAllCategories(), getAllProcedures(), getAllPages()]);
+
+  return [
+    ...categories.map((category) => ({ params: { slug: category.data.slug }, props: { kind: 'category' as const, category } })),
+    ...procedures.map((procedure) => ({ params: { slug: procedure.data.slug }, props: { kind: 'procedure' as const, procedure } })),
+    ...pages.map((page) => ({ params: { slug: page.data.slug }, props: { kind: 'page' as const, page } })),
+  ];
+}
+
+const { kind, category, procedure, page } = Astro.props;
+---
+
+{kind === 'category' && <CategoryPage category={category} />}
+{kind === 'procedure' && <ProcedurePage procedure={procedure} />}
+{kind === 'page' && <ContentPage page={page} />}

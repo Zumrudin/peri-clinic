@@ -236,3 +236,41 @@ h2 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Prose — renders WYSIWYG body HTML from Directus (procedures.body, pages.body, etc.) */
+.prose {
+  max-width: 68ch;
+  font-size: var(--t-body);
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+.prose p {
+  margin: 0 0 20px;
+}
+.prose p:last-child {
+  margin-bottom: 0;
+}
+.prose h3 {
+  font: 400 24px var(--display);
+  color: var(--ink);
+  margin: 40px 0 14px;
+}
+.prose h3:first-child {
+  margin-top: 0;
+}
+.prose ul,
+.prose ol {
+  margin: 0 0 20px;
+  padding-left: 22px;
+}
+.prose li {
+  margin-bottom: 8px;
+}
+.prose strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.prose a {
+  border-bottom: 1px solid var(--gold-deep);
+  color: var(--gold-deep);
+}

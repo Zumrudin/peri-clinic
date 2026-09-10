@@ -1,0 +1,134 @@
+---
+import Page from '../layouts/Page.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import { formatRuDate } from '../lib/markup';
+import { getCollection } from 'astro:content';
+import { bySort } from '../lib/directus';
+
+const reviews = bySort(await getCollection('allReviews'));
+const stars = '★★★★★';
+const SOURCE_LABEL: Record<string, string> = { site: 'Сайт', yandex: 'Яндекс', '2gis': '2ГИС', prodoctorov: 'ПроДокторов' };
+---
+
+<Page title="Отзывы пациентов — PERI CLINIC" description="Отзывы пациентов клиники эстетической медицины PERI CLINIC о процедурах, враче и сервисе.">
+  <Breadcrumbs slot="head" items={[{ name: 'Отзывы', href: '/otzyvy' }]} />
+
+  <section class="reviews-hero reveal">
+    <p class="eyebrow">Отзывы пациентов</p>
+    <h1>Доверие,<br /><em>которое для нас бесценно</em></h1>
+  </section>
+
+  <section class="section reviews-grid">
+    <div class="reviews-grid__list">
+      {
+        reviews.map((r) => (
+          <article class="review-card reveal">
+            <div class="review-card__top">
+              <span aria-label={`${r.data.rating ?? 5} из 5`}>{stars.slice(0, r.data.rating ?? 5)}</span>
+              <small>{formatRuDate(r.data.date)}</small>
+            </div>
+            <blockquote>«{r.data.text}»</blockquote>
+            <div class="review-card__author">
+              <span aria-hidden="true">{r.data.author_name.charAt(0)}</span>
+              <p>
+                <strong>{r.data.author_name}</strong>
+                {r.data.procedure_label && <small>{r.data.procedure_label}</small>}
+              </p>
+              {r.data.source && r.data.source !== 'site' && (
+                <a class="review-card__source" href={r.data.source_url || '#'} target="_blank" rel="noopener">
+                  {SOURCE_LABEL[r.data.source] ?? r.data.source}
+                </a>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</Page>
+
+<style>
+  .reviews-hero {
+    max-width: var(--container);
+    margin: auto;
+    padding: 60px var(--gutter) 20px;
+  }
+  .reviews-hero h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 0.98;
+    margin: 0;
+  }
+  .reviews-hero h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .reviews-grid__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 18px;
+  }
+  .review-card {
+    min-height: 260px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+  }
+  .review-card__top {
+    display: flex;
+    justify-content: space-between;
+    color: var(--gold-deep);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
+  .review-card__top small {
+    color: var(--muted);
+    letter-spacing: 0;
+  }
+  .review-card blockquote {
+    font: 18px/1.5 var(--display);
+    margin: 26px 0;
+    color: var(--ink);
+  }
+  .review-card__author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    flex-wrap: wrap;
+  }
+  .review-card__author > span {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--gold-deep);
+    color: #fff;
+    font: 15px var(--display);
+  }
+  .review-card__author p {
+    margin: 0;
+  }
+  .review-card__author strong,
+  .review-card__author small {
+    display: block;
+    font-size: 12px;
+  }
+  .review-card__author small {
+    margin-top: 3px;
+    color: var(--muted);
+  }
+  .review-card__source {
+    margin-left: auto;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold-deep);
+    border-bottom: 1px solid var(--gold-deep);
+  }
+</style>

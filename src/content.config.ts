@@ -6,20 +6,33 @@ const fileRef = z.object({ id: z.string(), width: z.number().nullable().optional
 /** `fileFields('hero_image')` → `'hero_image.id,hero_image.width,hero_image.height'` (Directus needs each nested field spelled out, not a shared suffix). */
 const fileFields = (prefix: string) => ['id', 'width', 'height'].map((f) => `${prefix}.${f}`).join(',');
 
-/** A loader that fetches one Directus item/list per build and stores it verbatim. */
+/**
+ * A loader that fetches one Directus item/list per build and stores it.
+ *
+ * Must call `parseData()` — a custom loader that just does `store.set({id, data})` with
+ * the raw fetched JSON never runs the collection's `schema` at all (schema is only used
+ * for `astro:content` TypeScript types in that case, not applied to the actual values).
+ * That silently skipped every `.catch()`/`.default()`/`.nullable()` fallback in every
+ * schema below — e.g. Directus stores an unset JSON/repeater field as `null`, not `[]`,
+ * and without parseData() that null reached templates as `p.steps === null` instead of
+ * `[]`, crashing on `.length`. Found the hard way on /pigment-lumec (see phase-5 plan).
+ */
 function directusLoader(name: string, fetchData: () => Promise<unknown>): Loader {
   return {
     name: `directus-${name}`,
-    load: async ({ store, logger }) => {
+    load: async ({ store, logger, parseData }) => {
       const data = await fetchData();
       store.clear();
       if (Array.isArray(data)) {
         for (const item of data as Array<{ id: string | number }>) {
-          store.set({ id: String(item.id), data: item as Record<string, unknown> });
+          const id = String(item.id);
+          const parsed = await parseData({ id, data: item as Record<string, unknown> });
+          store.set({ id, data: parsed });
         }
         logger.info(`loaded ${data.length} item(s)`);
       } else {
-        store.set({ id: name, data: data as Record<string, unknown> });
+        const parsed = await parseData({ id: name, data: data as Record<string, unknown> });
+        store.set({ id: name, data: parsed });
         logger.info('loaded singleton');
       }
     },
@@ -80,8 +93,8 @@ const home = defineCollection({
     hero_image: fileRef,
     hero_image_alt: z.string().nullable().optional(),
     hero_note: z.string().nullable().optional(),
-    hero_facts: z.array(z.object({ value: z.string(), label: z.string() })).default([]),
-    ticker_items: z.array(z.string()).default([]),
+    hero_facts: z.array(z.object({ value: z.string(), label: z.string() })).catch([]),
+    ticker_items: z.array(z.string()).catch([]),
     categories_eyebrow: z.string(),
     categories_title: z.string(),
     categories_lead: z.string().nullable().optional(),
@@ -91,7 +104,7 @@ const home = defineCollection({
     approach_image: fileRef,
     approach_image_alt: z.string().nullable().optional(),
     approach_badge: z.string().nullable().optional(),
-    principles: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
+    principles: z.array(z.object({ title: z.string(), text: z.string() })).catch([]),
     approach_link_label: z.string().nullable().optional(),
     approach_link_href: z.string().nullable().optional(),
     devices_eyebrow: z.string(),
@@ -194,7 +207,7 @@ const serviceCategories = defineCollection({
   loader: directusLoader('serviceCategories', () =>
     directusGet(
       `/items/service_categories${directusQuery({
-        fields: `id,sort,slug,title,short_title,tagline,cover_alt,${fileFields('cover')}`,
+        fields: `id,sort,slug,title,short_title,tagline,description,intro_title,cover_alt,seo_title,seo_description,${fileFields('cover')}`,
         filter: JSON.stringify({ status: { _eq: 'published' } }),
         sort: 'sort',
       })}`,
@@ -207,8 +220,12 @@ const serviceCategories = defineCollection({
     title: z.string(),
     short_title: z.string().nullable().optional(),
     tagline: z.string().nullable().optional(),
+    description: z.string().nullable().optional(),
+    intro_title: z.string().nullable().optional(),
     cover: fileRef,
     cover_alt: z.string().nullable().optional(),
+    seo_title: z.string().nullable().optional(),
+    seo_description: z.string().nullable().optional(),
   }),
 });
 
@@ -273,4 +290,182 @@ const homeReviews = defineCollection({
   }),
 });
 
-export const collections = { home, siteSettings, serviceCategories, devices, homeCases, homeReviews };
+const galleryFileRef = z.object({ directus_files_id: fileRef });
+
+const procedures = defineCollection({
+  loader: directusLoader('procedures', () =>
+    directusGet(
+      `/items/procedures${directusQuery({
+        fields: [
+          'id',
+          'sort',
+          'slug',
+          'title',
+          'subtitle',
+          'category.slug',
+          'category.title',
+          'device.name',
+          'device.short',
+          'summary',
+          'lead',
+          'body',
+          'steps',
+          'benefits',
+          'indications',
+          'contraindications',
+          'duration',
+          'rehab',
+          'effect_duration',
+          'sessions',
+          'cover_alt',
+          'seo_title',
+          'seo_description',
+          fileFields('cover'),
+          'gallery.directus_files_id.id',
+          'gallery.directus_files_id.width',
+          'gallery.directus_files_id.height',
+        ].join(','),
+        filter: JSON.stringify({ status: { _eq: 'published' } }),
+        sort: 'sort',
+      })}`,
+    ),
+  ),
+  schema: z.object({
+    id: z.number(),
+    sort: z.number().nullable().optional(),
+    slug: z.string(),
+    title: z.string(),
+    subtitle: z.string().nullable().optional(),
+    category: z.object({ slug: z.string(), title: z.string() }).nullable().optional(),
+    device: z.object({ name: z.string(), short: z.string().nullable().optional() }).nullable().optional(),
+    summary: z.string().nullable().optional(),
+    lead: z.string().nullable().optional(),
+    body: z.string().nullable().optional(),
+    steps: z.array(z.object({ title: z.string(), text: z.string() })).catch([]),
+    benefits: z.array(z.object({ title: z.string(), text: z.string() })).catch([]),
+    indications: z.string().nullable().optional(),
+    contraindications: z.string().nullable().optional(),
+    duration: z.string().nullable().optional(),
+    rehab: z.string().nullable().optional(),
+    effect_duration: z.string().nullable().optional(),
+    sessions: z.string().nullable().optional(),
+    cover: fileRef,
+    cover_alt: z.string().nullable().optional(),
+    seo_title: z.string().nullable().optional(),
+    seo_description: z.string().nullable().optional(),
+    gallery: z.array(galleryFileRef).catch([]),
+  }),
+});
+
+const pages = defineCollection({
+  loader: directusLoader('pages', () =>
+    directusGet(
+      `/items/pages${directusQuery({
+        fields: 'id,sort,slug,title,template,lead,body,noindex,seo_title,seo_description',
+        filter: JSON.stringify({ status: { _eq: 'published' } }),
+        sort: 'sort',
+      })}`,
+    ),
+  ),
+  schema: z.object({
+    id: z.number(),
+    sort: z.number().nullable().optional(),
+    slug: z.string(),
+    title: z.string(),
+    template: z.enum(['info', 'legal', 'loyalty', 'spravka']).default('info'),
+    lead: z.string().nullable().optional(),
+    body: z.string().nullable().optional(),
+    noindex: z.boolean().default(false),
+    seo_title: z.string().nullable().optional(),
+    seo_description: z.string().nullable().optional(),
+  }),
+});
+
+const caseCategories = defineCollection({
+  loader: directusLoader('caseCategories', () => directusGet(`/items/case_categories${directusQuery({ fields: 'id,sort,slug,title', sort: 'sort' })}`)),
+  schema: z.object({ id: z.number(), sort: z.number().nullable().optional(), slug: z.string(), title: z.string() }),
+});
+
+/** Every published, reviewer-approved before/after case (not just the homepage teaser set) — feeds /result and each procedure page's own case list. */
+const allCases = defineCollection({
+  loader: directusLoader('allCases', () =>
+    directusGet(
+      `/items/before_after_cases${directusQuery({
+        fields: `id,sort,title,result,category.slug,category.title,procedure.slug,${fileFields('before')},${fileFields('after')},${fileFields('combined')}`,
+        filter: JSON.stringify({ status: { _eq: 'published' }, needs_review: { _eq: false } }),
+        sort: 'sort',
+      })}`,
+    ),
+  ),
+  schema: z.object({
+    id: z.number(),
+    sort: z.number().nullable().optional(),
+    title: z.string(),
+    result: z.string().nullable().optional(),
+    category: z.object({ slug: z.string(), title: z.string() }).nullable().optional(),
+    procedure: z.object({ slug: z.string() }).nullable().optional(),
+    before: fileRef,
+    after: fileRef,
+    combined: fileRef,
+  }),
+});
+
+/** All published FAQ items (general + per-procedure) — /uslugi-i-ceny uses scope=general, procedure pages filter by procedure.slug. */
+const allFaq = defineCollection({
+  loader: directusLoader('allFaq', () =>
+    directusGet(
+      `/items/faq_items${directusQuery({
+        fields: 'id,sort,question,answer,scope,procedure.slug',
+        filter: JSON.stringify({ status: { _eq: 'published' } }),
+        sort: 'sort',
+      })}`,
+    ),
+  ),
+  schema: z.object({
+    id: z.number(),
+    sort: z.number().nullable().optional(),
+    question: z.string(),
+    answer: z.string().nullable().optional(),
+    scope: z.enum(['general', 'procedure']).default('procedure'),
+    procedure: z.object({ slug: z.string() }).nullable().optional(),
+  }),
+});
+
+/** All published reviews (not just show_on_home) — /otzyvy. */
+const allReviews = defineCollection({
+  loader: directusLoader('allReviews', () =>
+    directusGet(
+      `/items/reviews${directusQuery({
+        fields: 'id,sort,author_name,date,rating,text,procedure_label,source,source_url',
+        filter: JSON.stringify({ status: { _eq: 'published' } }),
+        sort: 'sort',
+      })}`,
+    ),
+  ),
+  schema: z.object({
+    id: z.number(),
+    sort: z.number().nullable().optional(),
+    author_name: z.string(),
+    date: z.string().nullable().optional(),
+    rating: z.number().nullable().optional(),
+    text: z.string(),
+    procedure_label: z.string().nullable().optional(),
+    source: z.string().nullable().optional(),
+    source_url: z.string().nullable().optional(),
+  }),
+});
+
+export const collections = {
+  home,
+  siteSettings,
+  serviceCategories,
+  devices,
+  homeCases,
+  homeReviews,
+  procedures,
+  pages,
+  caseCategories,
+  allCases,
+  allFaq,
+  allReviews,
+};

@@ -166,6 +166,54 @@ async function main() {
     }
   }
 
+  // 2b) before/after cases from /result: raw category labels are noisy (near-duplicate
+  // spelling, overly specific sub-labels) — normalize to the same 9 groups Wix itself used
+  // visually, and link each group to the matching procedure where one exists.
+  log('before_after_cases (/result)...');
+  const resultsPage = pages.find((p) => p.kind === 'results');
+  const caseFolderId = await folderId('До-после');
+  const CASE_GROUPS = [
+    { match: /^Увеличение и коррекция губ/i, title: 'Увеличение и коррекция губ', procedure: 'konturnaya-plastika' },
+    { match: /^Ботулинотерапия/i, title: 'Ботулинотерапия', procedure: 'botullinoterapiya' },
+    { match: /^(Контурная пластика|Комплексное омоложение)/i, title: 'Контурная пластика', procedure: 'konturnaya-plastika' },
+    { match: /^Фототерапия/i, title: 'Фототерапия InMode Lumeca', procedure: 'pigment-lumec' },
+    { match: /^Мезотерапия/i, title: 'Мезотерапия', procedure: 'mezoterapiya-i-biorevitalizaciya' },
+    { match: /^RF-лифтинг/i, title: 'RF-лифтинг InMode/Morpheus8', procedure: 'rf-lifting-inmode' },
+    { match: /^RSL/i, title: 'RSL-скульптурирование', procedure: 'beautylizer' },
+    { match: /^Volnewmer/i, title: 'Volnewmer', procedure: 'volnewmer' },
+  ];
+  if (resultsPage) {
+    const caseCategoryIdByTitle = {};
+    const counters = {};
+    let skippedNoImage = 0;
+    for (const c of resultsPage.cases) {
+      if (!c.image) {
+        skippedNoImage++;
+        continue;
+      }
+      const group = CASE_GROUPS.find((g) => g.match.test(c.category)) ?? { title: c.category, procedure: null };
+      if (!caseCategoryIdByTitle[group.title]) {
+        caseCategoryIdByTitle[group.title] = await upsert('case_categories', 'title', group.title, {
+          slug: group.title.toLowerCase().replace(/[^a-zа-яё0-9]+/gi, '-').replace(/^-|-$/g, ''),
+          procedure: group.procedure ? procedureIdBySlug[group.procedure] : undefined,
+        });
+      }
+      counters[group.title] = (counters[group.title] ?? 0) + 1;
+      const caseTitle = `${group.title} №${counters[group.title]}`;
+      const combined = await uploadImage(c.image, { title: `result-${caseCategoryIdByTitle[group.title]}-${counters[group.title]}`, folder: caseFolderId });
+      await upsert('before_after_cases', 'title', caseTitle, {
+        status: 'draft',
+        sort: counters[group.title],
+        category: caseCategoryIdByTitle[group.title],
+        procedure: group.procedure ? procedureIdBySlug[group.procedure] : undefined,
+        combined: combined || undefined,
+        result: c.result || null,
+        needs_review: true,
+      });
+    }
+    log(`  ${resultsPage.cases.length - skippedNoImage} cases seeded (${skippedNoImage} skipped — no image found), ${Object.keys(caseCategoryIdByTitle).length} groups`);
+  }
+
   // 3) legal/info pages.
   log('pages...');
   for (const p of legalPages) {

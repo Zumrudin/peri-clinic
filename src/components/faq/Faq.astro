@@ -1,0 +1,78 @@
+---
+import JsonLd from '../seo/JsonLd.astro';
+import { faqJsonLd } from '../../lib/seo';
+
+interface Props {
+  items: Array<{ question: string; answer: string }>;
+  eyebrow?: string;
+  title?: string;
+}
+const { items, eyebrow = 'Вопросы и ответы', title = 'Часто спрашивают' } = Astro.props;
+const jsonLd = faqJsonLd(items);
+---
+
+{
+  items.length > 0 && (
+    <section class="faq reveal" aria-labelledby="faq-title">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 id="faq-title">{title}</h2>
+      <div class="faq__list">
+        {items.map((item, i) => (
+          <details class="faq__item" name={`faq-${i}`}>
+            <summary>
+              <span>{item.question}</span>
+              <span class="faq__chevron" aria-hidden="true">
+                ↓
+              </span>
+            </summary>
+            <div class="faq__answer prose" set:html={item.answer} />
+          </details>
+        ))}
+      </div>
+      <JsonLd data={jsonLd} />
+    </section>
+  )
+}
+
+<style>
+  .faq {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--section) var(--gutter);
+  }
+  .faq h2 {
+    font-size: var(--t-h2-s);
+    margin-bottom: 40px;
+  }
+  .faq__list {
+    max-width: 760px;
+    border-top: 1px solid var(--line);
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 0;
+    cursor: pointer;
+    list-style: none;
+    font: 400 20px var(--display);
+  }
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq__chevron {
+    flex: 0 0 auto;
+    color: var(--gold-deep);
+    transition: transform var(--dur-fast);
+  }
+  .faq__item[open] .faq__chevron {
+    transform: rotate(180deg);
+  }
+  .faq__answer {
+    padding: 0 0 24px;
+  }
+</style>

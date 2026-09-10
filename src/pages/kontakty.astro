@@ -1,0 +1,135 @@
+---
+import Page from '../layouts/Page.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import { em, telHref, whatsappHref } from '../lib/markup';
+import { getSiteSettings } from '../lib/siteContent';
+
+const site = await getSiteSettings();
+
+const links = [
+  { label: 'Позвонить', value: site.phone, href: telHref(site.phone) },
+  site.email && { label: 'Написать на почту', value: site.email, href: `mailto:${site.email}` },
+  site.telegram_url && { label: 'Telegram', value: '@peri_clinic', href: site.telegram_url },
+  { label: 'WhatsApp', value: 'Написать в чат', href: whatsappHref(site.phone, site.whatsapp_text) },
+  site.max_url && { label: 'MAX', value: 'Написать в мессенджер', href: site.max_url },
+].filter(Boolean) as Array<{ label: string; value: string; href: string }>;
+---
+
+<Page title="Контакты — PERI CLINIC" description={`PERI CLINIC — ${site.address_short}. ${site.hours}. Телефон ${site.phone}.`}>
+  <Breadcrumbs slot="head" items={[{ name: 'Контакты', href: '/kontakty' }]} />
+
+  <section class="contacts reveal">
+    <div class="contacts__intro">
+      <p class="eyebrow">Контакты</p>
+      <h1>Будем рады<br /><em>видеть вас</em></h1>
+      <p class="contacts__address" set:html={em(site.address_lines || site.address_short)} />
+      <p class="contacts__hours">{site.hours}</p>
+      {site.map_link && (
+        <a class="text-link" href={site.map_link} target="_blank" rel="noopener">
+          Открыть на карте <span>↗</span>
+        </a>
+      )}
+    </div>
+
+    <ul class="contacts__list">
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel={l.href.startsWith('http') ? 'noopener' : undefined}>
+              <span class="contacts__label">{l.label}</span>
+              <span class="contacts__value">
+                {l.value} <i aria-hidden="true">↗</i>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  {
+    site.map_embed_src && (
+      <section class="contacts-map">
+        <iframe src={site.map_embed_src} title="Карта проезда" loading="lazy" />
+      </section>
+    )
+  }
+</Page>
+
+<style>
+  .contacts {
+    max-width: var(--container);
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 6vw;
+    padding: 60px var(--gutter) var(--section);
+  }
+  .contacts__intro h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.98;
+    margin: 0 0 32px;
+  }
+  .contacts__intro h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .contacts__address {
+    font: 20px/1.4 var(--display);
+    margin: 0 0 12px;
+  }
+  .contacts__hours {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 28px;
+  }
+  .contacts__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .contacts__list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .contacts__label {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .contacts__value {
+    font: 400 20px var(--display);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .contacts__value i {
+    color: var(--gold-deep);
+    font-style: normal;
+    font-size: 16px;
+  }
+  .contacts-map {
+    border-top: 1px solid var(--line);
+  }
+  .contacts-map iframe {
+    display: block;
+    width: 100%;
+    height: 480px;
+    border: 0;
+  }
+
+  @media (max-width: 800px) {
+    .contacts {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+</style>

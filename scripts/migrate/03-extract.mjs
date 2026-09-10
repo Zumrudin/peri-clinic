@@ -194,6 +194,52 @@ function extractLegalPage($, slug) {
   return { kind: 'legal_page', slug, title: cleanText(title), body: sanitizeHtml(body) };
 }
 
+/**
+ * /result page: pairs of (category-name heading, result-text) richTextElements, each with
+ * exactly one <img> living 3 ancestor levels up from the heading (confirmed by hand — see
+ * the phase-5 plan). Groups into case_categories by the repeated category name; each pair
+ * becomes one before_after_cases row with a single "combined" image (Wix doesn't expose
+ * separate before/after images here, just one composite photo per case).
+ */
+function extractResults($) {
+  const rte = $('[data-testid="richTextElement"]');
+  const entries = [];
+  rte.each((_, el) => {
+    const $el = $(el);
+    const text = cleanText($el.text());
+    if (!text) return;
+    entries.push({ el: $el, text });
+  });
+
+  const footerIdx = entries.findIndex((e) => /^Клиентам$|^Наши услуги$/i.test(e.text));
+  const stream = entries.slice(0, footerIdx === -1 ? entries.length : footerIdx);
+
+  let start = 0;
+  while (start < stream.length && (CHROME_LINES_RE.test(stream[start].text) || /^До\/?после/i.test(stream[start].text))) start++;
+
+  const cases = [];
+  for (let i = start; i + 1 < stream.length; i += 2) {
+    const category = stream[i].text;
+    const result = stream[i + 1].text;
+    if (/\?\s*$/.test(category) || category.length > 60) continue; // heuristic misfire guard
+
+    let container = stream[i].el.parent();
+    let image = null;
+    for (let d = 0; d < 6 && container.length; d++) {
+      const imgs = container.find('img');
+      if (imgs.length === 1) {
+        image = wixOriginalUrl(imgs.attr('src') || imgs.attr('data-src'));
+        break;
+      }
+      if (imgs.length > 0 && imgs.length <= 3) break;
+      container = container.parent();
+    }
+    cases.push({ category, result, image });
+  }
+
+  return { kind: 'results', slug: 'result', cases };
+}
+
 async function main() {
   const manifest = JSON.parse(await readFile(new URL('./manifest.json', import.meta.url), 'utf8'));
   await ensureDir(OUT_DIR);
@@ -207,11 +253,12 @@ async function main() {
     let extracted;
     if (entry.type === 'procedure') extracted = extractProcedure($, entry.slug);
     else if (entry.type === 'category') extracted = extractCategory($, entry.slug);
+    else if (entry.type === 'results') extracted = extractResults($);
     else if (entry.type === 'legal_page') extracted = { ...extractLegalPage($, entry.slug), template: entry.template };
-    else if (entry.type === 'results' || entry.type === 'services_overview') {
-      // Handled by their own dedicated logic once phase 5 templates need them; for now
-      // just confirm the raw HTML is there and move on (no structured extraction yet).
-      extracted = { kind: entry.type, slug: entry.slug, note: 'Экстракция для этого типа страницы будет добавлена в фазе 5 вместе с шаблоном.' };
+    else if (entry.type === 'services_overview') {
+      // /uslugi-i-ceny has no body copy on Wix — just image-linked cards to the 3
+      // categories, which the template renders directly from service_categories.
+      extracted = { kind: 'services_overview', slug: entry.slug };
     } else {
       continue;
     }

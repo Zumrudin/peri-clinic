@@ -2,17 +2,21 @@
 import '../styles/tokens.css';
 import '../styles/base.css';
 import ContactSheet from '../components/shell/ContactSheet.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
 import { getSiteSettings } from '../lib/siteContent';
+import { medicalClinicJsonLd } from '../lib/seo';
 
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  noindex?: boolean;
 }
-const { title, description, ogImage } = Astro.props;
+const { title, description, ogImage, noindex = false } = Astro.props;
 const site = await getSiteSettings();
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const og = ogImage ?? new URL('/og-default.jpg', Astro.site).href;
+const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL('/favicon.svg', Astro.site).href);
 ---
 
 <!doctype html>
@@ -23,6 +27,7 @@ const og = ogImage ?? new URL('/og-default.jpg', Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="theme-color" content="#f6f4ef" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
@@ -35,6 +40,7 @@ const og = ogImage ?? new URL('/og-default.jpg', Astro.site).href;
     <link rel="preload" href="/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/golos-text.woff2" as="font" type="font/woff2" crossorigin />
     <slot name="head" />
+    <JsonLd data={clinicJsonLd} />
   </head>
   <body>
     <slot />

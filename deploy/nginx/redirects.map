@@ -1,0 +1,15 @@
+# 301 redirects for stale/duplicate Wix pages found during the phase-4 content migration
+# (see docs/CONTENT-MAP.md). Included from both the stand and production nginx configs via:
+#   map $uri $peri_redirect { include /etc/nginx/peri-redirects.map; }
+#   if ($peri_redirect) { return 301 $peri_redirect; }
+#
+# /microtoki and /droppers are NOT redirects — both are real, separate procedure pages
+# migrated as-is (see docs/CONTENT-MAP.md for why). Same for /uridicheskaya-informaciya
+# ("Организационные документы") vs /yuridicheskaya-informaciya ("Юридическая информация")
+# — two distinct real pages despite the near-identical slug, not a typo duplicate.
+
+default                         "";
+
+/soglashenie                    /politika;
+/копия-маски                    /esteticheskaya-kosmetologiya;
+/копия-услуги-и-цены            /uslugi-i-ceny;

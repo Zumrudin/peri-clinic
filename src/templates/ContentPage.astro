@@ -1,0 +1,59 @@
+---
+import Page from '../layouts/Page.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import { getSiteSettings } from '../lib/siteContent';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  page: CollectionEntry<'pages'>;
+}
+const { page: entry } = Astro.props;
+const p = entry.data;
+const site = await getSiteSettings();
+---
+
+<Page title={p.seo_title || `${p.title} — PERI CLINIC`} description={p.seo_description || p.lead || ''} noindex={p.noindex}>
+  <Breadcrumbs slot="head" items={[{ name: p.title, href: `/${p.slug}` }]} />
+
+  <article class="content-page reveal">
+    <h1>{p.title}</h1>
+    {p.lead && <p class="content-page__lead">{p.lead}</p>}
+    {p.template === 'spravka' && site.spravka_form_url && (
+      <div class="content-page__form">
+        <iframe src={site.spravka_form_url} title="Форма заявки на справку" loading="lazy" />
+      </div>
+    )}
+    {p.body && <div class="prose" set:html={p.body} />}
+  </article>
+</Page>
+
+<style>
+  .content-page {
+    max-width: 800px;
+    margin: auto;
+    padding: 60px var(--gutter) var(--section);
+  }
+  .content-page h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(32px, 4.6vw, 52px);
+    line-height: 1.05;
+    margin: 0 0 24px;
+  }
+  .content-page__lead {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.65;
+    margin: 0 0 32px;
+  }
+  .content-page__form {
+    margin: 0 0 40px;
+    border: 1px solid var(--line);
+  }
+  .content-page__form iframe {
+    display: block;
+    width: 100%;
+    min-height: 640px;
+    border: 0;
+  }
+</style>

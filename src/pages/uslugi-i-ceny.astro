@@ -1,0 +1,172 @@
+---
+import { Image } from 'astro:assets';
+import Page from '../layouts/Page.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import Faq from '../components/faq/Faq.astro';
+import { em } from '../lib/markup';
+import { getAllCategories } from '../lib/categoryContent';
+import { directusImage } from '../lib/media';
+import { getCollection } from 'astro:content';
+import { bySort } from '../lib/directus';
+
+const categories = await getAllCategories();
+const faq = bySort(await getCollection('allFaq'))
+  .filter((f) => f.data.scope === 'general')
+  .map((f) => ({ question: f.data.question, answer: f.data.answer ?? '' }));
+---
+
+<Page title="Услуги и цены — PERI CLINIC" description="Три направления косметологии PERI CLINIC: аппаратная, инъекционная и эстетическая. Подберём процедуру на консультации.">
+  <Breadcrumbs slot="head" items={[{ name: 'Услуги и цены', href: '/uslugi-i-ceny' }]} />
+
+  <section class="services-hero reveal">
+    <p class="eyebrow">Услуги</p>
+    <h1>Три направления,<br /><em>одна философия ухода</em></h1>
+    <p class="services-hero__lead">Точные протоколы, сертифицированные препараты и врачебный контроль на каждом этапе. Стоимость определяется на консультации — она зависит от исходных данных и плана коррекции.</p>
+  </section>
+
+  <section class="section services-grid">
+    <div class="services-grid__list">
+      {
+        categories.map((c, i) => {
+          const cover = directusImage(c.data.cover);
+          return (
+          <a class="services-card reveal" href={`/${c.data.slug}`}>
+            {cover && (
+              <Image src={cover.src} alt={c.data.cover_alt || c.data.title} width={700} height={900} sizes="(max-width: 800px) 84vw, 33vw" loading="lazy" />
+            )}
+            <span class="services-card__number">{String(i + 1).padStart(2, '0')}</span>
+            <div class="services-card__content">
+              <p>{c.data.tagline}</p>
+              <h3 set:html={em(c.data.title)} />
+              <span class="round-arrow" aria-hidden="true">
+                ↗
+              </span>
+            </div>
+          </a>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <Faq items={faq} eyebrow="Перед визитом" title="Общие вопросы" />
+</Page>
+
+<style>
+  .services-hero {
+    max-width: var(--container);
+    margin: auto;
+    padding: 60px var(--gutter) 20px;
+  }
+  .services-hero h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 0.98;
+    margin: 0 0 28px;
+  }
+  .services-hero h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .services-hero__lead {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 62ch;
+  }
+
+  .services-grid__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .services-card {
+    height: 610px;
+    position: relative;
+    overflow: hidden;
+    background: #282722;
+    color: #fff;
+    border-radius: var(--radius);
+  }
+  .services-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(20, 20, 17, 0.05) 28%, rgba(20, 20, 17, 0.76) 100%);
+  }
+  .services-card :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.8);
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+  .services-card:hover :global(img) {
+    transform: scale(1.045);
+  }
+  .services-card__number {
+    position: absolute;
+    z-index: 2;
+    top: 22px;
+    left: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+  }
+  .services-card__content {
+    position: absolute;
+    z-index: 2;
+    inset: auto 28px 30px;
+  }
+  .services-card__content p {
+    margin-bottom: 16px;
+    font-size: 11px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .services-card__content h3 {
+    margin: 0;
+    font: 400 var(--t-h3) / 1.02 var(--display);
+  }
+  .round-arrow {
+    position: absolute;
+    right: 0;
+    bottom: 1px;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    transition:
+      background var(--dur-fast),
+      color var(--dur-fast),
+      transform var(--dur-fast);
+  }
+  .services-card:hover .round-arrow {
+    background: #fff;
+    color: var(--ink);
+    transform: rotate(45deg);
+  }
+
+  @media (max-width: 800px) {
+    .services-grid__list {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      margin-right: -18px;
+      padding-right: 18px;
+    }
+    .services-card {
+      flex: 0 0 84vw;
+      height: 520px;
+    }
+  }
+</style>
