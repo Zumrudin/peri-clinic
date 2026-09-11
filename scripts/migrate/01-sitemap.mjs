@@ -70,7 +70,7 @@ const CLASSIFY = {
   loyaltyprogram: { type: 'legal_page', template: 'loyalty' },
   spravka: { type: 'legal_page', template: 'spravka' },
 
-  soglashenie: { type: 'redirect', redirectTo: '/politika', note: 'Заголовок "Политика персональных данных" — устаревший дубль /politika.' },
+  soglashenie: { type: 'legal_page', template: 'legal', note: 'Отдельное согласие на обработку персональных данных; проверено на исходном сайте 2026-09-11.' },
   'копия-маски': { type: 'redirect', redirectTo: '/esteticheskaya-kosmetologiya', note: 'Заголовок "Чистки" — забытый backup-черновик, не совпадает по смыслу с /maski.' },
   'копия-услуги-и-цены': { type: 'redirect', redirectTo: '/uslugi-i-ceny', note: 'Заголовок "бэкап Услуги и цены" — явный backup.' },
 };

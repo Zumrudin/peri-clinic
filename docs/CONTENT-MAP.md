@@ -16,7 +16,7 @@
 | https://www.peri-clinic.ru/yuridicheskaya-informaciya | legal_page | /yuridicheskaya-informaciya | Хаб-страница со ссылками на прочие юр. документы. |
 | https://www.peri-clinic.ru/profeccial | procedure | /profeccial |  |
 | https://www.peri-clinic.ru/result | results | /result |  |
-| https://www.peri-clinic.ru/soglashenie | redirect | 301 → /politika | Заголовок "Политика персональных данных" — устаревший дубль /politika. |
+| https://www.peri-clinic.ru/soglashenie | legal_page | /soglashenie | Отдельное согласие на обработку персональных данных от 01.01.2026; повторно проверено 2026-09-11. |
 | https://www.peri-clinic.ru/injekcionnaya-cosmetologiya | category | /injekcionnaya-cosmetologiya |  |
 | https://www.peri-clinic.ru/rf-lifting-inmode | procedure | /rf-lifting-inmode |  |
 | https://www.peri-clinic.ru/beautylizer | procedure | /beautylizer |  |
