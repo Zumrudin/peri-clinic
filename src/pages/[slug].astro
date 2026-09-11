@@ -3,6 +3,7 @@ import CategoryPage from '../templates/CategoryPage.astro';
 import ProcedurePage from '../templates/ProcedurePage.astro';
 import ContentPage from '../templates/ContentPage.astro';
 import LegalPage from '../templates/LegalPage.astro';
+import LoyaltyPage from '../templates/LoyaltyPage.astro';
 import { getAllCategories } from '../lib/categoryContent';
 import { getAllProcedures } from '../lib/procedureContent';
 import { getAllPages } from '../lib/pageContent';
@@ -22,4 +23,4 @@ const { kind, category, procedure, page } = Astro.props;
 
 {kind === 'category' && <CategoryPage category={category} />}
 {kind === 'procedure' && <ProcedurePage procedure={procedure} />}
-{kind === 'page' && (page.data.template === 'legal' ? <LegalPage page={page} /> : <ContentPage page={page} />)}
+{kind === 'page' && (page.data.template === 'legal' ? <LegalPage page={page} /> : page.data.template === 'loyalty' ? <LoyaltyPage page={page} /> : <ContentPage page={page} />)}

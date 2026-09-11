@@ -1,0 +1,84 @@
+---
+import Page from '../layouts/Page.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { page: CollectionEntry<'pages'> }
+const { page } = Astro.props;
+const p = page.data;
+---
+
+<Page title={p.seo_title || `${p.title} — PERI CLINIC`} description={p.seo_description || p.lead || ''} noindex={p.noindex}>
+  <div class="loyalty-page">
+    <Breadcrumbs items={[{ name: p.title, href: `/${p.slug}` }]} />
+    <header class="loyalty-heading">
+      <h1>{p.title}</h1>
+      {p.lead && <p>{p.lead}</p>}
+    </header>
+    {p.body && <div class="loyalty-content" set:html={p.body} />}
+  </div>
+</Page>
+
+<style>
+  .loyalty-page { max-width: 1440px; margin: auto; padding: 32px var(--gutter) 100px; }
+  .loyalty-page :global(.breadcrumbs) { padding: 0; }
+  .loyalty-heading { padding: 48px 0 40px; }
+  h1 { margin: 0 0 20px; font: 400 clamp(42px, 5vw, 72px)/1.05 var(--display); text-wrap: balance; }
+  .loyalty-heading > p { max-width: 720px; margin: 0; color: var(--ink-2); font-size: 16px; line-height: 1.75; }
+  .loyalty-content { font-size: 15px; line-height: 1.75; color: var(--ink-2); }
+  .loyalty-content :global(h2) { font: 400 clamp(32px, 3.6vw, 48px)/1.12 var(--display); color: var(--ink); margin: 0 0 24px; text-wrap: balance; }
+  .loyalty-content :global(h3) { font: 400 28px/1.2 var(--display); color: var(--ink); margin: 0 0 14px; }
+  .loyalty-content :global(p) { margin: 0 0 20px; }
+  .loyalty-content :global(.loyalty-eyebrow) { font-size: 11px; color: var(--gold-deep); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 18px; }
+  .loyalty-content :global(.loyalty-welcome) { display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; gap: clamp(28px, 5vw, 72px); background: var(--paper); border: 1px solid var(--line); padding: clamp(24px, 4vw, 56px); border-radius: var(--radius-lg); }
+  .loyalty-content :global(.loyalty-note) { font-size: 12px; margin: 14px 0 0; color: var(--muted); }
+  .loyalty-content :global(.loyalty-bonus) { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; background: radial-gradient(ellipse at top right, #655731 0%, #292923 65%); color: var(--dark-text); border: 1px solid #897344; border-radius: 24px; padding: 32px; }
+  .loyalty-content :global(.loyalty-bonus__brand) { font: 17px var(--display); letter-spacing: .19em; color: #e3cd90; }
+  .loyalty-content :global(.loyalty-bonus__value) { font: 400 clamp(90px, 10vw, 150px)/1.05 var(--display); margin-top: 22px; color: #f1deb0; }
+  .loyalty-content :global(.loyalty-bonus__unit) { font: 24px/1.2 var(--display); margin-bottom: 20px; }
+  .loyalty-content :global(.loyalty-bonus p) { font-size: 13px; color: #ddd7c8; }
+  .loyalty-content :global(.loyalty-bonus__footer) { width: 100%; padding-top: 18px; border-top: 1px solid var(--line-on-dark); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #e3cd90; }
+  .loyalty-content :global(.loyalty-section) { margin-top: clamp(56px, 7vw, 96px); }
+  .loyalty-content :global(.loyalty-section__lead) { max-width: 700px; margin-bottom: 32px; }
+  .loyalty-content :global(.loyalty-steps) { list-style: none; padding: 0; margin: 34px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; counter-reset: step; }
+  .loyalty-content :global(.loyalty-steps li) { border-top: 1px solid var(--line); padding-top: 24px; counter-increment: step; }
+  .loyalty-content :global(.loyalty-steps li::before) { content: '0' counter(step); display: block; font-size: 13px; color: var(--gold-deep); margin-bottom: 20px; }
+  .loyalty-content :global(.loyalty-steps p) { font-size: 14px; margin-bottom: 0; }
+  .loyalty-content :global(.loyalty-tiers) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .loyalty-content :global(.loyalty-tier) { padding: 30px; border: 1px solid var(--line); border-radius: var(--radius); }
+  .loyalty-content :global(.loyalty-tier--bronze) { background: #f0e6dc; }
+  .loyalty-content :global(.loyalty-tier--silver) { background: #ecece8; }
+  .loyalty-content :global(.loyalty-tier--gold) { background: #eee5cc; }
+  .loyalty-content :global(.loyalty-tier h3) { font-size: 30px; }
+  .loyalty-content :global(.loyalty-tier p) { font-size: 13px; }
+  .loyalty-content :global(.loyalty-tier .loyalty-tier__rate) { font: 400 88px/1 var(--display); color: var(--ink); margin: 22px 0 4px; }
+  .loyalty-content :global(.loyalty-tier__rate span) { font-size: 42px; }
+  .loyalty-content :global(.loyalty-tier .loyalty-tier__threshold) { padding-top: 20px; margin: 24px 0 0; border-top: 1px solid var(--line); }
+  .loyalty-content :global(.loyalty-tier__threshold strong) { display: inline-block; margin-top: 6px; font-size: 15px; font-weight: 500; color: var(--ink); }
+  .loyalty-content :global(.loyalty-options) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .loyalty-content :global(.loyalty-options article) { padding: 32px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+  .loyalty-content :global(.loyalty-option__label) { display: block; color: var(--gold-deep); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 18px; }
+  .loyalty-content :global(.loyalty-options p) { margin-bottom: 0; }
+  .loyalty-content :global(.loyalty-callout) { margin: 24px 0 0; padding: 18px 24px; border-left: 2px solid var(--gold-deep); background: var(--sand); font-size: 14px; }
+  .loyalty-content :global(.loyalty-rules) { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; }
+  .loyalty-content :global(.loyalty-rules ul) { list-style: none; padding: 0; margin: 0; }
+  .loyalty-content :global(.loyalty-rules li) { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .loyalty-content :global(.loyalty-rules li:first-child) { padding-top: 0; }
+  .loyalty-content :global(strong) { font-weight: 500; color: var(--ink); }
+  .loyalty-content :global(.loyalty-join) { display: flex; align-items: center; justify-content: space-between; gap: 32px; margin-top: 72px; padding: 40px; background: var(--sand); border-radius: var(--radius); }
+  .loyalty-content :global(.loyalty-join h2) { margin-bottom: 12px; }
+  .loyalty-content :global(.loyalty-join p) { margin-bottom: 0; }
+  .loyalty-content :global(.button) { white-space: normal; text-align: center; }
+  @media (max-width: 1000px) {
+    .loyalty-content :global(.loyalty-tier) { padding: 22px; }
+    .loyalty-content :global(.loyalty-join) { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 800px) {
+    .loyalty-heading { padding: 32px 0; }
+    .loyalty-content :global(.loyalty-welcome), .loyalty-content :global(.loyalty-steps), .loyalty-content :global(.loyalty-tiers), .loyalty-content :global(.loyalty-options), .loyalty-content :global(.loyalty-rules) { grid-template-columns: 1fr; }
+    .loyalty-content :global(.loyalty-bonus) { width: 100%; }
+    .loyalty-content :global(.loyalty-rules) { gap: 20px; }
+    .loyalty-content :global(.loyalty-join), .loyalty-content :global(.loyalty-options article) { padding: 24px; }
+    .loyalty-content :global(.button) { width: 100%; padding-left: 18px; padding-right: 18px; }
+  }
+</style>
