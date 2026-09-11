@@ -13,14 +13,19 @@ try {
   for (const width of [320, 375, 800, 1440]) {
     const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
     for (const path of paths) {
-      await page.goto(base + path, { waitUntil: 'networkidle' });
-      const errors = await page.evaluate(() => {
+      const response = await page.goto(base + path, { waitUntil: 'networkidle' });
+      if (!response?.ok()) throw new Error(`HTTP ${response?.status()}: ${path}`);
+      const errors = await page.evaluate(async () => {
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => { img.loading = 'eager'; });
+        await Promise.all([...document.images].map(img => img.complete ? null : new Promise(resolve => { img.onload = resolve; img.onerror = resolve; })));
+
         const errors = [];
+        if ([...document.images].some(img => !img.naturalWidth)) errors.push('Image failed to load');
         if (document.querySelectorAll('h1').length !== 1) errors.push('Expected one h1');
         for (const link of document.querySelectorAll('.treatment-nav a')) {
           if (!document.querySelector(link.getAttribute('href'))) errors.push(`Missing anchor ${link.hash}`);
         }
-        for (const el of document.querySelectorAll('section[class*="treatment-"] *, .treatment-nav')) {
+        for (const el of document.querySelectorAll('section[class*="treatment-"] *, .treatment-nav, .mobile-cta-bar a, .mobile-cta-bar button')) {
           const rect = el.getBoundingClientRect();
           if (rect.width && (rect.right > innerWidth + 1 || rect.left < -1)) errors.push(`Overflow: ${el.tagName}.${el.className}`);
         }
@@ -36,4 +41,4 @@ try {
   }
 } finally { await browser.close(); }
 if (failures.length) { console.error(JSON.stringify(failures, null, 2)); process.exitCode = 1; }
-else console.log('OK: anchors, heading, booking dialog and horizontal bounds.');
+else console.log('OK: images, anchors, heading, booking dialog and horizontal bounds.');

@@ -20,7 +20,7 @@ const browser = await chromium.launch({ executablePath, args: ['--no-sandbox'] }
 
 for (const path of pages) {
   for (const width of widths) {
-    const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 1 });
+    const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 1, reducedMotion: 'reduce' });
     await page.goto(baseUrl + path, { waitUntil: 'networkidle' });
     // Scroll through the page so IntersectionObserver reveals everything, then back to top.
     const revealed = await page.evaluate(async () => {
@@ -43,6 +43,7 @@ for (const path of pages) {
       await new Promise((r) => setTimeout(r, 1000));
       return document.querySelectorAll('.reveal.is-visible').length;
     });
+    await page.evaluate(() => Promise.all([...document.images].map(img => img.decode().catch(() => {}))));
     const name = (path === '/' ? 'index' : path.replace(/^\//, '').replace(/\//g, '_')) + `-${width}.png`;
     await page.screenshot({ path: join(outDir, name), fullPage: true, animations: 'disabled' });
     console.log('saved', join(outDir, name), `(revealed ${revealed})`);
