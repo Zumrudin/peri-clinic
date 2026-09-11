@@ -10,16 +10,17 @@ interface Props {
   title: string;
   result?: string;
   category?: string;
+  categorySlug?: string;
   before?: ImgRef | null;
   after?: ImgRef | null;
   combined?: ImgRef | null;
 }
-const { title, result, category, before, after, combined } = Astro.props;
+const { title, result, category, categorySlug, before, after, combined } = Astro.props;
 const hasPair = before && after;
 const single = combined ?? after ?? before;
 ---
 
-<article class="case-card reveal">
+<article class="case-card reveal" data-category={categorySlug ?? ''}>
   {
     hasPair ? (
       <div class="case-card__pair">
