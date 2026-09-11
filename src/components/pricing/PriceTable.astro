@@ -1,0 +1,93 @@
+---
+import { formatPrice } from '../../lib/markup';
+import type { PriceItem } from '../../lib/procedureContent';
+
+interface Props {
+  items: PriceItem[];
+  showPrices: boolean;
+  contextLabel: string;
+  icd10?: string | null;
+}
+const { items, showPrices, contextLabel, icd10 } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <div class="price-table">
+      {icd10 && <p class="price-table__icd">МКБ-10: {icd10}</p>}
+      <table>
+        <tbody>
+          {items.map((item) => {
+            const amount = showPrices ? formatPrice(item.price) : null;
+            return (
+              <tr>
+                <td>
+                  {item.name}
+                  {item.unit && <span class="price-table__unit"> · {item.unit}</span>}
+                </td>
+                <td class="price-table__amount">
+                  {amount && amount}
+                  {!amount && showPrices && item.note && <span class="price-table__note">{item.note}</span>}
+                  {!amount && (!showPrices || !item.note) && (
+                    <button type="button" class="text-link price-table__cta" data-open-sheet data-context={contextLabel}>
+                      Узнать цену <span>↗</span>
+                    </button>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+<style>
+  .price-table {
+    max-width: 760px;
+  }
+  .price-table__icd {
+    margin: 0 0 16px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .price-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .price-table td {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+    vertical-align: baseline;
+  }
+  .price-table__unit {
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .price-table__amount {
+    text-align: right;
+    white-space: nowrap;
+    padding-left: 20px;
+    font: 400 16px var(--display);
+    color: var(--gold-deep);
+  }
+  .price-table__note {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .price-table__cta {
+    gap: 8px;
+    padding: 0;
+    border: none;
+    border-bottom: none;
+    background: none;
+    font-size: 11px;
+  }
+  .price-table__cta span {
+    font-size: 14px;
+  }
+</style>

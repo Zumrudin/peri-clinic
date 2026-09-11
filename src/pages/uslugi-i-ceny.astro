@@ -3,13 +3,18 @@ import { Image } from 'astro:assets';
 import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import Faq from '../components/faq/Faq.astro';
+import PriceTable from '../components/pricing/PriceTable.astro';
 import { em } from '../lib/markup';
 import { getAllCategories } from '../lib/categoryContent';
+import { getPriceListGrouped } from '../lib/procedureContent';
+import { getSiteSettings } from '../lib/siteContent';
 import { directusImage } from '../lib/media';
 import { getCollection } from 'astro:content';
 import { bySort } from '../lib/directus';
 
 const categories = await getAllCategories();
+const site = await getSiteSettings();
+const priceGroups = await getPriceListGrouped();
 const faq = bySort(await getCollection('allFaq'))
   .filter((f) => f.data.scope === 'general')
   .map((f) => ({ question: f.data.question, answer: f.data.answer ?? '' }));
@@ -49,6 +54,37 @@ const faq = bySort(await getCollection('allFaq'))
       }
     </div>
   </section>
+
+  {
+    priceGroups.length > 0 && (
+      <section class="section pricing reveal" aria-labelledby="pricing-title">
+        <p class="eyebrow">Стоимость</p>
+        <h2 id="pricing-title">Прайс-лист</h2>
+        {
+          priceGroups.map((group) => (
+            <div class="pricing__category">
+              <h3>{group.title}</h3>
+              <div class="pricing__list">
+                {
+                  group.procedures.map((proc) => (
+                    <details class="pricing__item">
+                      <summary>
+                        <span>{proc.title}</span>
+                        <span class="pricing__chevron" aria-hidden="true">
+                          ↓
+                        </span>
+                      </summary>
+                      <PriceTable items={proc.items} showPrices={site.show_prices} icd10={proc.icd10} contextLabel={proc.title} />
+                    </details>
+                  ))
+                }
+              </div>
+            </div>
+          ))
+        }
+      </section>
+    )
+  }
 
   <Faq items={faq} eyebrow="Перед визитом" title="Общие вопросы" />
 </Page>
@@ -169,5 +205,43 @@ const faq = bySort(await getCollection('allFaq'))
       flex: 0 0 84vw;
       height: 520px;
     }
+  }
+
+  .pricing h2 {
+    font-size: var(--t-h2-s);
+    margin: 10px 0 36px;
+  }
+  .pricing__category {
+    max-width: 760px;
+    margin-bottom: 48px;
+  }
+  .pricing__category h3 {
+    font: 400 26px var(--display);
+    margin: 0 0 16px;
+  }
+  .pricing__list {
+    border-top: 1px solid var(--line);
+  }
+  .pricing__item {
+    border-bottom: 1px solid var(--line);
+  }
+  .pricing__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 0;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  .pricing__chevron {
+    color: var(--gold-deep);
+    transition: transform var(--dur-fast);
+  }
+  .pricing__item[open] .pricing__chevron {
+    transform: rotate(180deg);
+  }
+  .pricing__item .price-table {
+    padding-bottom: 20px;
   }
 </style>

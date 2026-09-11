@@ -4,9 +4,10 @@ import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import Faq from '../components/faq/Faq.astro';
 import CaseCard from '../components/results/CaseCard.astro';
+import PriceTable from '../components/pricing/PriceTable.astro';
 import { em, telHref, whatsappHref } from '../lib/markup';
 import { getSiteSettings } from '../lib/siteContent';
-import { getCasesForProcedure, getFaqForProcedure, procedureGallery } from '../lib/procedureContent';
+import { getCasesForProcedure, getFaqForProcedure, getPriceItemsForProcedure, procedureGallery } from '../lib/procedureContent';
 import { directusImage } from '../lib/media';
 import type { CollectionEntry } from 'astro:content';
 
@@ -19,6 +20,7 @@ const p = entry.data;
 const site = await getSiteSettings();
 const cases = await getCasesForProcedure(p.slug);
 const faq = await getFaqForProcedure(p.slug);
+const priceItems = await getPriceItemsForProcedure(p.slug);
 const gallery = procedureGallery(p.gallery);
 const cover = directusImage(p.cover);
 
@@ -138,6 +140,16 @@ const waText = `Здравствуйте! Хочу записаться на «$
   }
 
   {
+    priceItems.length > 0 && (
+      <section class="section proc-pricing reveal" aria-labelledby="proc-pricing-title">
+        <p class="eyebrow">Стоимость</p>
+        <h2 id="proc-pricing-title">Цены на «{p.title}»</h2>
+        <PriceTable items={priceItems} showPrices={site.show_prices} icd10={p.icd10} contextLabel={p.title} />
+      </section>
+    )
+  }
+
+  {
     cases.length > 0 && (
       <section class="section proc-cases reveal" aria-labelledby="proc-cases-title">
         <p class="eyebrow">Результаты</p>
@@ -231,7 +243,8 @@ const waText = `Здравствуйте! Хочу записаться на «$
 
   .proc-steps h2,
   .proc-cases h2,
-  .proc-medical h2 {
+  .proc-medical h2,
+  .proc-pricing h2 {
     font-size: var(--t-h2-s);
     margin: 10px 0 36px;
   }
