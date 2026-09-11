@@ -7,13 +7,9 @@ import { getCollection } from 'astro:content';
 import { bySort } from '../lib/directus';
 
 const cases = bySort(await getCollection('allCases'));
-
-const groups = new Map<string, { title: string; items: typeof cases }>();
-for (const c of cases) {
-  const key = c.data.category?.title ?? 'Другое';
-  if (!groups.has(key)) groups.set(key, { title: key, items: [] });
-  groups.get(key)!.items.push(c);
-}
+const categories = bySort(await getCollection('caseCategories')).filter((cat) =>
+  cases.some((c) => c.data.category?.slug === cat.data.slug),
+);
 ---
 
 <Page title="Результаты до и после — PERI CLINIC" description="Реальные результаты пациентов PERI CLINIC: аппаратная и инъекционная косметология, эстетические процедуры. Каждый результат индивидуален.">
@@ -25,24 +21,36 @@ for (const c of cases) {
     <p class="results-hero__lead">Реальные пациенты PERI CLINIC. Каждый результат индивидуален и зависит от исходных данных и плана коррекции.</p>
   </section>
 
-  {
-    [...groups.values()].map((group) => (
-      <section class="section results-group" aria-labelledby={`group-${group.title}`}>
-        <h2 id={`group-${group.title}`}>{group.title}</h2>
-        <div class="results-group__grid">
-          {group.items.map((c) => (
-            <CaseCard
-              title={c.data.title}
-              result={c.data.result ?? ''}
-              before={directusImage(c.data.before)}
-              after={directusImage(c.data.after)}
-              combined={directusImage(c.data.combined)}
-            />
-          ))}
-        </div>
-      </section>
-    ))
-  }
+  <section class="section results-gallery" data-results-filter aria-labelledby="results-heading">
+    <h2 id="results-heading" class="visually-hidden">Результаты по категориям</h2>
+
+    <div class="results-filter" role="group" aria-label="Фильтр по категории">
+      <button type="button" class="results-filter__btn" data-filter="all" aria-pressed="true">Все</button>
+      {
+        categories.map((cat) => (
+          <button type="button" class="results-filter__btn" data-filter={cat.data.slug} aria-pressed="false">
+            {cat.data.title}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="results-gallery__grid">
+      {
+        cases.map((c) => (
+          <CaseCard
+            title={c.data.title}
+            result={c.data.result ?? ''}
+            category={c.data.category?.title}
+            categorySlug={c.data.category?.slug}
+            before={directusImage(c.data.before)}
+            after={directusImage(c.data.after)}
+            combined={directusImage(c.data.combined)}
+          />
+        ))
+      }
+    </div>
+  </section>
 </Page>
 
 <style>
@@ -68,17 +76,44 @@ for (const c of cases) {
     line-height: 1.7;
     max-width: 62ch;
   }
-  .results-group {
+  .results-gallery {
     padding-top: 0;
-    padding-bottom: 60px;
   }
-  .results-group h2 {
-    font: 400 28px var(--display);
-    margin: 0 0 24px;
+  .results-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 32px;
   }
-  .results-group__grid {
+  .results-filter__btn {
+    border: 1px solid var(--gold-deep);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--gold-deep);
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition:
+      background var(--dur-fast),
+      color var(--dur-fast);
+  }
+  .results-filter__btn[aria-pressed='true'] {
+    background: var(--gold-deep);
+    color: #fff;
+  }
+  .results-gallery__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 18px;
   }
+  .results-gallery__grid .is-hidden {
+    display: none;
+  }
 </style>
+
+<script>
+  import { initResultsFilter } from '../scripts/results-filter';
+  initResultsFilter(document.querySelector('[data-results-filter]'));
+</script>
