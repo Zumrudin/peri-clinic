@@ -3,6 +3,7 @@ dist/
 .astro/
 .env
 .env.*
+.worktrees/
 !.env.example
 scripts/migrate/raw/
 scripts/migrate/media/
