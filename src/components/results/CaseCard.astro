@@ -26,22 +26,22 @@ const single = combined ?? after ?? before;
       <div class="case-card__pair">
         <div class="case-card__half">
           <Image src={before!.src} alt={`${title} — до`} width={500} height={620} sizes="(max-width: 800px) 43vw, 220px" loading="lazy" />
-          <span>до</span>
+          <span class="glass-chip">до</span>
         </div>
         <div class="case-card__half">
           <Image src={after!.src} alt={`${title} — после`} width={500} height={620} sizes="(max-width: 800px) 43vw, 220px" loading="lazy" />
-          <span>после</span>
+          <span class="glass-chip">после</span>
         </div>
       </div>
     ) : single ? (
       <div class="case-card__image">
         <Image src={single.src} alt={title} width={700} height={620} sizes="(max-width: 800px) 86vw, 30vw" loading="lazy" />
-        <span>до / после</span>
+        <span class="glass-chip">до / после</span>
       </div>
     ) : null
   }
   <div class="case-card__body">
-    {category && <p class="case-card__category">{category}</p>}
+    {category && <p class="case-card__category glass-chip">{category}</p>}
     <h3>{title}</h3>
     {result && <p class="case-card__result">{result}</p>}
   </div>
@@ -49,9 +49,17 @@ const single = combined ?? after ?? before;
 
 <style>
   .case-card {
-    background: var(--paper);
-    border-radius: var(--radius);
+    background: var(--gold-05);
+    border: 1px solid var(--line-gold);
+    border-radius: var(--radius-lg);
     overflow: hidden;
+    transition:
+      transform var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast);
+  }
+  .case-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold);
   }
   .case-card__pair {
     display: grid;
@@ -75,8 +83,6 @@ const single = combined ?? after ?? before;
     position: absolute;
     left: 10px;
     bottom: 10px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 6px 10px;
     font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
