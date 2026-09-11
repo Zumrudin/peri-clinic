@@ -44,6 +44,7 @@ export function procedureGallery(gallery: { directus_files_id: { id: string; wid
 export interface PriceItem {
   name: string;
   price: number | null;
+  priceHeadDoctor: number | null;
   unit: string | null;
   note: string | null;
 }
@@ -56,6 +57,7 @@ export async function getPriceItemsForProcedure(procedureSlug: string): Promise<
     .map((item) => ({
       name: item.data.name,
       price: item.data.price ?? null,
+      priceHeadDoctor: item.data.price_head_doctor ?? null,
       unit: item.data.unit ?? null,
       note: item.data.note ?? null,
     }));

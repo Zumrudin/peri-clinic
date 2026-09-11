@@ -9,6 +9,9 @@ interface Props {
   icd10?: string | null;
 }
 const { items, showPrices, contextLabel, icd10 } = Astro.props;
+
+/** True when at least one row has a distinct "Гл. врач" price — adds a second amount column and a header row for it. Most procedures have a single price, so the plain single-column layout (no <thead>) stays unchanged for them. */
+const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
 ---
 
 {
@@ -16,24 +19,42 @@ const { items, showPrices, contextLabel, icd10 } = Astro.props;
     <div class="price-table">
       {icd10 && <p class="price-table__icd">МКБ-10: {icd10}</p>}
       <table>
+        {
+          hasTiered && (
+            <thead>
+              <tr>
+                <td></td>
+                <th class="price-table__col-label">Врач</th>
+                <th class="price-table__col-label">Гл. врач</th>
+              </tr>
+            </thead>
+          )
+        }
         <tbody>
           {items.map((item) => {
-            const amount = showPrices ? formatPrice(item.price) : null;
+            const noPriceAtAll = item.price === null && item.priceHeadDoctor === null;
             return (
               <tr>
                 <td>
                   {item.name}
                   {item.unit && <span class="price-table__unit"> · {item.unit}</span>}
                 </td>
-                <td class="price-table__amount">
-                  {amount && amount}
-                  {!amount && showPrices && item.note && <span class="price-table__note">{item.note}</span>}
-                  {!amount && (!showPrices || !item.note) && (
-                    <button type="button" class="text-link price-table__cta" data-open-sheet data-context={contextLabel}>
-                      Узнать цену <span>↗</span>
-                    </button>
-                  )}
-                </td>
+                {showPrices && !noPriceAtAll ? (
+                  <>
+                    <td class="price-table__amount">{formatPrice(item.price) ?? '—'}</td>
+                    {hasTiered && <td class="price-table__amount">{item.priceHeadDoctor !== null ? formatPrice(item.priceHeadDoctor) : '—'}</td>}
+                  </>
+                ) : (
+                  <td class="price-table__amount" colspan={hasTiered ? 2 : 1}>
+                    {showPrices && item.note ? (
+                      <span class="price-table__note">{item.note}</span>
+                    ) : (
+                      <button type="button" class="text-link price-table__cta" data-open-sheet data-context={contextLabel}>
+                        Узнать цену <span>↗</span>
+                      </button>
+                    )}
+                  </td>
+                )}
               </tr>
             );
           })}
@@ -67,6 +88,15 @@ const { items, showPrices, contextLabel, icd10 } = Astro.props;
   .price-table__unit {
     color: var(--muted);
     font-size: 12px;
+  }
+  .price-table__col-label {
+    padding: 0 0 8px 20px;
+    text-align: right;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
   .price-table__amount {
     text-align: right;
