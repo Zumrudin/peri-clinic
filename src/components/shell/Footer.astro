@@ -16,7 +16,7 @@ const socials = [
 
 <footer class="footer" id="contacts">
   <h2 class="visually-hidden">Информация о клинике</h2>
-  <div class="footer__top">
+  <div class="footer__top glass-panel">
     <a class="footer__logo" href="/" aria-label={`${site.name} — на главную`}>
       <Image src={logo} alt={site.name} width={190} densities={[1, 2]} loading="lazy" />
     </a>
@@ -54,7 +54,7 @@ const socials = [
     </div>
   </div>
 
-  <p class="footer__disclaimer">{site.contraindications_text}</p>
+  <p class="footer__disclaimer glass-chip">{site.contraindications_text}</p>
 
   <LegalBlock />
 
@@ -67,15 +67,15 @@ const socials = [
 
 <style>
   .footer {
-    background: var(--sand);
+    background: linear-gradient(180deg, var(--gold-05), var(--sand) 40%);
     padding: 80px var(--gutter-wide) 30px;
   }
   .footer__top {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
-    padding-bottom: 55px;
-    border-bottom: 1px solid var(--line);
+    padding: 28px var(--s-6);
+    margin-bottom: 40px;
   }
   .footer__logo img {
     width: 190px;
@@ -95,7 +95,7 @@ const socials = [
     display: grid;
     grid-template-columns: 1fr 1.5fr 1.2fr 1.2fr;
     gap: 60px;
-    padding: 55px 0 45px;
+    padding: 15px 0 45px;
   }
   .footer__grid h3 {
     margin: 0 0 22px;
@@ -119,10 +119,9 @@ const socials = [
     color: var(--gold-deep);
   }
   .footer__disclaimer {
-    margin: 0 0 20px;
-    padding: 14px 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
+    display: table;
+    margin: 0 auto 24px;
+    max-width: 640px;
     text-align: center;
     color: var(--ink-2);
     font: 500 12px/1.4 var(--sans);

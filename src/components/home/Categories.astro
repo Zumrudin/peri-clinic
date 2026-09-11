@@ -25,11 +25,11 @@ const isBento = categories.items.length === 3;
             sizes="(max-width: 800px) 84vw, 33vw"
             loading="lazy"
           />
-          <span class="service-card__number">{String(i + 1).padStart(2, '0')}</span>
+          <span class="service-card__number glass-chip glass-chip--dark">{String(i + 1).padStart(2, '0')}</span>
           <div class="service-card__content">
-            <p>{item.tagline}</p>
+            <p class="glass-chip glass-chip--dark">{item.tagline}</p>
             <h3 set:html={em(item.title)} />
-            <span class="round-arrow" aria-hidden="true">
+            <span class="round-arrow glass-chip glass-chip--dark" aria-hidden="true">
               ↗
             </span>
           </div>
@@ -91,7 +91,6 @@ const isBento = categories.items.length === 3;
     z-index: 2;
     top: 22px;
     left: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.55);
     border-radius: 50%;
     width: 38px;
     height: 38px;
@@ -121,7 +120,6 @@ const isBento = categories.items.length === 3;
     bottom: 1px;
     width: 48px;
     height: 48px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 50%;
     display: grid;
     place-items: center;
