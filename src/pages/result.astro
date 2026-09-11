@@ -87,7 +87,7 @@ const categories = bySort(await getCollection('caseCategories')).filter((cat) =>
   }
   .results-filter__btn {
     border: 1px solid var(--gold-deep);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: transparent;
     color: var(--gold-deep);
     padding: 10px 20px;
@@ -108,7 +108,7 @@ const categories = bySort(await getCollection('caseCategories')).filter((cat) =>
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 18px;
   }
-  .results-gallery__grid .is-hidden {
+  .results-gallery__grid :global(.is-hidden) {
     display: none;
   }
 </style>
