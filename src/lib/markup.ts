@@ -35,3 +35,9 @@ export function formatRuDate(iso: string | null | undefined): string {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
   return m ? `${m[3]}.${m[2]}.${m[1]}` : iso;
 }
+
+/** `15000` → `"15 000 ₽"`. `null` (price on request) passes through unchanged for the caller to handle. */
+export function formatPrice(price: number | null): string | null {
+  if (price === null) return null;
+  return `${String(price).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽`;
+}
