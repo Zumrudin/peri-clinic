@@ -54,8 +54,8 @@ const { hero } = home;
       <span class="hero__note-icon" aria-hidden="true">✦</span>
       <p set:html={em(hero.note)} />
     </div>
-    <div class="hero__address">
-      <span>{site.city}</span>
+    <div class="hero__address glass-panel glass-panel--dark">
+      <span class="glass-chip glass-chip--dark">{site.city}</span>
       <p set:html={em(site.address_lines)} />
     </div>
   </div>
@@ -108,7 +108,7 @@ const { hero } = home;
     min-width: 155px;
     margin-right: 28px;
     padding-right: 28px;
-    border-right: 1px solid var(--line);
+    border-right: 1px solid var(--line-gold);
   }
   .hero__facts div:last-child {
     border: 0;
@@ -189,17 +189,16 @@ const { hero } = home;
     position: absolute;
     left: 30px;
     bottom: 30px;
-    color: #fff;
     display: flex;
-    gap: 30px;
-    align-items: start;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.25);
+    gap: 16px;
+    align-items: center;
+    padding: 14px 20px;
+    color: #fff;
   }
   .hero__address span {
     font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    padding-top: 5px;
   }
   .hero__address p {
     font: 17px/1.2 var(--display);
@@ -256,7 +255,7 @@ const { hero } = home;
     .hero__facts {
       margin: 40px 0 25px;
       padding: 25px 0 0;
-      border-top: 1px solid var(--line);
+      border-top: 1px solid var(--line-gold);
       justify-content: space-between;
     }
     .hero__facts div {
