@@ -17,6 +17,14 @@
   --line: rgba(45, 43, 35, 0.14);
   --line-on-dark: rgba(255, 255, 255, 0.14);
 
+  /* Gold tonal ramp — light-end wash for card backgrounds/borders, used by
+     the estee-inspired refresh (Categories, CaseCard, Hero, Footer). */
+  --gold-05: #faf7ef;
+  --gold-10: #f3ecd9;
+  --gold-15: #e9dcb8;
+  --gold-25: #d9c383;
+  --line-gold: rgba(127, 101, 31, 0.16);
+
   /* Glass */
   --glass-bg: rgba(255, 253, 246, 0.6);
   --glass-bg-dark: rgba(41, 41, 35, 0.55);
@@ -26,6 +34,7 @@
 
   /* Shadow / glow */
   --shadow-soft: 0 20px 60px -12px rgba(36, 36, 31, 0.18);
+  --shadow-gold: 0 20px 60px -12px rgba(127, 101, 31, 0.2);
   --shadow-glow: 0 0 0 1px rgba(170, 137, 47, 0.18), 0 25px 80px -20px rgba(170, 137, 47, 0.45);
 
   /* Ambient glow blobs */
