@@ -1,0 +1,155 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import Page from '../layouts/Page.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import Faq from '../components/faq/Faq.astro';
+import CaseCard from '../components/results/CaseCard.astro';
+import PriceTable from '../components/pricing/PriceTable.astro';
+import { getSiteSettings } from '../lib/siteContent';
+import { getCasesForProcedure, getFaqForProcedure, getPriceItemsForProcedure } from '../lib/procedureContent';
+import { directusImage } from '../lib/media';
+import { em, formatPrice } from '../lib/markup';
+
+interface Props { procedure: CollectionEntry<'procedures'> }
+const { procedure } = Astro.props;
+const p = procedure.data;
+const [site, allCases, faq, prices] = await Promise.all([
+  getSiteSettings(), getCasesForProcedure(p.slug), getFaqForProcedure(p.slug), getPriceItemsForProcedure(p.slug),
+]);
+// A lone “after” photograph is not a before/after comparison.
+const cases = allCases.filter(c => c.combined || (c.before && c.after));
+const deviceImage = directusImage(p.device?.image);
+const cover = deviceImage || directusImage(p.cover);
+const amounts = prices.flatMap(item => [item.price, item.priceHeadDoctor]).filter((price): price is number => price !== null);
+const startingPrice = site.show_prices && amounts.length ? formatPrice(Math.min(...amounts)) : null;
+const facts = [
+  p.duration && { label: 'Длительность', value: p.duration },
+  p.rehab && { label: 'Восстановление', value: p.rehab },
+  p.effect_duration && { label: 'Эффект', value: p.effect_duration },
+  p.sessions && { label: 'Курс', value: p.sessions },
+].filter(Boolean) as Array<{ label: string; value: string }>;
+---
+<Page title={p.seo_title || `${p.title} — PERI CLINIC`} description={p.seo_description || p.summary || p.lead || ''}>
+  <Breadcrumbs slot="head" items={[...(p.category ? [{ name: p.category.title, href: `/${p.category.slug}` }] : []), { name: p.title, href: `/${p.slug}` }]} />
+  <section class:list={['device-hero', { 'device-hero--text': !cover }]} aria-labelledby="device-title">
+    <div class="device-hero__content">
+      <p class="eyebrow">PERI CLINIC · Аппаратная косметология</p>
+      <h1 id="device-title" set:html={em(p.title)} />
+      {p.subtitle && <p class="device-subtitle">{p.subtitle}</p>}
+      {(p.lead || p.summary) && <p class="device-lead">{p.lead || p.summary}</p>}
+      <div class="device-actions">
+        <button class="button" type="button" data-open-sheet data-context={p.title}>Записаться на консультацию <span>↗</span></button>
+        <a class="text-link" href="#prices">{startingPrice ? `От ${startingPrice}` : 'Узнать стоимость'} <span>↓</span></a>
+      </div>
+      {facts.length > 0 && <dl class="device-facts">{facts.map(f => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}</dl>}
+    </div>
+    {cover && <figure class:list={['device-hero__photo', { 'device-hero__photo--apparatus': deviceImage }]}>
+      <Image src={cover.src} alt={deviceImage ? `Аппарат ${p.device!.name}` : p.cover_alt || p.title} width={850} height={950} sizes="(max-width: 900px) 100vw, 42vw" loading="eager" fetchpriority="high" />
+      {deviceImage && <figcaption>{p.device!.name}<span>{p.device!.short}</span></figcaption>}
+    </figure>}
+  </section>
+
+  <nav class="device-nav" aria-label="Разделы страницы">
+    <a href="#about">Описание</a>
+    <a href="#results">До и после</a>
+    {p.steps.length > 0 && <a href="#visit">Этапы процедуры</a>}
+    <a href="#prices">Цены</a>
+    <a href="#booking">Запись</a>
+  </nav>
+
+  <section id="about" class="section device-about reveal" aria-labelledby="about-title">
+    <div><p class="eyebrow">О методике</p><h2 id="about-title">Об аппарате и процедуре</h2></div>
+    <div>
+      <div class="prose" set:html={p.body || `<p>${em(p.summary || p.lead || p.title)}</p>`} />
+      {p.benefits.length > 0 && <div class="device-benefits">{p.benefits.map(b => <article><h3>{b.title}</h3><p>{b.text}</p></article>)}</div>}
+    </div>
+  </section>
+
+  <section id="results" class="section device-results reveal" aria-labelledby="results-title">
+    <p class="eyebrow">Результаты</p><h2 id="results-title">До и после</h2>
+    {cases.length > 0 ? <>
+      <p class="device-note">Примеры результатов процедуры «{p.title}». Результат и количество процедур индивидуальны.</p>
+      <div class="device-cases">{cases.map(c => <CaseCard preserveAspect title={c.title} result={c.result} before={c.before} after={c.after} combined={c.combined} />)}</div>
+    </> : <p class="device-note">Фотографии до и после по этой процедуре пока не представлены. В общей галерее можно посмотреть результаты других процедур клиники.</p>}
+    <a class="text-link" href="/result">Все работы клиники <span>↗</span></a>
+  </section>
+
+  {p.steps.length > 0 && <section id="visit" class="section device-visit reveal" aria-labelledby="visit-title">
+    <p class="eyebrow">Ваш визит</p><h2 id="visit-title">Как проходит процедура</h2>
+    <ol class="device-steps">{p.steps.map(s => <li><h3>{s.title}</h3><p>{s.text}</p></li>)}</ol>
+  </section>}
+
+  {(p.indications || p.contraindications) && <section class="section device-medical reveal" aria-label="Показания и противопоказания">
+    {p.indications && <div><h2>Кому подходит процедура</h2><div class="prose" set:html={p.indications} /></div>}
+    {p.contraindications && <div><h2>Противопоказания</h2><div class="prose" set:html={p.contraindications} /></div>}
+  </section>}
+
+  <section id="prices" class="section device-prices reveal" aria-labelledby="prices-title">
+    <div><p class="eyebrow">Стоимость</p><h2 id="prices-title">Цены на процедуру</h2><p class="device-note">Выберите нужную зону или вариант процедуры в прайсе.</p></div>
+    <div>
+      {prices.length > 0 ? <PriceTable items={prices} showPrices={site.show_prices} icd10={p.icd10} contextLabel={p.title} /> : <p class="device-note">Стоимость можно уточнить у администратора перед записью.</p>}
+      <div class="device-actions"><button class="button" type="button" data-open-sheet data-context={p.title}>Уточнить стоимость и записаться <span>↗</span></button><a class="text-link" href="/uslugi-i-ceny">Полный прайс <span>↗</span></a></div>
+    </div>
+  </section>
+
+  <Faq items={faq} title="Вопросы о процедуре" />
+
+  <section id="booking" class="device-cta reveal" aria-labelledby="booking-title">
+    <p class="eyebrow">Следующий шаг</p>
+    <h2 id="booking-title">Начните с консультации</h2>
+    <p>Обсудите процедуру «{p.title}» с врачом: подходит ли она для вашей задачи, какого результата можно ожидать и какой план визитов выбрать.</p>
+    <p>Администратор ответит на вопросы о записи и поможет выбрать удобное время визита.</p>
+    <button class="button" type="button" data-open-sheet data-context={p.title}>Записаться на консультацию <span>↗</span></button>
+    {site.contraindications_text && <p class="device-cta__disclaimer">{site.contraindications_text}</p>}
+  </section>
+</Page>
+
+<style>
+  .device-hero { max-width: var(--container-wide); margin: auto; padding: 48px var(--gutter) 64px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 5vw; align-items: center; }
+  .device-hero--text { grid-template-columns: 1fr; }
+  .device-hero__content { min-width: 0; }
+  h1 { font-size: clamp(36px, 4.5vw, 66px); line-height: 1.06; margin: 18px 0 24px; overflow-wrap: anywhere; }
+  h2 { font-size: var(--t-h2-s); line-height: 1.1; margin: 12px 0 28px; }
+  h3 { font: 400 26px var(--display); margin: 0 0 12px; }
+  .device-subtitle { color: var(--gold-deep); }
+  .device-lead { color: var(--ink-2); line-height: 1.75; max-width: 58ch; }
+  .device-actions { display: flex; flex-wrap: wrap; gap: 22px; align-items: center; margin-top: 30px; }
+  .device-actions .button, .device-cta .button { white-space: normal; text-align: left; }
+  .device-hero__photo { margin: 0; background: var(--paper); border-radius: var(--radius); overflow: hidden; }
+  .device-hero__photo img { width: 100%; height: 510px; object-fit: contain; }
+  .device-hero__photo--apparatus img { padding: 30px; mix-blend-mode: multiply; }
+  figcaption { display: grid; gap: 8px; padding: 20px 28px; border-top: 1px solid var(--line); font: 400 26px var(--display); }
+  figcaption span { font: 400 13px var(--sans); color: var(--muted); }
+  .device-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; border-top: 1px solid var(--line); padding-top: 24px; margin-top: 32px; }
+  dt { color: var(--muted); font-size: 12px; } dd { margin: 6px 0 0; font: 400 23px var(--display); }
+  .device-nav { display: flex; flex-wrap: wrap; gap: 10px 28px; max-width: var(--container); margin: auto; padding: 22px var(--gutter); border-block: 1px solid var(--line); }
+  .device-nav a { padding: 8px 0; font-size: 13px; border-bottom: 1px solid transparent; }
+  .device-nav a:hover { border-color: var(--gold-deep); }
+  section[id] { scroll-margin-top: 110px; }
+  .device-about, .device-prices { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 6vw; }
+  .device-about .prose { max-width: 70ch; }
+  .device-visit, .device-results { background: var(--paper); }
+  .device-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; list-style: none; counter-reset: step; padding: 0; }
+  .device-steps li { counter-increment: step; border-top: 1px solid var(--line); padding-top: 20px; }
+  .device-steps li::before { content: counter(step, decimal-leading-zero); display: block; color: var(--gold-deep); margin-bottom: 18px; font-size: 13px; }
+  .device-steps p, .device-benefits p, .device-note { color: var(--muted); font-size: 14px; line-height: 1.75; }
+  .device-medical { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
+  .device-cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 30px 0; }
+  .device-prices :global(.price-table) { max-width: none; overflow-x: auto; }
+  .device-cta { max-width: var(--container); margin: 0 auto; padding: var(--section) var(--gutter); background: var(--dark); color: var(--dark-text); text-align: center; }
+  .device-cta h2 { font-size: clamp(36px, 4vw, 56px); }
+  .device-cta p:not(.eyebrow) { max-width: 64ch; margin: 0 auto 24px; color: #b9b6ac; line-height: 1.75; }
+  .device-cta .eyebrow { color: var(--gold); }
+  .device-cta .device-cta__disclaimer { margin-top: 26px; margin-bottom: 0; font-size: 12px; }
+  @media (max-width: 900px) {
+    .device-hero, .device-about, .device-prices { grid-template-columns: 1fr; gap: 30px; }
+    .device-hero__photo img { height: 380px; }
+  }
+  @media (max-width: 600px) {
+    .device-hero { padding-top: 28px; }
+    .device-steps, .device-medical, .device-cases { grid-template-columns: 1fr; }
+    .device-nav { gap: 4px 20px; }
+    .device-hero__photo img { height: 320px; }
+  }
+</style>

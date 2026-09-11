@@ -1,6 +1,7 @@
 ---
 import CategoryPage from '../templates/CategoryPage.astro';
 import ProcedurePage from '../templates/ProcedurePage.astro';
+import DevicePage from '../templates/DevicePage.astro';
 import ContentPage from '../templates/ContentPage.astro';
 import LegalPage from '../templates/LegalPage.astro';
 import LoyaltyPage from '../templates/LoyaltyPage.astro';
@@ -22,5 +23,5 @@ const { kind, category, procedure, page } = Astro.props;
 ---
 
 {kind === 'category' && <CategoryPage category={category} />}
-{kind === 'procedure' && <ProcedurePage procedure={procedure} />}
+{kind === 'procedure' && (procedure.data.category?.slug === 'apparatnaya-kosmetologiya' ? <DevicePage procedure={procedure} /> : <ProcedurePage procedure={procedure} />)}
 {kind === 'page' && (page.data.template === 'legal' ? <LegalPage page={page} /> : page.data.template === 'loyalty' ? <LoyaltyPage page={page} /> : <ContentPage page={page} />)}

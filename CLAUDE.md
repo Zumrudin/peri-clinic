@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Replacement for the Wix site of PERI CLINIC (Moscow aesthetic-medicine clinic): **Astro static build + self-hosted Directus CMS + nginx**. All UI copy is Russian. The approved design/architecture spec is `docs/superpowers/specs/2026-09-09-peri-site-design.md` — it also defines the numbered phases 0–9 that the git history follows. Current canonical host: `www.peri-clinic.ru`; dev stand: `peri.zumrudin.ru` / CMS `peri-cms.zumrudin.ru`.
 
+Post-launch feature work (visual refresh, pricing tiers, results-page filtering, content migrations, …) isn't phase-numbered; each gets its own `docs/superpowers/specs/<date>-<feature>-design.md` + `docs/superpowers/plans/<date>-<feature>.md` pair instead.
+
 ## Commands
 
 ```bash
@@ -38,7 +40,7 @@ Directus REST ──► src/lib/directus.ts (plain fetch, no SDK)
 ```
 
 - `src/lib/{home,site,category,procedure,page}Content.ts` are the only things templates should call; they hide `getEntry`/`getCollection` and Directus field names.
-- `src/pages/[slug].astro` renders *all* three CMS-driven page kinds (category / procedure / content page) by slug, dispatching to `src/templates/*`. Slugs are the original Wix slugs — SEO depends on keeping them.
+- `src/pages/[slug].astro` renders every CMS-driven page kind by slug, dispatching to `src/templates/*`: category → `CategoryPage`; procedure → `ProcedurePage`, or `DevicePage` when the procedure's category slug is `apparatnaya-kosmetologiya`; page → `ContentPage`, or `LegalPage`/`LoyaltyPage` per the `pages` collection's `template` field (`legal`/`loyalty`; `info` and `spravka` both fall through to `ContentPage`). Slugs are the original Wix slugs — SEO depends on keeping them.
 - `src/config/nav.ts` is deliberately *not* in the CMS (site map is IA, not editor content).
 
 ### Non-obvious rules (each cost a debugging session; see comments in the files)
@@ -73,8 +75,10 @@ There is **no booking form**. Any `[data-open-sheet]` element opens the `<dialog
 
 `01-sitemap` → `manifest.json` + `docs/CONTENT-MAP.md`; `02-scrape` → `raw/*.html`; `03-extract` → `out/*.json` (Directus field names); `04-download` → `media/` + index; `05-seed` → idempotent upsert into Directus as `draft`. `raw/`, `media/`, `out/`, `manifest.json` are gitignored artefacts. Wix renders every heading as `<h1>` and hides long-form sections in a separate collapsible widget, so extraction classifies by known Russian heading phrases walked in document order (`scripts/migrate/lib.mjs`). `docs/CONTENT-MAP.md` is the authority on which old URLs are real pages vs. redirects — several near-duplicate slugs (`/microtoki` vs `/mikrotokovaya-terapiya`, `/uridicheskaya-informaciya` vs `/yuridicheskaya-informaciya`) are genuinely distinct pages.
 
+Later one-off content migrations (legal pages, loyalty program, device pages, …) continue the same numbering outside the core 01-05 pipeline (`06-legal.mjs`, `07-devices.mjs`, …). Each ships its own committed JSON snapshot (e.g. `legal-content.json`) as the one-time apply input — the site always reads from Directus at build time, never from these snapshots — and backs up any record it overwrites to a gitignored `scripts/migrate/out/*-backups/` directory before writing.
+
 ## Conventions
 
 - Comments explain *why* (usually a platform quirk found by debugging), not *what*. Keep that bar; the existing header comments in `src/lib/`, `src/content.config.ts` and `deploy/` are the reference style.
-- Commit messages: `feat|fix|docs|chore: …`, phase-scoped (`feat: phase 5 — page templates, SEO, …`).
-- QA screenshots are committed under `docs/qa/phase-N/` at widths 375/800/1440.
+- Commit messages: `feat|fix|docs|chore: …`; phase-scoped for the original build-out (`feat: phase 5 — page templates, SEO, …`), descriptively-scoped for post-launch feature work (`feat: migrate legal pages from Wix, keep original slugs`).
+- QA screenshots are committed at widths 375/800/1440, under `docs/qa/phase-N/` for phase work or `docs/qa/<feature>/` for post-launch feature work.

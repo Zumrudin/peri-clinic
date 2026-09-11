@@ -8,6 +8,7 @@ interface ImgRef {
 }
 interface Props {
   title: string;
+  preserveAspect?: boolean;
   result?: string;
   category?: string;
   categorySlug?: string;
@@ -15,27 +16,28 @@ interface Props {
   after?: ImgRef | null;
   combined?: ImgRef | null;
 }
-const { title, result, category, categorySlug, before, after, combined } = Astro.props;
+const { title, result, category, categorySlug, before, after, combined, preserveAspect = false } = Astro.props;
 const hasPair = before && after;
 const single = combined ?? after ?? before;
+const imageHeight = (img: ImgRef, width: number, fallback: number) => preserveAspect && img.width > 0 && img.height > 0 ? Math.round(width * img.height / img.width) : fallback;
 ---
 
-<article class="case-card reveal" data-category={categorySlug ?? ''}>
+<article class:list={['case-card reveal', { 'case-card--uncropped': preserveAspect }]} data-category={categorySlug ?? ''}>
   {
     hasPair ? (
       <div class="case-card__pair">
         <div class="case-card__half">
-          <Image src={before!.src} alt={`${title} — до`} width={500} height={620} sizes="(max-width: 800px) 43vw, 220px" loading="lazy" />
+          <Image src={before!.src} alt={`${title} — до`} width={500} height={imageHeight(before!, 500, 620)} sizes="(max-width: 800px) 43vw, 220px" loading="lazy" />
           <span class="glass-chip">до</span>
         </div>
         <div class="case-card__half">
-          <Image src={after!.src} alt={`${title} — после`} width={500} height={620} sizes="(max-width: 800px) 43vw, 220px" loading="lazy" />
+          <Image src={after!.src} alt={`${title} — после`} width={500} height={imageHeight(after!, 500, 620)} sizes="(max-width: 800px) 43vw, 220px" loading="lazy" />
           <span class="glass-chip">после</span>
         </div>
       </div>
     ) : single ? (
       <div class="case-card__image">
-        <Image src={single.src} alt={title} width={700} height={620} sizes="(max-width: 800px) 86vw, 30vw" loading="lazy" />
+        <Image src={single.src} alt={title} width={700} height={imageHeight(single, 700, 620)} sizes="(max-width: 800px) 86vw, 30vw" loading="lazy" />
         <span class="glass-chip">до / после</span>
       </div>
     ) : null
@@ -86,6 +88,14 @@ const single = combined ?? after ?? before;
     font-size: 11px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+  }
+  .case-card--uncropped .case-card__half,
+  .case-card--uncropped .case-card__image {
+    aspect-ratio: auto;
+  }
+  .case-card--uncropped :global(img) {
+    height: auto;
+    object-fit: contain;
   }
   .case-card__body {
     padding: 24px;
