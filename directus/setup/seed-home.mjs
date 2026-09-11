@@ -91,7 +91,7 @@ async function main() {
     shop_url: 'https://periclinic-shop.ru',
     tagline: 'Естественная красота.\nВрачебная точность.',
     non_offer_text: 'Информация на сайте носит информационный характер и не является публичной офертой.',
-    instagram_disclaimer: '*Принадлежит Meta, признанной экстремистской организацией в РФ.',
+    instagram_disclaimer: '',
     contraindications_text: 'Имеются противопоказания. Необходима консультация специалиста.',
   });
 

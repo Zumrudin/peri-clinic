@@ -10,7 +10,7 @@ const year = new Date().getFullYear();
 const socials = [
   site.telegram_url && { label: 'Telegram', href: site.telegram_url },
   site.vk_url && { label: 'ВКонтакте', href: site.vk_url },
-  site.instagram_url && { label: 'Instagram*', href: site.instagram_url },
+  site.instagram_url && { label: 'Instagram', href: site.instagram_url },
 ].filter(Boolean) as Array<{ label: string; href: string }>;
 ---
 
@@ -61,7 +61,7 @@ const socials = [
   <div class="footer__bottom">
     <span>© {site.name}, {year}</span>
     <a href={site.privacy_url}>Политика конфиденциальности</a>
-    <p>{site.non_offer_text} {site.instagram_disclaimer}</p>
+    <p>{site.non_offer_text}</p>
   </div>
 </footer>
 
