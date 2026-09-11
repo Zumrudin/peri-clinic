@@ -282,6 +282,32 @@ h2 {
   }
 }
 
+/* Glass chip — small pill-shaped glass badge, .glass-panel's compact sibling
+   (no gradient border, sized for inline badges/tags). Compose as an
+   additional class (e.g. class="case-card__category glass-chip"); never
+   redeclare .glass-chip inside a component's scoped <style>, same rule as
+   .glass-panel above. */
+.glass-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  padding: 6px 14px;
+}
+.glass-chip--dark {
+  background: var(--glass-bg-dark);
+}
+@supports (not (backdrop-filter: blur(1px))) and (not (-webkit-backdrop-filter: blur(1px))) {
+  .glass-chip {
+    background: rgba(255, 253, 246, 0.92);
+  }
+  .glass-chip--dark {
+    background: rgba(41, 41, 35, 0.85);
+  }
+}
+
 /* Ambient glow — decorative drifting gradient blobs behind a section.
    Host section needs position:relative and its real content bumped to z-index:1. */
 .glow {
