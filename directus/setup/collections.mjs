@@ -246,6 +246,7 @@ export const collections = [
       f.slug(),
       f.m2o('category', 'Направление', 'service_categories', { required: true }),
       f.m2o('device', 'Аппарат', 'devices', { template: '{{name}}' }),
+      f.str('icd10', 'Код МКБ-10', { width: 'half', note: 'Например L90.5. Показывается на сайте рядом с ценами.' }),
       f.str('subtitle', 'Подзаголовок', { note: 'Одна строка под названием' }),
       f.text('summary', 'Краткое описание (для карточек)'),
       f.image('cover', 'Обложка'),
