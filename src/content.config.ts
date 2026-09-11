@@ -301,6 +301,7 @@ const procedures = defineCollection({
           'sort',
           'slug',
           'title',
+          'icd10',
           'subtitle',
           'category.slug',
           'category.title',
@@ -335,6 +336,7 @@ const procedures = defineCollection({
     sort: z.number().nullable().optional(),
     slug: z.string(),
     title: z.string(),
+    icd10: z.string().nullable().optional(),
     subtitle: z.string().nullable().optional(),
     category: z.object({ slug: z.string(), title: z.string() }).nullable().optional(),
     device: z.object({ name: z.string(), short: z.string().nullable().optional() }).nullable().optional(),
@@ -431,6 +433,28 @@ const allFaq = defineCollection({
   }),
 });
 
+/** All price rows (procedure pages filter by procedure.slug; /uslugi-i-ceny groups via getPriceListGrouped()). */
+const allPriceItems = defineCollection({
+  loader: directusLoader('allPriceItems', () =>
+    directusGet(
+      `/items/price_items${directusQuery({
+        fields: 'id,sort,name,price,unit,note,procedure.slug',
+        filter: JSON.stringify({ procedure: { status: { _eq: 'published' } } }),
+        sort: 'sort',
+      })}`,
+    ),
+  ),
+  schema: z.object({
+    id: z.number(),
+    sort: z.number().nullable().optional(),
+    name: z.string(),
+    price: z.number().nullable().optional(),
+    unit: z.string().nullable().optional(),
+    note: z.string().nullable().optional(),
+    procedure: z.object({ slug: z.string() }).nullable().optional(),
+  }),
+});
+
 /** All published reviews (not just show_on_home) — /otzyvy. */
 const allReviews = defineCollection({
   loader: directusLoader('allReviews', () =>
@@ -467,5 +491,6 @@ export const collections = {
   caseCategories,
   allCases,
   allFaq,
+  allPriceItems,
   allReviews,
 };
