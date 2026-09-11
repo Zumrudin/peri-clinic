@@ -15,7 +15,7 @@ const isBento = categories.items.length === 3;
   <div class:list={['service-grid', 'rail', { 'service-grid--bento': isBento }]}>
     {
       categories.items.map((item, i) => (
-        <a class:list={['service-card', 'reveal', { 'service-card--feature': isBento && i === 0 }]} href={`/${item.slug}`}>
+        <a class:list={['service-card', 'reveal']} href={`/${item.slug}`}>
           <Image
             src={item.cover.src}
             alt={item.alt}
@@ -47,13 +47,7 @@ const isBento = categories.items.length === 3;
     overflow: visible;
   }
   .service-grid--bento {
-    grid-template-columns: 1.3fr 1fr;
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-  }
-  .service-card--feature {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    height: 100%;
+    grid-template-columns: 1.15fr 1fr 1fr;
   }
   .service-card {
     height: 610px;
@@ -148,6 +142,9 @@ const isBento = categories.items.length === 3;
     .service-card {
       height: 520px;
     }
+    .service-grid--bento {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
   @media (max-width: 800px) {
     .service-grid,
@@ -158,8 +155,7 @@ const isBento = categories.items.length === 3;
       margin-right: -18px;
       padding-right: 18px;
     }
-    .service-card,
-    .service-card--feature {
+    .service-card {
       flex: 0 0 84vw;
       height: 520px;
       scroll-snap-align: center;
