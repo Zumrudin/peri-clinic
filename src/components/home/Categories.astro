@@ -176,21 +176,32 @@ const mobileTiles = await Promise.all(
     }
   }
   @media (max-width: 800px) {
-    .service-grid,
-    .service-grid--bento {
+    .service-grid:not(.service-grid--bento) {
       display: flex;
       overflow-x: auto;
       gap: 10px;
       margin-right: -18px;
       padding-right: 18px;
     }
-    .service-card {
+    .service-grid--bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'a a' 'b c';
+      gap: 10px;
+    }
+    .service-grid--bento .service-card--wide {
+      grid-area: a;
+    }
+    .service-grid--bento .service-card:nth-child(2) {
+      grid-area: b;
+    }
+    .service-grid--bento .service-card:nth-child(3) {
+      grid-area: c;
+    }
+    .service-grid:not(.service-grid--bento) .service-card {
       flex: 0 0 84vw;
       height: 520px;
       scroll-snap-align: center;
-    }
-    .service-card__content h3 {
-      font-size: 31px;
     }
     /* #services pushes these into ID-specificity so they reliably beat SectionHeading's
        own scoped rule regardless of CSS bundling order — a bare two-class selector ties
@@ -202,6 +213,12 @@ const mobileTiles = await Promise.all(
       margin-top: 10px;
       font-size: 15px;
       line-height: 1.5;
+    }
+  }
+  @media (max-width: 379px) {
+    .service-grid--bento {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'a' 'b' 'c';
     }
   }
 </style>
