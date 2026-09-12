@@ -10,6 +10,8 @@
 
 **Branch/worktree:** Already created — `.worktrees/directions-desktop-redesign` on branch `feature/directions-desktop-redesign`, forked from `main` at commit `303e699` (which already includes the merged mobile redesign). All tasks below run inside that worktree.
 
+**Post-execution note (2026-09-12):** All 6 tasks completed and passed spec/code-quality review, with three fix-up commits along the way — Task 3's `.service-card__content p` shipped with `color: var(--muted)` (fails WCAG AA against the new panel tints), fixed to `var(--ink-2)`; Task 5's `.services__hint-cta`/`.services__hint-title` snippets below were missing a button-chrome reset and a `margin: 0`, both only found once the plaque was actually visible at desktop width — see the corresponding commit messages (`fix: darken desktop card description text for WCAG AA contrast`, `fix: reset native button chrome for desktop consultation CTA`, `fix: align hint plaque title with CTA and document breakpoint duplication`) for the exact diffs; the task steps below are left as originally written (including the pre-fix code) for historical accuracy — treat the spec's §6/§9 "Implementation note" callouts as the source of truth for final values. Task 6's literal `screenshots.mjs` command (trailing width args) doesn't work with that script's actual CLI — the shipped fix added a `QA_WIDTHS` env var instead (see commit `feat: allow scripts/qa/screenshots.mjs widths to be overridden via QA_WIDTHS env var`).
+
 ---
 
 ### Task 0 (done, no subagent needed): Branch/worktree setup and spec/plan correction

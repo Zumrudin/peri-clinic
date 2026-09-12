@@ -74,8 +74,8 @@ section says so explicitly):
   §9 is rewritten accordingly, and the "two new Directus fields" idea from
   the original brainstorm is dropped.
 - The heading override already has a real-world selector precedent to
-  follow: the mobile work uses `:global(#services .section-heading
-  .services__heading)` (ID-qualified) rather than a bare
+  follow: the mobile work uses `:global(#services
+  .section-heading.services__heading)` (ID-qualified) rather than a bare
   `:global(.services__heading)`, specifically to reliably out-specificity
   `SectionHeading`'s own scoped rules regardless of CSS bundle order (see
   the code comment at `Categories.astro`'s mobile block). §2 below follows
@@ -245,10 +245,12 @@ unaffected since it simply doesn't match at `≥801px`.
     letter-spacing: normal;
     text-transform: none;
     opacity: 1;
-    color: var(--muted);
+    color: var(--ink-2);
   }
 }
 ```
+
+(Implementation note, added after the fact: an earlier draft of this rule used `color: var(--muted)`, which fails WCAG AA contrast — 3.65–4.10:1 — against all three panel tints. `var(--ink-2)` passes comfortably (5.58–6.26:1) and is what actually shipped.)
 
 - `--tile-injection-bg: #e4dccf` / `--tile-aesthetic-bg: #dee1d6` already
   exist in the file (declared by the mobile work inside its own
@@ -373,14 +375,37 @@ rule (leaving the existing `≤800px` styling of the same class untouched):
     border-radius: var(--radius-lg);
   }
   .services__hint-title {
+    margin: 0;
     font-size: 20px;
     color: var(--ink);
   }
+  /* mirrors .services__hint-cta's reset in the ≤800px block above — button
+     chrome isn't reset sitewide, so it's repeated per breakpoint; keep both
+     in sync */
   .services__hint-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 0;
+    padding: 0;
     font-size: 16px;
+    font-weight: 600;
+    color: var(--gold-deep);
+    cursor: pointer;
+    white-space: nowrap;
   }
 }
 ```
+
+(Implementation note, added after the fact: an earlier draft of this rule
+only set `font-size`/`color` on `.services__hint-title` and only `font-size`
+on `.services__hint-cta`, assuming the mobile block's button-chrome reset
+and title margin reset were global. They aren't — both are scoped inside
+the `≤800px` block — so without the fuller rules above, the title
+misaligns with the CTA (missing `margin: 0`) and the CTA renders as an
+unstyled native `<button>` at desktop. The fuller versions above are what
+actually shipped.)
 
 `.services__hint` already composes `glass-panel` in the markup (cream glass
 background) — this override only changes layout/sizing, not background. No
@@ -411,13 +436,20 @@ the client's call, not part of this code change.
 ### 11. Testing / QA
 
 - `npm run check` — TS/Astro diagnostics.
-- `node scripts/qa/screenshots.mjs http://127.0.0.1:4322 docs/qa/directions-desktop /`
-  at 1024/1280/1440/1920 widths, committed under `docs/qa/directions-desktop/`.
-  Also re-run the standard 375/800/1440 set to confirm `≤800px` is visually
-  unchanged from `main`.
+- `scripts/qa/screenshots.mjs` only supported the fixed widths
+  `[375, 800, 1440]` when this spec was written; it gained an optional
+  `QA_WIDTHS` env-var override (comma-separated, defaults unchanged) so the
+  extra desktop widths could actually be captured:
+  ```bash
+  node scripts/qa/screenshots.mjs http://127.0.0.1:4322 docs/qa/directions-desktop /
+  QA_WIDTHS=1024,1280,1920 node scripts/qa/screenshots.mjs http://127.0.0.1:4322 docs/qa/directions-desktop /
+  ```
+  committed under `docs/qa/directions-desktop/`. The default-widths run also
+  covers 375/800, confirming `≤800px` is visually unchanged from `main`.
 - `node scripts/qa/a11y.mjs http://127.0.0.1:4322 /` — 0 serious/critical;
-  specifically re-check contrast for `var(--muted)` description text on all
-  three panel tints, and the visual/DOM order divergence from §6.
+  specifically re-check contrast for the description text (`var(--ink-2)`,
+  see §6's implementation note) on all three panel tints, and the
+  visual/DOM order divergence from §6.
 - Manual checks: three columns at all four widths, no text clipping/overlap
   with the arrow, photo-top/panel-bottom seams and card bottoms aligned,
   all three cards still link to their existing category pages, hint button
