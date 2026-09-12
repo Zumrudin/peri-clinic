@@ -1,41 +1,80 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import { em } from '../../lib/markup';
 import { getHomeContent } from '../../lib/homeContent';
+import tileApparatnaya from '../../assets/home/tiles/apparatnaya.jpg';
+import tileInjekcionnaya from '../../assets/home/tiles/injekcionnaya.jpg';
+import tileEsteticheskaya from '../../assets/home/tiles/esteticheskaya.jpg';
 
 const home = await getHomeContent();
 const { categories } = home;
 const isBento = categories.items.length === 3;
+
+// Mobile-only art-direction crops (see docs/superpowers/specs/2026-09-12-directions-mobile-tiles-design.md).
+// Keyed by slug, not index, so a future re-ordering of service_categories in Directus
+// doesn't silently pair the wrong crop with the wrong card.
+const mobileTileBySlug: Record<string, ImageMetadata> = {
+  'apparatnaya-kosmetologiya': tileApparatnaya,
+  'injekcionnaya-cosmetologiya': tileInjekcionnaya,
+  'esteticheskaya-kosmetologiya': tileEsteticheskaya,
+};
+
+const mobileTiles = await Promise.all(
+  categories.items.map((item) => {
+    const source = mobileTileBySlug[item.slug];
+    return source ? getImage({ src: source, widths: [380, 472], format: 'jpg' }) : null;
+  }),
+);
 ---
 
 <section class="section services" id="services">
-  <SectionHeading eyebrow={categories.eyebrow} title={categories.title} lead={categories.lead} />
+  <SectionHeading eyebrow={categories.eyebrow} title={categories.title} lead={categories.lead} class="services__heading" />
 
   <div class:list={['service-grid', 'rail', { 'service-grid--bento': isBento }]}>
     {
-      categories.items.map((item, i) => (
-        <a class:list={['service-card', 'reveal']} href={`/${item.slug}`}>
-          <Image
-            src={item.cover.src}
-            alt={item.alt}
-            width={700}
-            height={900}
-            widths={[420, 700, 1000]}
-            sizes="(max-width: 800px) 84vw, 33vw"
-            loading="lazy"
-          />
-          <span class="service-card__number glass-chip glass-chip--dark">{String(i + 1).padStart(2, '0')}</span>
-          <div class="service-card__content">
-            <p class="glass-chip glass-chip--dark">{item.tagline}</p>
-            <h3 set:html={em(item.title)} />
-            <span class="round-arrow glass-chip glass-chip--dark" aria-hidden="true">
-              ↗
-            </span>
-          </div>
-        </a>
-      ))
+      categories.items.map((item, i) => {
+        const mobileTile = mobileTiles[i];
+        return (
+          <a class:list={['service-card', 'reveal', { 'service-card--wide': i === 0 }]} href={`/${item.slug}`}>
+            <picture>
+              {mobileTile && (
+                <source
+                  media="(max-width: 800px)"
+                  srcset={mobileTile.srcSet.attribute}
+                  sizes={i === 0 ? '44vw' : '46vw'}
+                />
+              )}
+              <Image
+                src={item.cover.src}
+                alt={item.alt}
+                width={700}
+                height={900}
+                widths={[420, 700, 1000]}
+                sizes="(max-width: 800px) 84vw, 33vw"
+                loading="lazy"
+              />
+            </picture>
+            <span class="service-card__number glass-chip glass-chip--dark">{String(i + 1).padStart(2, '0')}</span>
+            <div class="service-card__content">
+              <p class="glass-chip glass-chip--dark">{item.tagline}</p>
+              <h3 set:html={em(item.title)} />
+              <span class="round-arrow glass-chip glass-chip--dark" aria-hidden="true">
+                ↗
+              </span>
+            </div>
+          </a>
+        );
+      })
     }
+  </div>
+
+  <div class="services__hint glass-panel">
+    <p class="services__hint-title">Не знаете, что выбрать?</p>
+    <button type="button" class="services__hint-cta" data-open-sheet data-context="Консультация">
+      Начните с консультации <span aria-hidden="true">→</span>
+    </button>
   </div>
 </section>
 
@@ -48,6 +87,9 @@ const isBento = categories.items.length === 3;
   }
   .service-grid--bento {
     grid-template-columns: 1.15fr 1fr 1fr;
+  }
+  .services__hint {
+    display: none;
   }
   .service-card {
     height: 610px;
@@ -81,6 +123,11 @@ const isBento = categories.items.length === 3;
     transition:
       transform var(--dur-slow) var(--ease-out),
       filter 0.5s;
+  }
+  .service-card picture {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
   .service-card:hover :global(img) {
     transform: scale(1.045);
@@ -145,21 +192,187 @@ const isBento = categories.items.length === 3;
     }
   }
   @media (max-width: 800px) {
-    .service-grid,
-    .service-grid--bento {
+    .service-grid:not(.service-grid--bento) {
       display: flex;
       overflow-x: auto;
       gap: 10px;
       margin-right: -18px;
       padding-right: 18px;
     }
-    .service-card {
+    .service-grid--bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'a a' 'b c';
+      gap: 10px;
+      --tile-injection-bg: #e4dccf;
+      --tile-aesthetic-bg: #dee1d6;
+    }
+    .service-grid--bento .service-card--wide {
+      grid-area: a;
+    }
+    .service-grid--bento .service-card:nth-child(2) {
+      grid-area: b;
+    }
+    .service-grid--bento .service-card:nth-child(3) {
+      grid-area: c;
+    }
+    .service-grid--bento .service-card {
+      display: flex;
+      height: auto;
+      min-height: 190px;
+      color: var(--ink);
+    }
+    .service-grid--bento .service-card--wide {
+      flex-direction: row-reverse;
+      background: var(--sand);
+    }
+    .service-grid--bento .service-card:not(.service-card--wide) {
+      flex-direction: column;
+    }
+    .service-grid--bento .service-card:nth-child(2) {
+      background: var(--tile-injection-bg);
+    }
+    .service-grid--bento .service-card:nth-child(3) {
+      background: var(--tile-aesthetic-bg);
+    }
+    .service-grid--bento .service-card__number {
+      display: none;
+    }
+    .service-grid--bento .service-card::after {
+      display: none;
+    }
+    .service-grid--bento .service-card picture {
+      position: relative;
+      height: auto;
+    }
+    .service-grid--bento .service-card--wide picture {
+      flex: 0 0 44%;
+    }
+    .service-grid--bento .service-card--wide picture::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(90deg, var(--sand) 0%, transparent 35%);
+      pointer-events: none;
+    }
+    .service-grid--bento .service-card:not(.service-card--wide) picture {
+      flex: 0 0 auto;
+      aspect-ratio: 4 / 3;
+    }
+    .service-grid--bento .service-card__content {
+      position: static;
+      inset: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      /* Row-reverse flex items default to min-width:auto, which refuses to shrink
+         below the text's intrinsic min-content width. At 320px the wide card's text
+         column (~158px after the picture's 44%) is narrower than that, so without
+         this the content box overflowed past the card's left edge and got clipped
+         by .service-card's overflow:hidden. min-width:0 lets it shrink and wrap
+         instead; overflow-wrap is a safety net for any single word that still can't
+         fit at the clamp()'d floor size. */
+      min-width: 0;
+      overflow-wrap: break-word;
+    }
+    .service-grid--bento .service-card--wide .service-card__content {
+      padding: 20px;
+    }
+    .service-grid--bento .service-card:not(.service-card--wide) .service-card__content {
+      padding: 14px;
+    }
+    .service-grid--bento .service-card--wide .service-card__content h3 {
+      font-size: clamp(28px, 8vw, 34px);
+    }
+    .service-grid--bento .service-card:not(.service-card--wide) .service-card__content h3 {
+      font-size: clamp(18px, 5vw, 22px);
+      line-height: 1.15;
+    }
+    .service-grid--bento .service-card__content p {
+      display: block;
+      background: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      padding: 0;
+      border-radius: 0;
+      text-transform: none;
+      letter-spacing: normal;
+      font-size: 14px;
+      line-height: 1.4;
+      opacity: 1;
+      color: var(--ink-2);
+      margin: 0 0 12px;
+    }
+    /* Zeroes out the sitewide ↗ glyph already in the markup (font-size:0 collapses its
+       grid-item box to ~0×0) in favour of a mobile-only → via ::before, without touching
+       markup — see design spec §6 for why this diverges from the sitewide arrow glyph. */
+    .service-grid--bento .round-arrow {
+      position: static;
+      align-self: flex-end;
+      margin-top: auto;
+      background: var(--gold);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      color: #fff;
+      font-size: 0;
+      width: 44px;
+      height: 44px;
+    }
+    .service-grid--bento .round-arrow::before {
+      content: '→';
+      font-size: 18px;
+    }
+    .service-grid--bento .service-card:not(.service-card--wide) .round-arrow {
+      width: 40px;
+      height: 40px;
+    }
+    .service-grid:not(.service-grid--bento) .service-card {
       flex: 0 0 84vw;
       height: 520px;
       scroll-snap-align: center;
     }
-    .service-card__content h3 {
-      font-size: 31px;
+    .services__hint {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      padding: 16px 18px;
+    }
+    .services__hint-title {
+      margin: 0;
+      font: 400 16px var(--display);
+      color: var(--ink);
+    }
+    .services__hint-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 0;
+      padding: 0;
+      font: 600 14px var(--sans);
+      color: var(--gold-deep);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    /* #services pushes these into ID-specificity so they reliably beat SectionHeading's
+       own scoped rule regardless of CSS bundling order — a bare two-class selector ties
+       with it once Astro's [data-astro-cid-...] scoping attribute is counted. */
+    :global(#services .section-heading.services__heading) {
+      margin-bottom: 20px;
+    }
+    :global(#services .services__heading .section-heading__lead) {
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+  }
+  @media (max-width: 379px) {
+    .service-grid--bento {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'a' 'b' 'c';
     }
   }
 </style>
