@@ -266,6 +266,15 @@ const mobileTiles = await Promise.all(
       flex: 1;
       display: flex;
       flex-direction: column;
+      /* Row-reverse flex items default to min-width:auto, which refuses to shrink
+         below the text's intrinsic min-content width. At 320px the wide card's text
+         column (~158px after the picture's 44%) is narrower than that, so without
+         this the content box overflowed past the card's left edge and got clipped
+         by .service-card's overflow:hidden. min-width:0 lets it shrink and wrap
+         instead; overflow-wrap is a safety net for any single word that still can't
+         fit at the clamp()'d floor size. */
+      min-width: 0;
+      overflow-wrap: break-word;
     }
     .service-grid--bento .service-card--wide .service-card__content {
       padding: 20px;
