@@ -10,6 +10,7 @@ const { hero } = home;
 ---
 
 <section class="hero" aria-labelledby="hero-title">
+  {/* Hidden from AT: the overlaid heading/lead already carry the content; alt text stays in the DOM for image-search SEO, not screen readers. */}
   <div class="hero__media" aria-hidden="true">
     <div class="hero__backdrop">
       <Picture
@@ -218,6 +219,9 @@ const { hero } = home;
   .text-link--light {
     border-bottom-color: var(--dark-text);
     color: var(--dark-text);
+  }
+  .text-link--light span {
+    color: var(--gold-light);
   }
 
   @media (min-width: 900px) {
