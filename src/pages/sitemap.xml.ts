@@ -3,7 +3,7 @@ import { getAllCategories } from '../lib/categoryContent';
 import { getAllProcedures } from '../lib/procedureContent';
 import { getAllPages } from '../lib/pageContent';
 
-const STATIC_PATHS = ['/', '/uslugi-i-ceny', '/result', '/otzyvy', '/kontakty'];
+const STATIC_PATHS = ['/apparaty', '/', '/uslugi-i-ceny', '/result', '/otzyvy', '/kontakty'];
 
 export const GET: APIRoute = async ({ site }) => {
   const base = site?.href.replace(/\/$/, '') ?? 'https://www.peri-clinic.ru';

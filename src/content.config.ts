@@ -65,6 +65,12 @@ const homeFields = [
   'devices_eyebrow',
   'devices_title',
   'devices_lead',
+  'devices_all_label',
+  'devices_consultation_title',
+  'devices_consultation_label',
+  'devices_catalog_title',
+  'devices_catalog_seo_title',
+  'devices_catalog_seo_description',
   'cases_eyebrow',
   'cases_title',
   'cases_lead',
@@ -110,6 +116,12 @@ const home = defineCollection({
     devices_eyebrow: z.string(),
     devices_title: z.string(),
     devices_lead: z.string().nullable().optional(),
+    devices_all_label: z.string().nullable().optional(),
+    devices_consultation_title: z.string().nullable().optional(),
+    devices_consultation_label: z.string().nullable().optional(),
+    devices_catalog_title: z.string().nullable().optional(),
+    devices_catalog_seo_title: z.string().nullable().optional(),
+    devices_catalog_seo_description: z.string().nullable().optional(),
     cases_eyebrow: z.string(),
     cases_title: z.string(),
     cases_lead: z.string().nullable().optional(),
@@ -236,6 +248,7 @@ const devices = defineCollection({
         fields: `id,sort,name,short,procedure.slug,${fileFields('image')}`,
         filter: JSON.stringify({ status: { _eq: 'published' }, show_on_home: { _eq: true } }),
         sort: 'sort',
+        limit: '-1',
       })}`,
     ),
   ),
@@ -246,6 +259,27 @@ const devices = defineCollection({
     short: z.string().nullable().optional(),
     image: fileRef,
     procedure: z.object({ slug: z.string() }).nullable().optional(),
+  }),
+});
+
+const allDevices = defineCollection({
+  loader: directusLoader('allDevices', () =>
+    directusGet(
+      `/items/devices${directusQuery({
+        fields: `id,sort,name,short,procedure.slug,procedure.status,${fileFields('image')}`,
+        filter: JSON.stringify({ status: { _eq: 'published' } }),
+        sort: 'sort',
+        limit: '-1',
+      })}`,
+    ),
+  ),
+  schema: z.object({
+    id: z.number(),
+    sort: z.number().nullable().optional(),
+    name: z.string(),
+    short: z.string().nullable().optional(),
+    image: fileRef,
+    procedure: z.object({ slug: z.string(), status: z.string() }).nullable().optional(),
   }),
 });
 
@@ -487,6 +521,7 @@ export const collections = {
   siteSettings,
   serviceCategories,
   devices,
+  allDevices,
   homeCases,
   homeReviews,
   procedures,

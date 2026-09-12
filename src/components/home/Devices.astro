@@ -7,7 +7,7 @@ const home = await getHomeContent();
 const { devices } = home;
 ---
 
-<section class="equipment" aria-labelledby="equipment-title" data-rail-root>
+<section class="equipment" aria-labelledby="equipment-title" data-rail-root data-mobile-grid>
   <div class="equipment__intro reveal">
     <p class="eyebrow">{devices.eyebrow}</p>
     <h2 id="equipment-title" set:html={em(devices.title)} />
@@ -19,27 +19,43 @@ const { devices } = home;
   </div>
   <div class="equipment__rail rail" data-rail tabindex="0" aria-label="Аппараты клиники">
     {
-      devices.items.map((d, i) => (
-        <a class="machine-card glass-panel reveal" href={d.href}>
+      devices.items.map((d, i) => {
+        const Tag = d.href ? 'a' : 'article';
+        return (
+        <Tag class="machine-card glass-panel reveal" href={d.href}>
           <span>{String(i + 1).padStart(2, '0')}</span>
-          <Image
+          {d.image && <Image
             src={d.image.src}
             inferSize
-            alt={d.name}
-            height={410}
+            alt=""
+            width={d.image.width}
+            height={d.image.height}
             widths={[300, 500]}
-            sizes="(max-width: 800px) 82vw, 26vw"
+            sizes="(max-width: 800px) calc((100vw - 48px) / 2), 26vw"
             loading="lazy"
-          />
+          />}
+          {!d.image && <div class="machine-card__placeholder" aria-hidden="true">{d.name}</div>}
+          <div class="machine-card__body">
           <h3>{d.name}</h3>
           <p>{d.short}</p>
-        </a>
-      ))
+          {d.href && <span class="machine-card__arrow" aria-hidden="true">→</span>}
+          </div>
+        </Tag>
+      );})
     }
+  </div>
+  <div class="equipment__mobile-actions">
+    {devices.all_label && <a class="equipment__all" href="/apparaty">{devices.all_label}<span aria-hidden="true">→</span></a>}
+    {devices.consultation_title && devices.consultation_label && <div class="equipment__consultation">
+      <h3>{devices.consultation_title}</h3>
+      <button type="button" data-open-sheet>{devices.consultation_label} <span aria-hidden="true">→</span></button>
+    </div>}
   </div>
 </section>
 
 <style>
+  .machine-card__placeholder { height: 410px; display: grid; place-items: center; font: 400 24px var(--display); color: var(--ink-2); }
+  .equipment__mobile-actions, .machine-card__arrow { display: none; }
   .equipment {
     max-width: var(--container-wide);
     margin: auto;
@@ -124,30 +140,26 @@ const { devices } = home;
     }
   }
   @media (max-width: 800px) {
-    .equipment {
-      display: block;
-      padding: 85px 0 85px 18px;
-    }
-    .equipment__intro {
-      padding: 0 30px 0 0;
-    }
-    .equipment__lead {
-      margin: 25px 0;
-    }
-    .slider-controls {
-      margin: 28px 0;
-    }
-    .equipment__rail {
-      gap: 10px;
-      padding-right: 18px;
-    }
-    .machine-card {
-      flex-basis: 82vw;
-      min-width: 0;
-      height: 510px;
-    }
-    .machine-card :global(img) {
-      height: 355px;
-    }
+    .equipment { display: block; padding: 52px 18px; }
+    .equipment__intro { padding: 0; margin-bottom: 24px; }
+    .equipment__intro h2 { font-size: clamp(30px, 8.4vw, 36px); line-height: 1.08; }
+    .equipment__intro h2 :global(em) { color: inherit; font-style: normal; }
+    .equipment__lead, .slider-controls, .machine-card > span, .machine-card:nth-child(n+5) { display: none; }
+    .equipment__rail { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0; overflow: visible; scroll-snap-type: none; }
+    .machine-card { display: flex; flex-direction: column; min-width: 0; height: auto; padding: 0; overflow: hidden; border: 0; border-radius: 20px; background: #eee7dd; box-shadow: none; backdrop-filter: none; }
+    .machine-card::before { display: none; }
+    .machine-card:nth-child(4n+2), .machine-card:nth-child(4n+3) { background: #e4e5d9; }
+    .machine-card :global(img) { width: 100%; height: clamp(145px, 42vw, 220px); padding: 6px; margin: 0; object-fit: contain; }
+    .machine-card__placeholder { height: clamp(145px, 42vw, 220px); }
+    .machine-card__body { display: flex; flex: 1; flex-direction: column; padding: 12px; background: rgba(255,255,255,.16); }
+    .machine-card h3 { font-size: clamp(20px, 5.7vw, 24px); line-height: 1.1; margin: 0 0 8px; overflow-wrap: anywhere; }
+    .machine-card p { font-size: 14px; line-height: 1.4; color: var(--ink-2); overflow-wrap: anywhere; }
+    .machine-card__arrow { display: grid; place-items: center; align-self: flex-end; width: 36px; height: 36px; margin-top: auto; background: var(--gold-deep); color: white; border-radius: 50%; font-size: 23px; }
+    .machine-card p { margin-bottom: 12px; }
+    .equipment__mobile-actions { display: grid; gap: 14px; margin-top: 14px; }
+    .equipment__all { display: flex; justify-content: center; align-items: center; gap: 12px; min-height: 48px; padding: 10px 16px; border: 1px solid var(--gold-deep); border-radius: 14px; color: var(--gold-deep); font-size: 16px; }
+    .equipment__consultation { padding: 20px; border-radius: 20px; background: var(--sand); }
+    .equipment__consultation h3 { font: 400 25px/1.1 var(--display); margin: 0 0 8px; }
+    .equipment__consultation button { min-height: 44px; padding: 8px 0; background: none; border: 0; color: var(--gold-deep); font-size: 15px; text-align: left; text-decoration: underline; text-underline-offset: 5px; }
   }
 </style>

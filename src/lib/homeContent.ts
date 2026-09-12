@@ -2,6 +2,7 @@ import { getEntry, getCollection } from 'astro:content';
 import { directusImage } from './media';
 import { formatRuDate } from './markup';
 import { bySort } from './directus';
+import { getAllDevices } from './deviceContent';
 
 /**
  * Reshapes the `home` singleton + related collections (fetched via Content Layer loaders,
@@ -14,11 +15,12 @@ export async function getHomeContent() {
   if (!home) throw new Error('Directus "home" singleton is empty — run directus/setup/seed-home.mjs');
   const h = home.data;
 
-  const [categories, devices, cases, reviews] = await Promise.all([
+  const [categories, devices, cases, reviews, allDevices] = await Promise.all([
     getCollection('serviceCategories').then(bySort),
     getCollection('devices').then(bySort),
     getCollection('homeCases').then(bySort),
     getCollection('homeReviews').then(bySort),
+    getAllDevices(),
   ]);
 
   return {
@@ -63,12 +65,14 @@ export async function getHomeContent() {
       eyebrow: h.devices_eyebrow,
       title: h.devices_title,
       lead: h.devices_lead || '',
-      items: devices.map(({ data: d }) => ({
-        name: d.name,
-        short: d.short || '',
-        image: directusImage(d.image),
-        href: d.procedure?.slug ? `/${d.procedure.slug}` : '/uslugi-i-ceny',
-      })),
+      all_label: h.devices_all_label || '',
+      consultation_title: h.devices_consultation_title || '',
+      consultation_label: h.devices_consultation_label || '',
+      catalog_title: h.devices_catalog_title || '',
+      catalog_seo_title: h.devices_catalog_seo_title || '',
+      catalog_seo_description: h.devices_catalog_seo_description || '',
+
+      items: allDevices.filter(device => devices.some(entry => entry.data.id === device.id)),
     },
     cases: {
       eyebrow: h.cases_eyebrow,
