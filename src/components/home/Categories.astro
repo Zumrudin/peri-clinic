@@ -69,6 +69,13 @@ const mobileTiles = await Promise.all(
       })
     }
   </div>
+
+  <div class="services__hint glass-panel">
+    <p class="services__hint-title">Не знаете, что выбрать?</p>
+    <button type="button" class="services__hint-cta" data-open-sheet data-context="Консультация">
+      Начните с консультации <span aria-hidden="true">→</span>
+    </button>
+  </div>
 </section>
 
 <style>
@@ -80,6 +87,9 @@ const mobileTiles = await Promise.all(
   }
   .service-grid--bento {
     grid-template-columns: 1.15fr 1fr 1fr;
+  }
+  .services__hint {
+    display: none;
   }
   .service-card {
     height: 610px;
@@ -312,6 +322,31 @@ const mobileTiles = await Promise.all(
       flex: 0 0 84vw;
       height: 520px;
       scroll-snap-align: center;
+    }
+    .services__hint {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      padding: 16px 18px;
+    }
+    .services__hint-title {
+      margin: 0;
+      font: 400 16px var(--display);
+      color: var(--ink);
+    }
+    .services__hint-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 0;
+      padding: 0;
+      font: 600 14px var(--sans);
+      color: var(--gold-deep);
+      cursor: pointer;
+      white-space: nowrap;
     }
     /* #services pushes these into ID-specificity so they reliably beat SectionHeading's
        own scoped rule regardless of CSS bundling order — a bare two-class selector ties
