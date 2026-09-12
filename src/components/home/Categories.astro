@@ -243,6 +243,9 @@ const mobileTiles = await Promise.all(
       display: none;
     }
     .service-card__content h3 {
+      /* order flips visual order to title-first on desktop without touching DOM order,
+         which mobile's own ≤800px rules depend on for their (unreordered) stacking —
+         do not swap the markup instead. */
       order: 1;
       font-size: clamp(30px, 2.6vw, 38px);
       line-height: 1.08;
@@ -262,7 +265,7 @@ const mobileTiles = await Promise.all(
       letter-spacing: normal;
       text-transform: none;
       opacity: 1;
-      color: var(--muted);
+      color: var(--ink-2);
     }
   }
   @media (max-width: 800px) {
