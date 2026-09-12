@@ -39,7 +39,13 @@ const mobileTiles = await Promise.all(
         return (
           <a class:list={['service-card', 'reveal', { 'service-card--wide': i === 0 }]} href={`/${item.slug}`}>
             <picture>
-              {mobileTile && <source media="(max-width: 800px)" srcset={mobileTile.srcSet.attribute} />}
+              {mobileTile && (
+                <source
+                  media="(max-width: 800px)"
+                  srcset={mobileTile.srcSet.attribute}
+                  sizes={i === 0 ? '44vw' : '46vw'}
+                />
+              )}
               <Image
                 src={item.cover.src}
                 alt={item.alt}
@@ -188,6 +194,8 @@ const mobileTiles = await Promise.all(
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 'a a' 'b c';
       gap: 10px;
+      --tile-injection-bg: #e4dccf;
+      --tile-aesthetic-bg: #dee1d6;
     }
     .service-grid--bento .service-card--wide {
       grid-area: a;
@@ -197,6 +205,63 @@ const mobileTiles = await Promise.all(
     }
     .service-grid--bento .service-card:nth-child(3) {
       grid-area: c;
+    }
+    .service-grid--bento .service-card {
+      display: flex;
+      height: auto;
+      min-height: 190px;
+      color: var(--ink);
+    }
+    .service-grid--bento .service-card--wide {
+      flex-direction: row-reverse;
+      background: var(--sand);
+    }
+    .service-grid--bento .service-card:not(.service-card--wide) {
+      flex-direction: column;
+    }
+    .service-grid--bento .service-card:nth-child(2) {
+      background: var(--tile-injection-bg);
+    }
+    .service-grid--bento .service-card:nth-child(3) {
+      background: var(--tile-aesthetic-bg);
+    }
+    .service-grid--bento .service-card__number {
+      display: none;
+    }
+    .service-grid--bento .service-card::after {
+      display: none;
+    }
+    .service-grid--bento .service-card picture {
+      position: relative;
+      height: auto;
+    }
+    .service-grid--bento .service-card--wide picture {
+      flex: 0 0 44%;
+    }
+    .service-grid--bento .service-card--wide picture::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(90deg, var(--sand) 0%, transparent 35%);
+      pointer-events: none;
+    }
+    .service-grid--bento .service-card:not(.service-card--wide) picture {
+      flex: 0 0 auto;
+      aspect-ratio: 4 / 3;
+    }
+    .service-grid--bento .service-card__content {
+      position: static;
+      inset: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .service-grid--bento .service-card--wide .service-card__content {
+      padding: 20px;
+    }
+    .service-grid--bento .service-card:not(.service-card--wide) .service-card__content {
+      padding: 14px;
     }
     .service-grid:not(.service-grid--bento) .service-card {
       flex: 0 0 84vw;
