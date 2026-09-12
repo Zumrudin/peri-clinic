@@ -33,13 +33,18 @@ const site = await getSiteSettings();
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 52px;
+      gap: 6px;
+      padding: 0 12px;
+      min-height: 48px;
+      font-size: 13px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       color: var(--gold-deep);
     }
     .mobile-cta-bar__book {
       flex: 1 1 auto;
+      min-width: 0;
+      padding-inline: 16px;
       justify-content: center;
     }
   }

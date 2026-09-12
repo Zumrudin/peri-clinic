@@ -37,7 +37,7 @@ export async function getFaqForProcedure(procedureSlug: string) {
     .map((f) => ({ question: f.data.question, answer: f.data.answer ?? '' }));
 }
 
-export function procedureGallery(gallery: { directus_files_id: { id: string; width?: number | null; height?: number | null } | null | undefined | null }[]) {
+export function procedureGallery(gallery: { directus_files_id?: { id: string; width?: number | null; height?: number | null } | null }[]) {
   return gallery.map((g) => directusImage(g.directus_files_id)).filter((img): img is NonNullable<typeof img> => !!img);
 }
 

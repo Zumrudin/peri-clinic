@@ -4,11 +4,12 @@ import type { PriceItem } from '../../lib/procedureContent';
 
 interface Props {
   items: PriceItem[];
+  mobileCards?: boolean;
   showPrices: boolean;
   contextLabel: string;
   icd10?: string | null;
 }
-const { items, showPrices, contextLabel, icd10 } = Astro.props;
+const { items, showPrices, contextLabel, icd10, mobileCards = false } = Astro.props;
 
 /** True when at least one row has a distinct "Гл. врач" price — adds a second amount column and a header row for it. Most procedures have a single price, so the plain single-column layout (no <thead>) stays unchanged for them. */
 const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
@@ -16,9 +17,9 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
 
 {
   items.length > 0 && (
-    <div class="price-table">
+    <div class:list={['price-table', { 'price-table--cards': mobileCards }]}>
       {icd10 && <p class="price-table__icd">МКБ-10: {icd10}</p>}
-      <table>
+      <table aria-label={`Стоимость: ${contextLabel}`}>
         {
           hasTiered && (
             <thead>
@@ -41,8 +42,8 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
                 </td>
                 {showPrices && !noPriceAtAll ? (
                   <>
-                    <td class="price-table__amount">{formatPrice(item.price) ?? '—'}</td>
-                    {hasTiered && <td class="price-table__amount">{item.priceHeadDoctor !== null ? formatPrice(item.priceHeadDoctor) : '—'}</td>}
+                    <td class="price-table__amount" data-label={hasTiered ? 'Врач' : 'Стоимость'}>{formatPrice(item.price) ?? '—'}</td>
+                    {hasTiered && <td class="price-table__amount" data-label="Гл. врач">{item.priceHeadDoctor !== null ? formatPrice(item.priceHeadDoctor) : '—'}</td>}
                   </>
                 ) : (
                   <td class="price-table__amount" colspan={hasTiered ? 2 : 1}>
@@ -119,5 +120,14 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
   }
   .price-table__cta span {
     font-size: 14px;
+  }
+  @media (max-width: 600px) {
+    .price-table--cards table, .price-table--cards tbody { display: block; }
+    .price-table--cards thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .price-table--cards tr { display: grid; grid-template-columns: minmax(0, 1fr); padding: 20px 0; border-bottom: 1px solid var(--line); gap: 10px; }
+    .price-table--cards td { display: block; padding: 0; border: 0; overflow-wrap: anywhere; }
+    .price-table--cards .price-table__amount { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; white-space: normal; text-align: left; }
+    .price-table--cards .price-table__amount[data-label]::before { content: attr(data-label); font: 400 12px var(--sans); color: var(--muted); }
+    .price-table--cards .price-table__cta { min-height: 44px; font-size: 13px; }
   }
 </style>
