@@ -30,7 +30,7 @@ const mobileTiles = await Promise.all(
 ---
 
 <section class="section services" id="services">
-  <SectionHeading eyebrow={categories.eyebrow} title={categories.title} lead={categories.lead} />
+  <SectionHeading eyebrow={categories.eyebrow} title={categories.title} lead={categories.lead} class="services__heading" />
 
   <div class:list={['service-grid', 'rail', { 'service-grid--bento': isBento }]}>
     {
@@ -191,6 +191,17 @@ const mobileTiles = await Promise.all(
     }
     .service-card__content h3 {
       font-size: 31px;
+    }
+    /* #services pushes these into ID-specificity so they reliably beat SectionHeading's
+       own scoped rule regardless of CSS bundling order — a bare two-class selector ties
+       with it once Astro's [data-astro-cid-...] scoping attribute is counted. */
+    :global(#services .section-heading.services__heading) {
+      margin-bottom: 20px;
+    }
+    :global(#services .services__heading .section-heading__lead) {
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.5;
     }
   }
 </style>
