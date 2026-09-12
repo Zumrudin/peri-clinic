@@ -183,14 +183,6 @@ const mobileTiles = await Promise.all(
     box-shadow: var(--shadow-glow);
   }
 
-  @media (max-width: 1100px) {
-    .service-card {
-      height: 520px;
-    }
-    .service-grid--bento {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
   @media (min-width: 801px) {
     :global(#services .section-heading.services__heading) {
       margin-bottom: 32px;
@@ -201,6 +193,34 @@ const mobileTiles = await Promise.all(
     :global(#services .services__heading .section-heading__lead) {
       font-size: 19px;
       line-height: 1.6;
+    }
+    .service-grid--bento {
+      gap: 20px;
+    }
+    .service-card {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      background: none;
+      color: var(--ink);
+    }
+    .service-card::after {
+      display: none;
+    }
+    .service-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+    .service-card picture {
+      flex: 0 0 auto;
+      height: clamp(250px, 27vw, 300px);
+    }
+    .service-card :global(img) {
+      filter: none;
+    }
+    .service-card:hover :global(img) {
+      transform: none;
+      filter: none;
     }
   }
   @media (max-width: 800px) {
