@@ -196,6 +196,15 @@ h2 {
   background: var(--gold-deep);
   color: #fff;
 }
+.button--light {
+  background: var(--ivory);
+  border-color: var(--ivory);
+  color: var(--ink);
+}
+.button--light:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+}
 .text-link {
   display: inline-flex;
   align-items: center;

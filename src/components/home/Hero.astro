@@ -10,39 +10,28 @@ const { hero } = home;
 ---
 
 <section class="hero" aria-labelledby="hero-title">
-  <div class="glow" aria-hidden="true">
-    <span class="glow__blob"></span>
-    <span class="glow__blob glow__blob--b"></span>
-  </div>
-
-  <div class="hero__content reveal">
-    <p class="eyebrow">{hero.eyebrow}</p>
-    <h1 id="hero-title" set:html={em(hero.title)} />
-    <p class="hero__lead">{hero.lead}</p>
-    <div class="hero__actions">
-      <button class="button" type="button" data-open-sheet>{hero.primary_label} <span>↗</span></button>
-      <a class="text-link" href={hero.secondary_href}>{hero.secondary_label} <span>↓</span></a>
+  {/* Hidden from AT: the overlaid heading/lead already carry the content; alt text stays in the DOM for image-search SEO, not screen readers. */}
+  <div class="hero__media" aria-hidden="true">
+    <div class="hero__backdrop">
+      <Picture
+        src={hero.image.src}
+        inferSize
+        alt=""
+        widths={[400]}
+        sizes="100vw"
+        formats={['webp']}
+        fallbackFormat="jpg"
+        loading="eager"
+        decoding="async"
+      />
     </div>
-    <div class="hero__facts" aria-label="Преимущества клиники">
-      {
-        hero.facts.map((f) => (
-          <div>
-            <strong>{f.value}</strong>
-            <span set:html={em(f.label)} />
-          </div>
-        ))
-      }
-    </div>
-  </div>
-
-  <div class="hero__visual reveal">
-    <div class="hero__image-wrap">
+    <div class="hero__photo">
       <Picture
         src={hero.image.src}
         inferSize
         alt={hero.image_alt}
-        widths={[480, 840, 1200]}
-        sizes="(max-width: 800px) 100vw, 48vw"
+        widths={[480, 840, 1200, 1800]}
+        sizes="100vw"
         formats={['avif', 'webp']}
         fallbackFormat="jpg"
         loading="eager"
@@ -50,145 +39,99 @@ const { hero } = home;
         decoding="async"
       />
     </div>
-    <div class="hero__note glass-panel">
-      <span class="hero__note-icon" aria-hidden="true">✦</span>
-      <p set:html={em(hero.note)} />
+  </div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+
+  <div class="hero__content reveal">
+    <div class="hero__top">
+      <p class="eyebrow">{hero.eyebrow}</p>
+      <h1 id="hero-title" set:html={em(hero.title)} />
     </div>
-    <div class="hero__address glass-panel glass-panel--dark">
-      <span class="glass-chip glass-chip--dark">{site.city}</span>
-      <p set:html={em(site.address_lines)} />
+    <div class="hero__bottom">
+      <p class="hero__lead">{hero.lead}</p>
+      <div class="hero__facts" aria-label="Преимущества клиники">
+        {
+          hero.facts.map((f) => (
+            <div>
+              <strong>{f.value}</strong>
+              <span set:html={em(f.label)} />
+            </div>
+          ))
+        }
+      </div>
+      <div class="hero__actions">
+        <button class="button button--light" type="button" data-open-sheet>{hero.primary_label} <span>↗</span></button>
+        <a class="text-link text-link--light" href={hero.secondary_href}>{hero.secondary_label} <span>↓</span></a>
+      </div>
     </div>
+  </div>
+
+  <div class="hero__address glass-panel glass-panel--dark">
+    <span class="glass-chip glass-chip--dark">{site.city}</span>
+    <p set:html={em(site.address_lines)} />
   </div>
 </section>
 
 <style>
   .hero {
+    position: relative;
+    z-index: 0;
     min-height: calc(100vh - var(--header-h));
-    max-width: var(--container-wide);
-    margin: auto;
-    display: grid;
-    grid-template-columns: 51.5% 48.5%;
-    padding: 32px 4.1vw 46px;
-    position: relative;
-  }
-  .hero__content {
-    position: relative;
-    z-index: 1;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 25px 5vw 8px 1.2vw;
   }
-  .hero h1 {
-    font-size: var(--t-h1);
-    line-height: 0.87;
-    margin: 0 0 36px;
-  }
-  .hero__lead {
-    max-width: 555px;
-    margin-bottom: 38px;
-    color: var(--ink-2);
-    font-size: 16px;
-    line-height: 1.65;
-  }
-  .hero__actions {
-    display: flex;
-    align-items: center;
-    gap: 42px;
-  }
-  .hero__facts {
-    display: flex;
-    margin-top: auto;
-    padding-top: 60px;
-  }
-  .hero__facts div {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    min-width: 155px;
-    margin-right: 28px;
-    padding-right: 28px;
-    border-right: 1px solid var(--line-gold);
-  }
-  .hero__facts div:last-child {
-    border: 0;
-    margin: 0;
-    padding: 0;
-  }
-  .hero__facts strong {
-    font: 400 27px var(--display);
-    color: var(--gold-deep);
-    white-space: nowrap;
-  }
-  .hero__facts span {
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.4;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .hero__visual {
-    min-height: 660px;
-    position: relative;
-    z-index: 1;
-  }
-  .hero__image-wrap {
-    height: 100%;
-    overflow: hidden;
-    background: #dad7ce;
-    border-radius: var(--radius-lg);
-    position: relative;
-  }
-  .hero__image-wrap::after {
-    content: '';
+  .hero__media {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 65%, rgba(28, 25, 18, 0.18));
+    z-index: 0;
+    overflow: hidden;
+    background: var(--dark);
   }
-  .hero__image-wrap :global(picture),
-  .hero__image-wrap :global(img) {
+  .hero__backdrop {
+    position: absolute;
+    inset: -20px;
+  }
+  .hero__backdrop :global(picture),
+  .hero__backdrop :global(img) {
     width: 100%;
     height: 100%;
   }
-  .hero__image-wrap :global(img) {
+  .hero__backdrop :global(img) {
     object-fit: cover;
-    object-position: center 42%;
-    transition: transform 1.2s var(--ease-out);
+    filter: blur(60px) brightness(0.75);
+    transform: scale(1.15);
   }
-  .hero__visual:hover .hero__image-wrap :global(img) {
-    transform: scale(1.025);
-  }
-  .hero__note {
+  .hero__photo {
     position: absolute;
-    z-index: 2;
-    left: -72px;
-    top: 64px;
-    width: 168px;
-    height: 168px;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    box-shadow: var(--shadow-glow);
+    inset: 0;
   }
-  .hero__note-icon {
-    color: var(--gold);
-    font-size: 18px;
-    margin-bottom: 12px;
+  .hero__photo :global(picture),
+  .hero__photo :global(img) {
+    width: 100%;
+    height: 100%;
   }
-  .hero__note p {
-    margin: 0;
-    font: 16px/1.25 var(--display);
+  .hero__photo :global(img) {
+    object-fit: cover;
+    object-position: center 30%;
   }
-  .hero__note :global(em) {
-    color: var(--gold-deep);
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(20, 18, 12, 0.4) 0%,
+      rgba(20, 18, 12, 0.05) 28%,
+      rgba(20, 18, 12, 0.15) 55%,
+      rgba(20, 18, 12, 0.82) 100%
+    );
   }
   .hero__address {
     position: absolute;
-    left: 30px;
-    bottom: 30px;
+    z-index: 2;
+    top: 24px;
+    right: 24px;
     display: flex;
     gap: 16px;
     align-items: center;
@@ -204,59 +147,116 @@ const { hero } = home;
     font: 17px/1.2 var(--display);
     margin: 0;
   }
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: var(--container-wide);
+    width: 100%;
+    margin: auto;
+    padding: 96px 4.1vw 46px;
+  }
+  .hero__top {
+    max-width: 640px;
+  }
+  .hero .eyebrow {
+    color: var(--gold-light);
+  }
+  .hero h1 {
+    margin: 0;
+    font-size: var(--t-h1);
+    line-height: 0.9;
+    color: var(--dark-text);
+  }
+  .hero__bottom {
+    max-width: 560px;
+  }
+  .hero__lead {
+    margin: 0 0 28px;
+    color: rgba(245, 242, 233, 0.85);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .hero__facts {
+    display: flex;
+    margin-bottom: 32px;
+  }
+  .hero__facts div {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 155px;
+    margin-right: 28px;
+    padding-right: 28px;
+    border-right: 1px solid var(--line-on-dark);
+  }
+  .hero__facts div:last-child {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+  .hero__facts strong {
+    font: 400 27px var(--display);
+    color: var(--gold-light);
+    white-space: nowrap;
+  }
+  .hero__facts span {
+    color: rgba(245, 242, 233, 0.75);
+    font-size: 11px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .text-link--light {
+    border-bottom-color: var(--dark-text);
+    color: var(--dark-text);
+  }
+  .text-link--light span {
+    color: var(--gold-light);
+  }
+
+  @media (min-width: 900px) {
+    .hero__photo :global(img) {
+      object-fit: contain;
+      object-position: center;
+    }
+  }
 
   @media (max-width: 1100px) {
-    .hero {
-      grid-template-columns: 55% 45%;
-    }
-    .hero__facts div {
-      margin-right: 15px;
-      padding-right: 15px;
-    }
-    .hero__note {
-      left: -40px;
-      width: 135px;
-      height: 135px;
+    .hero__address {
+      top: 18px;
+      right: 18px;
     }
   }
 
   @media (max-width: 800px) {
-    .hero {
-      min-height: auto;
-      display: flex;
-      flex-direction: column;
-      padding: 45px 18px 24px;
-    }
     .hero__content {
-      display: block;
-      padding: 0;
+      padding: 108px 18px 32px;
+    }
+    .hero__top,
+    .hero__bottom {
+      max-width: none;
     }
     .hero h1 {
       font-size: 16.5vw;
       line-height: 0.88;
-      margin-bottom: 28px;
     }
     .hero__lead {
       font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 27px;
-    }
-    .hero__actions {
-      gap: 22px;
-      align-items: stretch;
-      flex-direction: column;
-    }
-    .hero__actions .button {
-      width: 100%;
-    }
-    .hero__actions .text-link {
-      align-self: flex-start;
+      margin-bottom: 22px;
     }
     .hero__facts {
-      margin: 40px 0 25px;
-      padding: 25px 0 0;
-      border-top: 1px solid var(--line-gold);
       justify-content: space-between;
+      margin-bottom: 24px;
     }
     .hero__facts div {
       display: block;
@@ -273,29 +273,26 @@ const { hero } = home;
       font-size: 21px;
       margin-bottom: 5px;
     }
-    .hero__facts span {
-      font-size: 11px;
-      letter-spacing: 0.03em;
+    .hero__actions {
+      gap: 16px;
+      flex-direction: column;
+      align-items: stretch;
     }
-    .hero__visual {
-      min-height: 510px;
-      margin-top: 10px;
+    .hero__actions .button {
+      width: 100%;
     }
-    .hero__note {
-      left: 10px;
-      top: 14px;
-      width: 112px;
-      height: 112px;
-    }
-    .hero__note p {
-      font-size: 13px;
-    }
-    .hero__note-icon {
-      margin-bottom: 7px;
+    .hero__actions .text-link {
+      align-self: flex-start;
     }
     .hero__address {
-      left: 18px;
-      bottom: 20px;
+      top: 14px;
+      right: 14px;
+      padding: 10px 14px;
+      gap: 10px;
+      max-width: calc(100vw - 28px);
+    }
+    .hero__address p {
+      font-size: 12px;
     }
   }
 </style>
