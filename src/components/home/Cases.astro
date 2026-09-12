@@ -1,20 +1,35 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import SectionHeading from '../ui/SectionHeading.astro';
 import { getHomeContent } from '../../lib/homeContent';
 
 const home = await getHomeContent();
 const { cases } = home;
+const items = cases.items.flatMap(c => c.image ? [{ ...c, image: c.image }] : []);
+const mobileCount = Math.min(items.length, 10);
+// The existing desktop assets are cropped during optimization. Mobile needs its
+// own sources, otherwise object-fit alone cannot restore the missing photo edges.
+const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
+  const images = await Promise.all([480, 700, 1000].map(width => getImage({
+    src: c.image.src,
+    width,
+    height: Math.round(width * c.image.height / c.image.width),
+    format: 'webp',
+  })));
+  return images.map((image, i) => `${image.src} ${[480, 700, 1000][i]}w`).join(', ');
+}));
 ---
 
-<section class="section results" id="results">
+<section class="section results" id="results" data-results-carousel>
   <SectionHeading eyebrow={cases.eyebrow} title={cases.title} lead={cases.lead} />
 
-  <div class="results-grid rail">
+  <div class="results-grid rail" id="home-results-rail" data-results-rail role="group" aria-label="Работы до и после">
     {
-      cases.items.map((c, i) => (
+      items.map((c, i) => (
         <article class:list={['result-card', 'reveal', { 'result-card--large': i === 0 }]}>
           <div class="result-card__image">
+            <picture>
+            {mobileImages[i] && <source media="(max-width: 800px)" type="image/webp" srcset={mobileImages[i]} sizes="(max-width: 421px) 76vw, 320px" width={c.image.width} height={c.image.height} />}
             <Image
               src={c.image.src}
               alt={c.alt}
@@ -24,6 +39,7 @@ const { cases } = home;
               sizes={i === 0 ? '(max-width: 800px) 86vw, 50vw' : '(max-width: 800px) 86vw, 22vw'}
               loading="lazy"
             />
+            </picture>
             <span class="glass-panel">до / после</span>
           </div>
           <div>
@@ -35,10 +51,27 @@ const { cases } = home;
       ))
     }
   </div>
+  {mobileCount > 1 && <div class="results-navigation" data-results-navigation hidden>
+    <div class="results-navigation__position">
+      <div class="results-navigation__track" aria-hidden="true"><span data-results-progress /></div>
+      <p class="results-navigation__counter" aria-live="polite" aria-atomic="true"><span data-results-current>01</span><span aria-hidden="true"> / </span><span class="visually-hidden"> из </span>{String(mobileCount).padStart(2, '0')}</p>
+    </div>
+    <div class="results-navigation__arrows">
+      <button type="button" data-results-prev aria-label="Предыдущая работа" aria-controls="home-results-rail" disabled><span aria-hidden="true">←</span></button>
+      <button type="button" data-results-next aria-label="Следующая работа" aria-controls="home-results-rail"><span aria-hidden="true">→</span></button>
+    </div>
+  </div>}
   <a class="button button--outline" href="/result">{cases.all_label} <span>↗</span></a>
 </section>
 
+<script>
+  import { initResultsCarousel } from '../../scripts/results-carousel';
+  initResultsCarousel();
+</script>
+
 <style>
+  .results-navigation { display: none; }
+  .result-card__image picture { display: contents; }
   .results {
     border-top: 1px solid var(--line);
   }
@@ -136,33 +169,72 @@ const { cases } = home;
     }
   }
   @media (max-width: 800px) {
+    .results {
+      --results-card-width: min(76vw, 320px);
+      padding-top: 36px;
+      padding-bottom: 36px;
+    }
+    .results > :global(.section-heading) { margin-bottom: 22px; }
+    .results :global(.section-heading .eyebrow) { margin-bottom: 12px; }
+    .results :global(.section-heading__lead) { margin-top: 14px; }
     .results-grid {
       display: flex;
       overflow-x: auto;
-      gap: 10px;
-      margin-right: -18px;
-      padding-right: 18px;
+      gap: 14px;
+      margin-right: calc(-1 * var(--gutter));
+      padding-right: calc(100vw - var(--gutter) - var(--results-card-width));
+      padding-bottom: 24px;
+      margin-bottom: -24px;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
     }
     .result-card,
     .result-card--large {
-      flex: 0 0 86vw;
+      flex: 0 0 var(--results-card-width);
       display: flex;
       flex-direction: column;
-      min-height: 560px;
-      scroll-snap-align: center;
+      min-height: 0;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      opacity: 1;
+      transform: none;
     }
+    .result-card:nth-child(n + 11) { display: none; }
     .result-card__image,
     .result-card--large .result-card__image {
-      height: 380px;
-      flex: 0 0 380px;
+      min-height: 0;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      flex: none;
+      background: var(--paper);
     }
+    .result-card__image :global(img) { object-fit: contain; display: block; }
+    .result-card:hover .result-card__image :global(img) { transform: none; }
+    .result-card__image > span { display: none; }
     .result-card > div:last-child,
     .result-card--large > div:last-child {
-      min-height: 180px;
-      padding: 25px;
+      min-height: 126px;
+      padding: 18px;
+      flex: 1;
     }
+    .result-card > div:last-child > p { margin-bottom: 8px; }
+    .result-card h3 { font-size: 25px; margin-bottom: 8px; }
+    .results-navigation:not([hidden]) { display: flex; align-items: center; gap: 24px; margin-top: 18px; }
+    .results-navigation__position { flex: 1; min-width: 0; }
+    .results-navigation__track { height: 2px; background: var(--line-gold); border-radius: var(--radius-pill); overflow: hidden; }
+    .results-navigation__track span { display: block; width: 100%; height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-fast); }
+    .results-navigation__counter { margin: 14px 0 0; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; letter-spacing: 0.12em; }
+    .results-navigation__counter > span:first-child { color: var(--gold-deep); }
+    .results-navigation__arrows { display: flex; gap: 10px; }
+    .results-navigation button { display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border: 1px solid var(--gold-deep); border-radius: 50%; background: transparent; color: var(--gold-deep); font-size: 23px; cursor: pointer; }
+    .results-navigation button:disabled { opacity: 0.4; cursor: default; }
+    .results-grid:focus-visible, .results-navigation button:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 4px; }
     .results > .button {
       width: 100%;
+      margin-top: 18px;
     }
+  }
+  @media (max-width: 800px) and (prefers-reduced-motion: reduce) {
+    .results-grid { scroll-behavior: auto; }
   }
 </style>
