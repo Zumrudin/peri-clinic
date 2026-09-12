@@ -267,6 +267,29 @@ const mobileTiles = await Promise.all(
       opacity: 1;
       color: var(--ink-2);
     }
+    .round-arrow {
+      position: static;
+      order: 3;
+      margin-top: auto;
+      align-self: flex-end;
+      width: 52px;
+      height: 52px;
+      background: var(--gold);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      color: #fff;
+      font-size: 0;
+    }
+    .round-arrow::before {
+      content: '→';
+      font-size: 20px;
+    }
+    .service-card:hover .round-arrow {
+      background: var(--gold-hover);
+      color: #fff;
+      transform: translateX(3px);
+      box-shadow: none;
+    }
   }
   @media (max-width: 800px) {
     .service-grid:not(.service-grid--bento) {
