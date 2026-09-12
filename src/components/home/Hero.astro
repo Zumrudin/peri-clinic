@@ -42,11 +42,6 @@ const { hero } = home;
   </div>
   <div class="hero__scrim" aria-hidden="true"></div>
 
-  <div class="hero__address glass-panel glass-panel--dark">
-    <span class="glass-chip glass-chip--dark">{site.city}</span>
-    <p set:html={em(site.address_lines)} />
-  </div>
-
   <div class="hero__content reveal">
     <div class="hero__top">
       <p class="eyebrow">{hero.eyebrow}</p>
@@ -69,6 +64,11 @@ const { hero } = home;
         <a class="text-link text-link--light" href={hero.secondary_href}>{hero.secondary_label} <span>↓</span></a>
       </div>
     </div>
+  </div>
+
+  <div class="hero__address glass-panel glass-panel--dark">
+    <span class="glass-chip glass-chip--dark">{site.city}</span>
+    <p set:html={em(site.address_lines)} />
   </div>
 </section>
 
@@ -288,11 +288,6 @@ const { hero } = home;
       top: 14px;
       right: 14px;
       padding: 10px 14px;
-    }
-    .hero__address p {
-      font-size: 14px;
-    }
-    .hero__address {
       gap: 10px;
       max-width: calc(100vw - 28px);
     }
