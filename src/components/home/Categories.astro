@@ -191,6 +191,18 @@ const mobileTiles = await Promise.all(
       grid-template-columns: repeat(3, 1fr);
     }
   }
+  @media (min-width: 801px) {
+    :global(#services .section-heading.services__heading) {
+      margin-bottom: 32px;
+    }
+    :global(#services .services__heading h2) {
+      font-size: clamp(44px, 3.6vw, 58px);
+    }
+    :global(#services .services__heading .section-heading__lead) {
+      font-size: 19px;
+      line-height: 1.6;
+    }
+  }
   @media (max-width: 800px) {
     .service-grid:not(.service-grid--bento) {
       display: flex;
