@@ -486,9 +486,12 @@ const mobileTiles = await Promise.all(
       border-radius: var(--radius-lg);
     }
     .services__hint-title {
+      margin: 0;
       font-size: 20px;
       color: var(--ink);
     }
+    /* mirrors .services__hint-cta's reset in the ≤800px block above — button chrome
+       isn't reset sitewide, so it's repeated per breakpoint; keep both in sync */
     .services__hint-cta {
       display: inline-flex;
       align-items: center;
