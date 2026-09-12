@@ -4,10 +4,10 @@
 
 The homepage Categories block (`src/components/home/Categories.astro`) shows
 the site's 3 top-level `service_categories` (Аппаратная / Инъекционная /
-Эстетическая косметология). Today, at every width down to 800px, it's a
-"bento" grid (`1.15fr 1fr 1fr`) of full-bleed portrait photo cards, fixed
-`height: 610px` (520px ≤1100px), dark gradient scrim, white overlaid text, a
-numbered chip (`01`/`02`/`03`) and a dark glass-chip round arrow (`↗`).
+Эстетическая косметология). At desktop widths (`>800px`) it's a "bento" grid
+(`1.15fr 1fr 1fr`) of full-bleed portrait photo cards, fixed `height: 610px`
+(520px at `≤1100px`), dark gradient scrim, white overlaid text, a numbered
+chip (`01`/`02`/`03`) and a dark glass-chip round arrow (`↗`).
 
 A prepared visual reference
 (`https://dev.zumrudin.ru/peri-concepts/directions-desktop-2026-09-12/03-three-columns.png`,
@@ -18,30 +18,12 @@ arrow), plus a consultation hint plaque underneath the row.
 
 Decisions made during brainstorming:
 
-- **Desktop only.** The mobile (`≤800px`) horizontal scroll-rail is left
-  completely untouched. The already-approved "wide tile + two tiles"
-  mobile composition
-  (`docs/superpowers/specs/2026-09-12-directions-mobile-tiles-design.md`)
-  is a **separate, not-yet-implemented task** — this spec does not build it,
-  and is written so that task can land afterwards without conflict (see
-  "Out of scope" and the `:global()`/media-query discipline used throughout
-  §Design).
+- **Desktop only.** The mobile (`≤800px`) composition is left completely
+  untouched.
 - Card tint mapping is **positional** (1st/2nd/3rd card), not by category
-  slug — same trade-off the mobile spec already made, since these three
-  categories are fixed, editorially-stable content, not a reorderable list.
-- The mobile spec's `.round-arrow-gold` pattern (gold circle, white `→`,
-  non-focusable, whole-card link) is reused here (sized up for desktop)
-  instead of the sitewide dark `.round-arrow`/`↗`, so the two breakpoints
-  converge on one arrow visual language once both ship.
-- The two non-token background tints introduced by the mobile spec
-  (`--tile-injection-bg`, `--tile-aesthetic-bg`) are reused verbatim rather
-  than re-derived, so column 2/3 read identically at every breakpoint.
-- The consultation hint plaque's copy ("Не знаете, что выбрать? / Начните с
-  консультации") is user-facing marketing copy, so per this project's core
-  rule ("nothing user-facing is hardcoded") it gets **two new Directus
-  fields** on the `home` singleton rather than being hardcoded in the
-  template — mirroring the existing `categories_eyebrow`/`_title`/`_lead`
-  pattern already on that same collection.
+  slug — same trade-off the mobile implementation already made, since these
+  three categories are fixed, editorially-stable content, not a reorderable
+  list.
 - Photos: no code/asset changes. `item.cover` (the existing Directus-driven
   `<Image>`) keeps rendering exactly as it does today — the redesign is
   purely a CSS/markup change around it. For review, three photos are cropped
@@ -51,45 +33,86 @@ Decisions made during brainstorming:
   change, and not something to carry into production. Real clinic photos are
   selected and set by the client before merge.
 
+### Amendment (2026-09-12, post-brainstorm): the mobile redesign landed on `main` first
+
+This spec was originally written believing the "wide tile + two tiles"
+mobile composition
+(`docs/superpowers/specs/2026-09-12-directions-mobile-tiles-design.md`) was
+still unbuilt, and was designed to not conflict with it landing later. While
+this desktop spec/plan were being written, that mobile work was actually
+implemented and merged (`303e699 Merge branch
+'feature/directions-mobile-tiles'`) — so `Categories.astro` on `main` today
+already contains real mobile-only CSS/markup, not just the pre-existing
+dark-overlay bento. This changes several concrete details below (each
+section says so explicitly):
+
+- The photo is now wrapped in `<picture>` (for mobile art-direction crops),
+  not a bare `<Image>`. Desktop sizing rules must target `.service-card
+  picture`, not `.service-card :global(img)` directly, or they'll fight the
+  unconditional `.service-card picture { display: block; width: 100%;
+  height: 100% }` rule the mobile work added.
+- Card 1 already has a `.service-card--wide` class (added by the mobile
+  work, currently mobile-only styled). Desktop styling can use `nth-child`
+  as originally planned; `.service-card--wide` is not required but is
+  available.
+- The arrow does **not** get a new `.round-arrow-gold` element. The mobile
+  work already re-themes the existing `<span class="round-arrow
+  glass-chip glass-chip--dark">↗</span>` into a solid gold `→` via a
+  `font-size: 0` + `::before { content: '→' }` trick (see
+  `Categories.astro`'s `≤800px` block). §7 below reuses that exact
+  technique for desktop on the same element, rather than adding a second
+  arrow element.
+- The consultation hint plaque markup **already exists** (added by the
+  mobile work), hidden on desktop (`display: none` by default, shown only
+  `≤800px`) with **hardcoded** Russian copy (not Directus-driven) — the
+  mobile work didn't add the CMS fields this desktop spec originally
+  proposed adding. Since both breakpoints render the *same* `.services__hint`
+  DOM node, making desktop pull from Directus while mobile stays hardcoded
+  would let an editor change the CMS copy and have mobile silently keep
+  showing the old text. **Decision: desktop reuses the exact same hardcoded
+  copy already in the markup.** No Directus schema change in this task —
+  §9 is rewritten accordingly, and the "two new Directus fields" idea from
+  the original brainstorm is dropped.
+- The heading override already has a real-world selector precedent to
+  follow: the mobile work uses `:global(#services
+  .section-heading.services__heading)` (ID-qualified) rather than a bare
+  `:global(.services__heading)`, specifically to reliably out-specificity
+  `SectionHeading`'s own scoped rules regardless of CSS bundle order (see
+  the code comment at `Categories.astro`'s mobile block). §2 below follows
+  the same pattern for its desktop override, for the same reason.
+
 ## Design
 
 ### 1. Scope of changes
 
 - `src/components/home/Categories.astro` — markup: pass `class` to
-  `SectionHeading`, add one new arrow `<span>`, add the hint-plaque block.
-  Scoped `<style>`: new rules, all either naturally inert on mobile (see
-  each subsection) or explicitly gated behind `@media (min-width: 801px)`.
-  **No line inside the existing `@media (max-width: 800px)` block is
-  touched.**
-- `directus/setup/collections.mjs` — 2 new fields on the `home` singleton,
-  under the existing `d_categories` divider.
-- `src/content.config.ts` — extend the `home` collection's zod schema and
-  field-picking list with the 2 new keys.
-- `src/lib/homeContent.ts` — surface the 2 new fields as `categories.hint`.
-- No changes to `service_categories`, `src/content.config.ts`'s category
-  schema, or any other homepage section.
+  `SectionHeading` (only). No new elements are added — the hint plaque and
+  the arrow both reuse markup that already exists from the merged mobile
+  work. Scoped `<style>`: new rules, all gated behind
+  `@media (min-width: 801px)`. **No line inside the existing
+  `@media (max-width: 800px)` block is touched.**
+- No changes to `directus/setup/collections.mjs`, `src/content.config.ts`,
+  `src/lib/homeContent.ts`, `service_categories`, or any other homepage
+  section.
 
 ### 2. Heading (desktop only)
 
 `SectionHeading`'s existing `layout="grid"` default (title left, lead
 right-column bottom-aligned, `src/components/ui/SectionHeading.astro:28-33`)
 already matches the reference layout — no markup/structure change needed.
-Pass `class="services__heading"` from `Categories.astro` (the prop already
-exists, unused today) and, in `Categories.astro`'s own scoped `<style>`,
-target the child component's internals with `:global()` — required because
-`SectionHeading` has its own Astro scope hash, distinct from
-`Categories.astro`'s (same technique the mobile spec uses for its own
-`≤800px` heading tweaks, just gated the other direction):
+`class="services__heading"` is already passed to `SectionHeading` (added by
+the mobile work). Add a desktop override using the same ID-qualified
+selector pattern the mobile work already established (see Amendment above):
 
 ```css
 @media (min-width: 801px) {
-  :global(.services__heading) {
+  :global(#services .section-heading.services__heading) {
     margin-bottom: 32px; /* was 66px */
   }
-  :global(.services__heading h2) {
+  :global(#services .services__heading h2) {
     font-size: clamp(44px, 3.6vw, 58px); /* was clamp(40px, 4.6vw, 72px) */
   }
-  :global(.services__heading .section-heading__lead) {
+  :global(#services .services__heading .section-heading__lead) {
     font-size: 19px; /* was 14px */
     line-height: 1.6;
   }
@@ -97,17 +120,18 @@ target the child component's internals with `:global()` — required because
 ```
 
 The eyebrow (`.eyebrow` — gold, uppercase, `0.18em` tracking, ~13px) already
-matches the brief and needs no change. This override only fires `≥801px` and
-only targets elements carrying `services__heading`, so every other page's
-`SectionHeading` and this same page's `≤800px` rendering are unaffected.
+matches the brief and needs no change. This override only fires `≥801px`
+and only targets elements inside `#services` carrying `services__heading`,
+so every other page's `SectionHeading` and this same page's `≤800px`
+rendering are unaffected.
 
 ### 3. Grid (desktop only)
 
 Delete the existing `@media (max-width: 1100px)` block (it currently forces
-equal 3 columns + fixed `520px` height — exactly what this redesign removes).
-`.service-grid--bento { grid-template-columns: 1.15fr 1fr 1fr }` then applies
-unconditionally from `801px` up to any width (≈40/30/30, matching the brief),
-with a slightly wider gap on desktop:
+equal 3 columns + fixed `520px` height — exactly what this redesign
+removes). `.service-grid--bento { grid-template-columns: 1.15fr 1fr 1fr }`
+(unconditional, unchanged) then applies from `801px` up to any width
+(≈40/30/30, matching the brief), with a slightly wider gap on desktop:
 
 ```css
 @media (min-width: 801px) {
@@ -118,9 +142,9 @@ with a slightly wider gap on desktop:
 ```
 
 Three columns are preserved all the way down to the existing `800px`
-boundary — below that, the (untouched) mobile rail takes over, satisfying
-"adapt sizes first, never drop below 3 columns before switching to the
-approved mobile composition."
+boundary — below that, the (untouched) mobile composition takes over,
+satisfying "adapt sizes first, never drop below 3 columns before switching
+to the mobile composition."
 
 ### 4. Card container (desktop only)
 
@@ -150,11 +174,18 @@ no new radius rules are needed.
 
 ### 5. Photo (desktop only)
 
+The photo now lives inside `<picture>` (added by the merged mobile work for
+its art-direction `<source>`); size the `<picture>` element itself, not the
+`<img>`, so this doesn't fight the existing unconditional
+`.service-card picture { display: block; width: 100%; height: 100% }` rule:
+
 ```css
 @media (min-width: 801px) {
-  .service-card :global(img) {
+  .service-card picture {
     flex: 0 0 auto;
     height: clamp(250px, 27vw, 300px); /* ~55–60% of a 440–520px card */
+  }
+  .service-card :global(img) {
     filter: none; /* drop the mobile/legacy saturate(0.8) */
   }
   .service-card:hover :global(img) {
@@ -164,11 +195,13 @@ no new radius rules are needed.
 }
 ```
 
-`width: 100%; object-fit: cover` (existing, unconditional) is unaffected, so
-each column's differently-cropped photo (col 1 wider than col 2/3) is
-handled automatically. No `<Image>`/`sizes` prop changes — the current
-`sizes="(max-width: 800px) 84vw, 33vw"` is a close enough approximation of
-the real ~30–40% column widths for this task's scope.
+`width: 100%; object-fit: cover` on the `img` (existing, unconditional) is
+unaffected, so each column's differently-cropped photo (col 1 wider than
+col 2/3) is handled automatically. No `<Image>`/`sizes` prop changes — the
+current `sizes="(max-width: 800px) 84vw, 33vw"` is a close enough
+approximation of the real ~30–40% column widths for this task's scope. The
+mobile `<source media="(max-width: 800px)">` inside the same `<picture>` is
+unaffected since it simply doesn't match at `≥801px`.
 
 ### 6. Content panel (desktop only)
 
@@ -188,6 +221,9 @@ the real ~30–40% column widths for this task's scope.
   }
   .service-card:nth-child(3) .service-card__content {
     background: var(--tile-aesthetic-bg);
+  }
+  .service-card__number {
+    display: none;
   }
   .service-card__content h3 {
     order: 1;
@@ -209,16 +245,23 @@ the real ~30–40% column widths for this task's scope.
     letter-spacing: normal;
     text-transform: none;
     opacity: 1;
-    color: var(--muted);
+    color: var(--ink-2);
   }
 }
 ```
 
-- `--tile-injection-bg: #e4dccf` / `--tile-aesthetic-bg: #dee1d6` are the
-  same two custom properties the mobile spec introduces (§7 there),
-  declared once on `.service-grid--bento` so both breakpoints share
-  identical values once the mobile task lands. Column 1 reuses the existing
-  `--sand` token, also matching the mobile spec's top-tile colour.
+(Implementation note, added after the fact: an earlier draft of this rule used `color: var(--muted)`, which fails WCAG AA contrast — 3.65–4.10:1 — against all three panel tints. `var(--ink-2)` passes comfortably (5.58–6.26:1) and is what actually shipped.)
+
+- `--tile-injection-bg: #e4dccf` / `--tile-aesthetic-bg: #dee1d6` already
+  exist in the file (declared by the mobile work inside its own
+  `≤800px` block, on `.service-grid--bento`). Custom properties declared
+  inside one media query aren't visible outside it, so this task
+  **redeclares the same two values** on `.service-grid--bento` again,
+  this time unconditionally (or inside the new `≥801px` block — either
+  works; declaring them unconditionally on `.service-grid--bento` once,
+  outside any media query, is simplest and removes the duplication). Column
+  1 reuses the existing `--sand` token, also matching the mobile
+  implementation's top-tile colour.
 - The `p` override resets every property the global `.glass-chip`/
   `.glass-chip--dark` classes set (`display`, `background`,
   `backdrop-filter`, `padding`, `border-radius` — see `base.css:299-310`),
@@ -236,48 +279,46 @@ the real ~30–40% column widths for this task's scope.
   this column width/font-size — no manual `<br>` — so it keeps working if a
   title is edited in Directus.
 
-### 7. Arrow button (desktop only, `.round-arrow-gold`)
+### 7. Arrow button (desktop only — reuses the existing `.round-arrow` element)
 
-One new, always-present-but-inert `<span>`, added after the existing
-`<h3>` inside `.service-card__content`:
-
-```html
-<span class="round-arrow-gold" aria-hidden="true">→</span>
-```
-
-The existing `<span class="round-arrow glass-chip glass-chip--dark">↗</span>`
-stays in the markup untouched, for mobile.
+No new markup. The mobile work already solves "same sitewide `↗` element,
+different glyph/colour at a breakpoint" by zeroing the text out
+(`font-size: 0`) and drawing the new glyph via `::before`; reuse that exact
+technique for desktop instead of adding a second arrow element:
 
 ```css
-.round-arrow-gold {
-  display: none; /* inert until a breakpoint turns it on */
-}
 @media (min-width: 801px) {
   .round-arrow {
-    display: none;
-  }
-  .round-arrow-gold {
-    display: grid;
-    place-items: center;
+    position: static;
     order: 3;
     margin-top: auto;
     align-self: flex-end;
     width: 52px;
     height: 52px;
-    border-radius: 50%;
     background: var(--gold);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     color: #fff;
-    font-size: 20px;
-    transition:
-      transform var(--dur-fast),
-      background var(--dur-fast);
+    font-size: 0;
   }
-  .service-card:hover .round-arrow-gold {
-    transform: translateX(3px);
+  .round-arrow::before {
+    content: '→';
+    font-size: 20px;
+  }
+  .service-card:hover .round-arrow {
     background: var(--gold-hover);
+    color: #fff;
+    transform: translateX(3px);
+    box-shadow: none;
   }
 }
 ```
+
+The last rule overrides the existing unconditional
+`.service-card:hover .round-arrow { background: #fff; color: var(--ink);
+transform: rotate(45deg); box-shadow: var(--shadow-glow) }` — without this
+override, desktop hover would still show the old white-circle-rotate
+behaviour instead of the gold nudge-right.
 
 `margin-top: auto` inside the flex column pins the arrow to the
 bottom-right of the panel regardless of description length; combined with
@@ -292,57 +333,84 @@ never clipped by its own `overflow`).
 
 No explicit height rule is needed: `.service-grid--bento`'s default
 `align-items: stretch` already makes every `.service-card` in the row match
-the tallest one. The photo has a fixed `clamp()` height (§5) and the content
-panel is `flex: 1` (§6), so any extra height (e.g. a description wrapping to
-a 3rd line) is absorbed by the panel growing — keeping the photo/panel
-seam and the card bottoms aligned across all three cards, per the brief.
+the tallest one. The photo (`<picture>`) has a fixed `clamp()` height (§5)
+and the content panel is `flex: 1` (§6), so any extra height (e.g. a
+description wrapping to a 3rd line) is absorbed by the panel growing —
+keeping the photo/panel seam and the card bottoms aligned across all three
+cards, per the brief.
 
-### 9. Consultation hint plaque (new)
+### 9. Consultation hint plaque (enable existing markup on desktop)
 
-Markup, appended after the grid, inside the existing
-`<section class="section services">`:
+The plaque markup and copy already exist in `Categories.astro` (added by
+the merged mobile work) and are hidden on desktop by the existing
+unconditional rule `.services__hint { display: none; }`:
 
 ```html
 <div class="services__hint glass-panel">
-  <p class="services__hint-title">{categories.hint.title}</p>
+  <p class="services__hint-title">Не знаете, что выбрать?</p>
   <button type="button" class="services__hint-cta" data-open-sheet data-context="Консультация">
-    {categories.hint.ctaLabel} <span aria-hidden="true">→</span>
+    Начните с консультации <span aria-hidden="true">→</span>
   </button>
 </div>
 ```
 
-- `[data-open-sheet][data-context="Консультация"]` reuses the sitewide
-  contact-sheet convention exactly as `Cta.astro`/`TreatmentPage.astro` do
-  — no new booking mechanism, opens the existing `<dialog>`.
-- Styling (desktop only — see "Out of scope" for `≤800px`):
-  `margin-top: 22px; min-height: 130px; padding: 32px 40px; display: flex;
-  align-items: center; gap: 24px; border-radius: var(--radius-lg);`,
-  composing the existing `glass-panel` utility class as-is (cream glass
-  background) rather than redeclaring it. `.services__hint-title`:
-  `font-size: 20px; color: var(--ink)`. `.services__hint-cta`: gold link
-  styling matching the existing `.booking__quick a` pattern
-  (`Cta.astro:104-118` — `color: var(--gold-deep)`, arrow in `var(--gold)`).
-- No decorative leaf illustration in this pass (see "Out of scope") — the
-  plaque is text-only for v1; a background image can be layered in later
-  without a markup change.
+No markup change and **no new Directus fields** (see Amendment above —
+desktop reuses the exact same hardcoded copy already shipped for mobile, so
+the two breakpoints can never drift apart). `[data-open-sheet]
+[data-context="Консультация"]` already reuses the sitewide contact-sheet
+convention, unchanged.
 
-**CMS**: two new fields on the `home` singleton
-(`directus/setup/collections.mjs`), under the existing `d_categories`
-divider, following the same `f.str(...)` pattern as the block's other
-fields:
+Add desktop-only display + sizing, inside a new `@media (min-width: 801px)`
+rule (leaving the existing `≤800px` styling of the same class untouched):
 
-```js
-f.str('categories_hint_title', 'Плашка: текст', { default: 'Не знаете, что выбрать?' }),
-f.str('categories_hint_cta_label', 'Плашка: текст ссылки', { default: 'Начните с консультации' }),
+```css
+@media (min-width: 801px) {
+  .services__hint {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 22px;
+    min-height: 130px;
+    padding: 32px 40px;
+    border-radius: var(--radius-lg);
+  }
+  .services__hint-title {
+    margin: 0;
+    font-size: 20px;
+    color: var(--ink);
+  }
+  /* mirrors .services__hint-cta's reset in the ≤800px block above — button
+     chrome isn't reset sitewide, so it's repeated per breakpoint; keep both
+     in sync */
+  .services__hint-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gold-deep);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+}
 ```
 
-Surfaced in `src/lib/homeContent.ts` as
-`categories.hint = { title: h.categories_hint_title, ctaLabel: h.categories_hint_cta_label }`,
-added to the `home` collection's zod schema and field-picking list in
-`src/content.config.ts` (both currently at lines ~53-55 and ~98-100).
-Requires re-running `schema.mjs` against `peri-cms.zumrudin.ru` and filling
-the two values in Directus (the field defaults above act as the initial
-value so the banner has real copy immediately after the schema apply).
+(Implementation note, added after the fact: an earlier draft of this rule
+only set `font-size`/`color` on `.services__hint-title` and only `font-size`
+on `.services__hint-cta`, assuming the mobile block's button-chrome reset
+and title margin reset were global. They aren't — both are scoped inside
+the `≤800px` block — so without the fuller rules above, the title
+misaligns with the CTA (missing `margin: 0`) and the CTA renders as an
+unstyled native `<button>` at desktop. The fuller versions above are what
+actually shipped.)
+
+`.services__hint` already composes `glass-panel` in the markup (cream glass
+background) — this override only changes layout/sizing, not background. No
+decorative leaf illustration in this pass (see "Out of scope") — a
+background image can be layered in later without a markup change.
 
 ### 10. Placeholder photos for review (not a code change)
 
@@ -368,28 +436,33 @@ the client's call, not part of this code change.
 ### 11. Testing / QA
 
 - `npm run check` — TS/Astro diagnostics.
-- `node scripts/qa/screenshots.mjs http://127.0.0.1:4322 docs/qa/directions-desktop /`
-  at 1024/1280/1440/1920 widths, committed under `docs/qa/directions-desktop/`.
-  Also re-run the standard 375/800/1440 set to confirm `≤800px` is visually
-  unchanged from `main`.
+- `scripts/qa/screenshots.mjs` only supported the fixed widths
+  `[375, 800, 1440]` when this spec was written; it gained an optional
+  `QA_WIDTHS` env-var override (comma-separated, defaults unchanged) so the
+  extra desktop widths could actually be captured:
+  ```bash
+  node scripts/qa/screenshots.mjs http://127.0.0.1:4322 docs/qa/directions-desktop /
+  QA_WIDTHS=1024,1280,1920 node scripts/qa/screenshots.mjs http://127.0.0.1:4322 docs/qa/directions-desktop /
+  ```
+  committed under `docs/qa/directions-desktop/`. The default-widths run also
+  covers 375/800, confirming `≤800px` is visually unchanged from `main`.
 - `node scripts/qa/a11y.mjs http://127.0.0.1:4322 /` — 0 serious/critical;
-  specifically re-check contrast for `var(--muted)` description text on all
-  three panel tints, and the visual/DOM order divergence from §6.
+  specifically re-check contrast for the description text (`var(--ink-2)`,
+  see §6's implementation note) on all three panel tints, and the
+  visual/DOM order divergence from §6.
 - Manual checks: three columns at all four widths, no text clipping/overlap
   with the arrow, photo-top/panel-bottom seams and card bottoms aligned,
   all three cards still link to their existing category pages, hint button
   opens the contact sheet, keyboard focus ring visible on all three cards
-  and the hint button, `≤800px` rail behaviour matches `main` pixel-for-pixel.
+  and the hint button, `≤800px` rendering matches `main` pixel-for-pixel.
 
 ## Out of scope / follow-ups
 
-- Implementing the approved mobile "wide tile + two tiles" composition
-  (`docs/superpowers/specs/2026-09-12-directions-mobile-tiles-design.md`)
-  — separate task; this change is written to not conflict with it landing
-  afterward (shared `services__heading` class, shared tint variables, shared
-  `.round-arrow-gold`/hint-plaque naming).
 - Sitewide header/nav redesign shown in the reference for context.
 - Selecting/uploading the real production photos for the three categories.
 - A decorative leaf/plant graphic on the hint plaque.
 - The secondary "ВАШИ ЦЕЛИ / НАША ПОДДЕРЖКА / …" micro-copy column shown in
   the reference's hint plaque — explicitly dropped per the brief.
+- Moving the hint plaque's copy into Directus (would require also migrating
+  the mobile implementation's hardcoded copy at the same time, to avoid the
+  two breakpoints drifting — a follow-up affecting both, not this task).

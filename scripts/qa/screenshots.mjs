@@ -2,6 +2,7 @@
  * Full-page screenshots at 3 widths for visual QA.
  * Usage: node scripts/qa/screenshots.mjs <baseUrl> <outDir> [paths...]
  * Example: node scripts/qa/screenshots.mjs http://127.0.0.1:4322 docs/qa/phase-0 / /result
+ * Widths default to [375, 800, 1440]; override with QA_WIDTHS=1024,1280,1920 (comma-separated).
  */
 import { chromium } from 'playwright-core';
 import { mkdirSync, existsSync } from 'node:fs';
@@ -9,7 +10,9 @@ import { join } from 'node:path';
 
 const [baseUrl = 'http://127.0.0.1:4322', outDir = 'docs/qa', ...paths] = process.argv.slice(2);
 const pages = paths.length ? paths : ['/'];
-const widths = [375, 800, 1440];
+const widths = process.env.QA_WIDTHS
+  ? process.env.QA_WIDTHS.split(',').map(Number)
+  : [375, 800, 1440];
 
 const executablePath =
   process.env.CHROME_PATH ||
