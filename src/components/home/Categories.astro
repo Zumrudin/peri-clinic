@@ -285,6 +285,29 @@ const mobileTiles = await Promise.all(
       color: var(--ink-2);
       margin: 0 0 12px;
     }
+    /* Zeroes out the sitewide ↗ glyph already in the markup (font-size:0 collapses its
+       grid-item box to ~0×0) in favour of a mobile-only → via ::before, without touching
+       markup — see design spec §6 for why this diverges from the sitewide arrow glyph. */
+    .service-grid--bento .round-arrow {
+      position: static;
+      align-self: flex-end;
+      margin-top: auto;
+      background: var(--gold);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      color: #fff;
+      font-size: 0;
+      width: 44px;
+      height: 44px;
+    }
+    .service-grid--bento .round-arrow::before {
+      content: '→';
+      font-size: 18px;
+    }
+    .service-grid--bento .service-card:not(.service-card--wide) .round-arrow {
+      width: 40px;
+      height: 40px;
+    }
     .service-grid:not(.service-grid--bento) .service-card {
       flex: 0 0 84vw;
       height: 520px;
