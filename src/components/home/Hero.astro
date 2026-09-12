@@ -1,5 +1,6 @@
 ---
-import { Picture } from 'astro:assets';
+import { getImage } from 'astro:assets';
+import desktopHero from '../../assets/home/hero-desktop.png';
 import { em } from '../../lib/markup';
 import { getSiteSettings } from '../../lib/siteContent';
 import { getHomeContent } from '../../lib/homeContent';
@@ -7,38 +8,48 @@ import { getHomeContent } from '../../lib/homeContent';
 const site = await getSiteSettings();
 const home = await getHomeContent();
 const { hero } = home;
+
+// Art direction: retain the CMS photograph on mobile, use the wide photo on desktop.
+const images = await Promise.all([true, false].map(async (backdrop) => {
+  const formats = backdrop ? ['webp', 'jpg'] as const : ['avif', 'webp', 'jpg'] as const;
+  const sources = await Promise.all([desktopHero, hero.image.src].flatMap((src, index) =>
+    formats.map(async (format) => ({
+      media: index === 0 ? '(min-width: 900px)' : undefined,
+      type: `image/${format === 'jpg' ? 'jpeg' : format}`,
+      image: await getImage({
+        src,
+        inferSize: true,
+        widths: backdrop ? [400] : [480, 840, 1200, 1800],
+        format,
+      }),
+    })),
+  ));
+  return { sources, fallback: sources[sources.length - 1].image };
+}));
 ---
 
 <section class="hero" aria-labelledby="hero-title">
   {/* Hidden from AT: the overlaid heading/lead already carry the content; alt text stays in the DOM for image-search SEO, not screen readers. */}
   <div class="hero__media" aria-hidden="true">
-    <div class="hero__backdrop">
-      <Picture
-        src={hero.image.src}
-        inferSize
-        alt=""
-        widths={[400]}
-        sizes="100vw"
-        formats={['webp']}
-        fallbackFormat="jpg"
-        loading="eager"
-        decoding="async"
-      />
-    </div>
-    <div class="hero__photo">
-      <Picture
-        src={hero.image.src}
-        inferSize
-        alt={hero.image_alt}
-        widths={[480, 840, 1200, 1800]}
-        sizes="100vw"
-        formats={['avif', 'webp']}
-        fallbackFormat="jpg"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
-    </div>
+    {images.map(({ sources, fallback }, index) => (
+      <div class={index === 0 ? 'hero__backdrop' : 'hero__photo'}>
+        <picture>
+          {sources.map(({ media, type, image }) => (
+            <source media={media} type={type} srcset={image.srcSet.attribute} sizes="100vw" />
+          ))}
+          <img
+            {...fallback.attributes}
+            src={fallback.src}
+            srcset={fallback.srcSet.attribute}
+            sizes="100vw"
+            alt={index === 0 ? '' : hero.image_alt}
+            loading="eager"
+            fetchpriority={index === 1 ? 'high' : undefined}
+            decoding="async"
+          />
+        </picture>
+      </div>
+    ))}
   </div>
   <div class="hero__scrim" aria-hidden="true"></div>
 
