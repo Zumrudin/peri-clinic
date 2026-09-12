@@ -1,0 +1,53 @@
+{
+  "results": [
+    {
+      "width": 320,
+      "total": 7,
+      "visible": 4,
+      "overflow": false
+    },
+    {
+      "width": 375,
+      "total": 7,
+      "visible": 4,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "total": 7,
+      "visible": 4,
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "total": 7,
+      "visible": 4,
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "total": 7,
+      "visible": 4,
+      "overflow": false
+    },
+    {
+      "width": 801,
+      "total": 7,
+      "visible": 7,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "total": 7,
+      "visible": 7,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "total": 7,
+      "visible": 7,
+      "overflow": false
+    }
+  ],
+  "catalogEntries": 8
+}

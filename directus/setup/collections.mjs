@@ -196,6 +196,13 @@ export const collections = [
       f.str('devices_eyebrow', 'Надзаголовок'),
       f.text('devices_title', 'Заголовок'),
       f.text('devices_lead', 'Текст'),
+      f.str('devices_all_label', 'Кнопка каталога'),
+      f.str('devices_consultation_title', 'Заголовок консультации'),
+      f.str('devices_consultation_label', 'Кнопка консультации'),
+      f.str('devices_catalog_title', 'Заголовок каталога'),
+      f.str('devices_catalog_seo_title', 'SEO-заголовок каталога'),
+      f.str('devices_catalog_seo_description', 'SEO-описание каталога'),
+
       f.divider('d_cases', 'Блок «До и после»'),
       f.str('cases_eyebrow', 'Надзаголовок'),
       f.text('cases_title', 'Заголовок'),

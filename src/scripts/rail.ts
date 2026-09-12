@@ -7,6 +7,15 @@ export function initRails(): void {
   document.querySelectorAll<HTMLElement>('[data-rail-root]').forEach((root) => {
     const rail = root.querySelector<HTMLElement>('[data-rail]');
     if (!rail) return;
+    if (root.hasAttribute('data-mobile-grid')) {
+      const mobile = window.matchMedia('(max-width: 800px)');
+      const sync = () => {
+        if (mobile.matches) rail.removeAttribute('tabindex');
+        else rail.setAttribute('tabindex', '0');
+      };
+      sync();
+      mobile.addEventListener('change', sync);
+    }
     const step = (dir: 1 | -1) => {
       const card = rail.firstElementChild as HTMLElement | null;
       const gap = parseFloat(getComputedStyle(rail).columnGap || getComputedStyle(rail).gap || '0') || 0;
