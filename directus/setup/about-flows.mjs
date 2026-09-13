@@ -5,6 +5,9 @@ for (const flow of await get('/flows?limit=-1')) {
   if (!['Автопубликация', 'Опубликовать сайт'].includes(flow.name)) continue;
   if (!Array.isArray(flow.options?.collections)) throw new Error(`Unexpected collection filter in flow: ${flow.name}`);
   const collections = [...new Set([...flow.options.collections, ...additions])];
-  if (collections.length !== flow.options.collections.length) await patch(`/flows/${flow.id}`, { options: { ...flow.options, collections } });
+  const options = { ...flow.options, collections };
+  // Drag-and-drop emits items.sort, not items.update.
+  if (flow.name === 'Автопубликация') options.scope = [...new Set([...(options.scope || []), 'items.sort'])];
+  if (JSON.stringify(options) !== JSON.stringify(flow.options)) await patch(`/flows/${flow.id}`, { options });
   log('about collections registered in', flow.name);
 }

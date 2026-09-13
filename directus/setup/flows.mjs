@@ -47,7 +47,7 @@ async function main() {
     status: 'active',
     trigger: 'event',
     accountability: 'all',
-    options: { type: 'action', scope: ['items.create', 'items.update', 'items.delete'], collections: contentCollections },
+    options: { type: 'action', scope: ['items.create', 'items.update', 'items.delete', 'items.sort'], collections: contentCollections },
   });
   await ensureFlow('Опубликовать сайт', {
     icon: 'publish',

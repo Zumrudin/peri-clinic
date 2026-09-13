@@ -55,5 +55,6 @@ export function directusQuery(params: Record<string, string | undefined>): strin
  * for any collection where display order matters (editors reorder via drag-and-drop in Directus).
  */
 export function bySort<T extends { data: { sort?: number | null } }>(entries: T[]): T[] {
-  return [...entries].sort((a, b) => (a.data.sort ?? 0) - (b.data.sort ?? 0));
+  // Match the CMS: records without an assigned position follow ordered records.
+  return [...entries].sort((a, b) => (a.data.sort ?? Infinity) - (b.data.sort ?? Infinity));
 }
