@@ -76,6 +76,7 @@ export async function getHomeContent() {
       consultation_title: h.devices_consultation_title || '',
       consultation_label: h.devices_consultation_label || '',
       catalog_title: h.devices_catalog_title || '',
+      catalog_lead: h.devices_catalog_lead || '',
       catalog_seo_title: h.devices_catalog_seo_title || '',
       catalog_seo_description: h.devices_catalog_seo_description || '',
 

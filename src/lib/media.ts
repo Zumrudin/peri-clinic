@@ -1,4 +1,4 @@
-import { directusUrl, directusToken } from './directus';
+import { directusUrl, directusToken } from './directus.ts';
 
 export interface DirectusFileRef {
   id: string;
