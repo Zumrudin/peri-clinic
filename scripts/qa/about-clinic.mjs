@@ -47,10 +47,12 @@ try {
     await page.mouse.down(); await page.mouse.move(box.x+box.width*.2,box.y+100,{steps:8}); await page.mouse.up();
     assert.equal(await dialog.evaluate(d=>d.open),false);
     const rooms=page.locator('[data-gallery="clinic-rooms"]');
+    const firstRoomCaption=await rooms.locator('[data-photo]').first().getAttribute('data-caption');
+    const lastRoomCaption=await rooms.locator('[data-photo]').last().getAttribute('data-caption');
     await rooms.locator('[data-photo]').first().click();
-    assert.match(await dialog.locator('[data-lightbox-caption]').textContent(),/Ресепшен/);
+    assert.equal(await dialog.locator('[data-lightbox-caption]').textContent(),firstRoomCaption);
     await dialog.locator('[data-lightbox-prev]').click();
-    assert.match(await dialog.locator('[data-lightbox-caption]').textContent(),/Зона ожидания/);
+    assert.equal(await dialog.locator('[data-lightbox-caption]').textContent(),lastRoomCaption);
     await dialog.locator('[data-close]').click();
     await page.locator('#approach').screenshot({style:'header, .cookie-notice, .floating-contact, .mobile-cta-bar { visibility:hidden !important; }', path:`docs/qa/about-clinic/about-${width}.png`});
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
