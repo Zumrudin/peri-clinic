@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import {chromium} from 'playwright-core';
 import {load} from 'cheerio';
-const base=process.argv[2] || 'http://127.0.0.1:4332';
+const base=process.argv[2] || 'http://127.0.0.1:4340';
 const baseline=process.argv[3] || 'https://peri.zumrudin.ru';
-const out='docs/qa/about-desktop-viewport';mkdirSync(out,{recursive:true});
+const out='docs/qa/about-desktop-grid';mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox']});
 const hide='header,.cookie-notice,.floating-contact,.mobile-cta-bar{visibility:hidden!important}';
 async function ready(page,url){await page.goto(url,{waitUntil:'networkidle'});const cookie=page.locator('[data-cookie-accept]');if(await cookie.isVisible())await cookie.click();await page.locator('#approach img').evaluateAll(async imgs=>{await Promise.all(imgs.map(async img=>{img.loading='eager';await img.decode();}));});await page.evaluate(()=>document.fonts.ready);}
@@ -17,10 +17,10 @@ try{
  for(const [width,height] of [[1920,1080],[1440,900],[1366,768],[1280,720],[1024,768],[1600,600]]){
   await page.setViewportSize({width,height});
   await page.evaluate(async()=>{const el=document.querySelector('#approach');for(let pass=0;pass<3;pass++){for(let i=0;i<6;i++)await new Promise(r=>requestAnimationFrame(r));window.scrollTo({top:el.getBoundingClientRect().top+scrollY-86,behavior:'instant'});}});
-  const metrics=await page.locator('#approach').evaluate(el=>{const box=el.getBoundingClientRect(),last=el.lastElementChild.getBoundingClientRect();return{top:box.top,bottom:box.bottom,height:box.height,footer:last.bottom,overflow:el.scrollHeight>el.clientHeight+1,photos:[...el.querySelectorAll('.portraits img')].map(img=>({height:img.getBoundingClientRect().height,width:img.getBoundingClientRect().width})),pageOverflow:document.documentElement.scrollWidth>innerWidth+1};});
-  assert.ok(metrics.top>=70 && metrics.bottom<=height+1,JSON.stringify({width,height,metrics}));assert.ok(metrics.footer<=height+1);assert.equal(metrics.overflow,false);assert.equal(metrics.pageOverflow,false);
+  const metrics=await page.locator('#approach').evaluate(el=>{const box=el.getBoundingClientRect(),last=el.lastElementChild.getBoundingClientRect();const reference=document.querySelector('#services').getBoundingClientRect();const style=getComputedStyle(el),referenceStyle=getComputedStyle(document.querySelector('#services'));return{left:box.left,width:box.width,referenceLeft:reference.left,referenceWidth:reference.width,padding:style.paddingLeft,referencePadding:referenceStyle.paddingLeft,top:box.top,bottom:box.bottom,height:box.height,footer:last.bottom,overflow:el.scrollHeight>el.clientHeight+1,photos:[...el.querySelectorAll('.portraits img')].map(img=>({height:img.getBoundingClientRect().height,width:img.getBoundingClientRect().width})),pageOverflow:document.documentElement.scrollWidth>innerWidth+1};});
+  assert.ok(Math.abs(metrics.left-metrics.referenceLeft)<1);assert.ok(Math.abs(metrics.width-metrics.referenceWidth)<1);assert.equal(metrics.padding,metrics.referencePadding);assert.equal(metrics.overflow,false);assert.equal(metrics.pageOverflow,false);
   await page.screenshot({path:`${out}/desktop-${width}x${height}.png`,style:'.cookie-notice{visibility:hidden!important}'});
-  results.push({width,height,...metrics});console.log('PASS viewport fit',width,height);
+  results.push({width,height,...metrics});console.log('PASS shared desktop grid',width,height);
  }
  await page.close();
  for(const width of [375,430,800]){
