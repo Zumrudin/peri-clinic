@@ -200,6 +200,7 @@ export const collections = [
       f.str('devices_consultation_title', 'Заголовок консультации'),
       f.str('devices_consultation_label', 'Кнопка консультации'),
       f.str('devices_catalog_title', 'Заголовок каталога'),
+      f.text('devices_catalog_lead', 'Лид каталога'),
       f.str('devices_catalog_seo_title', 'SEO-заголовок каталога'),
       f.str('devices_catalog_seo_description', 'SEO-описание каталога'),
 

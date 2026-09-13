@@ -70,6 +70,7 @@ const homeFields = [
   'devices_consultation_title',
   'devices_consultation_label',
   'devices_catalog_title',
+  'devices_catalog_lead',
   'devices_catalog_seo_title',
   'devices_catalog_seo_description',
   'cases_eyebrow',
@@ -121,6 +122,7 @@ const home = defineCollection({
     devices_consultation_title: z.string().nullable().optional(),
     devices_consultation_label: z.string().nullable().optional(),
     devices_catalog_title: z.string().nullable().optional(),
+    devices_catalog_lead: z.string().nullable().optional(),
     devices_catalog_seo_title: z.string().nullable().optional(),
     devices_catalog_seo_description: z.string().nullable().optional(),
     cases_eyebrow: z.string(),
@@ -267,7 +269,7 @@ const allDevices = defineCollection({
   loader: directusLoader('allDevices', () =>
     directusGet(
       `/items/devices${directusQuery({
-        fields: `id,sort,name,short,procedure.slug,procedure.status,${fileFields('image')}`,
+        fields: `id,sort,name,short,manufacturer,country,procedure.slug,procedure.status,${fileFields('image')}`,
         filter: JSON.stringify({ status: { _eq: 'published' } }),
         sort: 'sort',
         limit: '-1',
@@ -279,6 +281,8 @@ const allDevices = defineCollection({
     sort: z.number().nullable().optional(),
     name: z.string(),
     short: z.string().nullable().optional(),
+    manufacturer: z.string().nullable().optional(),
+    country: z.string().nullable().optional(),
     image: fileRef,
     procedure: z.object({ slug: z.string(), status: z.string() }).nullable().optional(),
   }),
