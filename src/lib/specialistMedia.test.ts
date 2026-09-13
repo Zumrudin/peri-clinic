@@ -22,16 +22,9 @@ test('old records and incomplete media are safe; photo/video order is preserved'
   assert.equal(items[1].captions_url, '/media/captions.vtt');
 });
 
-test('public Telegram posts work without an uploaded cover, including old video fields', () => {
-  const items = normalizeSpecialistMedia([
-    {title: 'Видео', telegram_url: 'https://t.me/peri_clinic/123?single'},
-    {title: 'Старое видео', video_url: 'https://t.me/s/peri_clinic/456'},
-    {title: 'Закрытое старое', image_url: '/media/photo.webp', video_url: 'https://t.me/c/123456/12'},
-    {title: 'Закрытое', telegram_url: 'https://t.me/c/123456/12'},
-    {title: 'Приглашение', telegram_url: 'https://t.me/+abcdef'},
-    {title: 'Чужой сайт', telegram_url: 'https://t.me.evil.test/clinic/123'},
-    {title: 'Без сообщения', telegram_url: 'https://t.me/peri_clinic'},
-  ]);
-  assert.deepEqual(items.map(x => x.telegram_post), ['peri_clinic/123', 'peri_clinic/456']);
-  assert.ok(items.every(x => !x.video_url));
+test('Telegram links never become playable videos, even with a cover', () => {
+  for (const url of ['https://t.me/peri_clinic/123', 'https://t.me/c/123456/12']) {
+    assert.deepEqual(normalizeSpecialistMedia([{title:'Видео', image_url:'/media/photo.webp', video_url:url}]), []);
+  }
+  assert.deepEqual(normalizeSpecialistMedia([{title:'Видео', telegram_url:'https://t.me/peri_clinic/123'}]), []);
 });

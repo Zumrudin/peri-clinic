@@ -10,6 +10,8 @@ for (const field of definition.fields.filter(f => f.field !== 'id')) {
   if (existing.some(f => f.field === field.field)) await patch(`/fields/specialist_media/${field.field}`, { meta: field.meta });
   else await post('/fields/specialist_media', field);
 }
+// Keep experimental Telegram data for rollback, but remove it from the editor form.
+if (existing.some(f => f.field === 'telegram_url')) await patch('/fields/specialist_media/telegram_url', { meta: { hidden: true, readonly: true } });
 const parent = collections.find(c => c.collection === 'specialists');
 const parentFields = await get('/fields/specialists');
 for (const name of ['media_items', 'media']) {
@@ -18,7 +20,7 @@ for (const name of ['media_items', 'media']) {
   else await post('/fields/specialists', field);
 }
 const relations = await get('/relations');
-for (const [field, related, meta] of [['specialist', 'specialists', { one_field: 'media_items', sort_field: 'sort' }], ['image', 'directus_files', {}]]) {
+for (const [field, related, meta] of [['specialist', 'specialists', { one_field: 'media_items', sort_field: 'sort' }], ['image', 'directus_files', {}], ['video', 'directus_files', {}]]) {
   if (!relations.some(r => r.collection === 'specialist_media' && r.field === field)) await post('/relations', {
     collection: 'specialist_media', field, related_collection: related,
     schema: { on_delete: field === 'specialist' ? 'CASCADE' : 'SET NULL' }, meta: { ...meta, one_deselect_action: field === 'specialist' ? 'delete' : 'nullify' },

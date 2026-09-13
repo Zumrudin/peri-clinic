@@ -13,3 +13,5 @@ scripts/migrate/media-index.json
 *.log
 .DS_Store
 .superpowers/
+
+.cache/

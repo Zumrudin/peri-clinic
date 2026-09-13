@@ -1,4 +1,6 @@
-# Specialist media QA — 2026-09-13
+# Archived Telegram experiment — 2026-09-13
+
+Superseded by direct uploads at the user’s request. Current verification: ../specialist-video/README.md. The Telegram widget described below has been removed.
 
 Branch: `feat/specialist-telegram-uploads`, created from `main` at `9fd0ea3`. No merge or deployment was performed by this task; production CMS schema/content were not changed.
 

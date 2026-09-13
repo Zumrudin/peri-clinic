@@ -49,6 +49,7 @@ export function initSpecialistMedia() {
       overflow = document.documentElement.style.overflow;
       document.documentElement.style.overflow = 'hidden';
       dialog.showModal();
+      if (isVideo) void video.play().catch(() => { /* Native controls remain available if autoplay is blocked. */ });
       dialog.querySelector<HTMLButtonElement>('[data-media-close]')!.focus();
     }));
     [photo,video].forEach(element => element.addEventListener('error', () => { if (dialog.open) error.hidden = false; }));

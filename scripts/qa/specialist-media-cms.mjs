@@ -30,14 +30,15 @@ if(!response.ok)throw new Error('Upload failed '+response.status);
 const file=(await response.json()).data;
 const person=await post('/items/specialists',{name:'Тестовый специалист',slug:'test-media-'+Date.now(),role:'Врач',image:file.id,status:'published'});
 await post('/items/specialist_media',{specialist:person.id,title:'Своё фото',image:file.id,sort:1});
-await post('/items/specialist_media',{specialist:person.id,title:'Видео',telegram_url:'https://t.me/peri_clinic/2055',sort:2});
-const item=await get(`/items/specialists/${person.id}?fields=*,image.id,image.width,image.height,media_items.*,media_items.image.id,media_items.image.width,media_items.image.height`);
+const videoForm = new FormData();
+videoForm.append('file', new Blob([readFileSync(process.argv[3] || '/tmp/peri-direct-video.mp4')], { type: 'video/mp4' }), 'test-video.mp4');
+const videoResponse = await fetch('http://127.0.0.1:8057/files', { method:'POST', headers:{Authorization:`Bearer ${await login()}`}, body:videoForm });
+if (!videoResponse.ok) throw new Error('Video upload failed');
+const video = (await videoResponse.json()).data;
+await post('/items/specialist_media',{specialist:person.id,title:'Видео с устройства',video:video.id,sort:2});
+
+const item=await get(`/items/specialists/${person.id}?fields=*,image.id,image.width,image.height,media_items.*,media_items.image.id,media_items.image.width,media_items.image.height,media_items.video.id,media_items.video.type,media_items.video.filesize,media_items.video.modified_on,media_items.video.uploaded_on`);
 if(item.media_items.length!==2 || !item.media_items[0].image.width)throw new Error('Expanded media failed');
 writeFileSync('/tmp/peri-specialist-media-fixture.json',JSON.stringify(item));
-for (const telegram_url of ['https://t.me/+invite', 'https://t.me/c/123456/123', 'https://evil.test/clinic/123']) {
-  let rejected = false;
-  try { await post('/items/specialist_media', { specialist: person.id, title: 'Bad URL', telegram_url }); }
-  catch (error) { rejected = error.message.includes('400'); }
-  if (!rejected) throw new Error('Invalid Telegram URL accepted');
-}
-console.log('PASS: migration twice, upload, relation expansion, photo and Telegram persisted, invalid links rejected');
+if (!item.media_items[1].video?.filesize) throw new Error('Video relation missing');
+console.log('PASS: migration twice, photo and video uploads, expanded relations, permissions and inactive flow preserved');

@@ -1,27 +1,27 @@
-# Implementation and review
+# Implementation and release notes
 
-- [x] Create an isolated branch from main.
-- [x] Recognize public Telegram message links, including legacy video_url values without covers.
-- [x] Add official lazy post widgets and a persistent external-link fallback.
-- [x] Add a related CMS collection with native photo upload, file metadata, ordering, and Telegram URL validation.
-- [x] Render uploaded images through Astro; preserve legacy content.
-- [x] Prepare an additive release migration with permissions and publication-flow coverage.
-- [x] Exercise migration twice, upload, expanded relations, and URL validation against a separate Directus instance with SQLite on 127.0.0.1:8057.
-- [x] Finish browser, build and accessibility verification; record results in docs/qa/specialist-media/README.md.
-- [ ] Await the user's explicit release instruction. Do not deploy as part of development.
+Completed on the isolated branch:
 
-## Future release, only after authorization
+- Native photo/video file upload fields and additive CMS migration.
+- Local static video export, versioned caching, bounded/authenticated downloads and build failure on incomplete media.
+- Optional cover with specialist portrait fallback; native player, playback on open, and cleanup on close.
+- Removal of the Telegram widget and rejection of legacy Telegram video links.
+- Isolated CMS integration tests, source tests, type checks, build and browser verification (see docs/qa/specialist-video/README.md).
+
+## Future release — requires the user's explicit instruction
 
 1. Back up CMS schema/data and the serving release.
-2. Apply `node directus/setup/specialist-media-schema.mjs` with the target admin environment. It does not overwrite specialist content.
-3. Build the reviewed branch against the updated CMS and run the normal release process only after authorization.
-4. In Specialists → specialist → Фото и Telegram, create a material and set a title plus either a photo upload or a public Telegram message link. Save the material and the specialist. Existing links remain in Ранее добавленные материалы (ссылки).
-5. Check the chosen message: 2055 currently cannot play in Telegram's widget because Telegram reports its media is too big.
+2. Apply `node directus/setup/specialist-media-schema.mjs` with the target admin environment. This is necessary before building the branch against that CMS.
+3. Build and publish the reviewed branch through the normal release process only after authorization. VIDEO_CACHE_DIR optionally moves the video download cache outside the checkout; otherwise `.cache/specialist-videos` persists between npm installs. nginx already serves static MP4/WebM with byte ranges.
+4. Specialists → specialist → Фото и видео → create: title, photo or video upload, optional cover/description. Save the material and the specialist; normal publication rebuilds the site.
+5. Upload the actual desired video. Old Telegram links do not import a file automatically.
 
-## Isolated checks
+The existing limit is 50 MB per upload. MP4 must contain browser-compatible codecs (H.264/AAC); WebM is also accepted. MOV/HEVC conversion and automatic video compression are outside this change.
 
-`npm test`, `npm run check`, `npm run build` require Node 22.23.2 or newer compatible Node.
+## Checks
 
-`scripts/qa/specialist-media-cms.mjs` expects a disposable bootstrapped Directus on 127.0.0.1:8057 and a local env file containing ADMIN_EMAIL/ADMIN_PASSWORD (pass its path as argv[2]). It uploads the repository's cabinet.webp and creates only test records in that instance.
+Node 22.23.2: `npm test`, `npm run check -- --minimumSeverity error`, `npm run build`.
 
-`scripts/qa/specialist-media.mjs <isolated-preview-origin>` tests real Telegram playback on 375/800/1024/1440 widths using message 2048, verifies the 2055 limitation, photo lightbox and blocked-script fallback. The browser intercepts its own document response to substitute the playable permalink; no CMS content is changed.
+`scripts/qa/specialist-media-cms.mjs <isolated-env-file> <test-mp4>` targets only a disposable Directus on 127.0.0.1:8057. The env file supplies ADMIN_EMAIL/ADMIN_PASSWORD. It applies the migration twice, uploads a photo and MP4, and verifies expanded file metadata, policy permissions, and preservation of an inactive flow.
+
+`scripts/qa/specialist-video.mjs <isolated-nginx-origin>` checks a fixture build on mobile and desktop: same-origin video, no Telegram requests, no video download before opening, playback, seeking, byte ranges, close cleanup, photo lightbox and failure fallback.
