@@ -41,11 +41,33 @@ try {
     assert.equal(await dialog.evaluate(d=>d.open),false);
     assert.equal(await page.evaluate(()=>document.activeElement?.getAttribute('data-id')),secondId);
     assert.equal(await page.evaluate(()=>document.documentElement.style.overflow),'');
-    // Drag must rotate without opening a photo.
+    // Drag must rotate without opening a photo, following the finger live and looping.
+    const rail=team.locator('[data-rail]');
     const box=await team.locator('[data-photo]').first().boundingBox();
+    const overflowing=await team.locator('.gallery-nav').isVisible();
+    const beforeDragId=await team.locator('[data-photo]').first().getAttribute('data-id');
     await page.mouse.move(box.x+box.width*.7,box.y+100);
-    await page.mouse.down(); await page.mouse.move(box.x+box.width*.2,box.y+100,{steps:8}); await page.mouse.up();
+    await page.mouse.down();
+    await page.mouse.move(box.x+box.width*.45,box.y+100,{steps:8});
+    if (overflowing) assert.notEqual(await rail.evaluate(el=>getComputedStyle(el).transform),'none'); // live-follow mid-drag
+    await page.mouse.move(box.x+box.width*.2,box.y+100,{steps:8});
+    await page.mouse.up();
     assert.equal(await dialog.evaluate(d=>d.open),false);
+    if (overflowing) {
+      assert.notEqual(await team.locator('[data-photo]').first().getAttribute('data-id'),beforeDragId); // committed rotate
+      assert.equal(await rail.evaluate(el=>getComputedStyle(el).transform),'none'); // settled, no leftover transform
+      // Short drag below the commit threshold must spring back without rotating.
+      const beforeShortDragId=await team.locator('[data-photo]').first().getAttribute('data-id');
+      await page.mouse.move(box.x+box.width*.5,box.y+100);
+      await page.mouse.down();
+      await page.mouse.move(box.x+box.width*.35,box.y+100,{steps:4});
+      await page.mouse.up();
+      await page.waitForFunction(()=>{
+        const el=document.querySelector('[data-gallery="clinic-team"] [data-rail]');
+        return el && getComputedStyle(el).transform==='none';
+      });
+      assert.equal(await team.locator('[data-photo]').first().getAttribute('data-id'),beforeShortDragId);
+    }
     const rooms=page.locator('[data-gallery="clinic-rooms"]');
     const firstRoomCaption=await rooms.locator('[data-photo]').first().getAttribute('data-caption');
     const lastRoomCaption=await rooms.locator('[data-photo]').last().getAttribute('data-caption');

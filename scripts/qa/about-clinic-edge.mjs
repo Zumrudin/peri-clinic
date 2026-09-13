@@ -36,6 +36,32 @@ try {
     await page.keyboard.press('Escape'); await page.close();
     console.log(`PASS ${size} photo(s): navigation visibility, touch/wrap, focus trap`);
   }
+  {
+    const page=await context.newPage();
+    await page.goto(base,{waitUntil:'networkidle'});
+    const session=await context.newCDPSession(page);
+    let tested=0;
+    for (const id of ['clinic-team','clinic-rooms']) {
+      const gallery=page.locator(`[data-gallery="${id}"]`);
+      if (!(await gallery.locator('.gallery-nav').isVisible())) continue; // not overflowing at this viewport, nothing to drag
+      tested++;
+      const rail=gallery.locator('[data-rail]');
+      await gallery.locator('[data-photo]').first().scrollIntoViewIfNeeded(); // CDP touch coords are viewport-relative; this section starts below the fold
+      const box=await gallery.locator('[data-photo]').first().boundingBox();
+      const beforeId=await gallery.locator('[data-photo]').first().getAttribute('data-id');
+      const y=box.y+box.height*.5, startX=box.x+box.width*.8;
+      await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:startX,y}]});
+      await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:startX-box.width*.4,y}]});
+      assert.notEqual(await rail.evaluate(el=>getComputedStyle(el).transform),'none'); // live-follow mid-touch
+      await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:startX-box.width*.8,y}]});
+      await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+      assert.notEqual(await gallery.locator('[data-photo]').first().getAttribute('data-id'),beforeId); // committed rotate, loops
+      assert.equal(await rail.evaluate(el=>getComputedStyle(el).transform),'none'); // settled
+    }
+    assert.ok(tested>0,'expected at least one overflowing gallery to be drag-tested at this viewport');
+    await page.close();
+    console.log(`PASS real-touch live drag follows finger and loops on ${tested} overflowing rail(s)`);
+  }
   const page=await context.newPage();await page.goto(base,{waitUntil:'networkidle'});
   const section=await new AxeBuilder({page}).include('#approach').analyze();
   assert.deepEqual(section.violations.map(v=>v.id),[]);
