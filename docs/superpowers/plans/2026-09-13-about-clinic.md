@@ -1,6 +1,6 @@
 # План реализации блока «О клинике»
 
-Статус: план, реализация не начата.
+Статус: реализовано в `feat/about-clinic-gallery`; актуальная настройка и уточнения — в `2026-09-13-about-clinic-handoff.md`.
 Основа: `output/imagegen/about-clinic/04-portrait-carousel.png`.
 
 ## 1. Согласованная композиция

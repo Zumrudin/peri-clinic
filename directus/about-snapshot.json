@@ -1,0 +1,1805 @@
+{
+  "version": 1,
+  "directus": "12.3.1",
+  "vendor": "postgres",
+  "collections": [
+    {
+      "collection": "clinic_about",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "clinic_about",
+        "color": null,
+        "display_template": null,
+        "group": "group_content",
+        "hidden": false,
+        "icon": "local_hospital",
+        "item_duplication_fields": null,
+        "note": null,
+        "preview_url": null,
+        "singleton": true,
+        "sort": null,
+        "sort_field": null,
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "О клинике — тексты блока"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "clinic_about"
+      }
+    },
+    {
+      "collection": "clinic_photos",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "clinic_photos",
+        "color": null,
+        "display_template": null,
+        "group": "group_content",
+        "hidden": false,
+        "icon": "photo_library",
+        "item_duplication_fields": null,
+        "note": null,
+        "preview_url": null,
+        "singleton": false,
+        "sort": null,
+        "sort_field": "sort",
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Фотографии клиники"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "clinic_photos"
+      }
+    },
+    {
+      "collection": "specialists",
+      "meta": {
+        "accountability": "all",
+        "archive_app_filter": true,
+        "archive_field": null,
+        "archive_value": null,
+        "autosave_revision_interval": null,
+        "collapse": "open",
+        "collection": "specialists",
+        "color": null,
+        "display_template": "{{name}}",
+        "group": "group_content",
+        "hidden": false,
+        "icon": "people",
+        "item_duplication_fields": null,
+        "note": null,
+        "preview_url": null,
+        "singleton": false,
+        "sort": null,
+        "sort_field": "sort",
+        "status": "active",
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Специалисты"
+          }
+        ],
+        "unarchive_value": null,
+        "versioning": false
+      },
+      "schema": {
+        "name": "specialists"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "collection": "clinic_about",
+      "field": "id",
+      "type": "integer",
+      "meta": {
+        "collection": "clinic_about",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": null,
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "id",
+        "table": "clinic_about",
+        "data_type": "integer",
+        "default_value": "nextval('clinic_about_id_seq'::regclass)",
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": true,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_about",
+      "field": "eyebrow",
+      "type": "string",
+      "meta": {
+        "collection": "clinic_about",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "eyebrow",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Надзаголовок"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "eyebrow",
+        "table": "clinic_about",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_about",
+      "field": "title",
+      "type": "text",
+      "meta": {
+        "collection": "clinic_about",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "title",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Заголовок"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "title",
+        "table": "clinic_about",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_about",
+      "field": "description",
+      "type": "text",
+      "meta": {
+        "collection": "clinic_about",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "description",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Описание клиники"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "description",
+        "table": "clinic_about",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_about",
+      "field": "rooms_title",
+      "type": "string",
+      "meta": {
+        "collection": "clinic_about",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "rooms_title",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Заголовок интерьеров"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "rooms_title",
+        "table": "clinic_about",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_about",
+      "field": "team_title",
+      "type": "string",
+      "meta": {
+        "collection": "clinic_about",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "team_title",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Заголовок команды"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "team_title",
+        "table": "clinic_about",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_about",
+      "field": "details_label",
+      "type": "string",
+      "meta": {
+        "collection": "clinic_about",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "details_label",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Кнопка страницы специалиста"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "details_label",
+        "table": "clinic_about",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_about",
+      "field": "license_label",
+      "type": "string",
+      "meta": {
+        "collection": "clinic_about",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "license_label",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 8,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Подпись ссылки на документы"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "license_label",
+        "table": "clinic_about",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_about",
+      "field": "license_href",
+      "type": "string",
+      "meta": {
+        "collection": "clinic_about",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "license_href",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Адрес документов"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "license_href",
+        "table": "clinic_about",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_about",
+      "field": "demo_notice",
+      "type": "text",
+      "meta": {
+        "collection": "clinic_about",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "demo_notice",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 10,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Пометка временных фотографий"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "demo_notice",
+        "table": "clinic_about",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_photos",
+      "field": "id",
+      "type": "integer",
+      "meta": {
+        "collection": "clinic_photos",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": null,
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "id",
+        "table": "clinic_photos",
+        "data_type": "integer",
+        "default_value": "nextval('clinic_photos_id_seq'::regclass)",
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": true,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_photos",
+      "field": "status",
+      "type": "string",
+      "meta": {
+        "collection": "clinic_photos",
+        "conditions": null,
+        "display": "labels",
+        "display_options": {
+          "choices": [
+            {
+              "background": "#2ECDA7",
+              "foreground": "#FFFFFF",
+              "text": "Опубликовано",
+              "value": "published"
+            },
+            {
+              "background": "#D3DAE4",
+              "foreground": "#18222F",
+              "text": "Черновик",
+              "value": "draft"
+            },
+            {
+              "background": "#A2B5CD",
+              "foreground": "#FFFFFF",
+              "text": "В архиве",
+              "value": "archived"
+            }
+          ],
+          "showAsDot": true
+        },
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown",
+        "note": null,
+        "options": {
+          "choices": [
+            {
+              "text": "Опубликовано",
+              "value": "published"
+            },
+            {
+              "text": "Черновик",
+              "value": "draft"
+            },
+            {
+              "text": "В архиве",
+              "value": "archived"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Статус"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "status",
+        "table": "clinic_photos",
+        "data_type": "character varying",
+        "default_value": "draft",
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_photos",
+      "field": "sort",
+      "type": "integer",
+      "meta": {
+        "collection": "clinic_photos",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "sort",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Порядок"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "sort",
+        "table": "clinic_photos",
+        "data_type": "integer",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_photos",
+      "field": "is_demo",
+      "type": "boolean",
+      "meta": {
+        "collection": "clinic_photos",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "is_demo",
+        "group": null,
+        "hidden": false,
+        "interface": "boolean",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": [
+          "cast-boolean"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Временное изображение из референса"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "is_demo",
+        "table": "clinic_photos",
+        "data_type": "boolean",
+        "default_value": false,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_photos",
+      "field": "image",
+      "type": "uuid",
+      "meta": {
+        "collection": "clinic_photos",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "image",
+        "group": null,
+        "hidden": false,
+        "interface": "file-image",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 5,
+        "special": [
+          "file"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Фотография"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "image",
+        "table": "clinic_photos",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "clinic_photos",
+      "field": "title",
+      "type": "string",
+      "meta": {
+        "collection": "clinic_photos",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "title",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Подпись"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "title",
+        "table": "clinic_photos",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "clinic_photos",
+      "field": "image_alt",
+      "type": "string",
+      "meta": {
+        "collection": "clinic_photos",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "image_alt",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Описание фотографии"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "image_alt",
+        "table": "clinic_photos",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "id",
+      "type": "integer",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "id",
+        "group": null,
+        "hidden": true,
+        "interface": null,
+        "note": null,
+        "options": null,
+        "readonly": true,
+        "required": false,
+        "searchable": true,
+        "sort": 1,
+        "special": null,
+        "translations": null,
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "id",
+        "table": "specialists",
+        "data_type": "integer",
+        "default_value": "nextval('specialists_id_seq'::regclass)",
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": true,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": true,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "status",
+      "type": "string",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": "labels",
+        "display_options": {
+          "choices": [
+            {
+              "background": "#2ECDA7",
+              "foreground": "#FFFFFF",
+              "text": "Опубликовано",
+              "value": "published"
+            },
+            {
+              "background": "#D3DAE4",
+              "foreground": "#18222F",
+              "text": "Черновик",
+              "value": "draft"
+            },
+            {
+              "background": "#A2B5CD",
+              "foreground": "#FFFFFF",
+              "text": "В архиве",
+              "value": "archived"
+            }
+          ],
+          "showAsDot": true
+        },
+        "field": "status",
+        "group": null,
+        "hidden": false,
+        "interface": "select-dropdown",
+        "note": null,
+        "options": {
+          "choices": [
+            {
+              "text": "Опубликовано",
+              "value": "published"
+            },
+            {
+              "text": "Черновик",
+              "value": "draft"
+            },
+            {
+              "text": "В архиве",
+              "value": "archived"
+            }
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 2,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Статус"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "status",
+        "table": "specialists",
+        "data_type": "character varying",
+        "default_value": "draft",
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "sort",
+      "type": "integer",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "sort",
+        "group": null,
+        "hidden": true,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 3,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Порядок"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "sort",
+        "table": "specialists",
+        "data_type": "integer",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "is_demo",
+      "type": "boolean",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "is_demo",
+        "group": null,
+        "hidden": false,
+        "interface": "boolean",
+        "note": "Включить для временных портретов: страница не индексируется и не попадает в sitemap.",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 4,
+        "special": [
+          "cast-boolean"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Демонстрационный профиль"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "is_demo",
+        "table": "specialists",
+        "data_type": "boolean",
+        "default_value": false,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "slug",
+      "type": "string",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "slug",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "Латиницей, без пробелов: volnewmer, rf-lifting-inmode",
+        "options": {
+          "slug": true,
+          "trim": true
+        },
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 5,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "URL (slug)"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "slug",
+        "table": "specialists",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": true,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "name",
+      "type": "string",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "name",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 6,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Имя"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "name",
+        "table": "specialists",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "role",
+      "type": "string",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "role",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 7,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Специализация"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "role",
+        "table": "specialists",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": false,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "image",
+      "type": "uuid",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "image",
+        "group": null,
+        "hidden": false,
+        "interface": "file-image",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": true,
+        "searchable": true,
+        "sort": 8,
+        "special": [
+          "file"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Портрет"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "image",
+        "table": "specialists",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id"
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "image_alt",
+      "type": "string",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "image_alt",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 9,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Описание фотографии"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "image_alt",
+        "table": "specialists",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "focus_y",
+      "type": "integer",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "focus_y",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "От 0 до 100. По умолчанию 35.",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 10,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Положение кадра по вертикали, %"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "focus_y",
+        "table": "specialists",
+        "data_type": "integer",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": 32,
+        "numeric_scale": 0,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "body",
+      "type": "text",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "body",
+        "group": null,
+        "hidden": false,
+        "interface": "input-rich-text-html",
+        "note": null,
+        "options": {
+          "toolbar": [
+            "bold",
+            "italic",
+            "underline",
+            "h2",
+            "h3",
+            "numlist",
+            "bullist",
+            "link",
+            "removeformat"
+          ]
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 11,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Описание под фотографией"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "body",
+        "table": "specialists",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "seo_divider",
+      "type": "alias",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "seo_divider",
+        "group": null,
+        "hidden": false,
+        "interface": "presentation-divider",
+        "note": null,
+        "options": {
+          "title": "SEO"
+        },
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 12,
+        "special": [
+          "alias",
+          "no-data"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "SEO"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "seo_title",
+      "type": "string",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "seo_title",
+        "group": null,
+        "hidden": false,
+        "interface": "input",
+        "note": "До 60 символов. Пусто — берётся название.",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 13,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "SEO: заголовок (title)"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "seo_title",
+        "table": "specialists",
+        "data_type": "character varying",
+        "default_value": null,
+        "max_length": 255,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "seo_description",
+      "type": "text",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "seo_description",
+        "group": null,
+        "hidden": false,
+        "interface": "input-multiline",
+        "note": "До 160 символов",
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 14,
+        "special": null,
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "SEO: описание (description)"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "full"
+      },
+      "schema": {
+        "name": "seo_description",
+        "table": "specialists",
+        "data_type": "text",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "og_image",
+      "type": "uuid",
+      "meta": {
+        "collection": "specialists",
+        "conditions": null,
+        "display": null,
+        "display_options": null,
+        "field": "og_image",
+        "group": null,
+        "hidden": false,
+        "interface": "file-image",
+        "note": null,
+        "options": null,
+        "readonly": false,
+        "required": false,
+        "searchable": true,
+        "sort": 15,
+        "special": [
+          "file"
+        ],
+        "translations": [
+          {
+            "language": "ru-RU",
+            "translation": "Картинка для соцсетей (OG)"
+          }
+        ],
+        "validation": null,
+        "validation_message": null,
+        "width": "half"
+      },
+      "schema": {
+        "name": "og_image",
+        "table": "specialists",
+        "data_type": "uuid",
+        "default_value": null,
+        "max_length": null,
+        "numeric_precision": null,
+        "numeric_scale": null,
+        "is_nullable": true,
+        "is_unique": false,
+        "is_indexed": false,
+        "is_primary_key": false,
+        "is_generated": false,
+        "generation_expression": null,
+        "has_auto_increment": false,
+        "foreign_key_table": null,
+        "foreign_key_column": null
+      }
+    }
+  ],
+  "relations": [
+    {
+      "collection": "clinic_photos",
+      "field": "image",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "clinic_photos",
+        "many_field": "image",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "clinic_photos",
+        "column": "image",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "clinic_photos_image_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "SET NULL"
+      }
+    },
+    {
+      "collection": "specialists",
+      "field": "image",
+      "related_collection": "directus_files",
+      "meta": {
+        "junction_field": null,
+        "many_collection": "specialists",
+        "many_field": "image",
+        "one_allowed_collections": null,
+        "one_collection": "directus_files",
+        "one_collection_field": null,
+        "one_deselect_action": "nullify",
+        "one_field": null,
+        "sort_field": null
+      },
+      "schema": {
+        "table": "specialists",
+        "column": "image",
+        "foreign_key_table": "directus_files",
+        "foreign_key_column": "id",
+        "constraint_name": "specialists_image_foreign",
+        "on_update": "NO ACTION",
+        "on_delete": "SET NULL"
+      }
+    }
+  ]
+}

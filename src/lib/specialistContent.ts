@@ -1,4 +1,4 @@
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { bySort } from './directus';
@@ -21,7 +21,7 @@ export async function getClinicPhotos(): Promise<GalleryItem[]> {
   const entries = bySort(aboutDemo ? [] : await getCollection('clinicPhotos')).filter(e => e.data.image?.id);
   if (entries.length || !aboutDemo) return Promise.all(entries.map(async ({data:p}) => {
     const img = directusImage(p.image)!;
-    return { id: String(p.id), title: p.title, alt: p.image_alt || p.title, ...await picture(img.src, img.width, img.height), focus: 50, demo: false };
+    return { id: String(p.id), title: p.title, alt: p.image_alt || p.title, ...await picture(img.src, img.width, img.height), focus: 50, demo: p.is_demo };
   }));
   return Promise.all([reception, cabinet, waiting].map(async (src, i) => ({ id: `demo-room-${i}`, title: ['Ресепшен', 'Кабинет', 'Зона ожидания'][i], alt: 'Временное изображение интерьера из дизайн-концепции', ...await picture(src, src.width, src.height), focus: 50, demo: true })));
 }
@@ -29,7 +29,13 @@ export async function getSpecialists(): Promise<Specialist[]> {
   const entries = bySort(aboutDemo ? [] : await getCollection('specialists')).filter(e => e.data.image?.id);
   if (entries.length || !aboutDemo) return Promise.all(entries.map(async ({data:p}) => {
     const img = directusImage(p.image)!;
-    return { id: String(p.id), slug: p.slug, title: p.name, role: p.role, alt: p.image_alt || p.name, body: p.body || '', seoTitle: p.seo_title || '', seoDescription: p.seo_description || '', ...await picture(img.src, img.width, img.height), focus: p.focus_y ?? 35, demo: false };
+    return { id: String(p.id), slug: p.slug, title: p.name, role: p.role, alt: p.image_alt || p.name, body: p.body || '', seoTitle: p.seo_title || '', seoDescription: p.seo_description || '', ...await picture(img.src, img.width, img.height), focus: p.focus_y ?? 35, demo: p.is_demo };
   }));
   return Promise.all([portrait1, portrait2, portrait3].map(async (src, i) => ({ id: `demo-doctor-${i}`, slug: `demo-specialist-${i + 1}`, title: `Специалист ${i + 1}`, role: i === 0 ? 'Главный врач' : 'Врач-косметолог', alt: 'Условный портрет из дизайн-концепции', body: '<p>Здесь будет описание специалиста: знакомство с врачом, направления работы, образование и опыт.</p><p>Это демонстрационная страница. Портрет вырезан из утверждённого референса и будет заменён настоящей фотографией.</p>', seoTitle: '', seoDescription: 'Демонстрационная страница специалиста', ...await picture(src, src.width, src.height), focus: 35, demo: true })));
+}
+
+export async function getAboutContent() {
+  const entry = await getEntry('clinicAbout', 'clinicAbout');
+  if (!entry) throw new Error('Clinic about content is empty — run directus/setup/seed-about.mjs');
+  return entry.data;
 }

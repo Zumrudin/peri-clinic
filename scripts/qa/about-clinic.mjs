@@ -22,6 +22,7 @@ try {
     const team=page.locator('[data-gallery="clinic-team"]');
     const photo=team.locator('[data-photo]').first();
     const original=await photo.getAttribute('data-id');
+    const secondId=await team.locator('[data-photo]').nth(1).getAttribute('data-id');
     await team.locator('[data-next]').click();
     assert.notEqual(await team.locator('[data-photo]').first().getAttribute('data-id'),original);
     await team.locator('[data-prev]').click();
@@ -36,7 +37,7 @@ try {
     await page.keyboard.press('ArrowRight');
     await page.keyboard.press('Escape');
     assert.equal(await dialog.evaluate(d=>d.open),false);
-    assert.equal(await page.evaluate(()=>document.activeElement?.getAttribute('data-id')),'demo-doctor-1');
+    assert.equal(await page.evaluate(()=>document.activeElement?.getAttribute('data-id')),secondId);
     assert.equal(await page.evaluate(()=>document.documentElement.style.overflow),'');
     // Drag must rotate without opening a photo.
     const box=await team.locator('[data-photo]').first().boundingBox();

@@ -1,7 +1,7 @@
 ---
 import type { GalleryItem, Specialist } from '../../lib/specialistContent';
-interface Props { id: string; title: string; items: GalleryItem[]; portraits?: boolean; }
-const { id, title, items, portraits = false } = Astro.props;
+interface Props { id: string; title: string; items: GalleryItem[]; portraits?: boolean; detailsLabel?: string; }
+const { id, title, items, portraits = false, detailsLabel = 'Подробнее' } = Astro.props;
 ---
 {items.length > 0 && <section class:list={['gallery', { portraits }]} data-gallery={id} aria-labelledby={`${id}-title`}>
   <div class="gallery-heading">
@@ -18,7 +18,7 @@ const { id, title, items, portraits = false } = Astro.props;
         {!portraits && <span class="room-caption">{item.title}</span>}
         <span class="photo-expand" aria-hidden="true">↗</span>
       </a>
-      {portraits && <div class="person-caption"><h4>{item.title}</h4><p>{(item as Specialist).role}</p><a class="person-more" href={`/specialisty/${(item as Specialist).slug}`}>Подробнее <span aria-hidden="true">↗</span></a></div>}
+      {portraits && <div class="person-caption"><h4>{item.title}</h4><p>{(item as Specialist).role}</p><a class="person-more" href={`/specialisty/${(item as Specialist).slug}`}>{detailsLabel} <span aria-hidden="true">↗</span></a></div>}
     </article>)}
   </div>
   <p class="visually-hidden" data-gallery-status aria-live="polite"></p>

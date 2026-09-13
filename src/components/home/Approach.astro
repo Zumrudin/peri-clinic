@@ -1,20 +1,19 @@
 ---
 import { em } from '../../lib/markup';
-import { getHomeContent } from '../../lib/homeContent';
-import { getClinicPhotos, getSpecialists, aboutDemo } from '../../lib/specialistContent';
+import { getClinicPhotos, getSpecialists, getAboutContent } from '../../lib/specialistContent';
 import Gallery from '../gallery/Gallery.astro';
 import Lightbox from '../gallery/Lightbox.astro';
-const [{ approach }, rooms, team] = await Promise.all([getHomeContent(), getClinicPhotos(), getSpecialists()]);
+const [content, rooms, team] = await Promise.all([getAboutContent(), getClinicPhotos(), getSpecialists()]);
 ---
 <section class="approach" id="approach" aria-labelledby="approach-title">
   <div class="approach-intro">
-    <div><p class="eyebrow">О клинике</p><h2 id="approach-title" set:html={em(aboutDemo ? 'Место, где вам\nуделяют внимание' : approach.title)} /></div>
-    <p class="approach-description">{aboutDemo ? 'PERI CLINIC — пространство современной косметологии. Знакомимся с вами, обсуждаем пожелания и составляем понятный план процедур.' : approach.lead}</p>
+    <div><p class="eyebrow">{content.eyebrow}</p><h2 id="approach-title" set:html={em(content.title)} /></div>
+    <p class="approach-description">{content.description}</p>
   </div>
-  <Gallery id="clinic-rooms" title="Пространство клиники" items={rooms} />
-  <div id="approach-team"><Gallery id="clinic-team" title="Люди, которым можно довериться" items={team} portraits /></div>
-  <a class="legal-link" href="/yuridicheskaya-informaciya">Лицензия и документы ↗</a>
-  {(rooms.some(p => p.demo) || team.some(p => p.demo)) && <p class="demo-note">Дизайн-концепция: фотографии и профили временные.</p>}
+  <Gallery id="clinic-rooms" title={content.rooms_title} items={rooms} />
+  <div id="approach-team"><Gallery id="clinic-team" title={content.team_title} items={team} portraits detailsLabel={content.details_label} /></div>
+  {content.license_href && content.license_label && <a class="legal-link" href={content.license_href}>{content.license_label}</a>}
+  {(rooms.some(p => p.demo) || team.some(p => p.demo)) && <p class="demo-note">{content.demo_notice}</p>}
 </section>
 <Lightbox />
 <style>
