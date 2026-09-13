@@ -1,0 +1,140 @@
+[
+  {
+    "width": 1920,
+    "height": 994,
+    "top": 85.5,
+    "bottom": 1079.5,
+    "footer": 1057.90625,
+    "overflow": false,
+    "photos": [
+      {
+        "height": 395.765625,
+        "width": 296.8125
+      },
+      {
+        "height": 395.765625,
+        "width": 296.8125
+      },
+      {
+        "height": 395.765625,
+        "width": 296.8125
+      }
+    ],
+    "pageOverflow": false
+  },
+  {
+    "width": 1440,
+    "height": 814,
+    "top": 86.375,
+    "bottom": 900.375,
+    "footer": 882.375,
+    "overflow": false,
+    "photos": [
+      {
+        "height": 296.71875,
+        "width": 222.53125
+      },
+      {
+        "height": 296.71875,
+        "width": 222.53125
+      },
+      {
+        "height": 296.71875,
+        "width": 222.53125
+      }
+    ],
+    "pageOverflow": false
+  },
+  {
+    "width": 1366,
+    "height": 682,
+    "top": 85.890625,
+    "bottom": 767.890625,
+    "footer": 752.53125,
+    "overflow": false,
+    "photos": [
+      {
+        "height": 221.484375,
+        "width": 166.109375
+      },
+      {
+        "height": 221.484375,
+        "width": 166.109375
+      },
+      {
+        "height": 221.484375,
+        "width": 166.109375
+      }
+    ],
+    "pageOverflow": false
+  },
+  {
+    "width": 1280,
+    "height": 634,
+    "top": 85.78125,
+    "bottom": 719.78125,
+    "footer": 705.390625,
+    "overflow": false,
+    "photos": [
+      {
+        "height": 194.171875,
+        "width": 145.625
+      },
+      {
+        "height": 194.171875,
+        "width": 145.625
+      },
+      {
+        "height": 194.171875,
+        "width": 145.625
+      }
+    ],
+    "pageOverflow": false
+  },
+  {
+    "width": 1024,
+    "height": 682,
+    "top": 85.84375,
+    "bottom": 767.84375,
+    "footer": 752.484375,
+    "overflow": false,
+    "photos": [
+      {
+        "height": 221.484375,
+        "width": 166.109375
+      },
+      {
+        "height": 221.484375,
+        "width": 166.109375
+      },
+      {
+        "height": 221.484375,
+        "width": 166.109375
+      }
+    ],
+    "pageOverflow": false
+  },
+  {
+    "width": 1600,
+    "height": 514,
+    "top": 86.390625,
+    "bottom": 600.390625,
+    "footer": 588.390625,
+    "overflow": false,
+    "photos": [
+      {
+        "height": 122.90625,
+        "width": 108
+      },
+      {
+        "height": 122.90625,
+        "width": 108
+      },
+      {
+        "height": 122.90625,
+        "width": 108
+      }
+    ],
+    "pageOverflow": false
+  }
+]

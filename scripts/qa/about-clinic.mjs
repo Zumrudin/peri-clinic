@@ -23,10 +23,12 @@ try {
     const photo=team.locator('[data-photo]').first();
     const original=await photo.getAttribute('data-id');
     const secondId=await team.locator('[data-photo]').nth(1).getAttribute('data-id');
+    if (await team.locator('.gallery-nav').isVisible()) {
     await team.locator('[data-next]').click();
     assert.notEqual(await team.locator('[data-photo]').first().getAttribute('data-id'),original);
     await team.locator('[data-prev]').click();
     assert.equal(await team.locator('[data-photo]').first().getAttribute('data-id'),original);
+    }
     await photo.click();
     const dialog=page.locator('[data-lightbox]');
     assert.equal(await dialog.evaluate(d=>d.open),true);

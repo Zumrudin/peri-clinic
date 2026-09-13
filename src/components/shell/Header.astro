@@ -68,6 +68,11 @@ const site = await getSiteSettings();
   :global(.header.is-sticky + main) {
     padding-top: var(--header-h);
   }
+  /* Astro may emit a script between the header and main. Preserve the header's
+     flow space on desktop so anchor navigation does not slide under it. */
+  @media (min-width:801px) {
+    :global(.header.is-sticky ~ main) { padding-top:var(--header-h); }
+  }
   @keyframes headerIn {
     from {
       transform: translateY(-100%);
