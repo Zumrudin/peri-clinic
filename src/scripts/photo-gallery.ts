@@ -46,13 +46,59 @@ export function initPhotoGalleries() {
   });
   dialog.addEventListener('click', e => { if (e.target === dialog || (e.target as HTMLElement).classList.contains('lightbox-inner')) dialog.close(); });
   dialog.addEventListener('close', () => { document.documentElement.style.overflow = oldOverflow; restore?.(); image.removeAttribute('src'); });
-  const gestures = (element: HTMLElement, move: (direction: number) => void) => {
-    let startX = 0, startY = 0, tracking = false, dragged = false;
+  // `live` (rails only — lightbox image swipe keeps the plain snap-on-release behavior) makes the
+  // element visually track the pointer during drag, then either commits into `move()` (which does the
+  // real DOM-rotation infinite loop) or springs back, instead of only reacting on release.
+  const gestures = (element: HTMLElement, move: (direction: number) => void, live?: { step: () => number; overflow: () => boolean }) => {
+    let startX = 0, startY = 0, tracking = false, dragged = false, cardStep = 0, dragEnabled = false;
+    const resetTransform = (animate: boolean) => {
+      if (animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        element.style.transition = 'transform 200ms ease-out';
+        element.addEventListener('transitionend', () => { element.style.transition = ''; }, { once: true });
+      } else {
+        element.style.transition = '';
+      }
+      element.style.transform = '';
+    };
     element.addEventListener('dragstart', e => e.preventDefault());
-    element.addEventListener('pointerdown', e => { if (e.button !== 0) return; startX = e.clientX; startY = e.clientY; tracking = true; dragged = false; });
-    element.addEventListener('pointermove', e => { if (tracking && Math.abs(e.clientX - startX) > 10 && Math.abs(e.clientX - startX) > Math.abs(e.clientY - startY)) { dragged = true; if (!element.hasPointerCapture(e.pointerId)) element.setPointerCapture(e.pointerId); } });
-    element.addEventListener('pointerup', e => { if (!tracking) return; tracking = false; const dx = e.clientX - startX; if (dragged && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(e.clientY - startY)) move(dx < 0 ? 1 : -1); });
-    element.addEventListener('pointercancel', () => { tracking = false; dragged = false; });
+    element.addEventListener('pointerdown', e => {
+      if (e.button !== 0) return;
+      startX = e.clientX; startY = e.clientY; tracking = true; dragged = false;
+      if (live) { cardStep = live.step(); dragEnabled = cardStep > 0 && live.overflow(); }
+    });
+    element.addEventListener('pointermove', e => {
+      if (!tracking) return;
+      const dx = e.clientX - startX, dy = e.clientY - startY;
+      if (Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy)) {
+        dragged = true;
+        if (!element.hasPointerCapture(e.pointerId)) element.setPointerCapture(e.pointerId);
+        if (live && dragEnabled) {
+          const clamped = Math.max(-cardStep, Math.min(cardStep, dx));
+          element.style.transition = '';
+          element.style.transform = `translateX(${clamped}px)`;
+        }
+      }
+    });
+    element.addEventListener('pointerup', e => {
+      if (!tracking) return;
+      tracking = false;
+      const dx = e.clientX - startX, dy = e.clientY - startY;
+      if (!live) {
+        if (dragged && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) move(dx < 0 ? 1 : -1);
+        return;
+      }
+      if (!dragEnabled) return;
+      if (dragged && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > cardStep * 0.25) {
+        resetTransform(false);
+        move(dx < 0 ? 1 : -1);
+      } else {
+        resetTransform(true);
+      }
+    });
+    element.addEventListener('pointercancel', () => {
+      tracking = false; dragged = false;
+      if (live && dragEnabled) resetTransform(true);
+    });
     element.addEventListener('click', e => { if (dragged) { e.preventDefault(); e.stopImmediatePropagation(); dragged = false; } }, true);
   };
   gestures(image, direction => show(index + direction));
@@ -79,7 +125,16 @@ export function initPhotoGalleries() {
       const first = rail.querySelector<HTMLAnchorElement>('[data-photo]')!;
       status.textContent = `Фотография ${photos.indexOf(first) + 1} из ${photos.length}`;
     };
-    gestures(rail, rotate);
+    gestures(rail, rotate, {
+      step: () => {
+        const first = rail.firstElementChild as HTMLElement | null;
+        if (!first) return 0;
+        const style = getComputedStyle(rail);
+        const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
+        return first.getBoundingClientRect().width + gap;
+      },
+      overflow,
+    });
     root.querySelector('[data-prev]')!.addEventListener('click', () => rotate(-1));
     root.querySelector('[data-next]')!.addEventListener('click', () => rotate(1));
     rail.addEventListener('keydown', e => { if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); rotate(e.key === 'ArrowRight' ? 1 : -1); } });
