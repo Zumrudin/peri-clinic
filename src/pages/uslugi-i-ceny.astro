@@ -11,78 +11,140 @@ const priceGroups = await getPriceListGrouped();
 
 <Page title="Прайсы — PERI CLINIC" description="Прайсы PERI CLINIC: стоимость косметологических процедур.">
   <Breadcrumbs slot="head" items={[{ name: 'Прайсы', href: '/uslugi-i-ceny' }]} />
-
-  {
-    priceGroups.length > 0 && (
-      <section class="section pricing reveal" aria-labelledby="pricing-title">
-        <h1 id="pricing-title">Прайс-лист</h1>
-        {
-          priceGroups.map((group) => (
-            <div class="pricing__category">
-              <h2>{group.title}</h2>
-              <div class="pricing__list">
-                {
-                  group.procedures.map((proc) => (
-                    <details class="pricing__item">
-                      <summary>
-                        <span>{proc.title}</span>
-                        <span class="pricing__chevron" aria-hidden="true">
-                          ↓
-                        </span>
-                      </summary>
-                      <PriceTable items={proc.items} showPrices={site.show_prices} icd10={proc.icd10} contextLabel={proc.title} />
-                    </details>
-                  ))
-                }
+  {priceGroups.length > 0 && (
+    <section class="section pricing" aria-labelledby="pricing-title">
+      <div class="pricing__intro">
+        <div>
+          <p class="eyebrow">Услуги и стоимость</p>
+          <h1 id="pricing-title">Прайс-лист</h1>
+        </div>
+        <p class="pricing__hint">Выберите направление и процедуру,<br />чтобы посмотреть стоимость.</p>
+      </div>
+      <div class="pricing__layout">
+        <aside class="pricing__sidebar">
+          <nav class="pricing__mobile-categories" aria-label="Направления косметологии">
+            {priceGroups.map((group) => (
+              <a href={`#category-${group.slug}`}>
+                {group.title.replace(/\s*косметология\s*/iu, '').trim()}
+              </a>
+            ))}
+          </nav>
+          <details class="pricing__navigation" open>
+            <summary class="pricing__nav-toggle">Категории и процедуры <span aria-hidden="true">⌄</span></summary>
+            <nav aria-label="Навигация по прайс-листу">
+              {priceGroups.map((group, index) => (
+                <details class="pricing__nav-group" open={index === 0} data-category={`category-${group.slug}`}>
+                  <summary>
+                    <span class="pricing__number">{String(index + 1).padStart(2, '0')}</span>
+                    <span>{group.title}</span>
+                    <span class="pricing__nav-arrow" aria-hidden="true">+</span>
+                  </summary>
+                  <div class="pricing__subnav">
+                    <a href={`#category-${group.slug}`} class="pricing__all">Все процедуры направления <span aria-hidden="true">↗</span></a>
+                    {group.procedures.map((proc) => (
+                      <a href={`#price-${proc.slug}`}>{proc.title}</a>
+                    ))}
+                  </div>
+                </details>
+              ))}
+            </nav>
+          </details>
+          <p class="pricing__sidebar-note">Стоимость каждой процедуры —<br />в соответствующем разделе.</p>
+        </aside>
+        <div class="pricing__content">
+          {priceGroups.map((group, index) => (
+            <section class="pricing__category" id={`category-${group.slug}`} aria-labelledby={`title-${group.slug}`}>
+              <div class="pricing__category-heading">
+                <span class="pricing__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <h2 id={`title-${group.slug}`}>{group.title}</h2>
+                <span class="pricing__count" aria-label={`Разделов: ${group.procedures.length}`}>{group.procedures.length}</span>
               </div>
-            </div>
-          ))
-        }
-      </section>
-    )
-  }
-
+              <div class="pricing__list">
+                {group.procedures.map((proc) => (
+                  <details class="pricing__item" id={`price-${proc.slug}`}>
+                    <summary>
+                      <span>{proc.title}</span>
+                      <span class="pricing__chevron" aria-hidden="true">+</span>
+                    </summary>
+                    <div class="pricing__table">
+                      <PriceTable items={proc.items} showPrices={site.show_prices} icd10={proc.icd10} contextLabel={proc.title} mobileCards />
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 </Page>
 
+<script>
+  import '../scripts/pricing';
+</script>
+
 <style>
-  .pricing {
-    padding-top: 32px;
+  :global(.page:has(.pricing)) { overflow: clip; }
+  .pricing { padding-top: 40px; }
+  .pricing__intro { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding-bottom: 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .pricing .eyebrow { margin-bottom: 12px; }
+  .pricing h1 { font-size: var(--t-h2-s); line-height: 1; margin: 0; }
+  .pricing__hint { margin: 0; color: var(--muted); font-size: 14px; }
+  .pricing__layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+  .pricing__mobile-categories { display: none; }
+  .pricing__sidebar { position: sticky; top: calc(var(--header-h-sticky) + 24px); }
+  .pricing__navigation { background: var(--paper); border: 1px solid var(--line-gold); border-radius: var(--radius); overflow: hidden; }
+  .pricing__nav-toggle { padding: 20px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-deep); list-style: none; }
+  .pricing__nav-toggle > span { display: none; }
+  .pricing__navigation nav { max-height: calc(100dvh - var(--header-h-sticky) - 160px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--gold-25) transparent; }
+  .pricing__nav-group { border-top: 1px solid var(--line-gold); }
+  .pricing__nav-group > summary { display: flex; align-items: baseline; gap: 12px; padding: 18px 20px; cursor: pointer; font-size: 14px; line-height: 1.5; }
+  .pricing__number { color: var(--gold-deep); font-size: 11px; letter-spacing: .08em; flex-shrink: 0; }
+  .pricing__nav-arrow { margin-left: auto; color: var(--gold-deep); }
+  .pricing__nav-group[open] > summary { color: var(--gold-deep); background: var(--gold-05); }
+  .pricing__nav-group[open] .pricing__nav-arrow { transform: rotate(45deg); }
+  .pricing__subnav { display: grid; max-height: 300px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--gold-25) transparent; padding: 0 12px 16px 38px; background: var(--gold-05); }
+  .pricing__subnav a { padding: 10px 12px; border-left: 1px solid var(--line-gold); color: var(--ink-2); font-size: 12px; line-height: 1.6; }
+  .pricing__subnav a:hover, .pricing__subnav a[aria-current] { color: var(--gold-deep); background: var(--gold-10); border-left-color: var(--gold-deep); }
+  .pricing__subnav .pricing__all { color: var(--gold-deep); font-size: 11px; }
+  .pricing__sidebar-note { margin: 18px 20px 0; font-size: 12px; color: var(--muted); }
+  .pricing__content { min-width: 0; }
+  .pricing__category { margin-bottom: 56px; }
+  .pricing__category:last-child { margin-bottom: 0; }
+  .pricing__category-heading { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+  .pricing__category h2 { font: 400 clamp(28px, 2.6vw, 40px)/1.08 var(--display); }
+  .pricing__count { margin-left: auto; color: var(--muted); font-size: 12px; }
+  .pricing__list { border-top: 1px solid var(--line); }
+  .pricing__item { border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--header-h-sticky) + 24px); }
+  .pricing__item > summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; cursor: pointer; font-size: 15px; line-height: 1.6; }
+  summary::-webkit-details-marker { display: none; }
+  .pricing__item > summary:hover, .pricing__item[open] > summary { color: var(--gold-deep); }
+  .pricing__chevron { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border: 1px solid var(--line-gold); border-radius: 50%; color: var(--gold-deep); font-size: 20px; transition: transform var(--dur-fast), background var(--dur-fast); }
+  .pricing__item[open] .pricing__chevron { transform: rotate(45deg); background: var(--gold-10); }
+  .pricing__table { padding: 4px 0 24px; }
+  @media (min-width: 1001px) {
+    .pricing__nav-toggle { pointer-events: none; }
   }
-  .pricing h1 {
-    font-size: var(--t-h2-s);
-    margin: 0 0 36px;
+  @media (max-width: 1000px) {
+    .pricing__layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .pricing__sidebar { z-index: 10; top: calc(var(--header-h-sticky) + 8px); }
+    .pricing__navigation, .pricing__sidebar-note { display: none; }
+    .pricing__sidebar { background: var(--ivory); }
+    .pricing__mobile-categories { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 5px; background: var(--paper); border: 1px solid var(--line-gold); border-radius: 16px; }
+    .pricing__mobile-categories a { display: flex; align-items: center; justify-content: center; min-height: 46px; padding: 8px 2px; border-radius: 11px; color: var(--ink-2); font-size: clamp(11px, 2.9vw, 13px); line-height: 1.4; overflow-wrap: anywhere; transition: background var(--dur-fast), color var(--dur-fast); }
+    .pricing__mobile-categories a:hover { color: var(--gold-deep); background: var(--gold-05); }
+    .pricing__mobile-categories a[aria-current] { background: var(--gold-05); color: var(--gold-deep); box-shadow: inset 0 -1px var(--line-gold); }
+    .pricing[data-mobile-navigation] .pricing__category:not([data-active]) { display: none; }
+    .pricing[data-mobile-navigation] .pricing__category { margin-bottom: 0; }
+    .pricing__category, .pricing__item { scroll-margin-top: calc(var(--header-h-sticky) + 90px); }
   }
-  .pricing__category {
-    max-width: 760px;
-    margin-bottom: 48px;
-  }
-  .pricing__category h2 {
-    font: 400 26px var(--display);
-    margin: 0 0 16px;
-  }
-  .pricing__list {
-    border-top: 1px solid var(--line);
-  }
-  .pricing__item {
-    border-bottom: 1px solid var(--line);
-  }
-  .pricing__item summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 18px 0;
-    cursor: pointer;
-    font-size: 15px;
-  }
-  .pricing__chevron {
-    color: var(--gold-deep);
-    transition: transform var(--dur-fast);
-  }
-  .pricing__item[open] .pricing__chevron {
-    transform: rotate(180deg);
-  }
-  .pricing__item .price-table {
-    padding-bottom: 20px;
+  @media (max-width: 600px) {
+    .pricing { padding-top: 28px; }
+    .pricing__intro { display: block; padding-bottom: 28px; margin-bottom: 24px; }
+    .pricing__hint { margin-top: 20px; font-size: 13px; }
+    .pricing__category-heading { gap: 10px; margin-bottom: 20px; }
+    .pricing__category h2 { font-size: 30px; }
+    .pricing__item > summary { font-size: 14px; padding: 20px 0; gap: 12px; }
   }
 </style>
