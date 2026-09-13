@@ -49,6 +49,28 @@ const { id, title, items, portraits = false, detailsLabel = 'Подробнее'
   .person-more:hover { background:var(--sand); }
   a:focus-visible,button:focus-visible,.gallery-rail:focus-visible { outline:2px solid var(--gold-deep); outline-offset:3px; }
   @media (max-width:1100px) { .portraits .gallery-card { flex-basis:43%; } }
+  @media (min-width:801px) {
+    .gallery { display:grid; grid-template-rows:auto minmax(0,1fr); gap:8px; margin:0; min-height:0; height:100%; }
+    .gallery-heading { margin:0; gap:12px; min-height:30px; }
+    h3 { font-size:clamp(16px,2vh,21px); }
+    .portraits h3 { font-size:clamp(22px,3vh,32px); line-height:1.05; }
+    .gallery-nav { gap:6px; }
+    button { width:30px; height:30px; font-size:18px; }
+    .gallery-rail { min-height:0; gap:12px; container-type:size; }
+    .gallery:has(.gallery-nav[hidden]) .gallery-card:first-child { margin-inline-start:auto; }
+    .gallery:has(.gallery-nav[hidden]) .gallery-card:last-child { margin-inline-end:auto; }
+    .gallery-card { flex-basis:calc((100% - 24px)/3); min-height:0; }
+    .gallery-photo { height:100%; border-radius:12px; }
+    .gallery-photo img { height:100%; }
+    .portraits .gallery-card { flex:0 0 max(108px, calc((100cqh - 76px) * .75)); display:grid; grid-template-rows:minmax(0,1fr) auto; }
+    .portraits .gallery-photo img { height:100%; aspect-ratio:auto; object-fit:contain; }
+    .photo-expand { width:24px; height:24px; top:7px; right:7px; font-size:13px; }
+    .room-caption { padding:22px 10px 9px; font-size:11px; }
+    .person-caption { padding:6px 0 0; }
+    h4 { font-size:18px; line-height:20px; margin:0 0 3px; }
+    .person-caption p { font-size:11px; line-height:14px; margin:0 0 5px; }
+    .person-more { font-size:12px; line-height:16px; padding:5px 10px; gap:6px; }
+  }
   @media (max-width:600px) {
     .gallery { margin-top:24px; }
     .gallery-heading { gap:10px; margin-bottom:12px; }

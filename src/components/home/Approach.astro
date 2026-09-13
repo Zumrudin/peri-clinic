@@ -24,6 +24,26 @@ const [content, rooms, team] = await Promise.all([getAboutContent(), getClinicPh
   #approach-team { scroll-margin-top:110px; }
   .legal-link { display:inline-block; margin-top:28px; font-size:13px; color:var(--gold-deep); text-decoration:underline; text-underline-offset:5px; }
   .demo-note { margin:28px 0 0; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+  @media(min-width:801px) {
+    .approach {
+      display:grid;
+      grid-template-rows:auto minmax(0,.8fr) minmax(0,1.7fr) auto auto;
+      gap:clamp(6px,1vh,12px);
+      height:calc(100svh - var(--header-h));
+      width:min(100%, calc((100svh - var(--header-h)) * 1.25));
+      max-width:1240px;
+      margin-inline:auto;
+      padding:clamp(12px,2vh,22px) 24px;
+      scroll-margin-top:var(--header-h);
+    }
+    .approach-intro { gap:6%; min-width:0; }
+    .eyebrow { font-size:9px; margin:0 0 8px; }
+    h2 { font-size:clamp(26px,4vh,46px); line-height:1.02; }
+    .approach-description { margin:0; font-size:clamp(12px,1.5vh,15px); line-height:1.5; }
+    #approach-team { min-height:0; }
+    .legal-link { margin:0; font-size:11px; justify-self:start; }
+    .demo-note { margin:0; padding-top:6px; font-size:11px; }
+  }
   @media(max-width:800px) {
     .approach { padding:48px 18px; }
     .approach-intro { grid-template-columns:1fr; gap:14px; }
