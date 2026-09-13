@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "injekcionnaya-cosmetologiya",
+    "width": 320,
+    "count": 6,
+    "columns": 2,
+    "overflow": false,
+    "consultation": true
+  },
+  {
+    "slug": "injekcionnaya-cosmetologiya",
+    "width": 375,
+    "count": 6,
+    "columns": 2,
+    "overflow": false,
+    "consultation": true
+  },
+  {
+    "slug": "injekcionnaya-cosmetologiya",
+    "width": 800,
+    "count": 6,
+    "columns": 2,
+    "overflow": false,
+    "consultation": true
+  },
+  {
+    "slug": "injekcionnaya-cosmetologiya",
+    "width": 801,
+    "count": 6,
+    "columns": 2,
+    "overflow": false,
+    "consultation": true
+  },
+  {
+    "slug": "injekcionnaya-cosmetologiya",
+    "width": 1440,
+    "count": 6,
+    "columns": 4,
+    "overflow": false,
+    "consultation": true
+  },
+  {
+    "slug": "esteticheskaya-kosmetologiya",
+    "width": 320,
+    "count": 3,
+    "columns": 2,
+    "overflow": false,
+    "consultation": true
+  },
+  {
+    "slug": "esteticheskaya-kosmetologiya",
+    "width": 375,
+    "count": 3,
+    "columns": 2,
+    "overflow": false,
+    "consultation": true
+  },
+  {
+    "slug": "esteticheskaya-kosmetologiya",
+    "width": 800,
+    "count": 3,
+    "columns": 2,
+    "overflow": false,
+    "consultation": true
+  },
+  {
+    "slug": "esteticheskaya-kosmetologiya",
+    "width": 801,
+    "count": 3,
+    "columns": 2,
+    "overflow": false,
+    "consultation": true
+  },
+  {
+    "slug": "esteticheskaya-kosmetologiya",
+    "width": 1440,
+    "count": 3,
+    "columns": 4,
+    "overflow": false,
+    "consultation": true
+  }
+]

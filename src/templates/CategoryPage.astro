@@ -4,6 +4,7 @@ import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import { em } from '../lib/markup';
 import { getProceduresByCategory } from '../lib/procedureContent';
+import { getHomeContent } from '../lib/homeContent';
 import { directusImage } from '../lib/media';
 import type { CollectionEntry } from 'astro:content';
 
@@ -12,137 +13,100 @@ interface Props {
 }
 const { category: entry } = Astro.props;
 const c = entry.data;
-const procedures = await getProceduresByCategory(c.slug);
+const [procedures, home] = await Promise.all([getProceduresByCategory(c.slug), getHomeContent()]);
+const copy = home.devices;
 ---
 
 <Page title={c.seo_title || `${c.short_title || c.title.replace(/\n/g, ' ')} — PERI CLINIC`} description={c.seo_description || c.description?.replace(/<[^>]+>/g, ' ') || ''}>
   <Breadcrumbs slot="head" items={[{ name: c.short_title || c.title.replace(/\n/g, ' '), href: `/${c.slug}` }]} />
-
-  <section class="cat-hero reveal" aria-labelledby="cat-title">
+  <section class="catalog" aria-labelledby="catalog-title">
     <p class="eyebrow">Направление</p>
-    <h1 id="cat-title" set:html={em(c.title)} />
-    {c.description && <div class="prose" set:html={c.description} />}
-  </section>
-
-  <section class="section cat-grid" aria-label="Процедуры направления">
-    <h2 class="visually-hidden">Процедуры направления</h2>
-    <div class="cat-grid__list">
-      {
-        procedures.map((p, i) => {
-          const cover = directusImage(p.data.cover);
-          return (
-          <a class="cat-card reveal" href={`/${p.data.slug}`}>
-            {cover && (
-              <Image src={cover.src} alt={p.data.cover_alt || p.data.title} width={700} height={860} sizes="(max-width: 800px) 84vw, 30vw" loading="lazy" />
-            )}
-            <span class="cat-card__number">{String(i + 1).padStart(2, '0')}</span>
-            <div class="cat-card__content">
-              {p.data.subtitle && <p>{p.data.subtitle}</p>}
-              <h3>{p.data.title}</h3>
-              <span class="round-arrow" aria-hidden="true">
-                ↗
-              </span>
+    <h1 id="catalog-title" set:html={em(c.title)} />
+    {c.description && <div class="catalog__lead" set:html={c.description} />}
+    <div class="catalog__grid">
+      {procedures.map((p, i) => {
+        const cover = directusImage(p.data.cover);
+        return (
+          <a class="service-card" href={`/${p.data.slug}`}>
+            <div class="service-card__image">
+              <span class="service-card__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              {cover ? (
+                <Image src={cover.src} alt={p.data.cover_alt || ''} width={cover.width} height={cover.height} widths={[240, 480, 720]} sizes="(max-width: 800px) 44vw, 30vw" loading="lazy" />
+              ) : (
+                <span class="service-card__placeholder" aria-hidden="true">PERI CLINIC</span>
+              )}
+            </div>
+            <div class="service-card__body">
+              <h2>{p.data.title}</h2>
+              {p.data.subtitle && <p class="service-card__desc">{p.data.subtitle}</p>}
+              <span class="service-card__arrow" aria-hidden="true">→</span>
             </div>
           </a>
-          );
-        })
-      }
+        );
+      })}
     </div>
+    {copy.consultation_title && copy.consultation_label && <div class="catalog__consultation">
+      <h2>{copy.consultation_title}</h2>
+      <button class="button" type="button" data-open-sheet>{copy.consultation_label} <span aria-hidden="true">→</span></button>
+    </div>}
   </section>
 </Page>
-
 <style>
-  .cat-hero {
-    max-width: var(--container);
-    margin: auto;
-    padding: 60px var(--gutter) 20px;
-  }
-  .cat-hero h1 {
-    font-size: clamp(40px, 6vw, 76px);
-    margin: 0 0 28px;
-  }
-  .cat-hero .prose {
-    max-width: 62ch;
-  }
+  .catalog { max-width: var(--container); margin: auto; padding: 64px var(--gutter); }
+  h1 { font: 400 clamp(36px, 5vw, 64px)/1.1 var(--display); margin: 0 0 20px; }
+  .catalog__lead { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 62ch; margin: 0 0 40px; }
+  .catalog__lead :global(> :first-child) { margin-top: 0; }
+  .catalog__lead :global(> :last-child) { margin-bottom: 0; }
+  .catalog__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
 
-  .cat-grid__list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 18px;
-  }
-  .cat-card {
-    position: relative;
-    height: 560px;
+  .service-card {
+    background: var(--gold-05);
+    border: 1px solid var(--line-gold);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    background: #282722;
-    color: #fff;
-    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast);
   }
-  .cat-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(20, 20, 17, 0.05) 28%, rgba(20, 20, 17, 0.76) 100%);
-  }
-  .cat-card :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: saturate(0.85);
-    transition: transform var(--dur-slow) var(--ease-out);
-  }
-  .cat-card:hover :global(img) {
-    transform: scale(1.04);
-  }
-  .cat-card__number {
-    position: absolute;
-    z-index: 2;
-    top: 20px;
-    left: 22px;
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    border-radius: 50%;
-    width: 34px;
-    height: 34px;
+  .service-card:hover, .service-card:focus-visible { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+
+  .service-card__image { position: relative; height: 300px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--paper); border-bottom: 1px solid var(--line-gold); }
+  .service-card__image :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .service-card__placeholder { font: 400 16px var(--display); color: var(--gold-deep); padding: 16px; text-align: center; letter-spacing: 0.16em; }
+  .service-card__index { position: absolute; top: 16px; left: 18px; z-index: 1; padding: 4px 7px; border-radius: 4px; background: var(--paper); font-size: 11px; color: var(--gold-deep); }
+
+  .service-card__body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+  .service-card h2 { font: 400 24px var(--display); margin: 0 0 10px; overflow-wrap: anywhere; }
+  .service-card__desc { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 0 0 14px; }
+  .service-card__arrow {
+    align-self: flex-end;
+    margin-top: auto;
     display: grid;
     place-items: center;
-    font-size: 11px;
-  }
-  .cat-card__content {
-    position: absolute;
-    z-index: 2;
-    inset: auto 24px 26px;
-  }
-  .cat-card__content p {
-    margin: 0 0 10px;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.85;
-  }
-  .cat-card__content h3 {
-    margin: 0;
-    font: 400 24px/1.1 var(--display);
-    max-width: 85%;
-  }
-  .round-arrow {
-    position: absolute;
-    right: 0;
-    bottom: 1px;
     width: 40px;
     height: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: 16px;
-    transition:
-      background var(--dur-fast),
-      color var(--dur-fast),
-      transform var(--dur-fast);
+    background: var(--gold-deep);
+    color: #fff;
+    font-size: 22px;
   }
-  .cat-card:hover .round-arrow {
-    background: #fff;
-    color: var(--ink);
-    transform: rotate(45deg);
+
+  .catalog__consultation { padding: 32px; margin-top: 32px; border-radius: var(--radius-lg); background: var(--sand); text-align: center; }
+  .catalog__consultation h2 { font: 400 30px/1.1 var(--display); margin: 0 0 16px; }
+
+  @media (max-width: 800px) {
+    .catalog { padding: 36px 18px; }
+    h1 { font-size: clamp(30px, 8.4vw, 40px); }
+    .catalog__lead { font-size: 14px; margin-bottom: 24px; }
+    .catalog__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .service-card__image { height: clamp(145px, 42vw, 220px); }
+    .service-card__index { top: 10px; left: 12px; }
+    .service-card__body { padding: 14px; }
+    .service-card h2 { font-size: clamp(16px, 4.5vw, 22px); }
+    .service-card__desc { font-size: 13px; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+    .service-card__arrow { width: 34px; height: 34px; font-size: 19px; }
+    .catalog__consultation { padding: 20px; }
+    .catalog__consultation h2 { font-size: 24px; }
   }
 </style>
