@@ -27,13 +27,13 @@ const [{ approach }, rooms, team] = await Promise.all([getHomeContent(), getClin
   .demo-note { margin:28px 0 0; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
   @media(max-width:800px) {
     .approach { padding:48px 18px; }
-    .approach-intro { grid-template-columns:1.1fr 1fr; gap:20px; }
+    .approach-intro { grid-template-columns:1fr; gap:14px; }
     h2 { font-size:clamp(26px,5vw,40px); line-height:1.06; }
-    .approach-description { font-size:13px; line-height:1.65; margin:0; }
+    .approach-description { max-width:none; font-size:13px; line-height:1.65; margin:0; color:var(--muted); }
   }
   @media(max-width:600px) {
     .approach { padding:36px 14px; }
-    .approach-intro { gap:16px; }
+    .approach-intro { gap:12px; }
     .eyebrow { font-size:9px; margin-bottom:12px; }
     h2 { font-size:clamp(24px,6.5vw,36px); }
     .approach-description { font-size:12px; line-height:1.6; }
