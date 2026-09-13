@@ -99,7 +99,7 @@ export function initPhotoGalleries() {
       // drag does anything. If it under-reports overflow for any reason, the flat 40px threshold below is
       // the same one this rail (and the lightbox, which never sets `live`) always used, so dragging still
       // works — it just skips the nicer live-follow feedback instead of silently doing nothing.
-      const threshold = dragEnabled ? cardStep * 0.25 : 40;
+      const threshold = dragEnabled ? Math.min(40, cardStep * 0.25) : 40;
       if (Math.abs(dx) > threshold) {
         // Order matters: rotate() reads each card's live rect right after this to compute its FLIP
         // animation, so the transform must already be cleared or the reorder would jump visibly.
@@ -155,10 +155,8 @@ export function initPhotoGalleries() {
     photos.forEach(photo => photo.addEventListener('click', e => {
       e.preventDefault();
       open(photos, photo, () => {
-        const selected = active[index];
-        const card = selected.closest<HTMLElement>('[data-card]')!;
-        if (overflow()) { while (rail.firstElementChild !== card) rail.append(rail.firstElementChild!); rail.scrollLeft = 0; }
-        selected.focus({ preventScroll: true });
+        // Return to the opener without changing the rail's order or position.
+        photo.focus({ preventScroll: true });
       });
     }));
     new ResizeObserver(() => { nav.hidden = !overflow() || cards.length < 2; }).observe(rail);

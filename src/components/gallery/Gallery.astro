@@ -33,7 +33,9 @@ const { id, title, items, portraits = false, detailsLabel = 'Подробнее'
   button { width:44px; height:44px; border:1px solid var(--gold); border-radius:50%; color:var(--gold-deep); background:transparent; cursor:pointer; font-size:23px; }
   button:hover { background:var(--sand); }
   .gallery-rail { display:flex; gap:18px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:none; }
-  .gallery[data-interactive] .gallery-rail { touch-action:pan-y; }
+  /* JS rotates cards. Native snapping can undo that movement after a touch ends. */
+  .gallery[data-interactive] .gallery-rail { overflow-x:hidden; scroll-snap-type:none; touch-action:pan-y; }
+  .gallery[data-interactive] .gallery-photo { touch-action:pan-y; }
   .gallery-rail::-webkit-scrollbar { display:none; }
   .gallery-card { flex:0 0 calc((100% - 36px)/3); min-width:0; scroll-snap-align:start; }
   .gallery-photo { display:block; position:relative; border-radius:18px; overflow:hidden; background:var(--sand); }

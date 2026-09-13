@@ -14,6 +14,8 @@ try {
       await route.fulfill({response,body:$.html()});
     });
     await page.goto(base,{waitUntil:'networkidle'});
+    const cookie = page.locator('[data-cookie-accept]');
+    if (await cookie.isVisible()) await cookie.click();
     const team=page.locator('[data-gallery="clinic-team"]');
     assert.equal(await team.locator('.gallery-nav').isVisible(),false); // Both cards fit in the compact mobile layout.
     await team.locator('[data-photo]').first().click();
@@ -39,6 +41,8 @@ try {
   {
     const page=await context.newPage();
     await page.goto(base,{waitUntil:'networkidle'});
+    const cookie = page.locator('[data-cookie-accept]');
+    if (await cookie.isVisible()) await cookie.click();
     const session=await context.newCDPSession(page);
     let tested=0;
     for (const id of ['clinic-team','clinic-rooms']) {
@@ -63,6 +67,8 @@ try {
     console.log(`PASS real-touch live drag follows finger and loops on ${tested} overflowing rail(s)`);
   }
   const page=await context.newPage();await page.goto(base,{waitUntil:'networkidle'});
+  const cookie = page.locator('[data-cookie-accept]');
+  if (await cookie.isVisible()) await cookie.click();
   const section=await new AxeBuilder({page}).include('#approach').analyze();
   assert.deepEqual(section.violations.map(v=>v.id),[]);
   await page.locator('[data-photo]').first().click();

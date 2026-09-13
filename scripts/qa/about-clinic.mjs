@@ -22,7 +22,7 @@ try {
     const team=page.locator('[data-gallery="clinic-team"]');
     const photo=team.locator('[data-photo]').first();
     const original=await photo.getAttribute('data-id');
-    const secondId=await team.locator('[data-photo]').nth(1).getAttribute('data-id');
+    const photoCount=await team.locator('[data-photo]').count();
     if (await team.locator('.gallery-nav').isVisible()) {
     await team.locator('[data-next]').click();
     assert.notEqual(await team.locator('[data-photo]').first().getAttribute('data-id'),original);
@@ -33,13 +33,13 @@ try {
     const dialog=page.locator('[data-lightbox]');
     assert.equal(await dialog.evaluate(d=>d.open),true);
     await page.keyboard.press('ArrowLeft');
-    assert.equal(await dialog.locator('[data-lightbox-count]').textContent(),'3 / 3');
+    assert.equal(await dialog.locator('[data-lightbox-count]').textContent(),`${photoCount} / ${photoCount}`);
     await page.keyboard.press('ArrowRight');
-    assert.equal(await dialog.locator('[data-lightbox-count]').textContent(),'1 / 3');
+    assert.equal(await dialog.locator('[data-lightbox-count]').textContent(),`1 / ${photoCount}`);
     await page.keyboard.press('ArrowRight');
     await page.keyboard.press('Escape');
     assert.equal(await dialog.evaluate(d=>d.open),false);
-    assert.equal(await page.evaluate(()=>document.activeElement?.getAttribute('data-id')),secondId);
+    assert.equal(await page.evaluate(()=>document.activeElement?.getAttribute('data-id')),original);
     assert.equal(await page.evaluate(()=>document.documentElement.style.overflow),'');
     // Drag must rotate without opening a photo, following the finger live and looping.
     const rail=team.locator('[data-rail]');
