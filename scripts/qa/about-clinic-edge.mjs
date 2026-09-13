@@ -15,7 +15,7 @@ try {
     });
     await page.goto(base,{waitUntil:'networkidle'});
     const team=page.locator('[data-gallery="clinic-team"]');
-    assert.equal(await team.locator('.gallery-nav').isVisible(),size>1);
+    assert.equal(await team.locator('.gallery-nav').isVisible(),false); // Both cards fit in the compact mobile layout.
     await team.locator('[data-photo]').first().click();
     const dialog=page.locator('[data-lightbox]');
     assert.equal(await dialog.locator('[data-lightbox-next]').isVisible(),size>1);
