@@ -51,10 +51,18 @@ export function initPhotoGalleries() {
   // real DOM-rotation infinite loop) or springs back, instead of only reacting on release.
   const gestures = (element: HTMLElement, move: (direction: number) => void, live?: { step: () => number; overflow: () => boolean }) => {
     let startX = 0, startY = 0, tracking = false, dragged = false, cardStep = 0, dragEnabled = false;
+    // `pointermove`'s live-follow branch takes over mid spring-back by setting `transition = ''`
+    // directly, which fires `transitioncancel`, not `transitionend` — so the listener below would
+    // never self-remove through that path. Track it explicitly and clear it before re-registering
+    // or when a new drag interrupts the spring, so listeners can't accumulate.
+    let springCleanup: (() => void) | null = null;
+    const clearSpring = () => { if (springCleanup) { element.removeEventListener('transitionend', springCleanup); springCleanup = null; } };
     const resetTransform = (animate: boolean) => {
+      clearSpring();
       if (animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         element.style.transition = 'transform 200ms ease-out';
-        element.addEventListener('transitionend', () => { element.style.transition = ''; }, { once: true });
+        springCleanup = () => { element.style.transition = ''; springCleanup = null; };
+        element.addEventListener('transitionend', springCleanup, { once: true });
       } else {
         element.style.transition = '';
       }
@@ -74,6 +82,7 @@ export function initPhotoGalleries() {
         if (!element.hasPointerCapture(e.pointerId)) element.setPointerCapture(e.pointerId);
         if (live && dragEnabled) {
           const clamped = Math.max(-cardStep, Math.min(cardStep, dx));
+          clearSpring();
           element.style.transition = '';
           element.style.transform = `translateX(${clamped}px)`;
         }
@@ -89,6 +98,8 @@ export function initPhotoGalleries() {
       }
       if (!dragEnabled) return;
       if (dragged && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > cardStep * 0.25) {
+        // Order matters: rotate() reads each card's live rect right after this to compute its FLIP
+        // animation, so the transform must already be cleared or the reorder would jump visibly.
         resetTransform(false);
         move(dx < 0 ? 1 : -1);
       } else {
