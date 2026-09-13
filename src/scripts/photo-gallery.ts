@@ -92,17 +92,19 @@ export function initPhotoGalleries() {
       if (!tracking) return;
       tracking = false;
       const dx = e.clientX - startX, dy = e.clientY - startY;
-      if (!live) {
-        if (dragged && Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) move(dx < 0 ? 1 : -1);
-        return;
-      }
-      if (!dragEnabled) return;
-      if (dragged && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > cardStep * 0.25) {
+      if (!dragged || Math.abs(dx) <= Math.abs(dy)) { if (live && dragEnabled) resetTransform(true); return; }
+      // `dragEnabled` (this rail's own snapshot of overflow taken at pointerdown) only ever loosens the
+      // threshold and adds the live-follow visual — it must never be the sole gate on whether a decisive
+      // drag does anything. If it under-reports overflow for any reason, the flat 40px threshold below is
+      // the same one this rail (and the lightbox, which never sets `live`) always used, so dragging still
+      // works — it just skips the nicer live-follow feedback instead of silently doing nothing.
+      const threshold = dragEnabled ? cardStep * 0.25 : 40;
+      if (Math.abs(dx) > threshold) {
         // Order matters: rotate() reads each card's live rect right after this to compute its FLIP
         // animation, so the transform must already be cleared or the reorder would jump visibly.
-        resetTransform(false);
+        if (live && dragEnabled) resetTransform(false);
         move(dx < 0 ? 1 : -1);
-      } else {
+      } else if (live && dragEnabled) {
         resetTransform(true);
       }
     });
