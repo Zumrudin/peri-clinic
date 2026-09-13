@@ -40,9 +40,11 @@ try {
     const page=await context.newPage();
     await page.goto(base,{waitUntil:'networkidle'});
     const session=await context.newCDPSession(page);
+    let tested=0;
     for (const id of ['clinic-team','clinic-rooms']) {
       const gallery=page.locator(`[data-gallery="${id}"]`);
       if (!(await gallery.locator('.gallery-nav').isVisible())) continue; // not overflowing at this viewport, nothing to drag
+      tested++;
       const rail=gallery.locator('[data-rail]');
       await gallery.locator('[data-photo]').first().scrollIntoViewIfNeeded(); // CDP touch coords are viewport-relative; this section starts below the fold
       const box=await gallery.locator('[data-photo]').first().boundingBox();
@@ -56,8 +58,9 @@ try {
       assert.notEqual(await gallery.locator('[data-photo]').first().getAttribute('data-id'),beforeId); // committed rotate, loops
       assert.equal(await rail.evaluate(el=>getComputedStyle(el).transform),'none'); // settled
     }
+    assert.ok(tested>0,'expected at least one overflowing gallery to be drag-tested at this viewport');
     await page.close();
-    console.log('PASS real-touch live drag follows finger and loops on clinic-team and clinic-rooms rails');
+    console.log(`PASS real-touch live drag follows finger and loops on ${tested} overflowing rail(s)`);
   }
   const page=await context.newPage();await page.goto(base,{waitUntil:'networkidle'});
   const section=await new AxeBuilder({page}).include('#approach').analyze();
