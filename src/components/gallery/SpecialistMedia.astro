@@ -1,4 +1,5 @@
 ---
+import TelegramPost from './TelegramPost.astro';
 import type { SpecialistMedia } from '../../lib/specialistMedia';
 interface Props { items: SpecialistMedia[]; title: string; description?: string }
 const { items, title, description } = Astro.props;
@@ -9,15 +10,15 @@ const { items, title, description } = Astro.props;
     {description && <p>{description}</p>}
   </header>
   <ul class="media-rail" data-media-rail>
-    {items.map((item, i) => <li class="media-card" id={`specialist-media-${i}`}>
-      <a class="media-link" href={item.video_url || item.image_url} data-media-open data-video={item.video_url} data-poster={item.image_url} data-caption={item.title} data-alt={item.image_alt || item.title} data-captions={item.captions_url} aria-label={`${item.video_url ? 'Смотреть видео' : 'Открыть фото'}: ${item.title}`}>
+    {items.map((item, i) => <li class:list={["media-card", { "media-card--telegram": !!item.telegram_post }]} id={`specialist-media-${i}`}>
+      {item.telegram_post ? <div class="telegram-card"><TelegramPost post={item.telegram_post} title={item.title} /><div class="media-copy"><h3>{item.title}</h3>{item.description && <p>{item.description}</p>}</div></div> : <a class="media-link" href={item.video_url || item.image_url} data-media-open data-video={item.video_url} data-poster={item.image_url} data-caption={item.title} data-alt={item.image_alt || item.title} data-captions={item.captions_url} aria-label={`${item.video_url ? 'Смотреть видео' : 'Открыть фото'}: ${item.title}`}>
         <div class="media-cover">
           <img src={item.image_url} alt={item.image_alt || item.title} width="720" height="480" style={`object-position:50% ${item.focus_y ?? 50}%`} loading="lazy" decoding="async" />
           {item.video_url && <span class="media-play" aria-hidden="true">▶</span>}
           <span class="media-type">{item.video_url ? 'Видео' : 'Фото'}</span>
         </div>
         <div class="media-copy"><h3>{item.title}</h3>{item.description && <p>{item.description}</p>}<span class="media-arrow" aria-hidden="true">↗</span></div>
-      </a>
+      </a>}
     </li>)}
   </ul>
   {items.length > 1 && <nav class="media-pagination" aria-label="Материалы специалиста" data-media-pagination hidden>
@@ -42,7 +43,8 @@ const { items, title, description } = Astro.props;
   .media-heading { text-align:center; margin-bottom:28px; }
   h2 { margin:0 0 10px; font:400 clamp(32px,3.2vw,48px)/1.12 var(--display); text-wrap:balance; }
   .media-heading p { margin:0; color:var(--ink-2); font-size:16px; }
-  .media-rail { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+  .media-rail { list-style:none; padding:0; margin:0; display:grid; align-items:start; grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr)); gap:24px; }
+  .telegram-card { padding-top:12px; }
   .media-card { min-width:0; border:1px solid var(--line-gold); border-radius:var(--radius); overflow:hidden; background:var(--gold-05); }
   .media-card:nth-child(3n+2) { background:var(--sand); }
   .media-card:nth-child(3n+3) { background:var(--gold-10); }
@@ -75,6 +77,7 @@ const { items, title, description } = Astro.props;
     .media-heading p { font-size:14px; }
     .media-rail { display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:thin; padding:2px 2px 10px; }
     .media-card { flex:0 0 84%; scroll-snap-align:start; }
+    .media-card--telegram { flex-basis:100%; }
     .media-card:only-child { flex-basis:100%; }
     .media-copy { padding:18px 45px 20px 18px; }
     .media-dialog { padding:64px 12px 20px; }

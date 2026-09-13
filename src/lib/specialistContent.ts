@@ -30,7 +30,12 @@ export async function getSpecialists(): Promise<Specialist[]> {
   const entries = bySort(aboutDemo ? [] : await getCollection('specialists')).filter(e => e.data.image?.id);
   if (entries.length || !aboutDemo) return Promise.all(entries.map(async ({data:p}) => {
     const img = directusImage(p.image)!;
-    return { id: String(p.id), slug: p.slug, title: p.name, role: p.role, alt: p.image_alt || p.name, body: p.body || '', seoTitle: p.seo_title || '', seoDescription: p.seo_description || '', mediaTitle: p.media_title || 'Знакомство со специалистом', mediaDescription: p.media_description || '', media: normalizeSpecialistMedia(p.media), ...await picture(img.src, img.width, img.height), focus: p.focus_y ?? 35, demo: p.is_demo };
+    const uploaded = await Promise.all([...(p.media_items || [])].sort((a,b) => (a.sort ?? Infinity) - (b.sort ?? Infinity) || a.id - b.id).map(async item => {
+      const source = directusImage(item.image);
+      const photo = source && !item.telegram_url ? await picture(source.src, source.width, source.height) : null;
+      return { ...item, image_url: photo?.full };
+    }));
+    return { id: String(p.id), slug: p.slug, title: p.name, role: p.role, alt: p.image_alt || p.name, body: p.body || '', seoTitle: p.seo_title || '', seoDescription: p.seo_description || '', mediaTitle: p.media_title || 'Знакомство со специалистом', mediaDescription: p.media_description || '', media: [...normalizeSpecialistMedia(uploaded), ...normalizeSpecialistMedia(p.media)], ...await picture(img.src, img.width, img.height), focus: p.focus_y ?? 35, demo: p.is_demo };
   }));
   const room = await picture(cabinet, cabinet.width, cabinet.height);
   const space = await picture(waiting, waiting.width, waiting.height);

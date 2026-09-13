@@ -525,7 +525,7 @@ const clinicAbout = defineCollection({
 });
 
 const aboutCollection = (name: string) => directusLoader(name, () => (import.meta.env.ABOUT_DEMO ?? process.env.ABOUT_DEMO) === 'true' ? Promise.resolve([]) : directusGet(`/items/${name}${directusQuery({
-  fields: '*,' + fileFields('image'), filter: JSON.stringify({ status: { _eq: 'published' } }), sort: 'sort', limit: '-1',
+  fields: '*,' + fileFields('image') + (name === 'specialists' ? ',media_items.*,media_items.image.id,media_items.image.width,media_items.image.height' : ''), filter: JSON.stringify({ status: { _eq: 'published' } }), sort: 'sort', limit: '-1',
 })}`));
 const clinicPhotos = defineCollection({ loader: aboutCollection('clinic_photos'), schema: z.object({
   is_demo: z.boolean().default(false),
@@ -538,6 +538,7 @@ const specialists = defineCollection({ loader: aboutCollection('specialists'), s
   seo_title: z.string().nullable().optional(), seo_description: z.string().nullable().optional(),
   media_title: z.string().nullable().optional(), media_description: z.string().nullable().optional(),
   media: z.unknown().optional(),
+  media_items: z.array(z.object({ id: z.number(), sort: z.number().nullable().optional(), title: z.string(), description: z.string().nullable().optional(), image: fileRef, image_alt: z.string().nullable().optional(), telegram_url: z.string().nullable().optional() })).nullable().optional(),
 }) });
 
 export const collections = {

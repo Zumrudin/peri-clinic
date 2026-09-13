@@ -1,0 +1,23 @@
+---
+interface Props { post: string; title: string }
+const { post, title } = Astro.props;
+---
+<div class="telegram-post" data-telegram-post={post} data-telegram-title={title}>
+  <div class="telegram-widget" data-telegram-widget></div>
+  <p data-telegram-status role="status">Загрузка видео из Telegram…</p>
+  <a href={`https://t.me/${post}`} target="_blank" rel="noopener noreferrer">Открыть в Telegram ↗</a>
+</div>
+<script>
+  import { initTelegramPosts } from '../../scripts/telegram-post';
+  initTelegramPosts();
+</script>
+<style>
+  .telegram-post { min-width:0; padding:0 12px; }
+  .telegram-widget { min-height:180px; }
+  .telegram-widget :global(iframe) { display:block; max-width:100%; }
+  p, a { font-size:13px; line-height:1.5; }
+  p { color:var(--ink-2); }
+  a { display:inline-block; padding:12px 0; color:var(--gold-deep); }
+  @media(max-width:800px) { .telegram-post { padding:0; } }
+  [hidden] { display:none; }
+</style>

@@ -38,8 +38,8 @@ async function ensureRelation(collection, field, related, meta) {
     collection,
     field,
     related_collection: related,
-    meta: { one_field: meta.one_field ?? null, sort_field: meta.sort_field ?? null, one_deselect_action: 'nullify' },
-    schema: { on_delete: 'SET NULL' },
+    meta: { one_field: meta.one_field ?? null, sort_field: meta.sort_field ?? null, one_deselect_action: meta.one_deselect_action ?? 'nullify' },
+    schema: { on_delete: meta.on_delete ?? 'SET NULL' },
   };
   if (found) {
     await patch(`/relations/${collection}/${field}`, { meta: body.meta });

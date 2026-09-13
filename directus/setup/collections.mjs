@@ -438,18 +438,35 @@ collections.push(
     f.html('body', 'Описание специалиста'),
     f.str('media_title', 'Заголовок медиараздела', { default: 'Знакомство со специалистом' }),
     f.text('media_description', 'Описание медиараздела'),
-    f.repeater('media', 'Фото и видео специалиста', [
+    f.o2m('media_items', 'Фото и Telegram', { template: '{{title}}', note: 'Добавьте материал: загрузите фотографию или вставьте ссылку на публичное сообщение Telegram. Порядок меняется перетаскиванием.' }),
+    f.repeater('media', 'Ранее добавленные материалы (ссылки)', [
       rep('title', 'Заголовок'), rep('description', 'Подпись', 'text', 'input-multiline'),
       rep('image_url', 'Публичная ссылка на фото / обложку'), rep('image_alt', 'Описание изображения'), rep('focus_y', 'Положение кадра по вертикали, % (0–100)', 'integer'),
       rep('video_url', 'Прямая ссылка на видео (необязательно)'), rep('captions_url', 'Субтитры WebVTT (необязательно)'),
-    ], { note: 'Порядок карточек меняется перетаскиванием. Фото обязательно. Для видео укажите прямой MP4/WebM, не ссылку на страницу видеосервиса. Только публичные HTTPS или локальные /media/... ссылки без access_token. Без видео карточка открывается как фотография.' }),
+    ], { note: 'Порядок карточек меняется перетаскиванием. Фото обязательно. Для видео укажите прямой MP4/WebM или ссылку на публичное сообщение Telegram (для Telegram фото не требуется). Только публичные HTTPS или локальные /media/... ссылки без access_token. Без видео карточка открывается как фотография.' }),
     ...seo(),
   ] },
 );
 
+collections.push({ collection: 'specialist_media', meta: { icon: 'perm_media', hidden: true, sort_field: 'sort', display_template: '{{title}}', translations: ru('Материалы специалистов') }, fields: [
+  f.id(), f.sort(), f.m2o('specialist', 'Специалист', 'specialists', { required: true, template: '{{name}}' }),
+  f.str('title', 'Заголовок', { required: true }), f.text('description', 'Подпись'),
+  f.image('image', 'Фотография', { note: 'Загрузите своё фото. Для сообщения Telegram фотография не обязательна.' }),
+  f.str('image_alt', 'Описание фотографии'),
+  f.str('telegram_url', 'Ссылка на сообщение Telegram', { note: 'Например: https://t.me/channel/123. Только публичное сообщение с видео. Закрытые группы и приглашения не поддерживаются. При заполнении показывается виджет Telegram вместо фото.', options: { trim: true } }),
+  ...timestamps(),
+] });
+
 function base_ts(field, label) {
   return base(field, 'timestamp', label, { interface: 'datetime', width: 'half', readonly: true });
 }
+
+const telegramField = collections.find(c => c.collection === 'specialist_media').fields.find(f => f.field === 'telegram_url');
+telegramField.meta.validation = { _or: [
+  { telegram_url: { _null: true } }, { telegram_url: { _empty: true } },
+  { telegram_url: { _regex: '^https://(?:t\\.me|telegram\\.me)/(?:s/)?[a-zA-Z][a-zA-Z0-9_]{3,31}/[1-9][0-9]*/?(?:[?#][^\\s]*)?$' } },
+] };
+telegramField.meta.validation_message = 'Укажите ссылку на сообщение публичного канала или группы: https://t.me/channel/123';
 
 /** Sidebar folders (collections with no table). */
 export const groups = [
@@ -462,6 +479,7 @@ export const groups = [
 
 /** Relations: [collection, field, related_collection, {one_field, sort_field}] */
 export const relations = [
+  ['specialist_media', 'specialist', 'specialists', { one_field: 'media_items', sort_field: 'sort', on_delete: 'CASCADE', one_deselect_action: 'delete' }],
   ['procedures', 'category', 'service_categories', { one_field: 'procedures', sort_field: 'sort' }],
   ['procedures', 'device', 'devices', {}],
   ['price_items', 'procedure', 'procedures', { one_field: 'price_items', sort_field: 'sort' }],
