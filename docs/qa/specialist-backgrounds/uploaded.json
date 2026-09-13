@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "slug": "gadzhieva",
+    "previous_image": "1b86e325-2e38-4a14-8e82-df4943ab8bd2",
+    "image": "4e71f49e-6f06-4846-b4a2-ff3f515ff882"
+  },
+  {
+    "id": 2,
+    "slug": "gataylina",
+    "previous_image": "ed5774b7-159e-484d-9c0d-d85705b522b6",
+    "image": "7d2577e4-a3ba-47b6-8fd6-b2604cf02ae0"
+  },
+  {
+    "id": 3,
+    "slug": "botashev",
+    "previous_image": "f41801fd-0aef-493d-aa97-69b6d6823db3",
+    "image": "3ae16cb3-fccc-43fc-9e35-30f6f59752eb"
+  },
+  {
+    "id": 5,
+    "slug": "bogatyreva",
+    "previous_image": "0895ce55-dc82-4017-b81c-c06773dea8e7",
+    "image": "0f8f9608-c64b-4f1e-8409-90c0463b4b38"
+  }
+]

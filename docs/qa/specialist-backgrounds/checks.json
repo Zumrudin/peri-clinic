@@ -1,0 +1,89 @@
+[
+  {
+    "width": 375,
+    "cards": [
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/4e71f49e-6f06-4846-b4a2-ff3f515ff882_ZjaL2R.webp"
+      },
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/7d2577e4-a3ba-47b6-8fd6-b2604cf02ae0_Z17G4jC.webp"
+      },
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/3ae16cb3-fccc-43fc-9e35-30f6f59752eb_1WIDg2.webp"
+      },
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/0f8f9608-c64b-4f1e-8409-90c0463b4b38_hUKaL.webp"
+      }
+    ],
+    "profiles": 4,
+    "lightbox": "passed",
+    "roomBackground": "passed",
+    "jsErrors": []
+  },
+  {
+    "width": 800,
+    "cards": [
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/4e71f49e-6f06-4846-b4a2-ff3f515ff882_ZjaL2R.webp"
+      },
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/7d2577e4-a3ba-47b6-8fd6-b2604cf02ae0_Z17G4jC.webp"
+      },
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/3ae16cb3-fccc-43fc-9e35-30f6f59752eb_1WIDg2.webp"
+      },
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/0f8f9608-c64b-4f1e-8409-90c0463b4b38_hUKaL.webp"
+      }
+    ],
+    "profiles": 4,
+    "lightbox": "passed",
+    "roomBackground": "passed",
+    "jsErrors": []
+  },
+  {
+    "width": 1440,
+    "cards": [
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/4e71f49e-6f06-4846-b4a2-ff3f515ff882_ZjaL2R.webp"
+      },
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/7d2577e4-a3ba-47b6-8fd6-b2604cf02ae0_Z17G4jC.webp"
+      },
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/3ae16cb3-fccc-43fc-9e35-30f6f59752eb_1WIDg2.webp"
+      },
+      {
+        "background": "rgb(219, 214, 210)",
+        "loaded": true,
+        "src": "https://peri.zumrudin.ru/_astro/0f8f9608-c64b-4f1e-8409-90c0463b4b38_hUKaL.webp"
+      }
+    ],
+    "profiles": 4,
+    "lightbox": "passed",
+    "roomBackground": "passed",
+    "jsErrors": []
+  }
+]
