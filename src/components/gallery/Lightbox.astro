@@ -1,0 +1,29 @@
+<dialog class="photo-lightbox" data-lightbox aria-label="Просмотр фотографий">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" type="button" data-close aria-label="Закрыть фотографии">×</button>
+    <button class="lightbox-prev" type="button" data-lightbox-prev aria-label="Предыдущая фотография">←</button>
+    <figure><img data-lightbox-image alt="" /><figcaption data-lightbox-caption aria-live="polite"></figcaption><p data-lightbox-error hidden>Не удалось загрузить фотографию. Попробуйте следующую.</p></figure>
+    <button class="lightbox-next" type="button" data-lightbox-next aria-label="Следующая фотография">→</button>
+    <span class="lightbox-count" data-lightbox-count></span>
+  </div>
+</dialog>
+<script>
+  import { initPhotoGalleries } from '../../scripts/photo-gallery';
+  initPhotoGalleries();
+</script>
+<style>
+  .photo-lightbox { padding:0; border:0; width:100vw; max-width:none; height:100dvh; max-height:none; background:#171715; color:white; overflow:hidden; }
+  .photo-lightbox::backdrop { background:rgba(20,20,18,.94); }
+  .lightbox-inner { height:100%; display:flex; align-items:center; justify-content:center; padding:70px 80px 60px; }
+  figure { margin:0; max-width:100%; text-align:center; pointer-events:none; }
+  figure img { display:block; margin:auto; max-width:100%; max-height:calc(100dvh - 180px); object-fit:contain; pointer-events:auto; touch-action:pan-y; }
+  figcaption { padding-top:16px; font-size:15px; }
+  button { position:absolute; width:48px; height:48px; border:1px solid #aaa; background:#292923; color:white; border-radius:50%; font-size:26px; cursor:pointer; }
+  button[hidden] { display:none; }
+  button:focus-visible { outline:2px solid white; outline-offset:4px; }
+  .lightbox-close { top:max(15px,env(safe-area-inset-top)); right:20px; }
+  .lightbox-prev { left:18px; top:calc(50% - 24px); }
+  .lightbox-next { right:18px; top:calc(50% - 24px); }
+  .lightbox-count { position:absolute; bottom:max(20px,env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%); font-size:13px; }
+  @media(max-width:600px) { .lightbox-inner { padding:70px 12px 110px; } figure img { max-height:calc(100dvh - 220px); } .lightbox-prev,.lightbox-next { top:auto; bottom:55px; } }
+</style>

@@ -1,0 +1,33 @@
+---
+import Page from '../layouts/Page.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import Lightbox from '../components/gallery/Lightbox.astro';
+import { getSpecialists, type Specialist } from '../lib/specialistContent';
+interface Props { person: Specialist }
+const { person } = Astro.props;
+const team = (await getSpecialists()).map(p => ({ id:p.id, full:p.full, title:`${p.title} · ${p.role}`, alt:p.alt }));
+---
+<Page title={person.seoTitle || `${person.title} — PERI CLINIC`} description={person.seoDescription || `${person.title}, ${person.role}. PERI CLINIC.`} noindex={person.demo}>
+  <Breadcrumbs items={[{name:person.title,href:`/specialisty/${person.slug}`}]} />
+  <article class="specialist-page">
+    <a class="back" href="/#approach-team">← К команде клиники</a>
+    <h1>{person.title}</h1><p class="specialist-role">{person.role}</p>
+    {person.demo && <p class="demo-note">Демонстрационный профиль · фотография из дизайн-концепции</p>}
+    <a class="specialist-portrait" href={person.full} data-standalone-photo data-id={person.id} aria-label={`Увеличить фото: ${person.title}`}><img src={person.full} alt={person.alt} width={person.width} height={person.height} /><span aria-hidden="true">↗</span></a>
+    {person.body && <div class="prose specialist-description" set:html={person.body} />}
+    {!person.demo && <button class="button" data-open-sheet>Записаться на консультацию ↗</button>}
+  </article>
+  <script is:inline type="application/json" data-team-photos set:html={JSON.stringify(team).replace(/</g, '\\u003c')} />
+  <Lightbox />
+</Page>
+<style>
+  .specialist-page { max-width:800px; padding:40px 24px 90px; margin:auto; }
+  .back { color:var(--gold-deep); font-size:14px; }
+  h1 { font:400 clamp(40px,6vw,70px)/1.1 var(--display); margin:28px 0 10px; }
+  .specialist-role { color:var(--muted); margin:0 0 24px; }
+  .demo-note { font-size:12px; color:var(--muted); }
+  .specialist-portrait { display:block; position:relative; max-width:540px; margin:24px auto 36px; }
+  .specialist-portrait img { display:block; width:100%; height:auto; border-radius:22px; }
+  .specialist-portrait span { position:absolute; right:15px; top:15px; background:var(--paper); border-radius:50%; width:36px; height:36px; display:grid; place-items:center; }
+  .specialist-description { line-height:1.8; margin-bottom:32px; }
+</style>

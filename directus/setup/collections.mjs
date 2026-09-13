@@ -423,6 +423,22 @@ export const collections = [
   },
 ];
 
+collections.push(
+  { collection: 'clinic_about', meta: { icon: 'local_hospital', group: 'group_content', singleton: true, translations: ru('О клинике — тексты блока') }, fields: [
+    f.id(), f.str('eyebrow', 'Надзаголовок', { required: true }), f.text('title', 'Заголовок'), f.text('description', 'Описание клиники'),
+    f.str('rooms_title', 'Заголовок интерьеров'), f.str('team_title', 'Заголовок команды'), f.str('details_label', 'Кнопка страницы специалиста'),
+    f.str('license_label', 'Подпись ссылки на документы'), f.str('license_href', 'Адрес документов'), f.text('demo_notice', 'Пометка временных фотографий'),
+  ] },
+  { collection: 'clinic_photos', meta: { icon: 'photo_library', group: 'group_content', sort_field: 'sort', translations: ru('Фотографии клиники') }, fields: [
+    f.id(), f.status(), f.sort(), f.bool('is_demo', 'Временное изображение из референса'), f.image('image', 'Фотография', { required: true }), f.str('title', 'Подпись', { required: true }), f.str('image_alt', 'Описание фотографии'),
+  ] },
+  { collection: 'specialists', meta: { icon: 'people', group: 'group_content', sort_field: 'sort', display_template: '{{name}}', translations: ru('Специалисты') }, fields: [
+    f.id(), f.status(), f.sort(), f.bool('is_demo', 'Демонстрационный профиль', false, { note: 'Включить для временных портретов: страница не индексируется и не попадает в sitemap.' }), f.slug(), f.str('name', 'Имя', { required: true }), f.str('role', 'Специализация', { required: true }),
+    f.image('image', 'Портрет', { required: true }), f.str('image_alt', 'Описание фотографии'), f.int('focus_y', 'Положение кадра по вертикали, %', { note: 'От 0 до 100. По умолчанию 35.' }),
+    f.html('body', 'Описание под фотографией'), ...seo(),
+  ] },
+);
+
 function base_ts(field, label) {
   return base(field, 'timestamp', label, { interface: 'datetime', width: 'half', readonly: true });
 }

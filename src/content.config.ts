@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import aboutDemoContent from './data/about-demo.json';
 import type { Loader } from 'astro/loaders';
 import { directusGet, directusQuery } from './lib/directus';
 
@@ -516,7 +517,31 @@ const allReviews = defineCollection({
   }),
 });
 
+
+const clinicAbout = defineCollection({
+  loader: directusLoader('clinicAbout', () => (import.meta.env.ABOUT_DEMO ?? process.env.ABOUT_DEMO) === 'true' ? Promise.resolve(aboutDemoContent) : directusGet('/items/clinic_about')),
+  schema: z.object({ eyebrow: z.string(), title: z.string(), description: z.string(), rooms_title: z.string(), team_title: z.string(), details_label: z.string(),
+    license_label: z.string().nullable().optional(), license_href: z.string().regex(/^\/(?!\/)[^\s]*$/).nullable().optional(), demo_notice: z.string(), }),
+});
+
+const aboutCollection = (name: string) => directusLoader(name, () => (import.meta.env.ABOUT_DEMO ?? process.env.ABOUT_DEMO) === 'true' ? Promise.resolve([]) : directusGet(`/items/${name}${directusQuery({
+  fields: '*,' + fileFields('image'), filter: JSON.stringify({ status: { _eq: 'published' } }), sort: 'sort', limit: '-1',
+})}`));
+const clinicPhotos = defineCollection({ loader: aboutCollection('clinic_photos'), schema: z.object({
+  is_demo: z.boolean().default(false),
+  id: z.number(), sort: z.number().nullable().optional(), title: z.string(), image: fileRef, image_alt: z.string().nullable().optional(),
+}) });
+const specialists = defineCollection({ loader: aboutCollection('specialists'), schema: z.object({
+  is_demo: z.boolean().default(false),
+  id: z.number(), sort: z.number().nullable().optional(), slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/), name: z.string(), role: z.string(),
+  image: fileRef, image_alt: z.string().nullable().optional(), focus_y: z.number().min(0).max(100).nullable().optional(), body: z.string().nullable().optional(),
+  seo_title: z.string().nullable().optional(), seo_description: z.string().nullable().optional(),
+}) });
+
 export const collections = {
+  clinicAbout,
+  clinicPhotos,
+  specialists,
   home,
   siteSettings,
   serviceCategories,

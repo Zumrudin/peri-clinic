@@ -1,0 +1,7 @@
+---
+import { getSpecialists } from '../../lib/specialistContent';
+import SpecialistPage from '../../templates/SpecialistPage.astro';
+export async function getStaticPaths() { return (await getSpecialists()).map(person => ({ params: { slug: person.slug }, props: { person } })); }
+const { person } = Astro.props;
+---
+<SpecialistPage person={person} />
