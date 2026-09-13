@@ -1,0 +1,15 @@
+{
+  "home": {
+    "devices_catalog_title": "Аппараты _клиники_",
+    "devices_catalog_lead": "Оборудование премиум-класса, которое используют врачи PERI CLINIC. Каждый аппарат подобран под конкретную задачу — от лифтинга до лазерной эпиляции."
+  },
+  "devices": [
+    { "name": "Morpheus8", "manufacturer": "InMode Ltd.", "country": "Израиль" },
+    { "name": "Volnewmer", "manufacturer": "CLASSYS", "country": "Южная Корея" },
+    { "name": "InMode", "manufacturer": "InMode Ltd.", "country": "Израиль" },
+    { "name": "ProFacial", "manufacturer": "SeoulinMedicare", "country": "Южная Корея", "short": "Комплексный аппаратный уход за кожей" },
+    { "name": "Beautylizer", "manufacturer": "Beautyliner Group", "country": "Россия", "short": "RSL-скульптурирование тела" },
+    { "name": "Pacer One Pro", "manufacturer": "MBT Lasers", "country": "Китай", "short": "Диодная лазерная эпиляция" },
+    { "name": "HELEO4", "manufacturer": "HELEO4", "country": "Россия", "short": "Фотодинамическая терапия и фотобиомодуляция" }
+  ]
+}
