@@ -450,7 +450,7 @@ collections.push(
 );
 
 collections.push({ collection: 'specialist_media', meta: { icon: 'perm_media', hidden: true, sort_field: 'sort', display_template: '{{title}}', translations: ru('Материалы специалистов') }, fields: [
-  f.id(), f.sort(), f.m2o('specialist', 'Специалист', 'specialists', { required: true, template: '{{name}}' }),
+  f.id(), f.sort(), { ...f.m2o('specialist', 'Специалист', 'specialists', { required: true, template: '{{name}}' }), meta: { ...f.m2o('specialist', 'Специалист', 'specialists', { required: true, template: '{{name}}' }).meta, hidden: true } },
   f.str('title', 'Заголовок', { required: true }), f.text('description', 'Подпись'),
   f.image('image', 'Фотография / обложка видео', { note: 'Для видео необязательно: без обложки показывается портрет специалиста.' }),
   f.str('image_alt', 'Описание фотографии'),
