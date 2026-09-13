@@ -1,6 +1,7 @@
 ---
 import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import CertificateRequest from '../components/forms/CertificateRequest.astro';
 import { getSiteSettings } from '../lib/siteContent';
 import type { CollectionEntry } from 'astro:content';
 
@@ -10,22 +11,17 @@ interface Props {
 const { page: entry } = Astro.props;
 const p = entry.data;
 const site = await getSiteSettings();
+// The imported placeholder page is still titled with its URL slug.
+const title = p.template === 'spravka' && p.title === p.slug ? 'Справка для налогового вычета' : p.title;
 ---
 
-<Page title={p.seo_title || `${p.title} — PERI CLINIC`} description={p.seo_description || p.lead || ''} noindex={p.noindex}>
-  <Breadcrumbs slot="head" items={[{ name: p.title, href: `/${p.slug}` }]} />
+<Page title={p.seo_title || `${title} — PERI CLINIC`} description={p.seo_description || p.lead || ''} noindex={p.noindex}>
+  <Breadcrumbs slot="head" items={[{ name: title, href: `/${p.slug}` }]} />
 
   <article class="content-page reveal">
-    <h1>{p.title}</h1>
+    <h1>{title}</h1>
     {p.lead && <p class="content-page__lead">{p.lead}</p>}
-    {p.template === 'spravka' && site.spravka_form_url && (
-      <div class="content-page__form">
-        <a class="button" href={site.spravka_form_url} target="_blank" rel="noopener">
-          Открыть форму заявки <span>↗</span>
-        </a>
-        <p class="content-page__form-note">Откроется на отдельной странице — сервис заявок работает отдельно от сайта клиники.</p>
-      </div>
-    )}
+    {p.template === 'spravka' && <CertificateRequest privacyUrl={site.privacy_url} />}
     {p.body && <div class="prose" set:html={p.body} />}
   </article>
 </Page>
@@ -48,17 +44,5 @@ const site = await getSiteSettings();
     font-size: 15px;
     line-height: 1.65;
     margin: 0 0 32px;
-  }
-  .content-page__form {
-    margin: 0 0 40px;
-    padding: 28px;
-    border: 1px solid var(--line);
-    background: var(--paper);
-  }
-  .content-page__form-note {
-    margin: 14px 0 0;
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.5;
   }
 </style>

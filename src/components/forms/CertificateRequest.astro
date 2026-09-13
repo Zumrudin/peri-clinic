@@ -1,0 +1,131 @@
+---
+interface Props { privacyUrl: string; }
+const { privacyUrl } = Astro.props;
+---
+<noscript><p>Для заполнения формы включите JavaScript в браузере.</p></noscript>
+  <div class="cert-request ym-hide-content">
+    <div id="cr-form-view">
+      <p class="note">Заполните данные для подготовки справки. Поля со звёздочкой обязательны.</p>
+      <div class="sub" id="cr-clinic"></div>
+
+      <form id="cr-form" autocomplete="off" novalidate>
+        <div class="fg">
+          <label class="fl" for="cr-report_year">Отчётный год *</label>
+          <select id="cr-report_year"></select>
+        </div>
+
+        <fieldset>
+          <legend>Получатель справки (налогоплательщик)</legend>
+          <div class="row">
+            <div class="fg"><label class="fl" for="cr-payer_last">Фамилия *</label><input id="cr-payer_last"></div>
+            <div class="fg"><label class="fl" for="cr-payer_first">Имя *</label><input id="cr-payer_first"></div>
+            <div class="fg"><label class="fl" for="cr-payer_middle">Отчество *</label><input id="cr-payer_middle"></div>
+          </div>
+          <div class="row">
+            <div class="fg"><label class="fl" for="cr-payer_birthdate">Дата рождения *</label><input id="cr-payer_birthdate" type="date"></div>
+            <div class="fg"><label class="fl" for="cr-payer_inn">ИНН *</label><input id="cr-payer_inn" inputmode="numeric" placeholder="10 или 12 цифр"></div>
+          </div>
+          <div class="row">
+            <div class="fg"><label class="fl" for="cr-payer_doc_type_label">Вид документа *</label><input id="cr-payer_doc_type_label" value="Паспорт гражданина РФ" readonly></div>
+            <div class="fg"><label class="fl" for="cr-payer_doc_serie_number">Серия и номер паспорта *</label><input id="cr-payer_doc_serie_number" inputmode="numeric" placeholder="10 цифр" maxlength="14"></div>
+            <div class="fg"><label class="fl" for="cr-payer_doc_issue_date">Дата выдачи *</label><input id="cr-payer_doc_issue_date" type="date"></div>
+          </div>
+          <div class="row">
+            <div class="fg"><label class="fl" for="cr-payer_phone">Телефон *</label><input id="cr-payer_phone" inputmode="tel" placeholder="+7 ..."></div>
+            <div class="fg"><label class="fl" for="cr-payer_email">Email</label><input id="cr-payer_email" type="email"></div>
+          </div>
+        </fieldset>
+
+        <div class="fg chk">
+          <input type="checkbox" id="cr-payer_is_patient" checked>
+          <label for="cr-payer_is_patient">Пациент — это я (услуги оказаны мне)</label>
+        </div>
+
+        <fieldset id="cr-patient-block" hidden>
+          <legend>Пациент (кому оказаны услуги)</legend>
+          <div class="note" style="margin-bottom:8px">Укажите телефон пациента — по нему мы найдём оплаты в нашей базе.</div>
+          <div class="row">
+            <div class="fg"><label class="fl" for="cr-patient_last">Фамилия *</label><input id="cr-patient_last"></div>
+            <div class="fg"><label class="fl" for="cr-patient_first">Имя *</label><input id="cr-patient_first"></div>
+            <div class="fg"><label class="fl" for="cr-patient_middle">Отчество *</label><input id="cr-patient_middle"></div>
+          </div>
+          <div class="row">
+            <div class="fg"><label class="fl" for="cr-patient_birthdate">Дата рождения *</label><input id="cr-patient_birthdate" type="date"></div>
+            <div class="fg"><label class="fl" for="cr-patient_inn">ИНН *</label><input id="cr-patient_inn" inputmode="numeric" placeholder="10 или 12 цифр"></div>
+          </div>
+          <div class="row">
+            <div class="fg"><label class="fl" for="cr-patient_doc_type_code">Вид документа *</label>
+              <select id="cr-patient_doc_type_code">
+                <option value="21">Паспорт гражданина РФ</option>
+                <option value="03">Свидетельство о рождении</option>
+              </select>
+            </div>
+            <div class="fg"><label class="fl" id="cr-patient_doc_label" for="cr-patient_doc_serie_number">Серия и номер паспорта *</label><input id="cr-patient_doc_serie_number" inputmode="numeric" placeholder="10 цифр"></div>
+            <div class="fg"><label class="fl" for="cr-patient_doc_date">Дата выдачи *</label><input id="cr-patient_doc_date" type="date"></div>
+          </div>
+          <div class="row">
+            <div class="fg"><label class="fl" for="cr-patient_phone">Телефон пациента *</label><input id="cr-patient_phone" inputmode="tel"></div>
+            <div class="fg"><label class="fl" for="cr-relationship">Степень родства *</label><select id="cr-relationship"></select></div>
+          </div>
+        </fieldset>
+
+        <div class="fg chk">
+          <input type="checkbox" id="cr-consent">
+          <label for="cr-consent">Я согласен(на) на обработку персональных данных в соответствии с
+            <a id="cr-policy" href={privacyUrl} target="_blank" rel="noopener">политикой</a> (152-ФЗ) *</label>
+        </div>
+
+        <!-- Honeypot is part of the existing LoyalPro API contract. -->
+        <input class="hp" aria-hidden="true" id="cr-website" tabindex="-1" autocomplete="off" placeholder="Не заполняйте">
+
+        <div id="cr-error" class="err" role="alert" tabindex="-1"></div>
+        <p id="cr-loading" class="note" role="status">Загружаем форму…</p>
+<button id="cr-retry" type="button" class="button" hidden>Загрузить форму повторно</button>
+<button id="cr-submit" class="button" type="submit" disabled>Отправить заявку</button>
+      </form>
+    </div>
+
+    <div id="cr-ok-view" class="ok" hidden>
+      <h2 id="cr-success-title" tabindex="-1">Заявка принята</h2>
+      <p>Скачайте заявление и принесите его в клинику.</p>
+      <p><button id="cr-download" class="button" type="button">Скачать заявление (PDF)</button></p>
+<p id="cr-download-error" class="err" role="alert"></p>
+      <p class="note">Ссылка действует 30 минут.</p>
+    </div>
+  </div>
+
+<script>
+  import '../../scripts/cert-request.js';
+</script>
+
+<style>
+  .cert-request { margin: 32px 0; }
+  [hidden] { display: none !important; }
+  .sub, .note { color: var(--ink-2); font-size: 13px; line-height: 1.65; margin-bottom: 20px; }
+  .fg { margin-bottom: 18px; min-width: 0; }
+  label.fl { display: block; font-size: 13px; line-height: 1.5; margin-bottom: 8px; }
+  input, select { width: 100%; min-width: 0; min-height: 48px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); font: 16px var(--sans); }
+  input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
+  input[readonly] { color: var(--ink-2); }
+  .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; }
+  fieldset { min-width: 0; border: 1px solid var(--line-gold); border-radius: var(--radius); padding: 24px; margin: 24px 0; background: var(--gold-05); }
+  legend { padding: 0 8px; font-size: 16px; font-weight: 500; }
+  .chk { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.65; }
+  .chk input { flex: 0 0 22px; width: 22px; min-height: 22px; height: 22px; margin-top: 2px; accent-color: var(--gold-deep); }
+  .chk label { cursor: pointer; }
+  a { color: var(--gold-deep); text-decoration: underline; }
+  .hp { position: absolute; width: 1px; height: 1px; min-height: 0; padding: 0; overflow: hidden; clip-path: inset(50%); }
+  .err { color: #9d2929; font-size: 14px; line-height: 1.65; margin: 16px 0; }
+  .err:empty { display: none; }
+  button { cursor: pointer; }
+  button:disabled { opacity: .6; cursor: wait; }
+  .ok { padding: 32px 24px; border: 1px solid var(--line-gold); border-radius: var(--radius); background: var(--gold-05); }
+  .ok h2 { font: 40px var(--display); margin-bottom: 16px; }
+  .ok p { margin-bottom: 16px; }
+  @media (max-width: 600px) {
+    .row { grid-template-columns: minmax(0, 1fr); }
+    fieldset { padding: 20px 16px; }
+    legend { font-size: 14px; }
+    button { width: 100%; }
+  }
+</style>
