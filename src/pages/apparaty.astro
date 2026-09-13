@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Page from '../layouts/Page.astro';
 import { getAllDevices } from '../lib/deviceContent';
 import { getHomeContent } from '../lib/homeContent';
+import { em } from '../lib/markup';
 
 const [items, home] = await Promise.all([getAllDevices(), getHomeContent()]);
 const copy = home.devices;
@@ -10,19 +11,29 @@ const copy = home.devices;
 <Page title={copy.catalog_seo_title || copy.catalog_title} description={copy.catalog_seo_description}>
   <section class="catalog" aria-labelledby="catalog-title">
     <p class="eyebrow">{copy.eyebrow}</p>
-    <h1 id="catalog-title">{copy.catalog_title}</h1>
+    <h1 id="catalog-title" set:html={em(copy.catalog_title)} />
+    {copy.catalog_lead && <p class="catalog__lead">{copy.catalog_lead}</p>}
     <div class="catalog__grid">
-      {items.map((item) => {
+      {items.map((item, i) => {
         const Tag = item.href ? 'a' : 'article';
-        return <Tag class="catalog__card" href={item.href}>
-          <div class="catalog__image">
-            {item.image ? <Image src={item.image.src} alt="" width={item.image.width} height={item.image.height} widths={[240,480,720]} sizes="(max-width: 800px) 44vw, 28vw" loading="lazy" /> : <span class="catalog__placeholder" aria-hidden="true">{item.name}</span>}
-          </div>
-          <div class="catalog__body">
-            <h2>{item.name}</h2><p>{item.short}</p>
-            {item.href && <span class="catalog__arrow" aria-hidden="true">→</span>}
-          </div>
-        </Tag>;
+        return (
+          <Tag class="device-card" href={item.href}>
+            <div class="device-card__image">
+              <span class="device-card__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              {item.image ? (
+                <Image src={item.image.src} alt="" width={item.image.width} height={item.image.height} widths={[240, 480, 720]} sizes="(max-width: 800px) 44vw, 30vw" loading="lazy" />
+              ) : (
+                <span class="device-card__placeholder" aria-hidden="true">{item.name}</span>
+              )}
+            </div>
+            <div class="device-card__body">
+              {item.chip && <p class="device-card__chip glass-chip">{item.chip}</p>}
+              <h2>{item.name}</h2>
+              {item.short && <p class="device-card__desc">{item.short}</p>}
+              {item.href && <span class="device-card__arrow" aria-hidden="true">→</span>}
+            </div>
+          </Tag>
+        );
       })}
     </div>
     {copy.consultation_title && copy.consultation_label && <div class="catalog__consultation">
@@ -33,26 +44,58 @@ const copy = home.devices;
 </Page>
 <style>
   .catalog { max-width: var(--container); margin: auto; padding: 64px var(--gutter); }
-  h1 { font: 400 clamp(36px,5vw,64px)/1.1 var(--display); margin: 0 0 32px; }
-  .catalog__grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
-  .catalog__card { min-width: 0; overflow: hidden; border-radius: 22px; background: #eee7dd; display: flex; flex-direction: column; }
-  .catalog__card:nth-child(4n+2), .catalog__card:nth-child(4n+3) { background: #e4e5d9; }
-  .catalog__image { height: 260px; display: grid; place-items: center; padding: 20px; }
-  .catalog__image :global(img) { width: 100%; height: 100%; object-fit: contain; min-height: 0; mix-blend-mode: multiply; }
-  .catalog__placeholder { font: 400 28px var(--display); color: var(--ink-2); }
-  .catalog__body { display: flex; flex: 1; flex-direction: column; padding: 20px; background: rgba(255,255,255,.16); }
-  .catalog__body h2 { font: 400 30px/1.1 var(--display); margin: 0 0 8px; overflow-wrap: anywhere; }
-  .catalog__body p { font-size: 15px; line-height: 1.4; color: var(--ink-2); margin: 0; overflow-wrap: anywhere; }
-  .catalog__arrow { align-self: flex-end; display: grid; place-items: center; width: 40px; height: 40px; margin-top: 14px; border-radius: 50%; background: var(--gold-deep); color: white; font-size: 24px; }
-  .catalog__consultation { padding: 24px; margin-top: 24px; border-radius: 22px; background: var(--sand); }
-  .catalog__consultation h2 { font: 400 30px/1.1 var(--display); margin-bottom: 16px; }
-  @media(max-width:800px) {
+  h1 { font: 400 clamp(36px, 5vw, 64px)/1.1 var(--display); margin: 0 0 20px; }
+  .catalog__lead { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 62ch; margin: 0 0 40px; }
+  .catalog__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+
+  .device-card {
+    background: var(--gold-05);
+    border: 1px solid var(--line-gold);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast);
+  }
+  .device-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+
+  .device-card__image { position: relative; height: 300px; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 20px; background: var(--paper); border-bottom: 1px solid var(--line-gold); }
+  .device-card__image :global(img) { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+  .device-card__placeholder { font: 400 26px var(--display); color: var(--ink-2); }
+  .device-card__index { position: absolute; top: 16px; left: 18px; font-size: 11px; color: var(--gold-deep); }
+
+  .device-card__body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+  .device-card__chip { margin: 0 0 10px; color: var(--gold-deep); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .device-card h2 { font: 400 24px var(--display); margin: 0 0 10px; }
+  .device-card__desc { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 0 0 14px; }
+  .device-card__arrow {
+    align-self: flex-end;
+    margin-top: auto;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gold-deep);
+    color: #fff;
+    font-size: 22px;
+  }
+
+  .catalog__consultation { padding: 32px; margin-top: 32px; border-radius: var(--radius-lg); background: var(--sand); text-align: center; }
+  .catalog__consultation h2 { font: 400 30px/1.1 var(--display); margin: 0 0 16px; }
+
+  @media (max-width: 800px) {
     .catalog { padding: 36px 18px; }
-    .catalog__grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
-    .catalog__image { height: clamp(145px,42vw,220px); padding: 6px; }
-    .catalog__body { padding: 12px; }
-    .catalog__body h2 { font-size: clamp(20px,5.7vw,24px); }
-    .catalog__body p { font-size: 14px; }
-    .catalog__consultation .button { white-space: normal; }
+    h1 { font-size: clamp(30px, 8.4vw, 40px); }
+    .catalog__lead { font-size: 14px; margin-bottom: 24px; }
+    .catalog__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .device-card__image { height: clamp(145px, 42vw, 220px); padding: 10px; }
+    .device-card__index { top: 10px; left: 12px; }
+    .device-card__body { padding: 14px; }
+    .device-card h2 { font-size: clamp(19px, 5.4vw, 22px); }
+    .device-card__desc { font-size: 13px; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+    .device-card__arrow { width: 34px; height: 34px; font-size: 19px; }
+    .catalog__consultation { padding: 20px; }
+    .catalog__consultation h2 { font-size: 24px; }
   }
 </style>
