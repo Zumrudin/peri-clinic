@@ -1,0 +1,42 @@
+[
+  {
+    "width": 1440,
+    "layout": true,
+    "photo": true,
+    "booking": true,
+    "keyboard": true,
+    "axeSerious": 0
+  },
+  {
+    "width": 800,
+    "layout": true,
+    "photo": true,
+    "booking": true,
+    "keyboard": true,
+    "axeSerious": 0
+  },
+  {
+    "width": 375,
+    "layout": true,
+    "photo": true,
+    "booking": true,
+    "keyboard": true,
+    "axeSerious": 0
+  },
+  {
+    "width": 320,
+    "layout": true,
+    "photo": true,
+    "booking": true,
+    "keyboard": true,
+    "axeSerious": 0
+  },
+  {
+    "videoPlayback": true,
+    "autoplay": false,
+    "closeStopsPlayback": true
+  },
+  {
+    "noJavaScriptPhotoLink": true
+  }
+]

@@ -536,6 +536,8 @@ const specialists = defineCollection({ loader: aboutCollection('specialists'), s
   id: z.number(), sort: z.number().nullable().optional(), slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/), name: z.string(), role: z.string(),
   image: fileRef, image_alt: z.string().nullable().optional(), focus_y: z.number().min(0).max(100).nullable().optional(), body: z.string().nullable().optional(),
   seo_title: z.string().nullable().optional(), seo_description: z.string().nullable().optional(),
+  media_title: z.string().nullable().optional(), media_description: z.string().nullable().optional(),
+  media: z.unknown().optional(),
 }) });
 
 export const collections = {

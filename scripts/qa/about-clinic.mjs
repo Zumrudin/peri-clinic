@@ -82,7 +82,9 @@ try {
     assert.match(page.url(),/\/specialisty\/demo-specialist-/);
     const img=page.locator('.specialist-portrait');
     const body=page.locator('.specialist-description');
-    assert.ok((await body.boundingBox()).y >= (await img.boundingBox()).y+(await img.boundingBox()).height);
+    const portraitBox = await img.boundingBox(), descriptionBox = await body.boundingBox();
+    if (width <= 800) assert.ok(descriptionBox.y >= portraitBox.y + portraitBox.height);
+    else assert.ok(descriptionBox.x >= portraitBox.x + portraitBox.width);
     assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'),'noindex, follow');
     await img.click(); assert.equal(await dialog.evaluate(d=>d.open),true);
     await dialog.locator('[data-lightbox-next]').click();

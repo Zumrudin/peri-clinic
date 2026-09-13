@@ -2,32 +2,58 @@
 import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import Lightbox from '../components/gallery/Lightbox.astro';
+import SpecialistMedia from '../components/gallery/SpecialistMedia.astro';
 import { getSpecialists, type Specialist } from '../lib/specialistContent';
 interface Props { person: Specialist }
 const { person } = Astro.props;
 const team = (await getSpecialists()).map(p => ({ id:p.id, full:p.full, title:`${p.title} · ${p.role}`, alt:p.alt }));
 ---
 <Page title={person.seoTitle || `${person.title} — PERI CLINIC`} description={person.seoDescription || `${person.title}, ${person.role}. PERI CLINIC.`} noindex={person.demo}>
-  <Breadcrumbs items={[{name:person.title,href:`/specialisty/${person.slug}`}]} />
+  <Breadcrumbs items={[{name:'Специалисты',href:'/#approach-team'}, {name:person.title,href:`/specialisty/${person.slug}`}]} />
   <article class="specialist-page">
     <a class="back" href="/#approach-team">← К команде клиники</a>
-    <h1>{person.title}</h1><p class="specialist-role">{person.role}</p>
-    {person.demo && <p class="demo-note">Демонстрационный профиль · фотография из дизайн-концепции</p>}
-    <a class="specialist-portrait" href={person.full} data-standalone-photo data-id={person.id} aria-label={`Увеличить фото: ${person.title}`}><img src={person.full} alt={person.alt} width={person.width} height={person.height} /><span aria-hidden="true">↗</span></a>
-    {person.body && <div class="prose specialist-description" set:html={person.body} />}
-    {!person.demo && <button class="button" data-open-sheet>Записаться на консультацию ↗</button>}
+    <div class="specialist-profile">
+      <a class="specialist-portrait" href={person.full} data-standalone-photo data-id={person.id} aria-label={`Увеличить фото: ${person.title}`}><img src={person.full} srcset={person.width > 700 ? `${person.thumbnail} 700w, ${person.full} ${Math.min(person.width,1800)}w` : undefined} sizes="(max-width: 800px) 90vw, 42vw" alt={person.alt} width={person.width} height={person.height} style={`object-position:50% ${person.focus}%`} fetchpriority="high" /><span aria-hidden="true">↗</span></a>
+      <div class="specialist-info">
+        <h1>{person.title}</h1><p class="specialist-role">{person.role}</p>
+        {person.body && <div class="prose specialist-description" set:html={person.body} />}
+        <button class="button specialist-booking" type="button" data-open-sheet data-context={person.demo ? 'Консультация в клинике' : `Консультация: ${person.title}`}>Записаться на приём <span aria-hidden="true">→</span></button>
+        {person.demo && <p class="demo-note">Демонстрационный профиль · фото и данные будут заменены. Запись — на консультацию в клинику.</p>}
+      </div>
+    </div>
+    <SpecialistMedia items={person.media} title={person.mediaTitle} description={person.mediaDescription} />
   </article>
   <script is:inline type="application/json" data-team-photos set:html={JSON.stringify(team).replace(/</g, '\\u003c')} />
   <Lightbox />
 </Page>
 <style>
-  .specialist-page { max-width:800px; padding:40px 24px 90px; margin:auto; }
-  .back { color:var(--gold-deep); font-size:14px; }
-  h1 { font:400 clamp(40px,6vw,70px)/1.1 var(--display); margin:28px 0 10px; }
-  .specialist-role { color:var(--muted); margin:0 0 24px; }
-  .demo-note { font-size:12px; color:var(--muted); }
-  .specialist-portrait { display:block; position:relative; max-width:540px; margin:24px auto 36px; }
-  .specialist-portrait img { display:block; width:100%; height:auto; border-radius:22px; }
-  .specialist-portrait span { position:absolute; right:15px; top:15px; background:var(--paper); border-radius:50%; width:36px; height:36px; display:grid; place-items:center; }
-  .specialist-description { line-height:1.8; margin-bottom:32px; }
+  .specialist-page { max-width:var(--container); padding:24px var(--gutter) 90px; margin:auto; }
+  .back { display:inline-block; color:var(--gold-deep); font-size:13px; margin-bottom:24px; }
+  .specialist-profile { display:grid; grid-template-columns:minmax(0, .95fr) minmax(0,1fr); gap:clamp(24px,4vw,64px); padding:10px; border:1px solid var(--line-gold); border-radius:var(--radius-lg); background:linear-gradient(120deg,var(--sand),var(--gold-05)); }
+  .specialist-info { align-self:center; padding:32px clamp(16px,3vw,40px) 32px 0; min-width:0; }
+  h1 { font:400 clamp(40px,4.2vw,64px)/1.04 var(--display); margin:0 0 18px; overflow-wrap:anywhere; text-wrap:balance; }
+  .specialist-role { font:400 clamp(23px,2.1vw,30px)/1.2 var(--display); color:var(--gold-deep); margin:0 0 24px; }
+  .specialist-role::after { content:''; display:block; width:48px; height:1px; background:var(--gold); margin-top:24px; }
+  .demo-note { font-size:12px; line-height:1.5; color:var(--muted); margin:18px 0 0; }
+  .specialist-portrait { display:block; position:relative; min-width:0; min-height:480px; border-radius:var(--radius); overflow:hidden; }
+  .specialist-portrait img { display:block; width:100%; height:100%; position:absolute; inset:0; object-fit:cover; }
+  .specialist-portrait span { position:absolute; right:15px; top:15px; background:var(--paper); border-radius:50%; width:44px; height:44px; display:grid; place-items:center; }
+  .specialist-portrait:focus-visible { outline:3px solid var(--gold-deep); outline-offset:3px; }
+  .specialist-description { line-height:1.7; margin-bottom:28px; color:var(--ink-2); overflow-wrap:anywhere; }
+  .specialist-description :global(p:last-child) { margin-bottom:0; }
+  .specialist-description :global(h2) { font-size:32px; }
+  .specialist-description :global(img) { max-width:100%; height:auto; }
+  .specialist-booking { border-radius:var(--radius-pill); text-transform:none; letter-spacing:0; font-size:15px; font-weight:400; }
+  @media(max-width:800px) {
+    .specialist-page { padding-top:18px; padding-bottom:64px; }
+    .back { margin-bottom:18px; }
+    .specialist-profile { grid-template-columns:minmax(0,1fr); gap:0; padding:8px; border-radius:26px; }
+    .specialist-portrait { min-height:0; aspect-ratio:4/3; border-radius:19px; }
+    .specialist-info { padding:24px 14px 18px; }
+    h1 { font-size:clamp(34px,6vw,46px); margin-bottom:12px; }
+    .specialist-role { font-size:24px; margin-bottom:20px; }
+    .specialist-role::after { margin-top:18px; }
+    .specialist-description { font-size:15px; margin-bottom:24px; }
+    .specialist-booking { width:100%; padding:0 18px; gap:12px; }
+  }
 </style>
