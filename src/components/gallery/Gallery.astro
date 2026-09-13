@@ -14,7 +14,7 @@ const { id, title, items, portraits = false, detailsLabel = 'Подробнее'
   <div class="gallery-rail" data-rail tabindex="0" aria-label={title}>
     {items.map(item => <article class="gallery-card" data-card>
       <a class="gallery-photo" href={item.full} data-photo data-id={item.id} data-caption={portraits ? `${item.title} · ${(item as Specialist).role}` : item.title} aria-label={`Увеличить фото: ${item.title}`}>
-        <img src={item.thumbnail} alt={item.alt} width={item.width} height={item.height} loading="lazy" decoding="async" style={`object-position: 50% ${item.focus}%`} />
+        <img src={item.thumbnail} alt={item.alt} width={item.width} height={item.height} loading="lazy" decoding="async" style={`object-position: 50% ${portraits ? 100 : item.focus}%`} />
         {!portraits && <span class="room-caption">{item.title}</span>}
         <span class="photo-expand" aria-hidden="true">↗</span>
       </a>
