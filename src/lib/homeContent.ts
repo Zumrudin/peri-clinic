@@ -4,6 +4,13 @@ import { formatRuDate } from './markup';
 import { bySort } from './directus';
 import { getAllDevices } from './deviceContent';
 
+/** These three placements require an image; fail at the CMS boundary with a useful error. */
+function requiredImage(file: Parameters<typeof directusImage>[0], field: string) {
+  const image = directusImage(file);
+  if (!image) throw new Error(`Required home image is missing: ${field}`);
+  return image;
+}
+
 /**
  * Reshapes the `home` singleton + related collections (fetched via Content Layer loaders,
  * see src/content.config.ts) into the same nested shape the former `src/data/home.json`
@@ -32,7 +39,7 @@ export async function getHomeContent() {
       primary_label: h.hero_primary_label,
       secondary_label: h.hero_secondary_label,
       secondary_href: '#results',
-      image: directusImage(h.hero_image),
+      image: requiredImage(h.hero_image, 'hero_image'),
       image_alt: h.hero_image_alt || '',
       note: h.hero_note || '',
       facts: h.hero_facts,
@@ -46,7 +53,7 @@ export async function getHomeContent() {
         slug: c.slug,
         title: c.title,
         tagline: c.tagline || '',
-        cover: directusImage(c.cover),
+        cover: requiredImage(c.cover, `category ${c.slug}`),
         alt: c.cover_alt || c.title,
       })),
     },
@@ -104,7 +111,7 @@ export async function getHomeContent() {
       title: h.cta_title,
       lead: h.cta_lead || '',
       button_label: h.cta_button_label,
-      image: directusImage(h.cta_image),
+      image: requiredImage(h.cta_image, 'cta_image'),
       image_alt: h.cta_image_alt || '',
     },
   };

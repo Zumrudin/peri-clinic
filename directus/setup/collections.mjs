@@ -423,6 +423,17 @@ export const collections = [
   },
 ];
 
+collections.push(
+  { collection: 'clinic_photos', meta: { icon: 'photo_library', group: 'group_content', sort_field: 'sort', translations: ru('Фотографии клиники') }, fields: [
+    f.id(), f.status(), f.sort(), f.image('image', 'Фотография', { required: true }), f.str('title', 'Подпись', { required: true }), f.str('image_alt', 'Описание фотографии'),
+  ] },
+  { collection: 'specialists', meta: { icon: 'people', group: 'group_content', sort_field: 'sort', display_template: '{{name}}', translations: ru('Специалисты') }, fields: [
+    f.id(), f.status(), f.sort(), f.slug(), f.str('name', 'Имя', { required: true }), f.str('role', 'Специализация', { required: true }),
+    f.image('image', 'Портрет', { required: true }), f.str('image_alt', 'Описание фотографии'), f.int('focus_y', 'Положение кадра по вертикали, %', { note: 'От 0 до 100. По умолчанию 35.' }),
+    f.html('body', 'Описание под фотографией'), ...seo(),
+  ] },
+);
+
 function base_ts(field, label) {
   return base(field, 'timestamp', label, { interface: 'datetime', width: 'half', readonly: true });
 }

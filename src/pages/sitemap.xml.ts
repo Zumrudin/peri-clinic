@@ -3,6 +3,8 @@ import { getAllCategories } from '../lib/categoryContent';
 import { getAllProcedures } from '../lib/procedureContent';
 import { getAllPages } from '../lib/pageContent';
 
+import { getSpecialists } from '../lib/specialistContent';
+
 const STATIC_PATHS = ['/apparaty', '/', '/uslugi-i-ceny', '/result', '/otzyvy', '/kontakty'];
 
 export const GET: APIRoute = async ({ site }) => {
@@ -11,6 +13,7 @@ export const GET: APIRoute = async ({ site }) => {
 
   const urls = [
     ...STATIC_PATHS,
+    ...(await getSpecialists()).filter(p => !p.demo).map(p => `/specialisty/${p.slug}`),
     ...categories.map((c) => `/${c.data.slug}`),
     ...procedures.map((p) => `/${p.data.slug}`),
     ...pages.filter((p) => !p.data.noindex).map((p) => `/${p.data.slug}`),
