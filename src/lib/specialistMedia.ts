@@ -1,7 +1,7 @@
 export interface SpecialistMedia {
   title: string;
   description?: string;
-  image_url: string;
+  image_url?: string;
   image_alt?: string;
   focus_y?: number;
   video_url?: string;
@@ -28,6 +28,8 @@ export function normalizeSpecialistMedia(value: unknown): SpecialistMedia[] {
     const title = typeof item.title === 'string' ? item.title.trim() : '';
     const image_url = publicMediaUrl(item.image_url);
     const video_url = publicMediaUrl(item.video_url);
+    if (item.telegram_url) return [];
+    if (video_url && ['t.me', 'telegram.me', 'telegram.org'].includes(new URL(video_url, 'https://www.peri-clinic.ru').hostname)) return [];
     // An invalid video link must not silently turn a video into a photo.
     if (!title || !image_url || (item.video_url && !video_url)) return [];
     return [{ title, image_url, video_url, focus_y: typeof item.focus_y === 'number' && Number.isFinite(item.focus_y) ? Math.max(0,Math.min(100,item.focus_y)) : 50, captions_url: publicMediaUrl(item.captions_url),

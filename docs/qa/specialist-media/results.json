@@ -1,0 +1,51 @@
+{
+  "results": [
+    {
+      "width": 375,
+      "widgetMs": 1482,
+      "playbackMs": 1972,
+      "before": {
+        "readyState": 0,
+        "duration": null,
+        "paused": true
+      },
+      "errors": []
+    },
+    {
+      "width": 800,
+      "widgetMs": 1047,
+      "playbackMs": 1926,
+      "before": {
+        "readyState": 0,
+        "duration": null,
+        "paused": true
+      },
+      "errors": []
+    },
+    {
+      "width": 1024,
+      "widgetMs": 803,
+      "playbackMs": 1629,
+      "before": {
+        "readyState": 0,
+        "duration": null,
+        "paused": true
+      },
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "widgetMs": 767,
+      "playbackMs": 1692,
+      "before": {
+        "readyState": 0,
+        "duration": null,
+        "paused": true
+      },
+      "errors": []
+    }
+  ],
+  "blockedFallback": "passed",
+  "originalVideo": "Telegram reports Media is too big; not playable in the widget",
+  "playablePost": "https://t.me/peri_clinic/2048"
+}

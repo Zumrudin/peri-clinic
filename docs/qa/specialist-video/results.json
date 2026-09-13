@@ -1,0 +1,29 @@
+{
+  "results": [
+    {
+      "width": 375,
+      "startMs": 1488,
+      "range": "206 / 1024 bytes",
+      "seek": "passed",
+      "close": "stopped and unloaded",
+      "telegramRequests": 0
+    },
+    {
+      "width": 800,
+      "startMs": 749,
+      "range": "206 / 1024 bytes",
+      "seek": "passed",
+      "close": "stopped and unloaded",
+      "telegramRequests": 0
+    },
+    {
+      "width": 1440,
+      "startMs": 424,
+      "range": "206 / 1024 bytes",
+      "seek": "passed",
+      "close": "stopped and unloaded",
+      "telegramRequests": 0
+    }
+  ],
+  "failedVideoFallback": "passed"
+}

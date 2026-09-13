@@ -65,7 +65,7 @@ export const f = {
   int: (field, label, o = {}) => base(field, 'integer', label, { interface: 'input', width: o.width || 'half', note: o.note }),
   image: (field, label, o = {}) =>
     base(field, 'uuid', label, { interface: 'file-image', special: ['file'], width: o.width || 'half', note: o.note, required: o.required }),
-  file: (field, label, o = {}) => base(field, 'uuid', label, { interface: 'file', special: ['file'], width: o.width || 'half', note: o.note }),
+  file: (field, label, o = {}) => base(field, 'uuid', label, { interface: 'file', special: ['file'], width: o.width || 'half', note: o.note, options: o.options }),
   date: (field, label) => base(field, 'date', label, { interface: 'datetime', width: 'half' }),
   select: (field, label, choices, o = {}) =>
     base(field, 'string', label, { interface: 'select-dropdown', width: o.width || 'half', options: { choices } }, { default_value: o.default }),
@@ -439,14 +439,24 @@ collections.push(
     f.html('body', 'Описание специалиста'),
     f.str('media_title', 'Заголовок медиараздела', { default: 'Знакомство со специалистом' }),
     f.text('media_description', 'Описание медиараздела'),
-    f.repeater('media', 'Фото и видео специалиста', [
+    f.o2m('media_items', 'Фото и видео', { template: '{{title}}', note: 'Добавьте материал: загрузите фотографию или видео с устройства. Для видео можно выбрать обложку. Порядок меняется перетаскиванием.' }),
+    f.repeater('media', 'Ранее добавленные материалы (ссылки)', [
       rep('title', 'Заголовок'), rep('description', 'Подпись', 'text', 'input-multiline'),
       rep('image_url', 'Публичная ссылка на фото / обложку'), rep('image_alt', 'Описание изображения'), rep('focus_y', 'Положение кадра по вертикали, % (0–100)', 'integer'),
       rep('video_url', 'Прямая ссылка на видео (необязательно)'), rep('captions_url', 'Субтитры WebVTT (необязательно)'),
-    ], { note: 'Порядок карточек меняется перетаскиванием. Фото обязательно. Для видео укажите прямой MP4/WebM, не ссылку на страницу видеосервиса. Только публичные HTTPS или локальные /media/... ссылки без access_token. Без видео карточка открывается как фотография.' }),
+    ], { note: 'Порядок карточек меняется перетаскиванием. Фото обязательно. Новые видео загружайте через раздел «Фото и видео». Ссылки Telegram не поддерживаются. Только публичные HTTPS или локальные /media/... ссылки без access_token. Без видео карточка открывается как фотография.' }),
     ...seo(),
   ] },
 );
+
+collections.push({ collection: 'specialist_media', meta: { icon: 'perm_media', hidden: true, sort_field: 'sort', display_template: '{{title}}', translations: ru('Материалы специалистов') }, fields: [
+  f.id(), f.sort(), f.m2o('specialist', 'Специалист', 'specialists', { required: true, template: '{{name}}' }),
+  f.str('title', 'Заголовок', { required: true }), f.text('description', 'Подпись'),
+  f.image('image', 'Фотография / обложка видео', { note: 'Для видео необязательно: без обложки показывается портрет специалиста.' }),
+  f.str('image_alt', 'Описание фотографии'),
+  f.file('video', 'Видеофайл', { note: 'MP4 (H.264/AAC) или WebM, до 50 МБ. Для видео с телефона выберите экспорт в MP4.', options: { mimeTypes: ['video/mp4', 'video/webm'] } }),
+  ...timestamps(),
+] });
 
 function base_ts(field, label) {
   return base(field, 'timestamp', label, { interface: 'datetime', width: 'half', readonly: true });
@@ -463,6 +473,7 @@ export const groups = [
 
 /** Relations: [collection, field, related_collection, {one_field, sort_field}] */
 export const relations = [
+  ['specialist_media', 'specialist', 'specialists', { one_field: 'media_items', sort_field: 'sort', on_delete: 'CASCADE', one_deselect_action: 'delete' }],
   ['procedures', 'category', 'service_categories', { one_field: 'procedures', sort_field: 'sort' }],
   ['procedures', 'device', 'devices', {}],
   ['price_items', 'procedure', 'procedures', { one_field: 'price_items', sort_field: 'sort' }],

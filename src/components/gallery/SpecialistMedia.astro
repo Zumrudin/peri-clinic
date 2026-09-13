@@ -42,7 +42,7 @@ const { items, title, description } = Astro.props;
   .media-heading { text-align:center; margin-bottom:28px; }
   h2 { margin:0 0 10px; font:400 clamp(32px,3.2vw,48px)/1.12 var(--display); text-wrap:balance; }
   .media-heading p { margin:0; color:var(--ink-2); font-size:16px; }
-  .media-rail { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+  .media-rail { list-style:none; padding:0; margin:0; display:grid; align-items:start; grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr)); gap:24px; }
   .media-card { min-width:0; border:1px solid var(--line-gold); border-radius:var(--radius); overflow:hidden; background:var(--gold-05); }
   .media-card:nth-child(3n+2) { background:var(--sand); }
   .media-card:nth-child(3n+3) { background:var(--gold-10); }

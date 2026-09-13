@@ -21,3 +21,10 @@ test('old records and incomplete media are safe; photo/video order is preserved'
   assert.equal(items[1].video_url, '/media/video.mp4');
   assert.equal(items[1].captions_url, '/media/captions.vtt');
 });
+
+test('Telegram links never become playable videos, even with a cover', () => {
+  for (const url of ['https://t.me/peri_clinic/123', 'https://t.me/c/123456/12']) {
+    assert.deepEqual(normalizeSpecialistMedia([{title:'Видео', image_url:'/media/photo.webp', video_url:url}]), []);
+  }
+  assert.deepEqual(normalizeSpecialistMedia([{title:'Видео', telegram_url:'https://t.me/peri_clinic/123'}]), []);
+});
