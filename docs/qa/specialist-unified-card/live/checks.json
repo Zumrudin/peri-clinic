@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "gadzhieva",
+    "width": 375,
+    "status": 200,
+    "profile": true,
+    "booking": true,
+    "portrait": true,
+    "noOverflow": true
+  },
+  {
+    "slug": "gataylina",
+    "width": 375,
+    "status": 200,
+    "profile": true,
+    "booking": true,
+    "portrait": true,
+    "noOverflow": true
+  },
+  {
+    "slug": "botashev",
+    "width": 375,
+    "status": 200,
+    "profile": true,
+    "booking": true,
+    "portrait": true,
+    "noOverflow": true
+  },
+  {
+    "slug": "bogatyreva",
+    "width": 375,
+    "status": 200,
+    "profile": true,
+    "booking": true,
+    "portrait": true,
+    "noOverflow": true
+  },
+  {
+    "slug": "gadzhieva",
+    "width": 1440,
+    "status": 200,
+    "profile": true,
+    "booking": true,
+    "portrait": true,
+    "noOverflow": true
+  },
+  {
+    "slug": "gataylina",
+    "width": 1440,
+    "status": 200,
+    "profile": true,
+    "booking": true,
+    "portrait": true,
+    "noOverflow": true
+  },
+  {
+    "slug": "botashev",
+    "width": 1440,
+    "status": 200,
+    "profile": true,
+    "booking": true,
+    "portrait": true,
+    "noOverflow": true
+  },
+  {
+    "slug": "bogatyreva",
+    "width": 1440,
+    "status": 200,
+    "profile": true,
+    "booking": true,
+    "portrait": true,
+    "noOverflow": true
+  },
+  {
+    "path": "/",
+    "status": 200
+  },
+  {
+    "path": "/uslugi-i-ceny",
+    "status": 200
+  },
+  {
+    "path": "/spravka",
+    "status": 200
+  }
+]

@@ -435,7 +435,15 @@ collections.push(
   { collection: 'specialists', meta: { icon: 'people', group: 'group_content', sort_field: 'sort', display_template: '{{name}}', translations: ru('Специалисты') }, fields: [
     f.id(), f.status(), f.sort(), f.bool('is_demo', 'Демонстрационный профиль', false, { note: 'Включить для временных портретов: страница не индексируется и не попадает в sitemap.' }), f.slug(), f.str('name', 'Имя', { required: true }), f.str('role', 'Специализация', { required: true }),
     f.image('image', 'Портрет', { required: true }), f.str('image_alt', 'Описание фотографии'), f.int('focus_y', 'Положение кадра по вертикали, %', { note: 'От 0 до 100. По умолчанию 35.' }),
-    f.html('body', 'Описание под фотографией'), ...seo(),
+    f.html('body', 'Описание специалиста'),
+    f.str('media_title', 'Заголовок медиараздела', { default: 'Знакомство со специалистом' }),
+    f.text('media_description', 'Описание медиараздела'),
+    f.repeater('media', 'Фото и видео специалиста', [
+      rep('title', 'Заголовок'), rep('description', 'Подпись', 'text', 'input-multiline'),
+      rep('image_url', 'Публичная ссылка на фото / обложку'), rep('image_alt', 'Описание изображения'), rep('focus_y', 'Положение кадра по вертикали, % (0–100)', 'integer'),
+      rep('video_url', 'Прямая ссылка на видео (необязательно)'), rep('captions_url', 'Субтитры WebVTT (необязательно)'),
+    ], { note: 'Порядок карточек меняется перетаскиванием. Фото обязательно. Для видео укажите прямой MP4/WebM, не ссылку на страницу видеосервиса. Только публичные HTTPS или локальные /media/... ссылки без access_token. Без видео карточка открывается как фотография.' }),
+    ...seo(),
   ] },
 );
 
