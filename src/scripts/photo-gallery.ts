@@ -28,6 +28,15 @@ export function initPhotoGalleries() {
     if (active.length > 1) for (const n of [-1, 1]) { const preload = new Image(); preload.src = active[(index + n + active.length) % active.length].href; }
   };
   image.addEventListener('error', () => { error.hidden = false; });
+  // Browsers keep the previous photo painted until the next one decodes, so a full crossfade
+  // needs no second layer: a short lift out of a blur on `load` is enough to soften the swap.
+  image.addEventListener('load', () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    image.animate(
+      [{ opacity: 0.6, filter: 'blur(4px)' }, { opacity: 1, filter: 'blur(0)' }],
+      { duration: 200, easing: EASE_OUT },
+    );
+  });
   const open = (photos: HTMLAnchorElement[], selected: HTMLAnchorElement, onClose: () => void) => {
     active = photos; restore = onClose; show(photos.indexOf(selected));
     oldOverflow = document.documentElement.style.overflow;

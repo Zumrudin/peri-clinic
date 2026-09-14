@@ -14,6 +14,17 @@
 <style>
   .photo-lightbox { padding:0; border:0; width:100vw; max-width:none; height:100dvh; max-height:none; background:#171715; color:white; overflow:hidden; }
   .photo-lightbox::backdrop { background:rgba(20,20,18,.94); }
+  /* Enter/exit as transitions (see ContactSheet.astro for the pattern); browsers without
+     @starting-style open instantly, as before. */
+  .photo-lightbox { opacity:0; transition: opacity var(--dur-fast) var(--ease-out), display var(--dur-fast) allow-discrete, overlay var(--dur-fast) allow-discrete; }
+  .photo-lightbox[open] { opacity:1; }
+  @starting-style { .photo-lightbox[open] { opacity:0; } }
+  .photo-lightbox::backdrop { opacity:0; transition: opacity var(--dur-fast) var(--ease-out), display var(--dur-fast) allow-discrete, overlay var(--dur-fast) allow-discrete; }
+  .photo-lightbox[open]::backdrop { opacity:1; }
+  @starting-style { .photo-lightbox[open]::backdrop { opacity:0; } }
+  figure { transform:scale(0.97); transition: transform var(--dur-fast) var(--ease-out); }
+  .photo-lightbox[open] figure { transform:none; }
+  @starting-style { .photo-lightbox[open] figure { transform:scale(0.97); } }
   .lightbox-inner { height:100%; display:flex; align-items:center; justify-content:center; padding:70px 80px 60px; }
   figure { margin:0; max-width:100%; text-align:center; pointer-events:none; }
   figure img { display:block; margin:auto; max-width:100%; max-height:calc(100dvh - 180px); object-fit:contain; pointer-events:auto; touch-action:pan-y; }

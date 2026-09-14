@@ -64,6 +64,13 @@ const { items, title, description } = Astro.props;
   .media-pagination [aria-current="true"] span { background:var(--gold-deep); }
   .media-dialog { width:min(1100px,calc(100% - 32px)); max-height:calc(100dvh - 32px); padding:64px 24px 24px; border:1px solid var(--line-gold); border-radius:var(--radius); background:var(--paper); color:var(--ink); }
   .media-dialog::backdrop { background:rgba(36,36,31,.8); }
+  /* Enter/exit as transitions (see ContactSheet.astro); unsupported browsers open instantly. */
+  .media-dialog { opacity:0; transform:scale(0.97); transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), display var(--dur-fast) allow-discrete, overlay var(--dur-fast) allow-discrete; }
+  .media-dialog[open] { opacity:1; transform:none; }
+  @starting-style { .media-dialog[open] { opacity:0; transform:scale(0.97); } }
+  .media-dialog::backdrop { opacity:0; transition: opacity var(--dur-fast) var(--ease-out), display var(--dur-fast) allow-discrete, overlay var(--dur-fast) allow-discrete; }
+  .media-dialog[open]::backdrop { opacity:1; }
+  @starting-style { .media-dialog[open]::backdrop { opacity:0; } }
   .media-close { position:absolute; top:12px; right:12px; width:44px; height:44px; border:1px solid var(--line-gold); border-radius:50%; background:var(--paper); color:var(--ink); font-size:28px; cursor:pointer; }
   figure { margin:0; text-align:center; }
   .media-full, video { display:block; width:100%; max-height:calc(100dvh - 190px); object-fit:contain; border-radius:12px; }
