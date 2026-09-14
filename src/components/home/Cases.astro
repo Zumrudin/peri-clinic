@@ -170,7 +170,7 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
   }
   @media (max-width: 800px) {
     .results {
-      --results-card-width: min(70vw, 280px);
+      --results-card-width: min(70vw, 280px, 32svh);
       padding-top: 36px;
       padding-bottom: 36px;
     }
@@ -204,7 +204,8 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
     .result-card--large .result-card__image {
       min-height: 0;
       /* Keep the photo and controls visible together on short mobile screens. */
-      height: min(var(--results-card-width), 32svh);
+      height: auto;
+      aspect-ratio: 1;
       flex: none;
       background: var(--paper);
     }

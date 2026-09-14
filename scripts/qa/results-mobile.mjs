@@ -107,6 +107,7 @@ try {
     assert.ok(navigation.y + navigation.height <= height - 64, `cards and navigation fit ${width}x${height}`);
     const photo = await page.locator('.result-card__image').first().boundingBox();
     assert.ok(photo.height <= Math.min(280, height * 0.32) + 1, 'photo respects mobile height budget');
+    assert.ok(Math.abs(photo.width - photo.height) < 1, 'square photos fill the frame without side gutters');
     await page.screenshot({ path: `${out}/viewport-${width}x${height}.png`, animations: 'disabled' });
     checks.push({ width, height, viewportFit: true });
     await page.close();
