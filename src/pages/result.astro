@@ -39,6 +39,7 @@ const categories = bySort(await getCollection('caseCategories')).filter((cat) =>
       {
         cases.map((c) => (
           <CaseCard
+            preserveDesktopAspect
             preserveMobileAspect
             title={c.data.title}
             result={c.data.result ?? ''}

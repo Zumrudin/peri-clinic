@@ -9,6 +9,7 @@ interface ImgRef {
 interface Props {
   title: string;
   preserveAspect?: boolean;
+  preserveDesktopAspect?: boolean;
   preserveMobileAspect?: boolean;
   mobileHomeStyle?: boolean;
   result?: string;
@@ -18,12 +19,12 @@ interface Props {
   after?: ImgRef | null;
   combined?: ImgRef | null;
 }
-const { title, result, category, categorySlug, before, after, combined, preserveAspect = false, preserveMobileAspect = false, mobileHomeStyle = false } = Astro.props;
+const { title, result, category, categorySlug, before, after, combined, preserveAspect = false, preserveDesktopAspect = false, preserveMobileAspect = false, mobileHomeStyle = false } = Astro.props;
 const hasPair = before && after;
 const single = combined ?? after ?? before;
-const imageHeight = (img: ImgRef, width: number, fallback: number) => preserveAspect && img.width > 0 && img.height > 0 ? Math.round(width * img.height / img.width) : fallback;
-// Desktop assets are cropped during optimization; mobile needs the full source
-// as well as object-fit: contain, just like the home page's results cards.
+const imageHeight = (img: ImgRef, width: number, fallback: number) => (preserveAspect || preserveDesktopAspect) && img.width > 0 && img.height > 0 ? Math.round(width * img.height / img.width) : fallback;
+// Mobile needs the full source as well as object-fit: contain, including when
+// the default desktop assets are cropped during optimization.
 const mobileImages = new Map(await Promise.all(
   (preserveMobileAspect ? (hasPair ? [before!, after!] : single ? [single] : []) : []).map(async (img) => {
     const widths = [480, 700, 1000];
@@ -38,7 +39,7 @@ const mobileImages = new Map(await Promise.all(
 ));
 ---
 
-<article class:list={['case-card reveal', { 'case-card--uncropped': preserveAspect, 'case-card--mobile-uncropped': preserveMobileAspect, 'case-card--home-mobile': mobileHomeStyle }]} data-category={categorySlug ?? ''}>
+<article class:list={['case-card reveal', { 'case-card--uncropped': preserveAspect, 'case-card--desktop-uncropped': preserveDesktopAspect, 'case-card--mobile-uncropped': preserveMobileAspect, 'case-card--home-mobile': mobileHomeStyle }]} data-category={categorySlug ?? ''}>
   {
     hasPair ? (
       <div class="case-card__pair">
@@ -142,6 +143,24 @@ const mobileImages = new Map(await Promise.all(
     font-size: 13px;
     line-height: 1.5;
     margin: 0;
+  }
+  @media (min-width: 801px) {
+    .case-card--desktop-uncropped { min-width: 0; }
+    .case-card--desktop-uncropped .case-card__pair,
+    .case-card--desktop-uncropped .case-card__image {
+      aspect-ratio: 1;
+      background: var(--paper);
+    }
+    .case-card--desktop-uncropped .case-card__half {
+      min-width: 0;
+      min-height: 0;
+      aspect-ratio: auto;
+    }
+    .case-card--desktop-uncropped :global(img) {
+      display: block;
+      object-fit: contain;
+    }
+    .case-card--desktop-uncropped .case-card__image > span { display: none; }
   }
   @media (max-width: 800px) {
     .case-card--mobile-uncropped .case-card__half,
