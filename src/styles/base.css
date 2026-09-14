@@ -179,7 +179,15 @@ h2 {
 .button:hover {
   background: var(--gold-hover);
   border-color: var(--gold-hover);
-  transform: translateY(-2px);
+}
+/* Movement on hover only for real pointers: touch fires a sticky :hover on tap. */
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    transform: translateY(-2px);
+  }
+  .text-link:hover span {
+    transform: translate(3px, -3px);
+  }
 }
 /* Press feedback: subtle (0.98), symmetric 160ms both ways. Declared after :hover so it wins. */
 .button:active {
@@ -226,9 +234,6 @@ h2 {
   font-size: 17px;
   color: var(--gold);
   transition: transform var(--dur-press) var(--ease-out);
-}
-.text-link:hover span {
-  transform: translate(3px, -3px);
 }
 .text-link:active span {
   transform: translate(3px, -3px) scale(0.95);

@@ -115,7 +115,11 @@ const { devices } = home;
   }
   .machine-card:hover {
     box-shadow: var(--shadow-glow);
-    transform: translateY(-4px);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .machine-card:hover {
+      transform: translateY(-4px);
+    }
   }
   .machine-card > span {
     font-size: 11px;

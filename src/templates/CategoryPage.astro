@@ -69,7 +69,8 @@ const copy = home.devices;
     min-width: 0;
     transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast);
   }
-  .service-card:hover, .service-card:focus-visible { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+  .service-card:hover, .service-card:focus-visible { box-shadow: var(--shadow-gold); }
+  @media (hover: hover) and (pointer: fine) { .service-card:hover, .service-card:focus-visible { transform: translateY(-2px); } }
 
   .service-card__image { position: relative; height: 300px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--paper); border-bottom: 1px solid var(--line-gold); }
   .service-card__image :global(img) { width: 100%; height: 100%; object-fit: cover; }

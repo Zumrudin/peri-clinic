@@ -49,8 +49,8 @@ const { items, title, description } = Astro.props;
   .media-link { display:flex; flex-direction:column; height:100%; color:var(--ink); }
   .media-link:focus-visible { outline:3px solid var(--gold-deep); outline-offset:-4px; border-radius:var(--radius); }
   .media-cover { position:relative; aspect-ratio:3/2; overflow:hidden; }
-  .media-cover img { display:block; width:100%; height:100%; object-fit:cover; transition:transform var(--dur-fast); }
-  .media-link:hover img { transform:scale(1.025); }
+  .media-cover img { display:block; width:100%; height:100%; object-fit:cover; transition:transform var(--dur-fast) var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) { .media-link:hover img { transform:scale(1.025); } }
   .media-play { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:60px; height:60px; display:grid; place-items:center; padding-left:4px; border-radius:50%; background:var(--paper); color:var(--gold-deep); font-size:23px; }
   .media-type { position:absolute; left:14px; bottom:14px; padding:5px 10px; border-radius:var(--radius-pill); background:var(--paper); color:var(--ink-2); font-size:11px; }
   .media-copy { position:relative; padding:20px 54px 24px 20px; flex:1; overflow-wrap:anywhere; }

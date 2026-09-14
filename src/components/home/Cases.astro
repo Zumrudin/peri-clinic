@@ -110,8 +110,10 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
     object-fit: cover;
     transition: transform var(--dur-slow) var(--ease-out);
   }
-  .result-card:hover .result-card__image :global(img) {
-    transform: scale(1.025);
+  @media (hover: hover) and (pointer: fine) {
+    .result-card:hover .result-card__image :global(img) {
+      transform: scale(1.025);
+    }
   }
   .result-card__image > span {
     /* case photos can carry their own baked-in caption text near this corner —
