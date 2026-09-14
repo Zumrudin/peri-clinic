@@ -18,7 +18,7 @@ const socials = [
   <h2 class="visually-hidden">Информация о клинике</h2>
   <div class="footer__top glass-panel">
     <a class="footer__logo" href="/" aria-label={`${site.name} — на главную`}>
-      <Image src={logo} alt={site.name} width={190} densities={[1, 2]} loading="lazy" />
+      <Image src={logo} alt={site.name} width={190} densities={[1, 2, 3]} quality={100} loading="lazy" />
     </a>
     <p set:html={em(site.tagline)} />
     <a class="footer__phone" href={telHref(site.phone)}>{site.phone}</a>

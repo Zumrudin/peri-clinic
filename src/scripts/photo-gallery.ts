@@ -16,6 +16,7 @@ export function initPhotoGalleries() {
   const show = (target: number) => {
     index = (target + active.length) % active.length;
     const photo = active[index];
+    dialog.classList.toggle('is-portrait', photo.dataset.portrait === 'true' || !!photo.closest('.portraits'));
     error.hidden = true;
     image.src = photo.href;
     image.alt = photo.querySelector('img')?.alt || photo.dataset.caption || '';
@@ -100,7 +101,7 @@ export function initPhotoGalleries() {
     if (!source) return;
     e.preventDefault();
     const photos = (JSON.parse(source.textContent || '[]') as {full:string;title:string;alt:string;id:string}[]).map(item => {
-      const a = document.createElement('a'); a.href = item.full; a.dataset.caption = item.title; a.dataset.id = item.id;
+      const a = document.createElement('a'); a.href = item.full; a.dataset.caption = item.title; a.dataset.id = item.id; a.dataset.portrait = 'true';
       const img = document.createElement('img'); img.alt = item.alt; a.append(img); return a;
     });
     const selected = photos.find(p => p.dataset.id === link.dataset.id);

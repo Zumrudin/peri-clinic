@@ -39,6 +39,7 @@ const { id, title, items, portraits = false, detailsLabel = 'Подробнее'
   .gallery-photo { display:block; position:relative; border-radius:18px; overflow:hidden; background:var(--sand); }
   .gallery-photo img { width:100%; height:clamp(210px,24vw,350px); object-fit:cover; display:block; user-select:none; }
   .portraits .gallery-card { flex-basis:35%; }
+  .portraits .gallery-photo { background:var(--specialist-photo-bg); }
   .portraits .gallery-photo img { height:auto; aspect-ratio:3/4; }
   .room-caption { position:absolute; bottom:0; left:0; right:0; padding:35px 18px 16px; color:white; background:linear-gradient(transparent,rgba(0,0,0,.65)); font-size:14px; }
   .photo-expand { position:absolute; top:12px; right:12px; display:grid; place-items:center; width:32px; height:32px; border-radius:50%; background:rgba(251,250,247,.9); color:var(--ink); }

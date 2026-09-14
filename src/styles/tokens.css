@@ -14,6 +14,8 @@
   --dark: #292923;
   --dark-text: #f5f2e9;
   --sand: #ede9df;
+  /* Sampled from the background along the left edge of Astemir Botashev's original portrait. */
+  --specialist-photo-bg: #dbd6d2;
   --line: rgba(45, 43, 35, 0.14);
   --line-on-dark: rgba(255, 255, 255, 0.14);
 

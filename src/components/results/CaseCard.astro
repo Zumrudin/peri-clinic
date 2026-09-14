@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 
 interface ImgRef {
   src: string;
@@ -9,6 +9,7 @@ interface ImgRef {
 interface Props {
   title: string;
   preserveAspect?: boolean;
+  preserveMobileAspect?: boolean;
   result?: string;
   category?: string;
   categorySlug?: string;
@@ -16,28 +17,51 @@ interface Props {
   after?: ImgRef | null;
   combined?: ImgRef | null;
 }
-const { title, result, category, categorySlug, before, after, combined, preserveAspect = false } = Astro.props;
+const { title, result, category, categorySlug, before, after, combined, preserveAspect = false, preserveMobileAspect = false } = Astro.props;
 const hasPair = before && after;
 const single = combined ?? after ?? before;
 const imageHeight = (img: ImgRef, width: number, fallback: number) => preserveAspect && img.width > 0 && img.height > 0 ? Math.round(width * img.height / img.width) : fallback;
+// Desktop assets are cropped during optimization; mobile needs the full source
+// as well as object-fit: contain, just like the home page's results cards.
+const mobileImages = new Map(await Promise.all(
+  (preserveMobileAspect ? (hasPair ? [before!, after!] : single ? [single] : []) : []).map(async (img) => {
+    const widths = [480, 700, 1000];
+    const images = await Promise.all(widths.map(width => getImage({
+      src: img.src,
+      width,
+      height: Math.round(width * img.height / img.width),
+      format: 'webp',
+    })));
+    return [img.src, images.map((image, i) => `${image.src} ${widths[i]}w`).join(', ')] as const;
+  }),
+));
 ---
 
-<article class:list={['case-card reveal', { 'case-card--uncropped': preserveAspect }]} data-category={categorySlug ?? ''}>
+<article class:list={['case-card reveal', { 'case-card--uncropped': preserveAspect, 'case-card--mobile-uncropped': preserveMobileAspect }]} data-category={categorySlug ?? ''}>
   {
     hasPair ? (
       <div class="case-card__pair">
         <div class="case-card__half">
+          <picture>
+          {mobileImages.has(before!.src) && <source media="(max-width: 800px)" type="image/webp" srcset={mobileImages.get(before!.src)} sizes="43vw" width={before!.width} height={before!.height} />}
           <Image src={before!.src} alt={`${title} — до`} width={500} height={imageHeight(before!, 500, 620)} sizes="(max-width: 800px) 43vw, 220px" loading="lazy" />
+          </picture>
           <span class="glass-chip">до</span>
         </div>
         <div class="case-card__half">
+          <picture>
+          {mobileImages.has(after!.src) && <source media="(max-width: 800px)" type="image/webp" srcset={mobileImages.get(after!.src)} sizes="43vw" width={after!.width} height={after!.height} />}
           <Image src={after!.src} alt={`${title} — после`} width={500} height={imageHeight(after!, 500, 620)} sizes="(max-width: 800px) 43vw, 220px" loading="lazy" />
+          </picture>
           <span class="glass-chip">после</span>
         </div>
       </div>
     ) : single ? (
       <div class="case-card__image">
+        <picture>
+        {mobileImages.has(single.src) && <source media="(max-width: 800px)" type="image/webp" srcset={mobileImages.get(single.src)} sizes="86vw" width={single.width} height={single.height} />}
         <Image src={single.src} alt={title} width={700} height={imageHeight(single, 700, 620)} sizes="(max-width: 800px) 86vw, 30vw" loading="lazy" />
+        </picture>
         <span class="glass-chip">до / после</span>
       </div>
     ) : null
@@ -50,6 +74,7 @@ const imageHeight = (img: ImgRef, width: number, fallback: number) => preserveAs
 </article>
 
 <style>
+  picture { display: contents; }
   .case-card {
     background: var(--gold-05);
     border: 1px solid var(--line-gold);
@@ -116,5 +141,19 @@ const imageHeight = (img: ImgRef, width: number, fallback: number) => preserveAs
     font-size: 13px;
     line-height: 1.5;
     margin: 0;
+  }
+  @media (max-width: 800px) {
+    .case-card--mobile-uncropped .case-card__half,
+    .case-card--mobile-uncropped .case-card__image {
+      background: var(--paper);
+    }
+    .case-card--mobile-uncropped :global(img) {
+      object-fit: contain;
+      display: block;
+    }
+    .case-card--mobile-uncropped .case-card__half span,
+    .case-card--mobile-uncropped .case-card__image span {
+      display: none;
+    }
   }
 </style>

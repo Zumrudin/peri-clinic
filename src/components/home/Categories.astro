@@ -49,8 +49,8 @@ const mobileTiles = await Promise.all(
               <Image
                 src={item.cover.src}
                 alt={item.alt}
-                width={700}
-                height={900}
+                width={item.slug === 'esteticheskaya-kosmetologiya' ? item.cover.width : 700}
+                height={item.slug === 'esteticheskaya-kosmetologiya' ? item.cover.height : 900}
                 widths={[420, 700, 1000]}
                 sizes="(max-width: 800px) 84vw, 33vw"
                 loading="lazy"
