@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
@@ -8,8 +7,7 @@ import CaseCard from '../components/results/CaseCard.astro';
 import ResultsNavigation from '../components/results/ResultsNavigation.astro';
 import PriceTable from '../components/pricing/PriceTable.astro';
 import { getSiteSettings } from '../lib/siteContent';
-import { getCasesForProcedure, getFaqForProcedure, getPriceItemsForProcedure, procedureGallery } from '../lib/procedureContent';
-import { directusImage } from '../lib/media';
+import { getCasesForProcedure, getFaqForProcedure, getPriceItemsForProcedure } from '../lib/procedureContent';
 import { em, formatPrice } from '../lib/markup';
 
 interface Props { procedure: CollectionEntry<'procedures'>; device?: boolean }
@@ -20,9 +18,6 @@ const [site, allCases, faq, prices] = await Promise.all([
 ]);
 // A lone “after” photograph is not a before/after comparison.
 const cases = allCases.filter(c => c.combined || (c.before && c.after));
-const deviceImage = device ? directusImage(p.device?.image) : null;
-const gallery = procedureGallery(p.gallery);
-const cover = deviceImage || directusImage(p.cover);
 const amounts = prices.flatMap(item => [item.price, item.priceHeadDoctor]).filter((price): price is number => price !== null);
 const startingPrice = site.show_prices && amounts.length ? formatPrice(Math.min(...amounts)) : null;
 const facts = [
@@ -34,7 +29,7 @@ const facts = [
 ---
 <Page title={p.seo_title || `${p.title} — PERI CLINIC`} description={p.seo_description || p.summary || p.lead || ''}>
   <Breadcrumbs slot="head" items={[...(p.category ? [{ name: p.category.title, href: `/${p.category.slug}` }] : []), { name: p.title, href: `/${p.slug}` }]} />
-  <section class:list={['treatment-hero', { 'treatment-hero--text': !cover }]} aria-labelledby="treatment-title">
+  <section class="treatment-hero" aria-labelledby="treatment-title">
     <div class="treatment-hero__content">
       <p class="eyebrow">PERI CLINIC{p.category && ` · ${p.category.title}`}</p>
       <h1 id="treatment-title" set:html={em(p.title)} />
@@ -46,10 +41,6 @@ const facts = [
       </div>
       {facts.length > 0 && <dl class="treatment-facts">{facts.map(f => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}</dl>}
     </div>
-    {cover && <figure class:list={['treatment-hero__photo', { 'treatment-hero__photo--apparatus': deviceImage }]}>
-      <Image src={cover.src} alt={deviceImage ? `Аппарат ${p.device!.name}` : p.cover_alt || p.title} width={850} height={950} sizes="(max-width: 900px) 100vw, 42vw" loading="eager" fetchpriority="high" />
-      {deviceImage && <figcaption>{p.device!.name}<span>{p.device!.short}</span></figcaption>}
-    </figure>}
   </section>
 
   <nav class="treatment-nav" aria-label="Разделы страницы">
@@ -81,11 +72,6 @@ const facts = [
   {p.steps.length > 0 && <section id="visit" class="section treatment-visit reveal" aria-labelledby="visit-title">
     <p class="eyebrow">Ваш визит</p><h2 id="visit-title">Как проходит процедура</h2>
     <ol class="treatment-steps">{p.steps.map(s => <li><h3>{s.title}</h3><p>{s.text}</p></li>)}</ol>
-  </section>}
-
-  {gallery.length > 0 && <section class="section treatment-gallery reveal" aria-labelledby="gallery-title">
-    <p class="eyebrow">Фотографии</p><h2 id="gallery-title">Подробнее о процедуре</h2>
-    <div class="treatment-gallery__grid">{gallery.map((img, i) => <Image src={img.src} alt={`${p.title} — фото ${i + 1}`} width={600} height={750} sizes="(max-width: 600px) 100vw, (max-width: 900px) 44vw, 28vw" loading="lazy" />)}</div>
   </section>}
 
   {(p.indications || p.contraindications) && <section class:list={['section treatment-medical reveal', { 'treatment-medical--single': !p.indications || !p.contraindications }]} aria-label="Показания и противопоказания">
@@ -120,8 +106,7 @@ const facts = [
 
 <style>
 
-  .treatment-hero { max-width: var(--container-wide); margin: auto; padding: 48px var(--gutter) 64px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 5vw; align-items: center; }
-  .treatment-hero--text { grid-template-columns: 1fr; }
+  .treatment-hero { max-width: var(--container-wide); margin: auto; padding: 48px var(--gutter) 64px; display: grid; grid-template-columns: 1fr; gap: 5vw; align-items: center; }
   .treatment-hero__content, .treatment-about > div, .treatment-prices > div, .treatment-medical > div { min-width: 0; }
   h1 { font-size: clamp(36px, 4.5vw, 66px); line-height: 1.06; margin: 18px 0 24px; overflow-wrap: anywhere; }
   h2 { font-size: var(--t-h2-s); line-height: 1.1; margin: 12px 0 28px; }
@@ -130,11 +115,6 @@ const facts = [
   .treatment-lead { color: var(--ink-2); line-height: 1.75; max-width: 58ch; }
   .treatment-actions { display: flex; flex-wrap: wrap; gap: 22px; align-items: center; margin-top: 30px; }
   .treatment-actions .button, .treatment-cta .button { white-space: normal; text-align: left; }
-  .treatment-hero__photo { margin: 0; background: var(--paper); border-radius: var(--radius); overflow: hidden; }
-  .treatment-hero__photo img { width: 100%; height: 510px; object-fit: contain; }
-  .treatment-hero__photo--apparatus img { padding: 30px; mix-blend-mode: multiply; }
-  figcaption { display: grid; gap: 8px; padding: 20px 28px; border-top: 1px solid var(--line); font: 400 26px var(--display); }
-  figcaption span { font: 400 13px var(--sans); color: var(--muted); }
   .treatment-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; border-top: 1px solid var(--line); padding-top: 24px; margin-top: 32px; }
   dt { color: var(--muted); font-size: 12px; } dd { margin: 6px 0 0; font: 400 23px var(--display); }
   .treatment-nav { display: flex; flex-wrap: wrap; gap: 10px 28px; max-width: var(--container); margin: auto; padding: 22px var(--gutter); border-block: 1px solid var(--line); }
@@ -158,16 +138,12 @@ const facts = [
   .treatment-cta .treatment-cta__disclaimer { margin-top: 26px; margin-bottom: 0; font-size: 12px; }
   .treatment-benefits { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 32px; }
   .treatment-benefits article { padding-top: 20px; border-top: 1px solid var(--line); }
-  .treatment-gallery__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-  .treatment-gallery__grid img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: contain; background: var(--paper); border-radius: var(--radius); }
   .treatment-medical--single { grid-template-columns: 1fr; }
   .treatment-medical .prose { max-width: 70ch; }
   .treatment-about :global(.prose), .treatment-medical :global(.prose), .treatment-facts dd { overflow-wrap: anywhere; }
   .treatment-nav a { min-height: 44px; display: inline-flex; align-items: center; }
   @media (max-width: 900px) {
     .treatment-hero, .treatment-about, .treatment-prices { grid-template-columns: 1fr; gap: 30px; }
-    .treatment-hero__photo img { height: 380px; }
-    .treatment-gallery__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 600px) {
     .treatment-hero { padding-top: 28px; padding-bottom: 40px; }
@@ -177,12 +153,11 @@ const facts = [
     .treatment-actions .button, .treatment-cta .button { width: 100%; justify-content: space-between; min-height: 52px; }
     .treatment-facts { gap: 20px 16px; }
     .treatment-facts dd { font-size: 21px; }
-    .treatment-benefits, .treatment-gallery__grid { grid-template-columns: 1fr; }
+    .treatment-benefits { grid-template-columns: 1fr; }
     .treatment-medical { gap: 28px; }
     .treatment-cta { padding-block: 56px; }
     .treatment-steps, .treatment-medical, .treatment-cases { grid-template-columns: 1fr; }
     .treatment-nav { gap: 4px 20px; }
-    .treatment-hero__photo img { height: 320px; }
   }
   @media (max-width: 800px) {
     .treatment-results { --results-card-width: min(70vw, 280px, 32svh); }
