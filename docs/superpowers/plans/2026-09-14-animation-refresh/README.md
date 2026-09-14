@@ -8,8 +8,8 @@
 
 | № | Файл | Название | Серьёзность | Статус |
 | --- | --- | --- | --- | --- |
-| 001 | `001-motion-tokens-and-reveal.md` | Единые токены движения, мягкий `.reveal` со стаггером | HIGH | ON STAND (ждёт подтверждения) |
-| 002 | `002-contact-sheet-symmetric.md` | Лист записи: симметричный вход и выход | HIGH | TODO |
+| 001 | `001-motion-tokens-and-reveal.md` | Единые токены движения, мягкий `.reveal` со стаггером | HIGH | DONE |
+| 002 | `002-contact-sheet-symmetric.md` | Лист записи: симметричный вход и выход | HIGH | ON STAND (ждёт подтверждения) |
 | 003 | `003-sticky-header-hysteresis.md` | Sticky-шапка без дёрганья: гистерезис, без анимации `height` | MEDIUM | TODO |
 | 004 | `004-mobile-menu-easing.md` | Мобильное меню: вход медленнее выхода, бургер только на `transform` | MEDIUM | TODO |
 | 005 | `005-reduced-motion-gentle.md` | Reduced-motion: убрать движение, оставить отклик | MEDIUM | TODO |

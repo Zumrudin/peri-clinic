@@ -105,9 +105,30 @@ const rows = [
     height: 100%;
     color: var(--ink);
   }
+  /* Enter/exit are CSS transitions, not keyframes: a transition retargets mid-way when the
+     user taps open/close quickly, and `allow-discrete` keeps the dialog painted while it
+     leaves. Browsers without @starting-style fall back to an instant open (today's behavior). */
+  .sheet {
+    transition:
+      display var(--dur-fast) allow-discrete,
+      overlay var(--dur-fast) allow-discrete;
+  }
   .sheet::backdrop {
     background: rgba(36, 36, 31, 0.55);
     backdrop-filter: blur(4px);
+    opacity: 0;
+    transition:
+      opacity var(--dur-fast) var(--ease-out),
+      display var(--dur-fast) allow-discrete,
+      overlay var(--dur-fast) allow-discrete;
+  }
+  .sheet[open]::backdrop {
+    opacity: 1;
+  }
+  @starting-style {
+    .sheet[open]::backdrop {
+      opacity: 0;
+    }
   }
   .sheet[open] {
     display: grid;
@@ -120,7 +141,25 @@ const rows = [
     padding: 40px 36px 30px;
     border-radius: var(--radius);
     box-shadow: 0 30px 80px rgba(20, 18, 12, 0.25);
-    animation: sheetIn 0.3s var(--ease-out) both;
+    /* closed state = exit target; exit is the faster leg */
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+    transition:
+      opacity var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+  .sheet[open] .sheet__panel {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.4s var(--ease-drawer),
+      transform 0.4s var(--ease-drawer);
+  }
+  @starting-style {
+    .sheet[open] .sheet__panel {
+      opacity: 0;
+      transform: translateY(12px) scale(0.97);
+    }
   }
   .sheet__handle {
     display: none;
@@ -206,17 +245,6 @@ const rows = [
     font-size: 11px;
     line-height: 1.5;
   }
-  @keyframes sheetIn {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
   @media (max-width: 800px) {
     .sheet[open] {
       place-items: end center;
@@ -225,7 +253,17 @@ const rows = [
       width: 100%;
       border-radius: 14px 14px 0 0;
       padding: 14px 20px calc(24px + env(safe-area-inset-bottom));
-      animation-name: sheetUp;
+      opacity: 1;
+      transform: translateY(100%);
+    }
+    .sheet[open] .sheet__panel {
+      transform: none;
+    }
+    @starting-style {
+      .sheet[open] .sheet__panel {
+        opacity: 1;
+        transform: translateY(100%);
+      }
     }
     .sheet__handle {
       display: block;
@@ -238,12 +276,18 @@ const rows = [
     .sheet__title {
       font-size: 32px;
     }
-    @keyframes sheetUp {
-      from {
-        transform: translateY(100%);
-      }
-      to {
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sheet__panel,
+    .sheet[open] .sheet__panel {
+      transform: none;
+      transition: opacity var(--dur-fast) var(--ease-out);
+    }
+    @starting-style {
+      .sheet[open] .sheet__panel {
         transform: none;
+        opacity: 0;
       }
     }
   }

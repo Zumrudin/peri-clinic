@@ -1,6 +1,6 @@
 # 001 — Единые токены движения, мягкий `.reveal` со стаггером
 
-- **Status**: ON STAND (ждёт подтверждения)
+- **Status**: DONE
 - **Commit**: d5cff2a
 - **Severity**: HIGH
 - **Category**: Easing & duration, Cohesion & tokens

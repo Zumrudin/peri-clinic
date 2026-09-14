@@ -1,6 +1,6 @@
 # 002 — Лист записи: симметричный вход и выход
 
-- **Status**: TODO
+- **Status**: ON STAND (ждёт подтверждения)
 - **Commit**: d5cff2a
 - **Severity**: HIGH
 - **Category**: Interruptibility, Physicality & origin
