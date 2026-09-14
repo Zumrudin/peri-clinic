@@ -28,6 +28,8 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* lets `height: auto` transition on ::details-content (accordion open/close) */
+  interpolate-size: allow-keywords;
 }
 body {
   margin: 0;

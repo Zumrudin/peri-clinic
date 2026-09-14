@@ -122,6 +122,9 @@ const priceGroups = await getPriceListGrouped();
   .pricing__item > summary:hover, .pricing__item[open] > summary { color: var(--gold-deep); }
   .pricing__chevron { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border: 1px solid var(--line-gold); border-radius: 50%; color: var(--gold-deep); font-size: 20px; transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out); }
   .pricing__item[open] .pricing__chevron { transform: rotate(45deg); background: var(--gold-10); }
+  /* Native accordion transition (see Faq.astro): unsupported browsers keep the instant toggle. */
+  .pricing__item::details-content { height: 0; overflow: clip; opacity: 0; transition: height var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out), content-visibility var(--dur-fast) allow-discrete; }
+  .pricing__item[open]::details-content { height: auto; opacity: 1; }
   .pricing__table { padding: 4px 0 24px; }
   @media (min-width: 1001px) {
     .pricing__nav-toggle { pointer-events: none; }

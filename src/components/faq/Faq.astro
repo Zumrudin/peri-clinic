@@ -72,6 +72,20 @@ const jsonLd = faqJsonLd(items);
   .faq__item[open] .faq__chevron {
     transform: rotate(180deg);
   }
+  /* Native accordion transition: browsers without ::details-content keep the instant toggle. */
+  .faq__item::details-content {
+    height: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      height var(--dur-fast) var(--ease-out),
+      opacity var(--dur-fast) var(--ease-out),
+      content-visibility var(--dur-fast) allow-discrete;
+  }
+  .faq__item[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
   .faq__answer {
     padding: 0 0 24px;
   }
