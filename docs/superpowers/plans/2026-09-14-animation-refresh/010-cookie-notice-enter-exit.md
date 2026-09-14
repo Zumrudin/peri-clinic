@@ -1,6 +1,6 @@
 # 010 — Плашка cookie: вход и выход с нижнего края
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: d5cff2a
 - **Severity**: LOW
 - **Category**: Missed opportunities (spatial consistency)

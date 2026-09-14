@@ -1,6 +1,6 @@
 # 011 — Лайтбокс и медиа-диалог: вход, выход, смена фото
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: d5cff2a
 - **Severity**: MEDIUM
 - **Category**: Missed opportunities (preventing a jarring change), Physicality

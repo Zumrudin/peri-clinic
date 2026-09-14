@@ -1,6 +1,6 @@
 # 009 — Отклик на нажатие для кнопок и ссылок-действий
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: d5cff2a
 - **Severity**: MEDIUM
 - **Category**: Missed opportunities (feedback)

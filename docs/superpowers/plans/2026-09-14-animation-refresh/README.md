@@ -9,17 +9,17 @@
 | № | Файл | Название | Серьёзность | Статус |
 | --- | --- | --- | --- | --- |
 | 001 | `001-motion-tokens-and-reveal.md` | Единые токены движения, мягкий `.reveal` со стаггером | HIGH | DONE |
-| 002 | `002-contact-sheet-symmetric.md` | Лист записи: симметричный вход и выход | HIGH | ON STAND (ждёт подтверждения) |
-| 003 | `003-sticky-header-hysteresis.md` | Sticky-шапка без дёрганья: гистерезис, без анимации `height` | MEDIUM | TODO |
-| 004 | `004-mobile-menu-easing.md` | Мобильное меню: вход медленнее выхода, бургер только на `transform` | MEDIUM | TODO |
-| 005 | `005-reduced-motion-gentle.md` | Reduced-motion: убрать движение, оставить отклик | MEDIUM | TODO |
-| 006 | `006-hover-gating-touch.md` | Hover-движение только для мыши, убрать `backdrop-filter` из hover | MEDIUM | TODO |
-| 007 | `007-details-accordion.md` | Аккордеоны FAQ и цен: плавное раскрытие | MEDIUM | TODO |
-| 008 | `008-view-transitions.md` | Кросс-фейд между страницами (Astro ClientRouter) | LOW | TODO |
-| 009 | `009-press-feedback.md` | Отклик на нажатие для кнопок и ссылок-действий | MEDIUM | TODO |
-| 010 | `010-cookie-notice-enter-exit.md` | Плашка cookie: вход и выход с нижнего края | LOW | TODO |
-| 011 | `011-lightbox-media-dialog.md` | Лайтбокс и медиа-диалог: вход, выход, смена фото | MEDIUM | TODO |
-| 012 | `012-hero-photo-settle.md` | Фото первого экрана: одно медленное «оседание» | LOW | TODO |
+| 002 | `002-contact-sheet-symmetric.md` | Лист записи: симметричный вход и выход | HIGH | DONE |
+| 003 | `003-sticky-header-hysteresis.md` | Sticky-шапка без дёрганья: гистерезис, без анимации `height` | MEDIUM | DONE |
+| 004 | `004-mobile-menu-easing.md` | Мобильное меню: вход медленнее выхода, бургер только на `transform` | MEDIUM | DONE |
+| 005 | `005-reduced-motion-gentle.md` | Reduced-motion: убрать движение, оставить отклик | MEDIUM | DONE |
+| 006 | `006-hover-gating-touch.md` | Hover-движение только для мыши, убрать `backdrop-filter` из hover | MEDIUM | DONE |
+| 007 | `007-details-accordion.md` | Аккордеоны FAQ и цен: плавное раскрытие | MEDIUM | DONE |
+| 008 | `008-view-transitions.md` | Кросс-фейд между страницами (Astro ClientRouter) | LOW | DONE |
+| 009 | `009-press-feedback.md` | Отклик на нажатие для кнопок и ссылок-действий | MEDIUM | DONE |
+| 010 | `010-cookie-notice-enter-exit.md` | Плашка cookie: вход и выход с нижнего края | LOW | DONE |
+| 011 | `011-lightbox-media-dialog.md` | Лайтбокс и медиа-диалог: вход, выход, смена фото | MEDIUM | DONE |
+| 012 | `012-hero-photo-settle.md` | Фото первого экрана: одно медленное «оседание» | LOW | DONE |
 
 ## Рекомендуемый порядок
 

@@ -1,6 +1,6 @@
 # 003 — Sticky-шапка без дёрганья
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: d5cff2a
 - **Severity**: MEDIUM
 - **Category**: Performance, Interruptibility

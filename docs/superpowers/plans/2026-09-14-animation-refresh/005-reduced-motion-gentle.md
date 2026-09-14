@@ -1,6 +1,6 @@
 # 005 — Reduced-motion: убрать движение, оставить отклик
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: d5cff2a
 - **Severity**: MEDIUM
 - **Category**: Accessibility

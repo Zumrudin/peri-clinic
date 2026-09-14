@@ -1,6 +1,6 @@
 # 004 — Мобильное меню: вход медленнее выхода, бургер только на `transform`
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: d5cff2a
 - **Severity**: MEDIUM
 - **Category**: Easing & duration, Performance

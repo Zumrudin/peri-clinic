@@ -1,6 +1,6 @@
 # 006 — Hover-движение только для мыши, убрать `backdrop-filter` из hover
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: d5cff2a
 - **Severity**: MEDIUM
 - **Category**: Accessibility, Performance

@@ -1,6 +1,6 @@
 # 012 — Фото первого экрана: одно медленное «оседание»
 
-- **Status**: TODO
+- **Status**: DONE
 - **Commit**: d5cff2a
 - **Severity**: LOW
 - **Category**: Missed opportunities (delight, rare tier)

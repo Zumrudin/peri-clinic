@@ -1,6 +1,6 @@
 # 008 — Кросс-фейд между страницами (Astro ClientRouter)
 
-- **Status**: TODO (выполнять последним; можно отложить)
+- **Status**: DONE
 - **Commit**: d5cff2a
 - **Severity**: LOW по аудиту, HIGH по трудоёмкости и риску
 - **Category**: Missed opportunities (preventing a jarring change)
