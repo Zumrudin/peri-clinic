@@ -96,6 +96,12 @@ const rows = [
 
 <style>
   .sheet {
+    /* Layout lives here, not under [open]: the UA's dialog:modal positioning and our
+       centering must survive the exit transition after `open` is already gone. */
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    place-items: center;
     border: 0;
     padding: 0;
     background: transparent;
@@ -132,7 +138,6 @@ const rows = [
   }
   .sheet[open] {
     display: grid;
-    place-items: center;
   }
   .sheet__panel {
     position: relative;
@@ -246,7 +251,7 @@ const rows = [
     line-height: 1.5;
   }
   @media (max-width: 800px) {
-    .sheet[open] {
+    .sheet {
       place-items: end center;
     }
     .sheet__panel {
