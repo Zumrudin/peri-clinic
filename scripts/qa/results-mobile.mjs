@@ -1,4 +1,4 @@
-/** Build first. Optional second URL compares desktop screenshots with the unchanged build. */
+/** Build first. Verify responsive results navigation and preserved photo proportions. */
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -7,8 +7,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { load } from 'cheerio';
 
 const base = process.argv[2] || 'http://127.0.0.1:4345';
-const baseline = process.argv[3];
-const out = 'docs/qa/results-mobile';
+const out = process.env.RESULTS_QA_OUT || 'docs/qa/results-mobile';
 await mkdir(out, { recursive: true });
 const browser = await chromium.launch({ executablePath: ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'].find(existsSync), args: ['--no-sandbox'] });
 const checks = [];
@@ -27,7 +26,7 @@ async function prepare(page, url) {
   await page.evaluate(() => document.fonts.ready);
 }
 try {
-  for (const width of [320, 375, 390, 430, 800, 801, 1024, 1440]) {
+  for (const width of [320, 375, 390, 430, 800, 801, 1024, 1440, 1920]) {
     const page = await newPage({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
     await page.addInitScript(() => localStorage.setItem('peri_consent', '1'));
     await prepare(page, base);
@@ -61,23 +60,44 @@ try {
       const axe = await new AxeBuilder({ page }).include('#results').analyze();
       assert.deepEqual(axe.violations.filter(v => ['serious', 'critical'].includes(v.impact)).map(v => v.id), []);
       await page.setViewportSize({ width: 1024, height: 1000 });
-      assert.equal(await rail.getAttribute('tabindex'), null);
-      assert.equal(await section.locator('[data-results-navigation]').isVisible(), false);
+      assert.equal(await rail.getAttribute('tabindex'), '0');
+      assert.equal(await section.locator('[data-results-navigation]').isVisible(), true);
       await page.setViewportSize({ width, height: 1000 });
       assert.equal(await rail.getAttribute('tabindex'), '0');
       await rail.evaluate(el => el.blur());
     } else {
-      assert.equal(await section.locator('[data-results-navigation]').isVisible(), false);
-      if (baseline) {
-        const before = await newPage({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' });
-        await before.addInitScript(() => localStorage.setItem('peri_consent', '1'));
-        await prepare(before, baseline);
-        const expected = await before.locator('#results').screenshot({ animations: 'disabled' });
-        const actual = await section.screenshot({ animations: 'disabled' });
-        await writeFile(`${out}/baseline-${width}.png`, expected);
-        assert.ok(expected.equals(actual), `desktop screenshot changed at ${width}`);
-        await before.close();
-      }
+      assert.equal(await section.locator('[data-results-navigation]').isVisible(), true);
+      const geometry = await section.evaluate(el => {
+        const rail = el.querySelector('[data-results-rail]');
+        const heading = el.querySelector('.section-heading');
+        const cards = [...rail.querySelectorAll('.result-card')];
+        const boxes = cards.map(card => card.getBoundingClientRect());
+        return {
+          headingRight: heading.getBoundingClientRect().right,
+          railLeft: rail.getBoundingClientRect().left,
+          railRight: rail.getBoundingClientRect().right,
+          sectionRight: el.getBoundingClientRect().right - parseFloat(getComputedStyle(el).paddingRight),
+          cards: boxes.map(box => ({ top: box.top, width: box.width, right: box.right })),
+          fits: cards.map(card => getComputedStyle(card.querySelector('img')).objectFit),
+        };
+      });
+      assert.ok(geometry.headingRight < geometry.railLeft, 'introduction sits left of the carousel');
+      assert.ok(Math.abs(geometry.railRight - geometry.sectionRight) < 1, 'carousel respects the shared section gutter');
+      assert.ok(geometry.cards.every(card => Math.abs(card.top - geometry.cards[0].top) < 1), 'single row');
+      assert.ok(geometry.cards.every(card => Math.abs(card.width - geometry.cards[0].width) < 1), 'equal cards');
+      assert.ok(geometry.fits.every(fit => fit === 'contain'), 'complete photos');
+      assert.ok(geometry.cards.at(-1).right > geometry.railRight, 'next card previews horizontal scrolling');
+      await section.locator('[data-results-next]').click();
+      await page.waitForFunction(() => document.querySelector('[data-results-current]').textContent === '02');
+      await rail.focus();
+      await page.keyboard.press('End');
+      await page.waitForFunction(total => document.querySelector('[data-results-current]').textContent === String(total).padStart(2, '0'), count);
+      assert.equal(await section.locator('[data-results-next]').isDisabled(), true);
+      const last = await rail.locator('.result-card').last().boundingBox();
+      assert.ok(last.x >= geometry.railLeft - 1 && last.x + last.width <= geometry.railRight + 1, 'last card is fully reachable');
+      await page.keyboard.press('Home');
+      await page.waitForFunction(() => document.querySelector('[data-results-current]').textContent === '01');
+      await rail.evaluate(el => el.blur());
     }
     await section.screenshot({ path: `${out}/results-${width}.png`, animations: 'disabled' });
     checks.push({ width, count, passed: true });
@@ -122,7 +142,7 @@ try {
       const rail = $('[data-results-rail]');
       const cards = rail.children().toArray().map(el => $.html(el));
       rail.html(Array.from({ length: total }, (_, i) => cards[i % cards.length]).join(''));
-      $('.results-navigation__counter').contents().last().replaceWith('10');
+      $('[data-results-total]').text('10');
       await route.fulfill({ response, body: $.html() });
     });
     await prepare(page, base);

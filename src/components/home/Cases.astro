@@ -7,8 +7,7 @@ const home = await getHomeContent();
 const { cases } = home;
 const items = cases.items.flatMap(c => c.image ? [{ ...c, image: c.image }] : []);
 const mobileCount = Math.min(items.length, 10);
-// The existing desktop assets are cropped during optimization. Mobile needs its
-// own sources, otherwise object-fit alone cannot restore the missing photo edges.
+// Responsive sources preserve the full before/after composition.
 const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
   const images = await Promise.all([480, 700, 1000].map(width => getImage({
     src: c.image.src,
@@ -20,8 +19,8 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
 }));
 ---
 
-<section class="section results" id="results" data-results-carousel>
-  <SectionHeading eyebrow={cases.eyebrow} title={cases.title} lead={cases.lead} />
+<section class="section results" id="results" data-results-carousel data-results-desktop aria-labelledby="results-title">
+  <SectionHeading id="results-title" eyebrow={cases.eyebrow} title={cases.title} lead={cases.lead} />
 
   <div class="results-grid rail" id="home-results-rail" data-results-rail role="group" aria-label="Работы до и после">
     {
@@ -33,10 +32,10 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
             <Image
               src={c.image.src}
               alt={c.alt}
-              width={i === 0 ? 850 : 700}
-              height={i === 0 ? 780 : 620}
+              width={c.image.width}
+              height={c.image.height}
               widths={[480, 700, 1000]}
-              sizes={i === 0 ? '(max-width: 800px) 86vw, 50vw' : '(max-width: 800px) 86vw, 22vw'}
+              sizes="(max-width: 400px) 70vw, (max-width: 800px) 280px, (max-width: 1100px) 40vw, 400px"
               loading="lazy"
             />
             </picture>
@@ -54,7 +53,7 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
   {mobileCount > 1 && <div class="results-navigation" data-results-navigation hidden>
     <div class="results-navigation__position">
       <div class="results-navigation__track" aria-hidden="true"><span data-results-progress /></div>
-      <p class="results-navigation__counter" aria-live="polite" aria-atomic="true"><span data-results-current>01</span><span aria-hidden="true"> / </span><span class="visually-hidden"> из </span>{String(mobileCount).padStart(2, '0')}</p>
+      <p class="results-navigation__counter" aria-live="polite" aria-atomic="true"><span data-results-current>01</span><span aria-hidden="true"> / </span><span class="visually-hidden"> из </span><span data-results-total>{String(mobileCount).padStart(2, '0')}</span></p>
     </div>
     <div class="results-navigation__arrows">
       <button type="button" data-results-prev aria-label="Предыдущая работа" aria-controls="home-results-rail" disabled><span aria-hidden="true">←</span></button>
@@ -167,6 +166,119 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
     .result-card__image {
       min-height: 230px;
     }
+  }
+  @media (min-width: 801px) {
+    .results {
+      display: grid;
+      grid-template-columns: minmax(0, 28fr) minmax(0, 72fr);
+      grid-template-rows: auto auto 1fr auto;
+      column-gap: clamp(24px, 3vw, 48px);
+      row-gap: 28px;
+    }
+    .results > :global(.section-heading) {
+      grid-column: 1;
+      grid-row: 1;
+      display: block;
+      align-self: start;
+      margin: 24px 0 0;
+    }
+    .results :global(.section-heading h2) {
+      font-size: clamp(36px, 3.5vw, 52px);
+      line-height: 1.08;
+    }
+    .results :global(.section-heading__lead) { margin: 26px 0 0; }
+    .results-grid {
+      --desktop-card-width: 46%;
+      grid-column: 2;
+      grid-row: 1 / 4;
+      display: flex;
+      min-width: 0;
+      gap: 18px;
+      overflow-x: auto;
+      padding: 0 0 20px;
+      margin-bottom: -20px;
+      overscroll-behavior-x: contain;
+    }
+    .results-grid::after { content: ""; flex: 0 0 calc(100% - var(--desktop-card-width) - 18px); }
+    .result-card,
+    .result-card--large {
+      flex: 0 0 var(--desktop-card-width);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 0;
+      padding: 12px;
+      border-radius: var(--radius-lg);
+      box-shadow: none;
+      border: 1px solid var(--line);
+      opacity: 1;
+      transform: none;
+    }
+    .result-card__image,
+    .result-card--large .result-card__image {
+      flex: none;
+      min-height: 0;
+      aspect-ratio: 1;
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+    .result-card__image :global(img) { display: block; object-fit: contain; }
+    .result-card:hover .result-card__image :global(img) { transform: none; }
+    .result-card__image > span { display: none; }
+    .result-card > div:last-child,
+    .result-card--large > div:last-child {
+      flex: 1;
+      min-height: 150px;
+      justify-content: flex-start;
+      padding: 22px 8px 12px;
+    }
+    .result-card h3 { font-size: clamp(25px, 2.1vw, 32px); line-height: 1.1; }
+    .result-card > div:last-child > p { margin-bottom: 10px; }
+    .result-card > div:last-child > span { font-size: 13px; line-height: 1.6; }
+    .results-navigation:not([hidden]) { display: contents; }
+    .results-navigation__arrows { grid-column: 1; grid-row: 2; display: flex; gap: 12px; }
+    .results-navigation button {
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      padding: 0;
+      border: 1px solid var(--gold-deep);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--gold-deep);
+      font-size: 24px;
+      cursor: pointer;
+      transition: background var(--dur-fast), color var(--dur-fast);
+    }
+    .results-navigation button:hover:not(:disabled) { background: var(--gold-deep); color: var(--paper); }
+    .results-navigation button:disabled { opacity: 0.4; cursor: default; }
+    .results-navigation__position { grid-column: 2; grid-row: 4; min-width: 0; }
+    .results-navigation__track { height: 3px; background: var(--line-gold); border-radius: var(--radius-pill); overflow: hidden; }
+    .results-navigation__track span { display: block; height: 100%; background: var(--gold); transform-origin: left; transition: transform var(--dur-fast); }
+    .results-navigation__counter { margin: 12px 0 0; color: var(--muted); font-size: 12px; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; }
+    .results-navigation__counter > span:first-child { color: var(--gold-deep); }
+    .results > .button {
+      grid-column: 1;
+      grid-row: 3;
+      justify-self: start;
+      align-self: start;
+      margin-top: 8px;
+      min-height: 44px;
+      padding: 8px 0;
+      border: 0;
+      border-bottom: 1px solid var(--gold-deep);
+      border-radius: 0;
+    }
+    .results-grid:focus-visible, .results-navigation button:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 4px; }
+  }
+  @media (min-width: 801px) and (max-width: 1100px) {
+    .results { grid-template-columns: minmax(0, 34fr) minmax(0, 66fr); }
+    .results-grid { --desktop-card-width: 78%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .results-grid { scroll-behavior: auto; }
+    .results-navigation__track span { transition: none; }
   }
   @media (max-width: 800px) {
     .results {
