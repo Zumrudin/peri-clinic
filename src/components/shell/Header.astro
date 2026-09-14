@@ -161,7 +161,7 @@ const site = await getSiteSettings();
       right: 11px;
       height: 1px;
       background: var(--ink);
-      transition: var(--dur-fast);
+      transition: transform var(--dur-fast) var(--ease-out);
     }
     .menu-toggle span:first-child {
       top: 18px;
@@ -169,13 +169,12 @@ const site = await getSiteSettings();
     .menu-toggle span:last-child {
       top: 25px;
     }
+    /* lines keep their `top`; transform brings them to the 22px centre so only the compositor moves */
     .menu-toggle[aria-expanded='true'] span:first-child {
-      top: 22px;
-      transform: rotate(45deg);
+      transform: translateY(4px) rotate(45deg);
     }
     .menu-toggle[aria-expanded='true'] span:last-child {
-      top: 22px;
-      transform: rotate(-45deg);
+      transform: translateY(-3px) rotate(-45deg);
     }
     .nav {
       position: fixed;
@@ -191,15 +190,20 @@ const site = await getSiteSettings();
       visibility: hidden;
       opacity: 0;
       overflow-y: auto;
+      /* closed state = exit (faster); the open state below carries the slower entry */
       transition:
-        transform 0.35s,
-        opacity 0.35s,
-        visibility 0.35s;
+        transform var(--dur-fast) var(--ease-out),
+        opacity var(--dur-fast) var(--ease-out),
+        visibility 0s linear var(--dur-fast);
     }
     .nav.is-open {
       transform: none;
       visibility: visible;
       opacity: 1;
+      transition:
+        transform 0.35s var(--ease-out),
+        opacity 0.35s var(--ease-out),
+        visibility 0s;
     }
     .nav > a {
       font: 400 33px/1.2 var(--display);
