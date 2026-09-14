@@ -2,6 +2,29 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Ссылки на фото и сгенерированные визуалы
+
+Сразу прикладывай в ответе прямые HTTPS-ссылки на каждое изображение: встроенные
+превью и локальные пути `/root/...` у пользователя могут не открываться.
+
+Рабочий способ (проверен 2026-09-12):
+
+1. Копируй готовые изображения в `/var/www/peri-concepts/<уникальная-папка>/`,
+   сохраняя оригиналы. Используй понятные имена файлов латиницей; файлы должны
+   быть доступны nginx для чтения (обычно права `644`, каталоги `755`).
+2. Выдавай ссылки вида
+   `https://dev.zumrudin.ru/peri-concepts/<уникальная-папка>/<имя-файла>.png`.
+   Эта папка уже раздаётся nginx; менять конфигурацию или развёртывать сайт не нужно.
+3. Перед ответом проверяй каждую ссылку HTTP-запросом: статус `200` и тип
+   `image/png` (или соответствующий формату изображения).
+4. Оформляй ссылки в Markdown, например:
+   `[Открыть визуал](https://dev.zumrudin.ru/peri-concepts/mobile-2026-09-12/01-beauty.png)`.
+
+Старое правило из `/root/PERI_GADZHIEVA/CLAUDE.md` — добавлять
+`https://claude.zumrudin.ru` к абсолютному локальному пути — при проверке
+2026-09-12 вернуло `404`. Не используй его без новой проверки.
+Для выдачи концепций не изменяй страницы, исходники и сборку сайта клиники.
+
 ## What this is
 
 Replacement for the Wix site of PERI CLINIC (Moscow aesthetic-medicine clinic): **Astro static build + self-hosted Directus CMS + nginx**. All UI copy is Russian. The approved design/architecture spec is `docs/superpowers/specs/2026-09-09-peri-site-design.md` — it also defines the numbered phases 0–9 that the git history follows. Current canonical host: `www.peri-clinic.ru`; dev stand: `peri.zumrudin.ru` / CMS `peri-cms.zumrudin.ru`.

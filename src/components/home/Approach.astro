@@ -13,7 +13,6 @@ const [content, rooms, team] = await Promise.all([getAboutContent(), getClinicPh
   <Gallery id="clinic-rooms" title={content.rooms_title} items={rooms} />
   <div id="approach-team"><Gallery id="clinic-team" title={content.team_title} items={team} portraits detailsLabel={content.details_label} /></div>
   {content.license_href && content.license_label && <a class="legal-link" href={content.license_href}>{content.license_label}</a>}
-  {(rooms.some(p => p.demo) || team.some(p => p.demo)) && <p class="demo-note">{content.demo_notice}</p>}
 </section>
 <Lightbox />
 <style>
@@ -23,11 +22,10 @@ const [content, rooms, team] = await Promise.all([getAboutContent(), getClinicPh
   .approach-description { font-size:17px; line-height:1.75; margin:24px 0 0; max-width:560px; }
   #approach-team { scroll-margin-top:110px; }
   .legal-link { display:inline-block; margin-top:28px; font-size:13px; color:var(--gold-deep); text-decoration:underline; text-underline-offset:5px; }
-  .demo-note { margin:28px 0 0; padding-top:16px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
   @media(min-width:801px) {
     .approach {
       display:grid;
-      grid-template-rows:auto auto auto auto auto;
+      grid-template-rows:auto auto auto auto;
       gap:24px;
       height:auto;
       width:100%;
@@ -42,7 +40,6 @@ const [content, rooms, team] = await Promise.all([getAboutContent(), getClinicPh
     .approach-description { margin:0; font-size:17px; line-height:1.5; }
     #approach-team { min-height:0; }
     .legal-link { margin:0; font-size:13px; justify-self:start; }
-    .demo-note { margin:0; padding-top:6px; font-size:11px; }
   }
   @media(max-width:800px) {
     .approach { padding:48px 18px; }
@@ -57,6 +54,5 @@ const [content, rooms, team] = await Promise.all([getAboutContent(), getClinicPh
     h2 { font-size:clamp(24px,6.5vw,36px); }
     .approach-description { font-size:12px; line-height:1.6; }
     .legal-link { margin-top:20px; font-size:12px; }
-    .demo-note { margin-top:18px; padding-top:12px; font-size:11px; }
   }
 </style>

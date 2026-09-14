@@ -9,7 +9,7 @@ const site = await getSiteSettings();
 
 <header class="header" data-header>
   <a class="logo" href="/" aria-label={`${site.name} — на главную`}>
-    <Image src={logo} alt={site.name} width={184} densities={[1, 2]} loading="eager" />
+    <Image src={logo} alt={site.name} width={184} densities={[1, 2, 3]} quality={100} loading="eager" />
   </a>
 
   <nav class="nav" id="main-nav" aria-label="Основная навигация">
