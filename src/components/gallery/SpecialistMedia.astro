@@ -79,5 +79,5 @@ const { items, title, description } = Astro.props;
     .media-copy { padding:18px 45px 20px 18px; }
     .media-dialog { padding:64px 12px 20px; }
   }
-  @media(prefers-reduced-motion:reduce) { .media-cover img { transition:none; } }
+  @media(prefers-reduced-motion:reduce) { .media-cover img { transition:none; } .media-link:hover img { transform:none; } }
 </style>

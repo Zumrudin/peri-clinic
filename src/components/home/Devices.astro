@@ -173,4 +173,8 @@ const { devices } = home;
     .equipment__consultation h3 { font: 400 25px/1.1 var(--display); margin: 0 0 8px; }
     .equipment__consultation button { min-height: 44px; padding: 8px 0; background: none; border: 0; color: var(--gold-deep); font-size: 15px; text-align: left; text-decoration: underline; text-underline-offset: 5px; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    /* keep the colour/shadow change, drop the lift */
+    .machine-card:hover { transform: none; }
+  }
 </style>

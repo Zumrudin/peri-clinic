@@ -206,4 +206,8 @@ const mobileImages = new Map(await Promise.all(
     .case-card--home-mobile h3 { font-size: 22px; line-height: 1.15; margin-bottom: 6px; }
     .case-card--home-mobile .case-card__result { font-size: 12px; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    /* keep the colour/shadow change, drop the lift */
+    .case-card:hover { transform: none; }
+  }
 </style>

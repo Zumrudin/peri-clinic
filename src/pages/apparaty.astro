@@ -99,4 +99,8 @@ const copy = home.devices;
     .catalog__consultation { padding: 20px; }
     .catalog__consultation h2 { font-size: 24px; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    /* keep the colour/shadow change, drop the lift */
+    .device-card:hover { transform: none; }
+  }
 </style>

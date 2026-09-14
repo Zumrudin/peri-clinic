@@ -383,6 +383,9 @@ h2 {
   opacity: 1;
   transform: none;
 }
+/* Reduced motion means fewer and gentler animations, not zero: keep opacity/colour feedback
+   (hover, focus, dialog fades), drop looping decoration and anything that moves or scales.
+   Component styles add `transform: none` for their own hover lifts under the same query. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -395,9 +398,15 @@ h2 {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition-property: opacity, color, background-color, border-color, box-shadow !important;
+    transition-duration: 0.2s !important;
+    transition-timing-function: ease !important;
+    transition-delay: 0s !important;
+  }
+  .button:hover,
+  .text-link:hover span {
+    transform: none;
   }
 }
 

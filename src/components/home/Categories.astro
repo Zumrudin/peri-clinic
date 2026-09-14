@@ -504,4 +504,10 @@ const mobileTiles = await Promise.all(
       white-space: nowrap;
     }
   }
+  @media (prefers-reduced-motion: reduce) {
+    /* keep the colour/shadow change, drop the lift */
+    .service-card:hover,
+    .service-card:hover :global(img),
+    .service-card:hover .round-arrow { transform: none; }
+  }
 </style>

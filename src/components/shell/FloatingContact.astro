@@ -46,4 +46,8 @@
       display: none;
     }
   }
+  @media (prefers-reduced-motion: reduce) {
+    /* keep the colour/shadow change, drop the lift */
+    .floating-contact:hover { transform: none; }
+  }
 </style>

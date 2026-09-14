@@ -280,6 +280,7 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
     .results-grid { --desktop-card-width: 78%; }
   }
   @media (prefers-reduced-motion: reduce) {
+    .result-card:hover .result-card__image :global(img) { transform: none; }
     .results-grid { scroll-behavior: auto; }
     .results-navigation__track span { transition: none; }
   }
