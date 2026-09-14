@@ -81,7 +81,9 @@ const priceGroups = await getPriceListGrouped();
 </Page>
 
 <script>
-  import '../scripts/pricing';
+  import { initPricing } from '../scripts/pricing';
+  // Module scripts run once under ClientRouter; initPricing rebinds its window listeners per visit.
+  document.addEventListener('astro:page-load', initPricing);
 </script>
 
 <style>

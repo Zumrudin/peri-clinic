@@ -35,6 +35,14 @@ const requiresConsent = site.metrika_requires_consent;
       document.addEventListener('peri:contact', (e) => {
         if (window.ym) window.ym(metrikaId, 'reachGoal', e.detail.goal);
       });
+
+      // ClientRouter navigations don't reload the page, so report each one as a hit
+      // (the first astro:page-load is the initial load, already counted by init).
+      let firstLoad = true;
+      document.addEventListener('astro:page-load', () => {
+        if (firstLoad) { firstLoad = false; return; }
+        if (window.ym) window.ym(metrikaId, 'hit', location.href, { title: document.title });
+      });
     </script>
   )
 }

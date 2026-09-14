@@ -65,7 +65,8 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
 
 <script>
   import { initResultsCarousel } from '../../scripts/results-carousel';
-  initResultsCarousel();
+  // Module scripts run once under ClientRouter; the init is idempotent (data-results-ready).
+  document.addEventListener('astro:page-load', initResultsCarousel);
 </script>
 
 <style>

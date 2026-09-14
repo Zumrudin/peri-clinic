@@ -35,7 +35,8 @@ const { items, title, description } = Astro.props;
 </section>}
 <script>
   import { initSpecialistMedia } from '../../scripts/specialist-media';
-  initSpecialistMedia();
+  // Module scripts run once under ClientRouter; the init is idempotent (root data-ready).
+  document.addEventListener('astro:page-load', initSpecialistMedia);
 </script>
 <style>
   .specialist-media { margin-top:clamp(40px,5vw,64px); min-width:0; }

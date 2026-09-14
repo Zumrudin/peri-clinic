@@ -9,7 +9,8 @@
 </dialog>
 <script>
   import { initPhotoGalleries } from '../../scripts/photo-gallery';
-  initPhotoGalleries();
+  // Module scripts run once under ClientRouter; the init is idempotent (dialog data-ready).
+  document.addEventListener('astro:page-load', initPhotoGalleries);
 </script>
 <style>
   .photo-lightbox { padding:0; border:0; width:100vw; max-width:none; height:100dvh; max-height:none; background:#171715; color:white; overflow:hidden; }

@@ -1,8 +1,17 @@
-export {};
+/**
+ * Pricing page: category navigation, anchors and the mobile category switcher.
+ * Runs on every astro:page-load (ClientRouter keeps the module alive across navigations),
+ * so window/matchMedia listeners from the previous visit are torn down before rebinding —
+ * element listeners die with the swapped DOM on their own.
+ */
+let teardown: (() => void) | null = null;
 
-const pricing = document.querySelector<HTMLElement>('.pricing');
-const navigation = pricing?.querySelector<HTMLDetailsElement>('.pricing__navigation');
-if (pricing && navigation) {
+export function initPricing(): void {
+  teardown?.();
+  teardown = null;
+  const pricing = document.querySelector<HTMLElement>('.pricing');
+  const navigation = pricing?.querySelector<HTMLDetailsElement>('.pricing__navigation');
+  if (!pricing || !navigation) return;
   const desktop = window.matchMedia('(min-width: 1001px)');
   const toggle = navigation.querySelector<HTMLElement>('.pricing__nav-toggle')!;
   const mobileNavigation = pricing.querySelector<HTMLElement>('.pricing__mobile-categories')!;
@@ -73,6 +82,11 @@ if (pricing && navigation) {
       revealTarget();
     }
   });
-  window.addEventListener('hashchange', () => revealTarget());
+  const onHashChange = () => revealTarget();
+  window.addEventListener('hashchange', onHashChange);
+  teardown = () => {
+    window.removeEventListener('hashchange', onHashChange);
+    desktop.removeEventListener('change', adapt);
+  };
   if (window.location.hash) revealTarget();
 }

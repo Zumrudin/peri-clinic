@@ -121,5 +121,6 @@ const categories = bySort(await getCollection('caseCategories')).filter((cat) =>
 
 <script>
   import { initResultsFilter } from '../scripts/results-filter';
-  initResultsFilter(document.querySelector('[data-results-filter]'));
+  // Module scripts run once under ClientRouter; the filter root is fresh DOM on every visit.
+  document.addEventListener('astro:page-load', () => initResultsFilter(document.querySelector('[data-results-filter]')));
 </script>

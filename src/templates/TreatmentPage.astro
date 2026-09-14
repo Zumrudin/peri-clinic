@@ -101,7 +101,8 @@ const facts = [
 
 <script>
   import { initResultsCarousel } from '../scripts/results-carousel';
-  initResultsCarousel();
+  // Module scripts run once under ClientRouter; the init is idempotent (data-results-ready).
+  document.addEventListener('astro:page-load', initResultsCarousel);
 </script>
 
 <style>

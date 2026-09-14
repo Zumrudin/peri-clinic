@@ -1,5 +1,6 @@
 // Native site form; API and PDF generation remain in LoyalPro.
-(function () {
+// Exported (not an IIFE) so it can re-run on astro:page-load; bails out when the form is absent.
+export function initCertRequest() {
   const base = '/api/public/cert-requests/clinic-1';
   const $ = (id) => document.getElementById(id);
   if (!$('cr-form')) return;
@@ -245,4 +246,4 @@
   }
 
   init();
-})();
+}

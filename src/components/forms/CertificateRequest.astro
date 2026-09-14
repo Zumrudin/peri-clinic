@@ -95,7 +95,9 @@ const { privacyUrl } = Astro.props;
   </div>
 
 <script>
-  import '../../scripts/cert-request.js';
+  import { initCertRequest } from '../../scripts/cert-request.js';
+  // Module scripts run once under ClientRouter; initCertRequest returns early without #cr-form.
+  document.addEventListener('astro:page-load', initCertRequest);
 </script>
 
 <style>
