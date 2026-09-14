@@ -125,6 +125,19 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
   .hero__photo :global(img) {
     object-fit: cover;
     object-position: center 30%;
+    /* One slow settle per page load (1.6s, transform only, so LCP is unaffected); the
+       trigger is the same `.is-visible` reveal.ts sets on the copy, via :has(). */
+    transform: scale(1.05);
+    transition: transform 1.6s var(--ease-out);
+  }
+  .hero:has(.hero__content.is-visible) .hero__photo :global(img) {
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__photo :global(img) {
+      transform: none;
+      transition: none;
+    }
   }
   .hero__scrim {
     position: absolute;
