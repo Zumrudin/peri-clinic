@@ -30,8 +30,9 @@ const { id, title, items, portraits = false, detailsLabel = 'Подробнее'
   .portraits h3 { font:400 clamp(30px,3.5vw,54px)/1.1 var(--display); }
   .gallery-nav { display:flex; gap:10px; flex-shrink:0; }
   .gallery-nav[hidden] { display:none; }
-  button { width:44px; height:44px; border:1px solid var(--gold); border-radius:50%; color:var(--gold-deep); background:transparent; cursor:pointer; font-size:23px; }
+  button { width:44px; height:44px; border:1px solid var(--gold); border-radius:50%; color:var(--gold-deep); background:transparent; cursor:pointer; font-size:23px; transition: background var(--dur-fast) var(--ease-out), transform var(--dur-press) var(--ease-out); }
   button:hover { background:var(--sand); }
+  button:active { transform:scale(0.94); }
   .gallery-rail { display:flex; gap:18px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:none; }
   /* JS rotates cards. Native snapping can undo that movement after a touch ends. */
   .gallery[data-interactive] .gallery-rail { overflow-x:hidden; scroll-snap-type:none; touch-action:pan-y; }

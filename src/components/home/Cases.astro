@@ -249,9 +249,10 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
       color: var(--gold-deep);
       font-size: 24px;
       cursor: pointer;
-      transition: background var(--dur-fast), color var(--dur-fast);
+      transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-press) var(--ease-out);
     }
     .results-navigation button:hover:not(:disabled) { background: var(--gold-deep); color: var(--paper); }
+    .results-navigation button:active:not(:disabled) { transform: scale(0.94); }
     .results-navigation button:disabled { opacity: 0.4; cursor: default; }
     .results-navigation__position { grid-column: 2; grid-row: 4; min-width: 0; }
     .results-navigation__track { height: 3px; background: var(--line-gold); border-radius: var(--radius-pill); overflow: hidden; }
@@ -339,7 +340,8 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
     .results-navigation__counter { margin: 14px 0 0; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; letter-spacing: 0.12em; }
     .results-navigation__counter > span:first-child { color: var(--gold-deep); }
     .results-navigation__arrows { display: flex; gap: 10px; }
-    .results-navigation button { display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border: 1px solid var(--gold-deep); border-radius: 50%; background: transparent; color: var(--gold-deep); font-size: 23px; cursor: pointer; }
+    .results-navigation button { display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border: 1px solid var(--gold-deep); border-radius: 50%; background: transparent; color: var(--gold-deep); font-size: 23px; cursor: pointer; transition: transform var(--dur-press) var(--ease-out); }
+    .results-navigation button:active:not(:disabled) { transform: scale(0.94); }
     .results-navigation button:disabled { opacity: 0.4; cursor: default; }
     .results-grid:focus-visible, .results-navigation button:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 4px; }
     .results > .button {

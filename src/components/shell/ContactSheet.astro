@@ -211,7 +211,10 @@ const rows = [
     min-height: 64px;
     padding: 12px 0;
     border-bottom: 1px solid var(--line);
-    transition: color var(--dur-fast);
+    transition: color var(--dur-fast) var(--ease-out), transform var(--dur-press) var(--ease-out);
+  }
+  .sheet__row:active {
+    transform: scale(0.99);
   }
   .sheet__row:hover {
     color: var(--gold-deep);

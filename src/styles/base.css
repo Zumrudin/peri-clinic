@@ -170,14 +170,18 @@ h2 {
   letter-spacing: 0.055em;
   text-transform: uppercase;
   transition:
-    background var(--dur-fast),
-    color var(--dur-fast),
-    transform var(--dur-fast);
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-press) var(--ease-out);
 }
 .button:hover {
   background: var(--gold-hover);
   border-color: var(--gold-hover);
   transform: translateY(-2px);
+}
+/* Press feedback: subtle (0.98), symmetric 160ms both ways. Declared after :hover so it wins. */
+.button:active {
+  transform: scale(0.98);
 }
 .button span {
   font-size: 18px;
@@ -219,10 +223,13 @@ h2 {
 .text-link span {
   font-size: 17px;
   color: var(--gold);
-  transition: transform var(--dur-fast);
+  transition: transform var(--dur-press) var(--ease-out);
 }
 .text-link:hover span {
   transform: translate(3px, -3px);
+}
+.text-link:active span {
+  transform: translate(3px, -3px) scale(0.95);
 }
 
 /* Layout helpers */

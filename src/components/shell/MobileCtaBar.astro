@@ -40,6 +40,10 @@ const site = await getSiteSettings();
       border: 1px solid var(--line);
       border-radius: var(--radius);
       color: var(--gold-deep);
+      transition: transform var(--dur-press) var(--ease-out);
+    }
+    .mobile-cta-bar__call:active {
+      transform: scale(0.97);
     }
     .mobile-cta-bar__book {
       flex: 1 1 auto;

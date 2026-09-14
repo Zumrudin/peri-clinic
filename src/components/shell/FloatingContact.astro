@@ -23,10 +23,13 @@
     background: var(--gold-deep);
     color: #fff;
     box-shadow: 0 10px 35px rgba(74, 56, 11, 0.22);
-    transition: transform var(--dur-fast);
+    transition: transform var(--dur-press) var(--ease-out);
   }
   .floating-contact:hover {
     transform: scale(1.06);
+  }
+  .floating-contact:active {
+    transform: scale(0.97);
   }
   .floating-contact span {
     font-size: 17px;

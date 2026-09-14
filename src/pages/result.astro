@@ -98,8 +98,12 @@ const categories = bySort(await getCollection('caseCategories')).filter((cat) =>
     letter-spacing: 0.05em;
     text-transform: uppercase;
     transition:
-      background var(--dur-fast),
-      color var(--dur-fast);
+      background var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out),
+      transform var(--dur-press) var(--ease-out);
+  }
+  .results-filter__btn:active {
+    transform: scale(0.97);
   }
   .results-filter__btn[aria-pressed='true'] {
     background: var(--gold-deep);

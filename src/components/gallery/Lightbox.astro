@@ -19,7 +19,8 @@
   figure img { display:block; margin:auto; max-width:100%; max-height:calc(100dvh - 180px); object-fit:contain; pointer-events:auto; touch-action:pan-y; }
   figcaption { padding-top:16px; font-size:15px; }
   .photo-lightbox.is-portrait figure img { background:var(--specialist-photo-bg); }
-  button { position:absolute; width:48px; height:48px; border:1px solid #aaa; background:#292923; color:white; border-radius:50%; font-size:26px; cursor:pointer; }
+  button { position:absolute; width:48px; height:48px; border:1px solid #aaa; background:#292923; color:white; border-radius:50%; font-size:26px; cursor:pointer; transition: transform var(--dur-press) var(--ease-out); }
+  button:active { transform:scale(0.94); }
   button[hidden] { display:none; }
   button:focus-visible { outline:2px solid white; outline-offset:4px; }
   .lightbox-close { top:max(15px,env(safe-area-inset-top)); right:20px; }
