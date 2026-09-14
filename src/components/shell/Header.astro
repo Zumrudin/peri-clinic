@@ -54,16 +54,14 @@ const site = await getSiteSettings();
     -webkit-backdrop-filter: blur(var(--blur));
     position: relative;
     z-index: var(--z-header);
-    transition:
-      height 0.3s,
-      box-shadow 0.3s;
+    transition: box-shadow var(--dur-fast) var(--ease-out);
   }
   .header.is-sticky {
     height: var(--header-h-sticky);
     position: fixed;
     inset: 0 0 auto;
     box-shadow: 0 8px 30px rgba(170, 137, 47, 0.08);
-    animation: headerIn 0.35s both;
+    animation: headerIn 0.3s var(--ease-out) both;
   }
   :global(.header.is-sticky + main) {
     padding-top: var(--header-h);
