@@ -29,7 +29,7 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
         <article class:list={['result-card', 'reveal', { 'result-card--large': i === 0 }]}>
           <div class="result-card__image">
             <picture>
-            {mobileImages[i] && <source media="(max-width: 800px)" type="image/webp" srcset={mobileImages[i]} sizes="(max-width: 421px) 76vw, 320px" width={c.image.width} height={c.image.height} />}
+            {mobileImages[i] && <source media="(max-width: 800px)" type="image/webp" srcset={mobileImages[i]} sizes="(max-width: 400px) 70vw, 280px" width={c.image.width} height={c.image.height} />}
             <Image
               src={c.image.src}
               alt={c.alt}
@@ -170,7 +170,7 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
   }
   @media (max-width: 800px) {
     .results {
-      --results-card-width: min(76vw, 320px);
+      --results-card-width: min(70vw, 280px);
       padding-top: 36px;
       padding-bottom: 36px;
     }
@@ -203,8 +203,8 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
     .result-card__image,
     .result-card--large .result-card__image {
       min-height: 0;
-      height: auto;
-      aspect-ratio: 4 / 5;
+      /* Keep the photo and controls visible together on short mobile screens. */
+      height: min(var(--results-card-width), 32svh);
       flex: none;
       background: var(--paper);
     }
@@ -213,13 +213,13 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
     .result-card__image > span { display: none; }
     .result-card > div:last-child,
     .result-card--large > div:last-child {
-      min-height: 126px;
-      padding: 18px;
+      min-height: 104px;
+      padding: 14px;
       flex: 1;
     }
-    .result-card > div:last-child > p { margin-bottom: 8px; }
-    .result-card h3 { font-size: 25px; margin-bottom: 8px; }
-    .results-navigation:not([hidden]) { display: flex; align-items: center; gap: 24px; margin-top: 18px; }
+    .result-card > div:last-child > p { margin-bottom: 6px; font-size: 10px; }
+    .result-card h3 { font-size: 22px; line-height: 1.15; margin-bottom: 6px; }
+    .results-navigation:not([hidden]) { display: flex; align-items: center; gap: 24px; margin-top: 12px; }
     .results-navigation__position { flex: 1; min-width: 0; }
     .results-navigation__track { height: 2px; background: var(--line-gold); border-radius: var(--radius-pill); overflow: hidden; }
     .results-navigation__track span { display: block; width: 100%; height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-fast); }

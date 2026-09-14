@@ -84,6 +84,34 @@ try {
     await page.close();
   }
 
+  // Use real phone heights and keep fixed site controls visible.
+  for (const [width, height] of [[320, 568], [375, 667], [390, 844], [430, 932]]) {
+    const page = await newPage({ viewport: { width, height }, reducedMotion: 'reduce' });
+    await page.addInitScript(() => localStorage.setItem('peri_consent', '1'));
+    await page.goto(base, { waitUntil: 'networkidle' });
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await Promise.all([...document.images].map(img => { img.loading = 'eager'; return img.decode().catch(() => {}); }));
+    });
+    await page.locator('[data-results-rail]').evaluate(el => {
+      el.querySelectorAll('.reveal').forEach(card => card.classList.add('is-visible'));
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'instant' });
+    });
+    await page.waitForFunction(() => document.querySelector('.header')?.classList.contains('is-sticky'));
+    await page.locator('[data-results-rail]').evaluate(el => {
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'instant' });
+    });
+    const rail = await page.locator('[data-results-rail]').boundingBox();
+    const navigation = await page.locator('[data-results-navigation]').boundingBox();
+    assert.ok(rail.y >= 64, 'cards clear the sticky header');
+    assert.ok(navigation.y + navigation.height <= height - 64, `cards and navigation fit ${width}x${height}`);
+    const photo = await page.locator('.result-card__image').first().boundingBox();
+    assert.ok(photo.height <= Math.min(280, height * 0.32) + 1, 'photo respects mobile height budget');
+    await page.screenshot({ path: `${out}/viewport-${width}x${height}.png`, animations: 'disabled' });
+    checks.push({ width, height, viewportFit: true });
+    await page.close();
+  }
+
   // Exercise 10 and >10 records without changing published CMS content.
   for (const total of [10, 11]) {
     const page = await newPage({ viewport: { width: 390, height: 1000 }, reducedMotion: 'reduce' });

@@ -41,6 +41,26 @@
       "passed": true
     },
     {
+      "width": 320,
+      "height": 568,
+      "viewportFit": true
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "viewportFit": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "viewportFit": true
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "viewportFit": true
+    },
+    {
       "fixture": 10,
       "mobileVisible": 10,
       "passed": true
