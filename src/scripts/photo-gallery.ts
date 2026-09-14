@@ -1,4 +1,6 @@
 /** Two independent galleries; rotation reuses real cards, never duplicate links/IDs. */
+// Same curve as --ease-out in tokens.css; JS animations can't read the CSS variable.
+const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
 export function initPhotoGalleries() {
   const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
   if (!dialog || dialog.dataset.ready) return;
@@ -61,7 +63,7 @@ export function initPhotoGalleries() {
     const resetTransform = (animate: boolean) => {
       clearSpring();
       if (animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        element.style.transition = 'transform 200ms ease-out';
+        element.style.transition = `transform 200ms ${EASE_OUT}`;
         springCleanup = () => { element.style.transition = ''; springCleanup = null; };
         element.addEventListener('transitionend', springCleanup, { once: true });
       } else {
@@ -133,7 +135,7 @@ export function initPhotoGalleries() {
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) cards.forEach(card => {
         card.getAnimations().forEach(animation => animation.cancel());
         const delta = positions.get(card)! - card.getBoundingClientRect().left;
-        if (Math.abs(delta) < rail.clientWidth) card.animate([{ transform: `translateX(${delta}px)` }, { transform: 'translateX(0)' }], { duration: 250, easing: 'ease-out' });
+        if (Math.abs(delta) < rail.clientWidth) card.animate([{ transform: `translateX(${delta}px)` }, { transform: 'translateX(0)' }], { duration: 250, easing: EASE_OUT });
       });
       if (rail.contains(focus)) focus.focus({ preventScroll: true });
       const first = rail.querySelector<HTMLAnchorElement>('[data-photo]')!;

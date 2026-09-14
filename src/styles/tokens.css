@@ -84,10 +84,17 @@
   --z-sheet: 40;
   --z-toast: 50;
 
-  /* Motion */
-  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  /* Motion — one strong ease-out for entrances and hover, ease-in-out for movement
+     across the screen, an iOS-like curve for sheets. Built-in `ease`/`ease-out` are
+     too weak to read as deliberate; every component must use these tokens. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 0.16s;
   --dur-fast: 0.25s;
+  --dur-reveal: 0.6s;
   --dur-slow: 0.75s;
+  --stagger: 60ms;
 }
 
 @media (max-width: 800px) {

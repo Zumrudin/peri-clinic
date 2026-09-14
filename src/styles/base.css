@@ -355,13 +355,15 @@ h2 {
   }
 }
 
-/* Motion */
+/* Motion — `--reveal-i` is set by reveal.ts for elements that enter in the same
+   observer tick, so a grid row staggers while a lone section arrives without delay. */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(16px);
   transition:
-    opacity 0.8s ease,
-    transform 0.8s var(--ease-out);
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+  transition-delay: calc(var(--reveal-i, 0) * var(--stagger));
 }
 .reveal.is-visible {
   opacity: 1;

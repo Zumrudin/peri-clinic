@@ -120,7 +120,7 @@ const priceGroups = await getPriceListGrouped();
   .pricing__item > summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; cursor: pointer; font-size: 15px; line-height: 1.6; }
   summary::-webkit-details-marker { display: none; }
   .pricing__item > summary:hover, .pricing__item[open] > summary { color: var(--gold-deep); }
-  .pricing__chevron { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border: 1px solid var(--line-gold); border-radius: 50%; color: var(--gold-deep); font-size: 20px; transition: transform var(--dur-fast), background var(--dur-fast); }
+  .pricing__chevron { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border: 1px solid var(--line-gold); border-radius: 50%; color: var(--gold-deep); font-size: 20px; transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out); }
   .pricing__item[open] .pricing__chevron { transform: rotate(45deg); background: var(--gold-10); }
   .pricing__table { padding: 4px 0 24px; }
   @media (min-width: 1001px) {
