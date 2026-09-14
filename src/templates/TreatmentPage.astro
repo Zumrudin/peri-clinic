@@ -5,6 +5,7 @@ import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import Faq from '../components/faq/Faq.astro';
 import CaseCard from '../components/results/CaseCard.astro';
+import ResultsNavigation from '../components/results/ResultsNavigation.astro';
 import PriceTable from '../components/pricing/PriceTable.astro';
 import { getSiteSettings } from '../lib/siteContent';
 import { getCasesForProcedure, getFaqForProcedure, getPriceItemsForProcedure, procedureGallery } from '../lib/procedureContent';
@@ -67,11 +68,12 @@ const facts = [
     </div>
   </section>
 
-  {(device || cases.length > 0) && <section id="results" class="section treatment-results reveal" aria-labelledby="results-title">
+  {(device || cases.length > 0) && <section id="results" class="section treatment-results reveal" data-results-carousel data-results-limit={cases.length} aria-labelledby="results-title">
     <p class="eyebrow">Результаты</p><h2 id="results-title">До и после</h2>
     {cases.length > 0 ? <>
       <p class="treatment-note">Примеры результатов процедуры «{p.title}». Результат и количество процедур индивидуальны.</p>
-      <div class="treatment-cases">{cases.map(c => <CaseCard preserveAspect title={c.title} result={c.result} before={c.before} after={c.after} combined={c.combined} />)}</div>
+      <div class="treatment-cases" id="treatment-results-rail" data-results-rail role="group" aria-label="Работы до и после">{cases.map(c => <CaseCard mobileHomeStyle preserveAspect title={c.title} result={c.result} before={c.before} after={c.after} combined={c.combined} />)}</div>
+      <ResultsNavigation count={cases.length} railId="treatment-results-rail" />
     </> : <p class="treatment-note">Фотографии до и после по этой процедуре пока не представлены. В общей галерее можно посмотреть результаты других процедур клиники.</p>}
     <a class="text-link" href="/result">Все работы клиники <span>↗</span></a>
   </section>}
@@ -111,7 +113,13 @@ const facts = [
   </section>
 </Page>
 
+<script>
+  import { initResultsCarousel } from '../scripts/results-carousel';
+  initResultsCarousel();
+</script>
+
 <style>
+
   .treatment-hero { max-width: var(--container-wide); margin: auto; padding: 48px var(--gutter) 64px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 5vw; align-items: center; }
   .treatment-hero--text { grid-template-columns: 1fr; }
   .treatment-hero__content, .treatment-about > div, .treatment-prices > div, .treatment-medical > div { min-width: 0; }
@@ -175,5 +183,28 @@ const facts = [
     .treatment-steps, .treatment-medical, .treatment-cases { grid-template-columns: 1fr; }
     .treatment-nav { gap: 4px 20px; }
     .treatment-hero__photo img { height: 320px; }
+  }
+  @media (max-width: 800px) {
+    .treatment-results { --results-card-width: min(70vw, 280px, 32svh); }
+    .treatment-cases {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      scroll-behavior: smooth;
+      gap: 14px;
+      margin-right: calc(-1 * var(--gutter));
+      padding-right: calc(100vw - var(--gutter) - var(--results-card-width));
+      padding-bottom: 24px;
+      margin-bottom: -24px;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+    }
+    .treatment-cases::-webkit-scrollbar { display: none; }
+    .treatment-cases:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 4px; }
+    .treatment-results > .text-link { display: inline-flex; margin-top: 18px; }
+  }
+
+  @media (max-width: 800px) and (prefers-reduced-motion: reduce) {
+    .treatment-cases { scroll-behavior: auto; }
   }
 </style>

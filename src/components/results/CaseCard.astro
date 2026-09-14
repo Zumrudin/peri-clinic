@@ -9,6 +9,7 @@ interface ImgRef {
 interface Props {
   title: string;
   preserveAspect?: boolean;
+  mobileHomeStyle?: boolean;
   result?: string;
   category?: string;
   categorySlug?: string;
@@ -16,13 +17,13 @@ interface Props {
   after?: ImgRef | null;
   combined?: ImgRef | null;
 }
-const { title, result, category, categorySlug, before, after, combined, preserveAspect = false } = Astro.props;
+const { title, result, category, categorySlug, before, after, combined, preserveAspect = false, mobileHomeStyle = false } = Astro.props;
 const hasPair = before && after;
 const single = combined ?? after ?? before;
 const imageHeight = (img: ImgRef, width: number, fallback: number) => preserveAspect && img.width > 0 && img.height > 0 ? Math.round(width * img.height / img.width) : fallback;
 ---
 
-<article class:list={['case-card reveal', { 'case-card--uncropped': preserveAspect }]} data-category={categorySlug ?? ''}>
+<article class:list={['case-card reveal', { 'case-card--uncropped': preserveAspect, 'case-card--home-mobile': mobileHomeStyle }]} data-category={categorySlug ?? ''}>
   {
     hasPair ? (
       <div class="case-card__pair">
@@ -116,5 +117,29 @@ const imageHeight = (img: ImgRef, width: number, fallback: number) => preserveAs
     font-size: 13px;
     line-height: 1.5;
     margin: 0;
+  }
+  @media (max-width: 800px) {
+    .case-card--home-mobile {
+      flex: 0 0 var(--results-card-width);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background: var(--paper);
+      border: 0;
+      box-shadow: var(--shadow-soft);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      opacity: 1;
+      transform: none;
+    }
+    .case-card--home-mobile:hover { transform: none; box-shadow: var(--shadow-glow); }
+    .case-card--home-mobile .case-card__image,
+    .case-card--home-mobile .case-card__pair { aspect-ratio: 1; flex: none; }
+    .case-card--home-mobile .case-card__half { min-width: 0; min-height: 0; }
+    .case-card--home-mobile :global(img) { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .case-card--home-mobile .case-card__image > span { display: none; }
+    .case-card--home-mobile .case-card__body { display: flex; flex-direction: column; justify-content: center; min-height: 104px; padding: 14px; flex: 1; }
+    .case-card--home-mobile h3 { font-size: 22px; line-height: 1.15; margin-bottom: 6px; }
+    .case-card--home-mobile .case-card__result { font-size: 12px; }
   }
 </style>

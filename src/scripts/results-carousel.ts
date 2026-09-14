@@ -5,7 +5,7 @@ export function initResultsCarousel(): void {
     const navigation = root.querySelector<HTMLElement>('[data-results-navigation]');
     if (!rail || !navigation || root.dataset.resultsReady) return;
     root.dataset.resultsReady = 'true';
-    const cards = Array.from(rail.querySelectorAll<HTMLElement>('.result-card')).slice(0, 10);
+    const cards = Array.from(rail.querySelectorAll<HTMLElement>('.result-card, .case-card')).slice(0, Number(root.dataset.resultsLimit ?? 10));
     const previous = navigation.querySelector<HTMLButtonElement>('[data-results-prev]')!;
     const next = navigation.querySelector<HTMLButtonElement>('[data-results-next]')!;
     const current = navigation.querySelector<HTMLElement>('[data-results-current]')!;
