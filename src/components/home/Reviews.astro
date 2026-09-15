@@ -24,7 +24,7 @@ const stars = '★★★★★';
       </span>
     </div>
   </div>
-  <div class="review-list rail">
+  <div class="review-list rail" tabindex="0" role="group" aria-label="Отзывы пациентов">
     {
       reviews.items.map((r) => (
         <article class="review-card glass-panel glass-panel--dark reveal">
@@ -98,6 +98,10 @@ const stars = '★★★★★';
     grid-template-columns: 1fr 1fr;
     gap: 14px;
     overflow: visible;
+  }
+  .review-list:focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 4px;
   }
   .review-card {
     min-height: 300px;
