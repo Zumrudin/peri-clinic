@@ -1,0 +1,20 @@
+[
+  {
+    "post_id": 2008,
+    "file": "output/telegram-peri-clinic/media/2008-2-photo.jpg",
+    "status": "visually_reviewed",
+    "notes": "Pladuo: качество кожи, цвет лица, гладкость, комплексные программы. Использовано как дополнительный источник описания."
+  },
+  {
+    "post_id": 1999,
+    "file": "output/telegram-peri-clinic/media/1999-4-photo.jpg",
+    "status": "visually_reviewed",
+    "notes": "ProFacial: очищение, обновление, увлажнение; четыре технологии. Использовано как дополнительный источник описания."
+  },
+  {
+    "post_id": 2023,
+    "file": "output/telegram-peri-clinic/media/2023-2-photo.jpg",
+    "status": "visually_reviewed",
+    "notes": "После разрешения пластического хирурга: HELEO и микротоковая терапия в зависимости от клинической ситуации. Сохранено как тема отдельного материала о реабилитации."
+  }
+]
