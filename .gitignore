@@ -15,3 +15,6 @@ scripts/migrate/media-index.json
 .superpowers/
 
 .cache/
+
+# scratch artefacts (logs, patches, generated visuals) — real QA lives in docs/qa/
+output/
