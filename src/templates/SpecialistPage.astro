@@ -16,7 +16,10 @@ const team = (await getSpecialists()).map(p => ({ id:p.id, full:p.full, title:`$
       <a class="specialist-portrait" href={person.full} data-standalone-photo data-id={person.id} aria-label={`Увеличить фото: ${person.title}`}><img src={person.full} srcset={person.width > 700 ? `${person.thumbnail} 700w, ${person.full} ${Math.min(person.width,1800)}w` : undefined} sizes="(max-width: 800px) 90vw, 42vw" alt={person.alt} width={person.width} height={person.height} fetchpriority="high" /><span aria-hidden="true">↗</span></a>
       <div class="specialist-info">
         <h1>{person.title}</h1><p class="specialist-role">{person.role}</p>
-        {person.body && <div class="prose specialist-description" set:html={person.body} />}
+        {person.body && <>
+          <div class="prose specialist-description" id="specialist-description"><div data-description-content set:html={person.body} /></div>
+          <button class="specialist-more" type="button" aria-expanded="false" aria-controls="specialist-description" hidden>Подробнее <span aria-hidden="true">↓</span></button>
+        </>}
         <button class="button specialist-booking" type="button" data-open-sheet data-context={person.demo ? 'Консультация в клинике' : `Консультация: ${person.title}`}>Записаться на приём <span aria-hidden="true">→</span></button>
         {person.demo && <p class="demo-note">Демонстрационный профиль · фото и данные будут заменены. Запись — на консультацию в клинику.</p>}
       </div>
@@ -26,6 +29,10 @@ const team = (await getSpecialists()).map(p => ({ id:p.id, full:p.full, title:`$
   <script is:inline type="application/json" data-team-photos set:html={JSON.stringify(team).replace(/</g, '\\u003c')} />
   <Lightbox />
 </Page>
+<script>
+  import { initSpecialistDescription } from '../scripts/specialist-description';
+  document.addEventListener('astro:page-load', initSpecialistDescription);
+</script>
 <style>
   .specialist-page { max-width:var(--container); padding:24px var(--gutter) 90px; margin:auto; }
   .back { display:inline-block; color:var(--gold-deep); font-size:13px; margin-bottom:24px; }
@@ -35,11 +42,16 @@ const team = (await getSpecialists()).map(p => ({ id:p.id, full:p.full, title:`$
   .specialist-role { font:400 clamp(23px,2.1vw,30px)/1.2 var(--display); color:var(--gold-deep); margin:0 0 24px; }
   .specialist-role::after { content:''; display:block; width:48px; height:1px; background:var(--gold); margin-top:24px; }
   .demo-note { font-size:12px; line-height:1.5; color:var(--muted); margin:18px 0 0; }
-  .specialist-portrait { display:block; position:relative; min-width:0; min-height:480px; border-radius:var(--radius); overflow:hidden; }
+  .specialist-portrait { display:block; position:relative; align-self:start; aspect-ratio:4/5; min-width:0; min-height:480px; border-radius:var(--radius); overflow:hidden; }
   .specialist-portrait img { display:block; width:100%; height:100%; position:absolute; inset:0; object-fit:contain; background:var(--specialist-photo-bg); }
   .specialist-portrait span { position:absolute; right:15px; top:15px; background:var(--paper); border-radius:50%; width:44px; height:44px; display:grid; place-items:center; }
   .specialist-portrait:focus-visible { outline:3px solid var(--gold-deep); outline-offset:3px; }
   .specialist-description { line-height:1.7; margin-bottom:28px; color:var(--ink-2); overflow-wrap:anywhere; }
+  .specialist-description [data-description-content] { display:flow-root; }
+  .specialist-description[data-collapsed] { max-height:var(--description-preview); overflow:hidden; mask-image:linear-gradient(#000 calc(100% - 24px),transparent); }
+  .specialist-more { display:flex; align-items:center; gap:10px; min-height:44px; margin:-16px 0 16px; padding:0; border:0; background:none; color:var(--gold-deep); font:inherit; cursor:pointer; }
+  .specialist-more[hidden] { display:none; }
+  .specialist-more:focus-visible { outline:2px solid var(--gold-deep); outline-offset:4px; border-radius:4px; }
   .specialist-description :global(p:last-child) { margin-bottom:0; }
   .specialist-description :global(h2) { font-size:32px; }
   .specialist-description :global(img) { max-width:100%; height:auto; }
@@ -48,7 +60,7 @@ const team = (await getSpecialists()).map(p => ({ id:p.id, full:p.full, title:`$
     .specialist-page { padding-top:18px; padding-bottom:64px; }
     .back { margin-bottom:18px; }
     .specialist-profile { grid-template-columns:minmax(0,1fr); gap:0; padding:8px; border-radius:26px; }
-    .specialist-portrait { min-height:0; border-radius:19px; }
+    .specialist-portrait { min-height:0; aspect-ratio:auto; border-radius:19px; }
     .specialist-portrait img { position:static; height:auto; }
     .specialist-info { padding:24px 14px 18px; }
     h1 { font-size:clamp(34px,6vw,46px); margin-bottom:12px; }
