@@ -1,0 +1,5 @@
+320px: checked 21 treatment pages
+375px: checked 21 treatment pages
+800px: checked 21 treatment pages
+1440px: checked 21 treatment pages
+OK: images, anchors, heading, booking dialog and horizontal bounds.

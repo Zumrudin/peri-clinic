@@ -47,7 +47,9 @@ const facts = [
     <a href="#about">Описание</a>
     {(device || cases.length > 0) && <a href="#results">До и после</a>}
     {p.steps.length > 0 && <a href="#visit">Этапы процедуры</a>}
+    {p.indications && <a href="#indications">Кому подходит</a>}
     <a href="#prices">Цены</a>
+    {faq.length > 0 && <a href="#faq-title">Вопросы и ответы</a>}
     <a href="#booking">Запись</a>
   </nav>
 
@@ -74,7 +76,7 @@ const facts = [
     <ol class="treatment-steps">{p.steps.map(s => <li><h3>{s.title}</h3><p>{s.text}</p></li>)}</ol>
   </section>}
 
-  {(p.indications || p.contraindications) && <section class:list={['section treatment-medical reveal', { 'treatment-medical--single': !p.indications || !p.contraindications }]} aria-label="Показания и противопоказания">
+  {(p.indications || p.contraindications) && <section id="indications" class:list={['section treatment-medical reveal', { 'treatment-medical--single': !p.indications || !p.contraindications }]} aria-label="Показания и противопоказания">
     {p.indications && <div><h2>Кому подходит процедура</h2><div class="prose" set:html={p.indications} /></div>}
     {p.contraindications && <div><h2>Противопоказания</h2><div class="prose" set:html={p.contraindications} /></div>}
   </section>}
@@ -122,6 +124,7 @@ const facts = [
   .treatment-nav a { padding: 8px 0; font-size: 13px; border-bottom: 1px solid transparent; }
   .treatment-nav a:hover { border-color: var(--gold-deep); }
   section[id] { scroll-margin-top: 110px; }
+  :global(#faq-title) { scroll-margin-top: 110px; }
   .treatment-about, .treatment-prices { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 6vw; }
   .treatment-about .prose { max-width: 70ch; }
   .treatment-visit, .treatment-results { background: var(--paper); }

@@ -20,6 +20,7 @@ try {
         await Promise.all([...document.images].map(img => img.complete ? null : new Promise(resolve => { img.onload = resolve; img.onerror = resolve; })));
 
         const errors = [];
+        if (document.documentElement.scrollWidth > innerWidth + 1) errors.push('Page has horizontal overflow');
         if ([...document.images].some(img => !img.naturalWidth)) errors.push('Image failed to load');
         if (document.querySelectorAll('h1').length !== 1) errors.push('Expected one h1');
         for (const link of document.querySelectorAll('.treatment-nav a')) {
@@ -27,7 +28,17 @@ try {
         }
         for (const el of document.querySelectorAll('section[class*="treatment-"] *, .treatment-nav, .mobile-cta-bar a, .mobile-cta-bar button')) {
           const rect = el.getBoundingClientRect();
-          if (rect.width && (rect.right > innerWidth + 1 || rect.left < -1)) errors.push(`Overflow: ${el.tagName}.${el.className}`);
+          // Off-screen carousel slides are intentional; check their visible bounds
+          // after ancestor clipping, as well as the page width above.
+          let left = rect.left, right = rect.right;
+          for (let parent = el.parentElement; parent && parent !== document.body; parent = parent.parentElement) {
+            if (['auto', 'scroll', 'hidden', 'clip'].includes(getComputedStyle(parent).overflowX)) {
+              const clip = parent.getBoundingClientRect();
+              left = Math.max(left, clip.left);
+              right = Math.min(right, clip.right);
+            }
+          }
+          if (rect.width && right > left && (right > innerWidth + 1 || left < -1)) errors.push(`Overflow: ${el.tagName}.${el.className}`);
         }
         return [...new Set(errors)];
       });
