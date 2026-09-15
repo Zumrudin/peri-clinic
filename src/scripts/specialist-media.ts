@@ -4,26 +4,40 @@ export function initSpecialistMedia() {
     root.dataset.ready = 'true';
     const rail = root.querySelector<HTMLElement>('[data-media-rail]')!;
     const cards = Array.from(rail.children) as HTMLElement[];
-    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-media-dot]'));
-    const pagination = root.querySelector<HTMLElement>('[data-media-pagination]');
+    const controls = root.querySelector<HTMLElement>('[data-media-controls]')!;
+    const previous = root.querySelector<HTMLButtonElement>('[data-media-prev]')!;
+    const next = root.querySelector<HTMLButtonElement>('[data-media-next]')!;
+    const pagination = root.querySelector<HTMLElement>('[data-media-pagination]')!;
+    const progress = root.querySelector<HTMLElement>('[data-media-progress]')!;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const update = () => {
-      if (pagination) pagination.hidden = rail.scrollWidth <= rail.clientWidth + 2;
-      const left = rail.getBoundingClientRect().left;
-      const nearest = cards.reduce((best, card, i) => Math.abs(card.getBoundingClientRect().left - left) < Math.abs(cards[best].getBoundingClientRect().left - left) ? i : best, 0);
-      dots.forEach((dot, i) => i === nearest ? dot.setAttribute('aria-current', 'true') : dot.removeAttribute('aria-current'));
+      const max = rail.scrollWidth - rail.clientWidth;
+      controls.hidden = pagination.hidden = max <= 2;
+      previous.disabled = rail.scrollLeft <= 2;
+      next.disabled = rail.scrollLeft >= max - 2;
+      const visible = Math.min(1, rail.clientWidth / rail.scrollWidth);
+      const fraction = max > 0 ? Math.max(0, Math.min(1, rail.scrollLeft / max)) : 0;
+      progress.style.transform = `translateX(${fraction * (1 - visible) * 100}%) scaleX(${visible})`;
     };
-    const go = (i: number) => rail.scrollTo({ left: rail.scrollLeft + cards[i].getBoundingClientRect().left - rail.getBoundingClientRect().left - 2, behavior: reduced.matches ? 'instant' : 'smooth' });
-    dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+    const go = (i: number, keyboard = false) => rail.scrollTo({ left: rail.scrollLeft + cards[i].getBoundingClientRect().left - rail.getBoundingClientRect().left - 2, behavior: reduced.matches || keyboard ? 'instant' : 'smooth' });
+    const step = (direction: number, keyboard: boolean) => {
+      const stride = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : rail.clientWidth;
+      const index = direction > 0 ? Math.floor((rail.scrollLeft + 2) / stride) + 1 : Math.ceil((rail.scrollLeft - 2) / stride) - 1;
+      go(Math.max(0, Math.min(cards.length - 1, index)), keyboard);
+    };
+    previous.addEventListener('click', e => step(-1, e.detail === 0));
+    next.addEventListener('click', e => step(1, e.detail === 0));
     rail.addEventListener('scroll', update, { passive:true });
     rail.addEventListener('keydown', e => {
-      if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key) || rail.scrollWidth <= rail.clientWidth + 2) return;
+      if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
       e.preventDefault();
       const current = cards.findIndex(card => card.contains(document.activeElement));
       const i = e.key === 'Home' ? 0 : e.key === 'End' ? cards.length - 1 : Math.max(0,Math.min(cards.length - 1,current + (e.key === 'ArrowRight' ? 1 : -1)));
-      go(i); cards[i].querySelector('a')?.focus({ preventScroll:true });
+      go(i, true); cards[i].querySelector('a')?.focus({ preventScroll:true });
     });
-    new ResizeObserver(update).observe(rail);
+    const observer = new ResizeObserver(update);
+    observer.observe(rail);
+    document.addEventListener('astro:before-swap', () => observer.disconnect(), { once:true });
     update();
 
     const dialog = root.querySelector<HTMLDialogElement>('[data-media-dialog]')!;

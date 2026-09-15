@@ -1,0 +1,32 @@
+{
+  "fixture": "Six demo cards; local video injected for playback check",
+  "results": [
+    {
+      "width": 375,
+      "overflow": "pass",
+      "arrows": "pass",
+      "keyboard": "pass",
+      "photo": "pass",
+      "video": "pass",
+      "reducedMotion": "pass"
+    },
+    {
+      "width": 800,
+      "overflow": "pass",
+      "arrows": "pass",
+      "keyboard": "pass",
+      "photo": "pass",
+      "video": "pass",
+      "reducedMotion": "pass"
+    },
+    {
+      "width": 1440,
+      "overflow": "pass",
+      "arrows": "pass",
+      "keyboard": "pass",
+      "photo": "pass",
+      "video": "pass",
+      "reducedMotion": "pass"
+    }
+  ]
+}
