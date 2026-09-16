@@ -197,7 +197,27 @@ nginx-вхосты (`/etc/nginx/sites-enabled/`):
 Стендовая мелочь, замеченная по пути: редиректы на стенде отдают порт (`https://peri.zumrudin.ru:4443/...`) —
 nginx слушает 4443 за sslh; лечится `port_in_redirect off;` в stand.conf. На проде порт 443 прямой, проблемы нет.
 
-### Дальше (заблокировано действиями в панели Wix)
+2026-09-16 20:00 MSK — Решение заказчика: peri-clinic.ru остаётся на Wix, прод получает временный хост
+                        prod.peri-clinic.zumrudin.ru (DNS Beget). Пока резолвится в 91.106.207.38, не в 217.114.0.254 —
+                        нужна правка A-записи. На проде поставлен deploy/nginx/prod-preview.conf (noindex, без HSTS,
+                        placeholder-сертификат в snippets/peri-preview-tls.conf), curl --resolve → 200.
+2026-09-16 20:03 MSK — Стенд отделён от прода по данным (решение №2 из §4 закрыто без панели Beget): у ролей
+                        peri_clinic_site и loyalpro нет CREATEDB, зато есть CREATE на своей базе → схема dev в той
+                        же базе. pg_dump --schema=public → awk (COPY-блоки не трогаем, public. → dev., без
+                        CREATE/COMMENT SCHEMA) → psql --single-transaction. Первая попытка упала на
+                        `CREATE SCHEMA public` до создания таблиц — откат, данные прода не тронуты. Итог: 51/51
+                        таблица, строки и sequence совпали. Стенд: DB_SEARCH_PATH=dev, рестарт, логин создал
+                        сессию только в dev (public 86→86, dev 86→87). Исходники и полный дамп до операции:
+                        /srv/peri/backups/dev-schema-2026-09-16T17-02-32/.
+
+### Дальше
+- **Временный хост:** A `prod.peri-clinic.zumrudin.ru` → 217.114.0.254 в DNS Beget; затем на проде
+  `certbot certonly --webroot -w /var/www/certbot -d prod.peri-clinic.zumrudin.ru --deploy-hook "systemctl reload nginx"`
+  и пути в `/etc/nginx/snippets/peri-preview-tls.conf`. Админка прода пока без публичного имени — правки контента
+  для прода делать негде, кроме как через стенд + ручной перенос; если нужно раньше переключения, завести
+  `cms.prod.peri-clinic.zumrudin.ru` тем же способом.
+
+### Когда решат переключать домен (заблокировано панелью Wix)
 1. A-запись `cms` → 217.114.0.254; затем на проде:
    `certbot certonly --webroot -w /var/www/certbot -d cms.peri-clinic.ru --deploy-hook "systemctl reload nginx"`.
 2. Сертификат `peri-clinic.ru` + `www` заранее по DNS-01 (TXT `_acme-challenge` в Wix DNS):
