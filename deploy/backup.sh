@@ -20,9 +20,13 @@ echo "[backup] $DATE"
 if [ -f "$PERI_ROOT/directus/.env" ]; then
   set -a; . "$PERI_ROOT/directus/.env"; set +a
 fi
-# Stand reaches Beget through a plain SSH tunnel (DB_SSL=false); production connects to
-# googugiherie.beget.app directly and Beget only accepts TLS there — mirror Directus' setting.
-PGSSLMODE=$([ "${DB_SSL:-false}" = "true" ] && echo require || echo prefer) \
+# Stand reaches Beget through a plain SSH tunnel (no TLS); production connects to
+# googugiherie.beget.app directly, where Beget presents a chain from its private root CA.
+# Directus pins that root via DB_SSL__CA_FILE (see deploy/directus.env.example) — reuse it
+# here so pg_dump verifies the server the same way instead of trusting anything.
+if [ -n "${DB_SSL__CA_FILE:-}" ] && [ -f "$DB_SSL__CA_FILE" ]; then
+  export PGSSLMODE=verify-full PGSSLROOTCERT=$DB_SSL__CA_FILE
+fi
 PGPASSWORD="${DB_PASSWORD:-}" pg_dump \
   -h "${DB_HOST:-127.0.0.1}" -p "${DB_PORT:-5434}" -U "${DB_USER:-periclinic}" -d "${DB_DATABASE:-periclinic}" \
   -Fc -f "$DEST/data.dump"

@@ -164,6 +164,24 @@ nginx-вхосты (`/etc/nginx/sites-enabled/`):
                         Проверка после: zumrudin.ru / www / forma → 200, webhook.v2 → 404 (как до), все сервисы active,
                         pm2 loyalpro online без новых рестартов, слушают только 22/80/443/3001 + localhost.
 Не сделано (нужно отдельное решение): TLS 1.0/1.1 в nginx.conf — затрагивает клиентов LoyalPro.
+2026-09-16 19:45 MSK — A.3–A.5: nvm install 22 (v22.23.2, default остался 20 для LoyalPro), postgresql-client-16,
+                        каталоги /srv/peri/*, /var/www/certbot.
+2026-09-16 19:47 MSK — B.3–B.6: /srv/peri/directus/.env со стенда, DB напрямую googugiherie.beget.app:5432.
+                        DB_SSL=true упал: «self-signed certificate in certificate chain» — у Beget свой корневой CA
+                        («Beget Cloud Services Root Authority», до 2160). Решение: корень сохранён в
+                        /srv/peri/directus/beget-pg-ca.pem, DB_SSL__CA_FILE + DB_SSL__REJECT_UNAUTHORIZED=true
+                        (LoyalPro для сравнения просто отключает проверку). npm ci Directus 12.3.1 под Node 22,
+                        uploads rsync 186 файлов, pm2 peri-directus online (~250 МБ), /server/ping → pong,
+                        токен Builder читает контент и ассеты, /admin через nginx → 200.
+2026-09-16 19:48 MSK — C.1–C.2: bare-репо /srv/peri/site.git (HEAD → main), remote `prod` на dev, clone в /srv/peri/site;
+                        site.env и rebuild/.env со стенда, REBUILD_TOKEN новый (общий для directus/.env и rebuild/.env);
+                        pm2 peri-rebuild online, без токена → 401; pm2 save.
+                        nginx: peri-prod.conf + snippets + peri-limits.conf + peri-redirects.map, сертификат пока
+                        самоподписанный (/etc/nginx/peri-selfsigned, см. snippets/peri-tls.conf), nginx -t OK, reload;
+                        zumrudin.ru и forma.zumrudin.ru по-прежнему 200.
+2026-09-16 19:50 MSK — C.3 первая сборка упала за 19 с: Directus RATE_LIMITER_POINTS=50 отдавал 429 на холодный
+                        burst из ~300 запросов ассетов (на стенде маскировалось тёплым кэшем). Поднято до 500
+                        (login и так ограничен nginx limit_req), сборка перезапущена.
 ```
 
 ## 8. Откат
