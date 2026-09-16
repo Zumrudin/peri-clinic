@@ -20,6 +20,9 @@ echo "[backup] $DATE"
 if [ -f "$PERI_ROOT/directus/.env" ]; then
   set -a; . "$PERI_ROOT/directus/.env"; set +a
 fi
+# Stand reaches Beget through a plain SSH tunnel (DB_SSL=false); production connects to
+# googugiherie.beget.app directly and Beget only accepts TLS there — mirror Directus' setting.
+PGSSLMODE=$([ "${DB_SSL:-false}" = "true" ] && echo require || echo prefer) \
 PGPASSWORD="${DB_PASSWORD:-}" pg_dump \
   -h "${DB_HOST:-127.0.0.1}" -p "${DB_PORT:-5434}" -U "${DB_USER:-periclinic}" -d "${DB_DATABASE:-periclinic}" \
   -Fc -f "$DEST/data.dump"
@@ -33,7 +36,10 @@ else
 fi
 
 # --- Schema + a git bundle of the site (in case the origin remote is unreachable) ---
-cp -f "$PERI_ROOT/../peri-clinnic.ru/directus/snapshot.yaml" "$DEST/snapshot.yaml" 2>/dev/null || true
+# The checkout is /srv/peri/site on production; the dev stand keeps the repo next door.
+for snap in "$PERI_ROOT/site/directus/snapshot.yaml" "$PERI_ROOT/../peri-clinnic.ru/directus/snapshot.yaml"; do
+  [ -f "$snap" ] && { cp -f "$snap" "$DEST/snapshot.yaml"; break; }
+done
 if [ -d "$PERI_ROOT/site/.git" ]; then
   git -C "$PERI_ROOT/site" bundle create "$DEST/site.bundle" --all
 fi

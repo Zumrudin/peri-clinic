@@ -30,12 +30,18 @@ if [ -n "${GIT_REF:-}" ]; then
   git reset --quiet --hard "$GIT_REF"
 fi
 
+# Production shares a 2 GB box with LoyalPro: `astro build` peaks at ~770 MB RSS (measured
+# 2026-09-16), so cap the V8 heap and run at low priority so a build can never starve or
+# OOM-kill the neighbours. Both are no-ops for correctness on a bigger machine.
+export NODE_OPTIONS="${NODE_OPTIONS:---max-old-space-size=1024}"
+NICE=${BUILD_NICE:-10}
+
 echo "[build] npm ci"
-npm ci --no-audit --no-fund --loglevel=error
+nice -n "$NICE" npm ci --no-audit --no-fund --loglevel=error
 echo "[build] astro build"
-npm run build --silent
+nice -n "$NICE" npm run build --silent
 echo "[build] precompress"
-node scripts/postbuild/precompress.mjs dist
+nice -n "$NICE" node scripts/postbuild/precompress.mjs dist
 
 mkdir -p "$RELEASES"
 mv dist "$REL"
