@@ -12,3 +12,8 @@ default                         "";
 
 /копия-маски                    /esteticheskaya-kosmetologiya;
 /копия-услуги-и-цены            /uslugi-i-ceny;
+
+# The Wix device-category page lives on as /apparaty since the 2026-09-13 redesign; the
+# old slug is still the category key in Directus (DevicePage dispatch), but no page is
+# emitted for it — found by the pre-launch crawl of CONTENT-MAP on 2026-09-16.
+/apparatnaya-kosmetologiya      /apparaty;
