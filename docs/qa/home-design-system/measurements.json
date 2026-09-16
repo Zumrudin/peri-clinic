@@ -1,0 +1,462 @@
+[
+  {
+    "width": 320,
+    "scrollWidth": 320,
+    "h1": 58.96,
+    "sections": [
+      {
+        "name": "home-section section services",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section approach",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section equipment",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section section results",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section reviews",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section booking",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      }
+    ],
+    "brokenImages": 0,
+    "reviewFits": true,
+    "splitWords": []
+  },
+  {
+    "width": 375,
+    "scrollWidth": 375,
+    "h1": 61.875,
+    "sections": [
+      {
+        "name": "home-section section services",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section approach",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section equipment",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section section results",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section reviews",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section booking",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      }
+    ],
+    "brokenImages": 0,
+    "reviewFits": true,
+    "splitWords": []
+  },
+  {
+    "width": 390,
+    "scrollWidth": 390,
+    "h1": 62.67,
+    "sections": [
+      {
+        "name": "home-section section services",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section approach",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section equipment",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section section results",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section reviews",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section booking",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      }
+    ],
+    "brokenImages": 0,
+    "reviewFits": true,
+    "splitWords": []
+  },
+  {
+    "width": 430,
+    "scrollWidth": 430,
+    "h1": 64.79,
+    "sections": [
+      {
+        "name": "home-section section services",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section approach",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section equipment",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section section results",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section reviews",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      },
+      {
+        "name": "home-section booking",
+        "edge": 20,
+        "h2": 34,
+        "padding": "48px"
+      }
+    ],
+    "brokenImages": 0,
+    "reviewFits": true,
+    "splitWords": []
+  },
+  {
+    "width": 768,
+    "scrollWidth": 768,
+    "h1": 82.704,
+    "sections": [
+      {
+        "name": "home-section section services",
+        "edge": 32,
+        "h2": 39.2,
+        "padding": "56px"
+      },
+      {
+        "name": "home-section approach",
+        "edge": 32,
+        "h2": 39.2,
+        "padding": "56px"
+      },
+      {
+        "name": "home-section equipment",
+        "edge": 32,
+        "h2": 39.2,
+        "padding": "56px"
+      },
+      {
+        "name": "home-section section results",
+        "edge": 32,
+        "h2": 39.2,
+        "padding": "56px"
+      },
+      {
+        "name": "home-section reviews",
+        "edge": 32,
+        "h2": 39.2,
+        "padding": "56px"
+      },
+      {
+        "name": "home-section booking",
+        "edge": 32,
+        "h2": 39.2,
+        "padding": "56px"
+      }
+    ],
+    "brokenImages": 0,
+    "reviewFits": true,
+    "splitWords": []
+  },
+  {
+    "width": 800,
+    "scrollWidth": 800,
+    "h1": 84.4,
+    "sections": [
+      {
+        "name": "home-section section services",
+        "edge": 32,
+        "h2": 40,
+        "padding": "56px"
+      },
+      {
+        "name": "home-section approach",
+        "edge": 32,
+        "h2": 40,
+        "padding": "56px"
+      },
+      {
+        "name": "home-section equipment",
+        "edge": 32,
+        "h2": 40,
+        "padding": "56px"
+      },
+      {
+        "name": "home-section section results",
+        "edge": 32,
+        "h2": 40,
+        "padding": "56px"
+      },
+      {
+        "name": "home-section reviews",
+        "edge": 32,
+        "h2": 40,
+        "padding": "56px"
+      },
+      {
+        "name": "home-section booking",
+        "edge": 32,
+        "h2": 40,
+        "padding": "56px"
+      }
+    ],
+    "brokenImages": 0,
+    "reviewFits": true,
+    "splitWords": []
+  },
+  {
+    "width": 801,
+    "scrollWidth": 801,
+    "h1": 84.453,
+    "sections": [
+      {
+        "name": "home-section section services",
+        "edge": 46.4531,
+        "h2": 40.025,
+        "padding": "64px"
+      },
+      {
+        "name": "home-section approach",
+        "edge": 46.4531,
+        "h2": 40.025,
+        "padding": "64px"
+      },
+      {
+        "name": "home-section equipment",
+        "edge": 46.4531,
+        "h2": 40.025,
+        "padding": "64px"
+      },
+      {
+        "name": "home-section section results",
+        "edge": 46.4531,
+        "h2": 40.025,
+        "padding": "64px"
+      },
+      {
+        "name": "home-section reviews",
+        "edge": 46.4531,
+        "h2": 40.025,
+        "padding": "64px"
+      },
+      {
+        "name": "home-section booking",
+        "edge": 46.4531,
+        "h2": 40.025,
+        "padding": "64px"
+      }
+    ],
+    "brokenImages": 0,
+    "reviewFits": true,
+    "splitWords": []
+  },
+  {
+    "width": 1024,
+    "scrollWidth": 1024,
+    "h1": 96.272,
+    "sections": [
+      {
+        "name": "home-section section services",
+        "edge": 59.3906,
+        "h2": 45.6,
+        "padding": "68.608px"
+      },
+      {
+        "name": "home-section approach",
+        "edge": 59.3906,
+        "h2": 45.6,
+        "padding": "68.608px"
+      },
+      {
+        "name": "home-section equipment",
+        "edge": 59.3906,
+        "h2": 45.6,
+        "padding": "68.608px"
+      },
+      {
+        "name": "home-section section results",
+        "edge": 59.3906,
+        "h2": 45.6,
+        "padding": "68.608px"
+      },
+      {
+        "name": "home-section reviews",
+        "edge": 59.3906,
+        "h2": 45.6,
+        "padding": "68.608px"
+      },
+      {
+        "name": "home-section booking",
+        "edge": 59.3906,
+        "h2": 45.6,
+        "padding": "68.608px"
+      }
+    ],
+    "brokenImages": 0,
+    "reviewFits": true,
+    "splitWords": []
+  },
+  {
+    "width": 1440,
+    "scrollWidth": 1440,
+    "h1": 104,
+    "sections": [
+      {
+        "name": "home-section section services",
+        "edge": 83.5156,
+        "h2": 56,
+        "padding": "96px"
+      },
+      {
+        "name": "home-section approach",
+        "edge": 83.5156,
+        "h2": 56,
+        "padding": "96px"
+      },
+      {
+        "name": "home-section equipment",
+        "edge": 83.5156,
+        "h2": 56,
+        "padding": "96px"
+      },
+      {
+        "name": "home-section section results",
+        "edge": 83.5156,
+        "h2": 56,
+        "padding": "96px"
+      },
+      {
+        "name": "home-section reviews",
+        "edge": 83.5156,
+        "h2": 56,
+        "padding": "96px"
+      },
+      {
+        "name": "home-section booking",
+        "edge": 83.5156,
+        "h2": 56,
+        "padding": "96px"
+      }
+    ],
+    "brokenImages": 0,
+    "reviewFits": true,
+    "splitWords": []
+  },
+  {
+    "width": 1920,
+    "scrollWidth": 1920,
+    "h1": 104,
+    "sections": [
+      {
+        "name": "home-section section services",
+        "edge": 304,
+        "h2": 56,
+        "padding": "96px"
+      },
+      {
+        "name": "home-section approach",
+        "edge": 304,
+        "h2": 56,
+        "padding": "96px"
+      },
+      {
+        "name": "home-section equipment",
+        "edge": 304,
+        "h2": 56,
+        "padding": "96px"
+      },
+      {
+        "name": "home-section section results",
+        "edge": 304,
+        "h2": 56,
+        "padding": "96px"
+      },
+      {
+        "name": "home-section reviews",
+        "edge": 304,
+        "h2": 56,
+        "padding": "96px"
+      },
+      {
+        "name": "home-section booking",
+        "edge": 304,
+        "h2": 56,
+        "padding": "96px"
+      }
+    ],
+    "brokenImages": 0,
+    "reviewFits": true,
+    "splitWords": []
+  }
+]

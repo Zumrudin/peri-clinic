@@ -10,6 +10,7 @@ interface Props {
   description: string;
   ogImage?: string;
   noindex?: boolean;
+  home?: boolean;
 }
 const props = Astro.props;
 ---
@@ -19,7 +20,7 @@ const props = Astro.props;
   <nav aria-label="Пропуск навигации">
     <a href="#main-content" class="skip-link">Перейти к содержимому</a>
   </nav>
-  <div class="page" id="top">
+  <div class:list={["page", { "page--home": props.home }]} id="top">
     <Header />
     <main id="main-content">
       <slot />

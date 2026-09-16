@@ -1,0 +1,120 @@
+[
+  {
+    "path": "/",
+    "width": 375,
+    "violations": [
+      {
+        "id": "image-redundant-alt",
+        "impact": "minor",
+        "nodes": [
+          {
+            "target": [
+              "a[data-id=\"1\"][data-caption=\"Ресепшен\"][aria-label=\"Увеличить фото: Ресепшен\"] > img[alt=\"Ресепшен\"][width=\"3600\"][height=\"2400\"]"
+            ],
+            "summary": "Fix all of the following:\n  Element contains <img> element with alt text that duplicates existing text"
+          },
+          {
+            "target": [
+              "a[data-id=\"2\"][data-caption=\"Ресепшен\"][aria-label=\"Увеличить фото: Ресепшен\"] > img[alt=\"Ресепшен\"][width=\"3600\"][height=\"2400\"]"
+            ],
+            "summary": "Fix all of the following:\n  Element contains <img> element with alt text that duplicates existing text"
+          },
+          {
+            "target": [
+              "img[alt=\"Кабинет\"]"
+            ],
+            "summary": "Fix all of the following:\n  Element contains <img> element with alt text that duplicates existing text"
+          }
+        ]
+      },
+      {
+        "id": "region",
+        "impact": "moderate",
+        "nodes": [
+          {
+            "target": [
+              ".mobile-cta-bar__call"
+            ],
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "/",
+    "width": 1440,
+    "violations": [
+      {
+        "id": "image-redundant-alt",
+        "impact": "minor",
+        "nodes": [
+          {
+            "target": [
+              "a[data-id=\"1\"][data-caption=\"Ресепшен\"][aria-label=\"Увеличить фото: Ресепшен\"] > img[alt=\"Ресепшен\"][width=\"3600\"][height=\"2400\"]"
+            ],
+            "summary": "Fix all of the following:\n  Element contains <img> element with alt text that duplicates existing text"
+          },
+          {
+            "target": [
+              "a[data-id=\"2\"][data-caption=\"Ресепшен\"][aria-label=\"Увеличить фото: Ресепшен\"] > img[alt=\"Ресепшен\"][width=\"3600\"][height=\"2400\"]"
+            ],
+            "summary": "Fix all of the following:\n  Element contains <img> element with alt text that duplicates existing text"
+          },
+          {
+            "target": [
+              "img[alt=\"Кабинет\"]"
+            ],
+            "summary": "Fix all of the following:\n  Element contains <img> element with alt text that duplicates existing text"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "/result",
+    "width": 375,
+    "violations": [
+      {
+        "id": "region",
+        "impact": "moderate",
+        "nodes": [
+          {
+            "target": [
+              ".mobile-cta-bar__call"
+            ],
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "/result",
+    "width": 1440,
+    "violations": []
+  },
+  {
+    "path": "/kontakty",
+    "width": 375,
+    "violations": [
+      {
+        "id": "region",
+        "impact": "moderate",
+        "nodes": [
+          {
+            "target": [
+              ".mobile-cta-bar__call"
+            ],
+            "summary": "Fix any of the following:\n  Some page content is not contained by landmarks"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "/kontakty",
+    "width": 1440,
+    "violations": []
+  }
+]

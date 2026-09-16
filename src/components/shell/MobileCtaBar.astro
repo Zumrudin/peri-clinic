@@ -22,7 +22,7 @@ const site = await getSiteSettings();
       position: fixed;
       z-index: var(--z-menu);
       inset: auto 0 0;
-      padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+      padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
       gap: 10px;
       background: var(--ivory);
       border-top: 1px solid var(--line);
@@ -36,9 +36,9 @@ const site = await getSiteSettings();
       gap: 6px;
       padding: 0 12px;
       min-height: 48px;
-      font-size: 13px;
+      font-size: 14px;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: 16px;
       color: var(--gold-deep);
       transition: transform var(--dur-press) var(--ease-out);
     }
@@ -47,6 +47,11 @@ const site = await getSiteSettings();
     }
     .mobile-cta-bar__book {
       flex: 1 1 auto;
+      min-height: 48px;
+      border-radius: 16px;
+      font-size: 14px;
+      letter-spacing: 0;
+      text-transform: none;
       min-width: 0;
       padding-inline: 16px;
       justify-content: center;

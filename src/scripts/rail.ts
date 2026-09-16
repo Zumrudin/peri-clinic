@@ -1,28 +1,38 @@
-/**
- * Horizontal scroll-snap rail with prev/next buttons.
- * Markup: <div data-rail-root> <button data-rail-prev> <button data-rail-next> <div data-rail> <card/>… </div> </div>
- */
+/** Native scroll rails: shared controls, keyboard navigation and boundary states. */
 export function initRails(): void {
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.querySelectorAll<HTMLElement>('[data-rail-root]').forEach((root) => {
     const rail = root.querySelector<HTMLElement>('[data-rail]');
-    if (!rail) return;
-    if (root.hasAttribute('data-mobile-grid')) {
-      const mobile = window.matchMedia('(max-width: 800px)');
-      const sync = () => {
-        if (mobile.matches) rail.removeAttribute('tabindex');
-        else rail.setAttribute('tabindex', '0');
-      };
-      sync();
-      mobile.addEventListener('change', sync);
-    }
-    const step = (dir: 1 | -1) => {
-      const card = rail.firstElementChild as HTMLElement | null;
-      const gap = parseFloat(getComputedStyle(rail).columnGap || getComputedStyle(rail).gap || '0') || 0;
-      const amount = card ? card.getBoundingClientRect().width + gap : 360;
-      rail.scrollBy({ left: dir * amount, behavior: reduced ? 'auto' : 'smooth' });
+    if (!rail || root.dataset.railReady) return;
+    root.dataset.railReady = 'true';
+    const previous = root.querySelector<HTMLButtonElement>('[data-rail-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-rail-next]');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobile = window.matchMedia('(max-width: 800px)');
+    const update = () => {
+      const end = rail.scrollWidth - rail.clientWidth;
+      if (previous) previous.disabled = rail.scrollLeft <= 2;
+      if (next) next.disabled = rail.scrollLeft >= end - 2;
+      if (end <= 2 || (root.hasAttribute('data-mobile-grid') && mobile.matches)) rail.removeAttribute('tabindex');
+      else rail.tabIndex = 0;
     };
-    root.querySelector('[data-rail-prev]')?.addEventListener('click', () => step(-1));
-    root.querySelector('[data-rail-next]')?.addEventListener('click', () => step(1));
+    const step = (dir: 1 | -1, keyboard = false) => {
+      const card = rail.firstElementChild as HTMLElement | null;
+      const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
+      const amount = card ? card.getBoundingClientRect().width + gap : rail.clientWidth;
+      rail.scrollBy({ left: dir * amount, behavior: keyboard || reduced.matches ? 'instant' : 'smooth' });
+    };
+    previous?.addEventListener('click', () => step(-1));
+    next?.addEventListener('click', () => step(1));
+    rail.addEventListener('keydown', event => {
+      if (event.target !== rail) return;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        step(event.key === 'ArrowRight' ? 1 : -1, true);
+      }
+    });
+    rail.addEventListener('scroll', update, { passive: true });
+    new ResizeObserver(update).observe(rail);
+    mobile.addEventListener('change', update);
+    update();
   });
 }

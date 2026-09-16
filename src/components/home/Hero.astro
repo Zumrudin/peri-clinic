@@ -191,7 +191,7 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
   }
   .hero h1 {
     margin: 0;
-    font-size: var(--t-h1);
+    font-size: clamp(56px, calc(42px + 5.3vw), 104px);
     line-height: 0.9;
     color: var(--dark-text);
   }
@@ -271,7 +271,6 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
       max-width: none;
     }
     .hero h1 {
-      font-size: 16.5vw;
       line-height: 0.88;
     }
     .hero__lead {

@@ -2,6 +2,7 @@
 import { em } from '../../lib/markup';
 
 interface Props {
+  home?: boolean;
   eyebrow: string;
   title: string;
   lead?: string;
@@ -10,10 +11,10 @@ interface Props {
   layout?: 'grid' | 'block';
   class?: string;
 }
-const { eyebrow, title, lead, id, layout = 'grid', class: className } = Astro.props;
+const { home = false, eyebrow, title, lead, id, layout = 'grid', class: className } = Astro.props;
 ---
 
-<div class:list={['section-heading', `section-heading--${layout}`, 'reveal', className]}>
+<div class:list={['section-heading', { 'section-heading--home': home }, `section-heading--${layout}`, 'reveal', className]}>
   <div>
     <p class="eyebrow">{eyebrow}</p>
     <h2 id={id} set:html={em(title)} />
@@ -47,5 +48,12 @@ const { eyebrow, title, lead, id, layout = 'grid', class: className } = Astro.pr
       margin-top: 25px;
       font-size: 13px;
     }
+  }
+  .section-heading--home { margin-bottom: 32px; }
+  .section-heading--home .section-heading__lead { margin: 0; color: var(--ink-2); font-size: 16px; line-height: 1.6; max-width: 60ch; }
+  .section-heading--home.section-heading--block .section-heading__lead { margin-top: 16px; }
+  @media (max-width: 1000px) {
+    .section-heading--home { display: block; }
+    .section-heading--home .section-heading__lead { margin-top: 16px; }
   }
 </style>

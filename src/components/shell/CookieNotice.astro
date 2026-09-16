@@ -75,12 +75,24 @@
   .cookie-notice button {
     flex: 0 0 auto;
   }
-  @media (max-width: 560px) {
+  @media (max-width: 800px) {
     .cookie-notice {
-      flex-direction: column;
-      align-items: stretch;
-      text-align: center;
-      bottom: 84px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      left: 12px;
+      right: 12px;
+      bottom: calc(80px + env(safe-area-inset-bottom));
     }
+  }
+  @media (max-width: 800px) {
+    .cookie-notice[hidden] { display: none; }
+    .cookie-notice p { font-size: 12px; line-height: 1.45; }
+    .cookie-notice button { padding: 10px 12px; font-size: 13px; letter-spacing: 0; text-transform: none; border-radius: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cookie-notice, .cookie-notice[hidden] { transition: none; }
   }
 </style>
