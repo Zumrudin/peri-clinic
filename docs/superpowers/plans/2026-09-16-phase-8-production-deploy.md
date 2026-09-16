@@ -182,6 +182,29 @@ nginx-вхосты (`/etc/nginx/sites-enabled/`):
 2026-09-16 19:50 MSK — C.3 первая сборка упала за 19 с: Directus RATE_LIMITER_POINTS=50 отдавал 429 на холодный
                         burst из ~300 запросов ассетов (на стенде маскировалось тёплым кэшем). Поднято до 500
                         (login и так ограничен nginx limit_req), сборка перезапущена.
+2026-09-16 19:52 MSK — C.3 сборка OK: 44 страницы, 60 с, мин. доступной памяти 560 МБ, swap до 217 МБ, 429 нет.
+                        HTML прода = HTML стенда (44 файла, md5 совпали). Обход через curl --resolve: 43 URL sitemap → 200,
+                        старые URL Wix → 200/301, кроме /apparatnaya-kosmetologiya (404 и на стенде — страница стала
+                        /apparaty при редизайне 13.09) → добавлен 301 в redirects.map, поставлен на прод и стенд.
+                        Заголовки: HSTS, gzip, immutable для /_astro и /fonts, /uploads alias только картинки/pdf,
+                        прокси справки /api/public/cert-requests → 200, apex → www, http → https, wixstatic = 0.
+2026-09-16 19:53 MSK — C.4 POST /rebuild с токеном → 202 → новый релиз через 60 с, строка в build_log со статусом ok.
+2026-09-16 19:55 MSK — E.1 peri-backup.timer (03:30 MSK) включён; ручной прогон: data.dump 1.1 МБ (51 таблица,
+                        pg_dump verify-full по закреплённому CA), uploads, snapshot.yaml, site.bundle 247 МБ.
+                        Все рестарты peri-directus (14) — мои stop/restart и crash-loop до фикса CA; после 19:51 — 0.
+                        Счётчик сброшен, pm2 save. LoyalPro/боты после всех шагов: active, 200.
+
+Стендовая мелочь, замеченная по пути: редиректы на стенде отдают порт (`https://peri.zumrudin.ru:4443/...`) —
+nginx слушает 4443 за sslh; лечится `port_in_redirect off;` в stand.conf. На проде порт 443 прямой, проблемы нет.
+
+### Дальше (заблокировано действиями в панели Wix)
+1. A-запись `cms` → 217.114.0.254; затем на проде:
+   `certbot certonly --webroot -w /var/www/certbot -d cms.peri-clinic.ru --deploy-hook "systemctl reload nginx"`.
+2. Сертификат `peri-clinic.ru` + `www` заранее по DNS-01 (TXT `_acme-challenge` в Wix DNS):
+   `certbot certonly --manual --preferred-challenges dns -d peri-clinic.ru -d www.peri-clinic.ru`,
+   после выдачи — в `/etc/nginx/snippets/peri-tls.conf` пути на `/etc/letsencrypt/live/peri-clinic.ru/`,
+   `nginx -t && systemctl reload nginx`. Самоподписанный `/etc/nginx/peri-selfsigned` после этого удалить.
+3. Переключение A-записей (этап D) и решение по стенду (§4, п. 2).
 ```
 
 ## 8. Откат
