@@ -42,7 +42,7 @@ const mobileTiles = await Promise.all(
                 <source
                   media="(max-width: 800px)"
                   srcset={mobileTile.srcSet.attribute}
-                  sizes="(max-width: 600px) 100vw, 50vw"
+                  sizes="50vw"
                 />
               )}
               <Image
@@ -103,8 +103,15 @@ const mobileTiles = await Promise.all(
     .service-card:first-child picture { height: 100%; aspect-ratio: auto; }
   }
   @media (max-width: 600px) {
-    .service-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-    .service-card__content { padding: 20px; }
+    .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .service-card:first-child { grid-column: 1 / -1; flex-direction: row-reverse; min-height: 190px; }
+    .service-card:first-child picture { flex: 0 0 44%; aspect-ratio: auto; }
+    .service-card:first-child .service-card__content { min-width: 0; padding: 16px; }
+    .service-card:first-child h3 { font-size: clamp(24px, 6.5vw, 34px); }
+    .service-card__content { padding: 12px; }
+    .service-card__content h3 { font-size: clamp(18px, 5vw, 26px); line-height: 1.15; }
+    .service-card__content p { margin: 10px 0 14px; font-size: 13px; line-height: 1.45; }
+    .round-arrow { width: 40px; height: 40px; font-size: 20px; }
     .services__hint { display: block; padding: 20px; }
     .services__hint-title { margin-bottom: 8px; }
   }
