@@ -370,13 +370,15 @@ h2 {
 }
 
 /* Motion — `--reveal-i` is set by reveal.ts for elements that enter in the same
-   observer tick, so a grid row staggers while a lone section arrives without delay. */
+   observer tick, so a grid row staggers while a lone section arrives without delay.
+   `--reveal-y` / `--reveal-dur` let a component tune one element (the hero h1 travels
+   further and slower) without redeclaring .reveal inside its scoped styles. */
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(var(--reveal-y, 16px));
   transition:
-    opacity var(--dur-reveal) var(--ease-out),
-    transform var(--dur-reveal) var(--ease-out);
+    opacity var(--reveal-dur, var(--dur-reveal)) var(--ease-out),
+    transform var(--reveal-dur, var(--dur-reveal)) var(--ease-out);
   transition-delay: calc(var(--reveal-i, 0) * var(--stagger));
 }
 .reveal.is-visible {

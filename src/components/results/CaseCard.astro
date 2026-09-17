@@ -18,8 +18,10 @@ interface Props {
   before?: ImgRef | null;
   after?: ImgRef | null;
   combined?: ImgRef | null;
+  /** Unique per page; lets the /result filter morph cards with the View Transitions API. */
+  transitionName?: string;
 }
-const { title, result, category, categorySlug, before, after, combined, preserveAspect = false, preserveDesktopAspect = false, preserveMobileAspect = false, mobileHomeStyle = false } = Astro.props;
+const { title, result, category, categorySlug, before, after, combined, transitionName, preserveAspect = false, preserveDesktopAspect = false, preserveMobileAspect = false, mobileHomeStyle = false } = Astro.props;
 const hasPair = before && after;
 const single = combined ?? after ?? before;
 const imageHeight = (img: ImgRef, width: number, fallback: number) => (preserveAspect || preserveDesktopAspect) && img.width > 0 && img.height > 0 ? Math.round(width * img.height / img.width) : fallback;
@@ -39,7 +41,7 @@ const mobileImages = new Map(await Promise.all(
 ));
 ---
 
-<article class:list={['case-card reveal', { 'case-card--uncropped': preserveAspect, 'case-card--desktop-uncropped': preserveDesktopAspect, 'case-card--mobile-uncropped': preserveMobileAspect, 'case-card--home-mobile': mobileHomeStyle }]} data-category={categorySlug ?? ''}>
+<article class:list={['case-card reveal', { 'case-card--uncropped': preserveAspect, 'case-card--desktop-uncropped': preserveDesktopAspect, 'case-card--mobile-uncropped': preserveMobileAspect, 'case-card--home-mobile': mobileHomeStyle }]} data-category={categorySlug ?? ''} style={transitionName ? `view-transition-name: ${transitionName}` : undefined}>
   {
     hasPair ? (
       <div class="case-card__pair">

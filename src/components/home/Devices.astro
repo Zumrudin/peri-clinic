@@ -60,7 +60,14 @@ const { devices } = home;
   .equipment__rail { min-width: 0; gap: 24px; }
   .machine-card { flex: 0 0 46%; min-width: 0; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); background: var(--sand); }
   .machine-card:nth-child(2n) { background: var(--home-surface-cool); }
-  .machine-card :global(img) { width: 100%; height: clamp(240px, 25vw, 340px); padding: 20px; object-fit: contain; mix-blend-mode: multiply; }
+  .machine-card :global(img) { width: 100%; height: clamp(240px, 25vw, 340px); padding: 20px; object-fit: contain; mix-blend-mode: multiply; transition: transform var(--dur-slow) var(--ease-out); }
+  /* Same hover zoom as the home service cards (Categories.astro). */
+  @media (hover: hover) and (pointer: fine) {
+    .machine-card:hover :global(img) { transform: scale(1.03); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .machine-card:hover :global(img) { transform: none; }
+  }
   .machine-card__placeholder { height: 280px; display: grid; place-items: center; font: 24px var(--display); }
   .machine-card__body { flex: 1; display: flex; flex-direction: column; padding: 20px; }
   .machine-card h3 { font: 400 var(--home-card-title)/1.12 var(--display); margin: 0 0 8px; }

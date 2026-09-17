@@ -55,8 +55,8 @@ const rows = [
     <p class="sheet__lead">{site.hours}. Администратор уточнит запрос и подберёт время визита.</p>
     <ul class="sheet__list">
       {
-        rows.map((row) => (
-          <li>
+        rows.map((row, i) => (
+          <li style={`--i: ${i}`}>
             <a class="sheet__row" href={row.href} data-goal={row.goal} {...row.attrs}>
               <span class={`sheet__icon sheet__icon--${row.icon}`} aria-hidden="true">
                 {row.icon === 'phone' && (
@@ -164,6 +164,24 @@ const rows = [
     .sheet[open] .sheet__panel {
       opacity: 0;
       transform: translateY(12px) scale(0.97);
+    }
+  }
+  /* Rows follow the panel in with a 40ms stagger (enter only — the exit fades the whole
+     panel). Animated on the <li>, not .sheet__row, so the row's own press-feedback
+     transition stays at --dur-press instead of inheriting this 0.35s + delay. */
+  .sheet__list li {
+    opacity: 1;
+    transform: none;
+  }
+  .sheet[open] .sheet__list li {
+    transition:
+      opacity 0.35s var(--ease-drawer) calc(var(--i, 0) * 40ms),
+      transform 0.35s var(--ease-drawer) calc(var(--i, 0) * 40ms);
+  }
+  @starting-style {
+    .sheet[open] .sheet__list li {
+      opacity: 0;
+      transform: translateY(8px);
     }
   }
   .sheet__handle {
@@ -296,6 +314,9 @@ const rows = [
       .sheet[open] .sheet__panel {
         transform: none;
         opacity: 0;
+      }
+      .sheet[open] .sheet__list li {
+        transform: none;
       }
     }
   }

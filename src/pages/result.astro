@@ -37,8 +37,9 @@ const categories = bySort(await getCollection('caseCategories')).filter((cat) =>
 
     <div class="results-gallery__grid">
       {
-        cases.map((c) => (
+        cases.map((c, i) => (
           <CaseCard
+            transitionName={`case-${i}`}
             preserveDesktopAspect
             preserveMobileAspect
             title={c.data.title}
@@ -116,6 +117,22 @@ const categories = bySort(await getCollection('caseCategories')).filter((cat) =>
   }
   .results-gallery__grid :global(.is-hidden) {
     display: none;
+  }
+  /* Filter changes run inside document.startViewTransition (results-filter.ts): every card
+     carries a unique view-transition-name (CaseCard `transitionName`), so survivors slide to
+     their new grid slot instead of teleporting, and leavers/arrivals fade. The class scopes
+     the timing below to these groups only — ClientRouter's page crossfade keeps its own. */
+  .results-gallery__grid :global(.case-card) {
+    view-transition-class: results-case;
+  }
+</style>
+
+<style is:global>
+  ::view-transition-group(.results-case),
+  ::view-transition-old(.results-case),
+  ::view-transition-new(.results-case) {
+    animation-duration: var(--dur-fast);
+    animation-timing-function: var(--ease-out);
   }
 </style>
 

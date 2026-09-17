@@ -53,14 +53,16 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
   </div>
   <div class="hero__scrim" aria-hidden="true"></div>
 
-  <div class="hero__content reveal">
+  {/* Each block is its own .reveal: they all enter in the first observer tick, so
+      reveal.ts staggers them eyebrow → title → lead → facts → actions (60ms steps). */}
+  <div class="hero__content">
     <div class="hero__top">
-      <p class="eyebrow">{hero.eyebrow}</p>
-      <h1 id="hero-title" set:html={em(hero.title)} />
+      <p class="eyebrow reveal">{hero.eyebrow}</p>
+      <h1 id="hero-title" class="reveal" set:html={em(hero.title)} />
     </div>
     <div class="hero__bottom">
-      <p class="hero__lead">{hero.lead}</p>
-      <div class="hero__facts" aria-label="Преимущества клиники">
+      <p class="hero__lead reveal">{hero.lead}</p>
+      <div class="hero__facts reveal" aria-label="Преимущества клиники">
         {
           hero.facts.map((f) => (
             <div>
@@ -70,14 +72,14 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
           ))
         }
       </div>
-      <div class="hero__actions">
+      <div class="hero__actions reveal">
         <button class="button button--light" type="button" data-open-sheet>{hero.primary_label} <span>↗</span></button>
         <a class="text-link text-link--light" href={hero.secondary_href}>{hero.secondary_label} <span>↓</span></a>
       </div>
     </div>
   </div>
 
-  <div class="hero__address glass-panel glass-panel--dark">
+  <div class="hero__address glass-panel glass-panel--dark reveal">
     <span class="glass-chip glass-chip--dark">{site.city}</span>
     <p set:html={em(site.address_lines)} />
   </div>
@@ -117,6 +119,29 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
     position: absolute;
     inset: 0;
   }
+  /* Scroll-linked drift: the photo lags the page by 8% of its height while the hero
+     scrolls out, compositor-only. Lives on the wrapper, not the <img>, because an
+     animation would override the img's scale-settle transition below. `scroll(root)`
+     rather than `view()`: `.page { overflow: hidden }` is technically a scroll
+     container and would capture `view()` as its (never-scrolling) reference. The
+     global reduced-motion rule (`animation: none`) switches it off. */
+  @supports (animation-timeline: scroll()) {
+    .hero__photo {
+      animation: heroDrift linear both;
+    }
+    /* Deliberately a different selector: the CSS minifier folds `animation-timeline` into
+       the `animation` shorthand when both sit in one rule, and Chrome rejects the folded
+       declaration wholesale (no animation at all). Separate rules cannot be merged. */
+    .hero__media > .hero__photo {
+      animation-timeline: scroll(root);
+      animation-range: 0 calc(100vh - var(--header-h));
+    }
+  }
+  @keyframes heroDrift {
+    to {
+      transform: translateY(8%);
+    }
+  }
   .hero__photo :global(picture),
   .hero__photo :global(img) {
     width: 100%;
@@ -126,11 +151,11 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
     object-fit: cover;
     object-position: center 30%;
     /* One slow settle per page load (1.6s, transform only, so LCP is unaffected); the
-       trigger is the same `.is-visible` reveal.ts sets on the copy, via :has(). */
+       trigger is the same `.is-visible` reveal.ts sets on the title, via :has(). */
     transform: scale(1.05);
     transition: transform 1.6s var(--ease-out);
   }
-  .hero:has(.hero__content.is-visible) .hero__photo :global(img) {
+  .hero:has(h1.is-visible) .hero__photo :global(img) {
     transform: none;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -190,6 +215,9 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
     color: var(--gold-light);
   }
   .hero h1 {
+    /* The title travels further and slower than the rest of the stagger (see .reveal in base.css). */
+    --reveal-y: 24px;
+    --reveal-dur: var(--dur-slow);
     margin: 0;
     font-size: clamp(56px, calc(42px + 5.3vw), 104px);
     line-height: 0.9;
