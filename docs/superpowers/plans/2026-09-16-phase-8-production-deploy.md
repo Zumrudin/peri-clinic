@@ -232,16 +232,18 @@ nginx слушает 4443 за sslh; лечится `port_in_redirect off;` в s
                         Замечено: в 08:50–08:54 MSK прошли три пересборки (стенд ×2, прод ×1) без правок контента —
                         кто-то дёргал /rebuild с токеном; в activity только build_log от builder.
 
+2026-09-17 10:05 MSK — Заказчик завёл A-запись admin-cms.peri-clinic.ru → 217.114.0.254 в Wix DNS (имя выбрано вместо
+                        cms.peri-clinic.ru из спеки). nginx: CMS-блок переименован, у него свой сертификат
+                        (snippets/peri-cms-tls.conf, certbot webroot, до 2026-12-16) — общий с www он делить не может,
+                        пока www на Wix. Directus PUBLIC_URL=https://admin-cms.peri-clinic.ru, рестарт из чистого шелла.
+
 ### Дальше
 - **Временный хост:** готов — https://prod.peri-clinic.zumrudin.ru. Было: A `prod.peri-clinic.zumrudin.ru` → 217.114.0.254 в DNS Beget; затем на проде
   `certbot certonly --webroot -w /var/www/certbot -d prod.peri-clinic.zumrudin.ru --deploy-hook "systemctl reload nginx"`
-  и пути в `/etc/nginx/snippets/peri-preview-tls.conf`. Админка прода пока без публичного имени — правки контента
-  для прода делать негде, кроме как через стенд + ручной перенос; если нужно раньше переключения, завести
-  `cms.prod.peri-clinic.zumrudin.ru` тем же способом.
+  и пути в `/etc/nginx/snippets/peri-preview-tls.conf`. Админка прода: https://admin-cms.peri-clinic.ru (с 2026-09-17).
 
 ### Когда решат переключать домен (заблокировано панелью Wix)
-1. A-запись `cms` → 217.114.0.254; затем на проде:
-   `certbot certonly --webroot -w /var/www/certbot -d cms.peri-clinic.ru --deploy-hook "systemctl reload nginx"`.
+1. ~~A-запись `cms`~~ — сделано как `admin-cms.peri-clinic.ru` 2026-09-17.
 2. Сертификат `peri-clinic.ru` + `www` заранее по DNS-01 (TXT `_acme-challenge` в Wix DNS):
    `certbot certonly --manual --preferred-challenges dns -d peri-clinic.ru -d www.peri-clinic.ru`,
    после выдачи — в `/etc/nginx/snippets/peri-tls.conf` пути на `/etc/letsencrypt/live/peri-clinic.ru/`,
