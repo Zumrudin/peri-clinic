@@ -51,6 +51,16 @@ node scripts/qa/check-links.mjs                                            # int
 
 Builds need `DIRECTUS_URL` and `DIRECTUS_TOKEN` in a root `.env` (not committed; `deploy/site.env.example` is the model — note `.env.example` referenced in error messages does not actually exist in the repo).
 
+## Remotes & deploy
+
+- `origin` = GitHub `Zumrudin/peri-clinic` (SSH). Its push URL list also includes the production bare repo
+  `ssh://root@217.114.0.254/srv/peri/site.git`, so `git push origin main` updates both; `prod` is the same bare
+  repo as a standalone remote. Production does **not** pull from GitHub (its SSH key is a deploy key of another
+  repo) — after a push, `ssh root@217.114.0.254 'git -C /srv/peri/site pull --ff-only'` and trigger a rebuild
+  (button «Опубликовать сайт» in `https://admin-cms.peri-clinic.ru`, or POST to the rebuild receiver).
+- Production runbook, audit and execution journal: `docs/superpowers/plans/2026-09-16-phase-8-production-deploy.md`.
+  Preview of the production release while `peri-clinic.ru` is still on Wix: `https://prod.peri-clinic.zumrudin.ru`.
+
 ## Content pipeline (the core idea)
 
 Directus is the only content source; **nothing user-facing is hardcoded**. Build time only — no runtime CMS calls, so the site keeps working if Directus is down.
