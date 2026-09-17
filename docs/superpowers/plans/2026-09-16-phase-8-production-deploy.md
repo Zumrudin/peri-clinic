@@ -225,6 +225,13 @@ nginx слушает 4443 за sslh; лечится `port_in_redirect off;` в s
                         (`Astro.url.pathname` при build.format 'file'), sitemap при этом без расширения → каждая страница
                         объявляла дублем саму себя. Фикс: `canonicalPath()` в src/lib/seo.ts + тест, Base.astro.
 
+2026-09-17 09:35 MSK — canonical-фикс собран на проде и стенде (пересборка по вебхуку на обоих): .html в canonical/og:url
+                        = 0 из 44 страниц, главная → https://www.peri-clinic.ru/. Первая проверка «не сработало» была
+                        ложной — опрос state.json увидел idle от предыдущей сборки, пока новая ждала debounce 20 с;
+                        правильный признак завершения: last_finished > last_started.
+                        Замечено: в 08:50–08:54 MSK прошли три пересборки (стенд ×2, прод ×1) без правок контента —
+                        кто-то дёргал /rebuild с токеном; в activity только build_log от builder.
+
 ### Дальше
 - **Временный хост:** готов — https://prod.peri-clinic.zumrudin.ru. Было: A `prod.peri-clinic.zumrudin.ru` → 217.114.0.254 в DNS Beget; затем на проде
   `certbot certonly --webroot -w /var/www/certbot -d prod.peri-clinic.zumrudin.ru --deploy-hook "systemctl reload nginx"`
