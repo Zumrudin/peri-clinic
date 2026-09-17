@@ -210,8 +210,23 @@ nginx слушает 4443 за sslh; лечится `port_in_redirect off;` в s
                         сессию только в dev (public 86→86, dev 86→87). Исходники и полный дамп до операции:
                         /srv/peri/backups/dev-schema-2026-09-16T17-02-32/.
 
+2026-09-17 09:27 MSK — DNS prod.peri-clinic.zumrudin.ru → 217.114.0.254 (заказчик). certbot webroot выдал сертификат
+                        (до 2026-12-16), snippets/peri-preview-tls.conf → live/, reload. Снаружи: 200, цепочка валидна,
+                        X-Robots-Tag noindex, http → https, старые slug → 301. Первый curl с самого сервера дал 000/18 —
+                        гонка с завершающимся воркером nginx, повтор снаружи чистый.
+2026-09-17 09:30 MSK — Заказчик создал базу peri_clinic_site_dev (та же роль/пароль). Схема dev → новая база:
+                        pg_dump --schema=dev, awk (dev. → public. вне COPY, без CREATE SCHEMA), psql --single-transaction;
+                        51/51 таблица, строки и sequence совпали. Стенд: DB_DATABASE=peri_clinic_site_dev, DB_SEARCH_PATH
+                        убран. Directus упал в crash-loop: pm2 хранил DB_SEARCH_PATH=dev из моего шелла (`--update-env`
+                        после `set -a; . .env`), .env его не перекрывает. Процесс пересоздан из чистого окружения на стенде
+                        и на проде (там утекли DB_* и SECRET — тоже вычищено). Логин на стенде → сессия только в новой базе.
+                        Схема dev в проде удалена (DROP SCHEMA dev CASCADE, дампы сохранены), прод не задет.
+2026-09-17 09:35 MSK — Найден SEO-баг сборки: canonical и og:url у 40 страниц заканчивались на .html
+                        (`Astro.url.pathname` при build.format 'file'), sitemap при этом без расширения → каждая страница
+                        объявляла дублем саму себя. Фикс: `canonicalPath()` в src/lib/seo.ts + тест, Base.astro.
+
 ### Дальше
-- **Временный хост:** A `prod.peri-clinic.zumrudin.ru` → 217.114.0.254 в DNS Beget; затем на проде
+- **Временный хост:** готов — https://prod.peri-clinic.zumrudin.ru. Было: A `prod.peri-clinic.zumrudin.ru` → 217.114.0.254 в DNS Beget; затем на проде
   `certbot certonly --webroot -w /var/www/certbot -d prod.peri-clinic.zumrudin.ru --deploy-hook "systemctl reload nginx"`
   и пути в `/etc/nginx/snippets/peri-preview-tls.conf`. Админка прода пока без публичного имени — правки контента
   для прода делать негде, кроме как через стенд + ручной перенос; если нужно раньше переключения, завести

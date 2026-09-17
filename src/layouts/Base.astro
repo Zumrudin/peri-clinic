@@ -7,7 +7,7 @@ import CookieNotice from '../components/shell/CookieNotice.astro';
 import Metrika from '../components/shell/Metrika.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import { getSiteSettings } from '../lib/siteContent';
-import { medicalClinicJsonLd } from '../lib/seo';
+import { canonicalPath, medicalClinicJsonLd } from '../lib/seo';
 
 interface Props {
   title: string;
@@ -17,7 +17,7 @@ interface Props {
 }
 const { title, description, ogImage, noindex = false } = Astro.props;
 const site = await getSiteSettings();
-const canonical = new URL(Astro.url.pathname, Astro.site);
+const canonical = new URL(canonicalPath(Astro.url.pathname), Astro.site);
 const og = ogImage ?? new URL('/og-default.jpg', Astro.site).href;
 const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL('/favicon.svg', Astro.site).href);
 ---

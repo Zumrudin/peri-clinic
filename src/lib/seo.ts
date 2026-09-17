@@ -50,3 +50,15 @@ export function faqJsonLd(items: Array<{ question: string; answer: string }>) {
     })),
   };
 }
+
+/**
+ * Public path for <link rel="canonical"> / og:url. With `build.format: 'file'` Astro reports
+ * `Astro.url.pathname` as the emitted file (`/result.html`, `/index.html`), but nginx serves
+ * clean URLs (`try_files $uri $uri.html`) and the sitemap lists them without the extension —
+ * so the canonical must be the clean form too, or every page declares a duplicate of itself.
+ */
+export function canonicalPath(pathname: string): string {
+  let path = pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+  if (path.length > 1) path = path.replace(/\/+$/, '');
+  return path.startsWith('/') ? path : `/${path}`;
+}
