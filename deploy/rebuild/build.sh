@@ -40,6 +40,8 @@ echo "[build] npm ci"
 nice -n "$NICE" npm ci --no-audit --no-fund --loglevel=error
 echo "[build] astro build"
 nice -n "$NICE" npm run build --silent
+echo "[build] SEO validation"
+nice -n "$NICE" node scripts/qa/seo.mjs dist
 echo "[build] precompress"
 nice -n "$NICE" node scripts/postbuild/precompress.mjs dist
 

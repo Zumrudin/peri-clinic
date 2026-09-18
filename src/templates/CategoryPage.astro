@@ -31,14 +31,14 @@ const copy = home.devices;
             <div class="service-card__image">
               <span class="service-card__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               {cover ? (
-                <Image src={cover.src} alt={p.data.cover_alt || ''} width={cover.width} height={cover.height} widths={[240, 480, 720]} sizes="(max-width: 800px) 44vw, 30vw" loading="lazy" />
+                <Image src={cover.src} alt={p.data.cover_alt || p.data.title} width={cover.width} height={cover.height} widths={[240, 480, 720]} sizes="(max-width: 800px) 44vw, 30vw" loading="lazy" />
               ) : (
                 <span class="service-card__placeholder" aria-hidden="true">PERI CLINIC</span>
               )}
             </div>
             <div class="service-card__body">
               <h2>{p.data.title}</h2>
-              {p.data.subtitle && <p class="service-card__desc">{p.data.subtitle}</p>}
+              {(p.data.subtitle || p.data.summary) && <p class="service-card__desc">{p.data.subtitle || p.data.summary}</p>}
               <span class="service-card__arrow" aria-hidden="true">→</span>
             </div>
           </a>

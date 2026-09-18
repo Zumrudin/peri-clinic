@@ -15,13 +15,13 @@ const links = [
 ].filter(Boolean) as Array<{ label: string; value: string; href: string }>;
 ---
 
-<Page title="Контакты — PERI CLINIC" description={`PERI CLINIC — ${site.address_short}. ${site.hours}. Телефон ${site.phone}.`}>
+<Page title="Контакты PERI CLINIC в Москве — адрес, телефон, запись" description={`PERI CLINIC — ${site.address_short}. ${site.hours}. Телефон ${site.phone}.`}>
   <Breadcrumbs slot="head" items={[{ name: 'Контакты', href: '/kontakty' }]} />
 
   <section class="contacts reveal">
     <div class="contacts__intro">
       <p class="eyebrow">Контакты</p>
-      <h1>Будем рады<br /><em>видеть вас</em></h1>
+      <h1>Контакты<br /><em>PERI CLINIC</em></h1>
       <p class="contacts__address" set:html={em(site.address_lines || site.address_short)} />
       <p class="contacts__hours">{site.hours}</p>
       {site.map_link && (

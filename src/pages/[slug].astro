@@ -13,7 +13,7 @@ export async function getStaticPaths() {
   const [categories, procedures, pages] = await Promise.all([getAllCategories(), getAllProcedures(), getAllPages()]);
 
   return [
-    ...categories.map((category) => ({ params: { slug: category.data.slug }, props: { kind: 'category' as const, category } })),
+    ...categories.filter(c => c.data.slug !== 'apparaty').map((category) => ({ params: { slug: category.data.slug }, props: { kind: 'category' as const, category } })),
     ...procedures.map((procedure) => ({ params: { slug: procedure.data.slug }, props: { kind: 'procedure' as const, procedure } })),
     ...pages.map((page) => ({ params: { slug: page.data.slug }, props: { kind: 'page' as const, page } })),
   ];
@@ -23,5 +23,5 @@ const { kind, category, procedure, page } = Astro.props;
 ---
 
 {kind === 'category' && <CategoryPage category={category} />}
-{kind === 'procedure' && (procedure.data.category?.slug === 'apparatnaya-kosmetologiya' ? <DevicePage procedure={procedure} /> : <ProcedurePage procedure={procedure} />)}
+{kind === 'procedure' && (['apparaty', 'apparatnaya-kosmetologiya'].includes(procedure.data.category?.slug || '') ? <DevicePage procedure={procedure} /> : <ProcedurePage procedure={procedure} />)}
 {kind === 'page' && (page.data.template === 'legal' ? <LegalPage page={page} /> : page.data.template === 'loyalty' ? <LoyaltyPage page={page} /> : <ContentPage page={page} />)}

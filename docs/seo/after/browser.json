@@ -1,0 +1,607 @@
+{
+  "results": [
+    {
+      "path": "/apparaty",
+      "width": 390,
+      "h1": "Аппараты клиники",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/beautylizer",
+      "width": 390,
+      "h1": "Beautylizer — RSL-массаж тела",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/botullinoterapiya",
+      "width": 390,
+      "h1": "Ботулинотерапия",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/droppers",
+      "width": 390,
+      "h1": "Капельницы (IV-терапия)",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/esteticheskaya-kosmetologiya",
+      "width": 390,
+      "h1": "Эстетическаякосметология",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/heleo",
+      "width": 390,
+      "h1": "HELEO4 — фотодинамическая терапия",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/",
+      "width": 390,
+      "h1": "Косметология в Москвес заботой о вас",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/injekcionnaya-cosmetologiya",
+      "width": 390,
+      "h1": "Инъекционнаякосметология",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/kontakty-organov",
+      "width": 390,
+      "h1": "Контакты контролирующих органов",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/kontakty",
+      "width": 390,
+      "h1": "КонтактыPERI CLINIC",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/konturnaya-plastika",
+      "width": 390,
+      "h1": "Контурная пластика",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/kosemotologicheskie-pilingi",
+      "width": 390,
+      "h1": "Косметологические пилинги",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/kosmetologicheskie-chistki",
+      "width": 390,
+      "h1": "Косметологические чистки",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/laser-epilation",
+      "width": 390,
+      "h1": "Лазерная эпиляция Pacer One Pro",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/lipolitiki",
+      "width": 390,
+      "h1": "Липолитики",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/loyaltyprogram",
+      "width": 390,
+      "h1": "Программа лояльности",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/maski",
+      "width": 390,
+      "h1": "Маски",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/mezoterapiya-i-biorevitalizaciya",
+      "width": 390,
+      "h1": "Мезотерапия и биоревитализация",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/microtoki",
+      "width": 390,
+      "h1": "Sensitec — удаление новообразований",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/mikrotokovaya-terapiya",
+      "width": 390,
+      "h1": "Микротоковая терапия",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/normativno-parvovye-dokumenty",
+      "width": 390,
+      "h1": "Нормативно-правовые документы",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/otzyvy",
+      "width": 390,
+      "h1": "Отзывынаших пациентов",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/pigment-lumec",
+      "width": 390,
+      "h1": "Lumecca — фотоомоложение и коррекция пигментации",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/pladuo",
+      "width": 390,
+      "h1": "Pladuo — плазменные процедуры для кожи",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/plazmoterapiya-plazmolifting",
+      "width": 390,
+      "h1": "Плазмотерапия (плазмолифтинг)",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/politika",
+      "width": 390,
+      "h1": "Политика обработки персональных данных",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/polzovatelskoe-soglashenie",
+      "width": 390,
+      "h1": "Пользовательское соглашение",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/poryadok-oplaty",
+      "width": 390,
+      "h1": "Порядок оплаты услуг",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/profeccial",
+      "width": 390,
+      "h1": "ProFacial — комплексный аппаратный уход",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/result",
+      "width": 390,
+      "h1": "Результаты процедур:до и после",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/rf-lifting-inmode",
+      "width": 390,
+      "h1": "Morpheus8 — микроигольчатый RF-лифтинг",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/soglashenie",
+      "width": 390,
+      "h1": "Согласие на обработку персональных данных",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/spravka",
+      "width": 390,
+      "h1": "Справка для налогового вычета",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/tesla-former",
+      "width": 390,
+      "h1": "Tesla Former — аппаратная коррекция фигуры",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/uhodovye-procedury",
+      "width": 390,
+      "h1": "Уходовые процедуры",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/uridicheskaya-informaciya",
+      "width": 390,
+      "h1": "Организационные документы",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/uslugi-i-ceny",
+      "width": 390,
+      "h1": "Услуги и цены",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/volnewmer",
+      "width": 390,
+      "h1": "Volnewmer — монополярный RF-лифтинг",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/yuridicheskaya-informaciya",
+      "width": 390,
+      "h1": "Юридическая информация",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/specialisty/bogatyreva",
+      "width": 390,
+      "h1": "Богатырева Татьяна Геннадьевна",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/specialisty/botashev",
+      "width": 390,
+      "h1": "Боташев Астемир Алексеевич",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/specialisty/gadzhieva",
+      "width": 390,
+      "h1": "Гаджиева Пери Исамудиновна",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/specialisty/gataylina",
+      "width": 390,
+      "h1": "Гатауллина Юлия Равилевна",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/apparaty",
+      "width": 1440,
+      "h1": "Аппараты клиники",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/beautylizer",
+      "width": 1440,
+      "h1": "Beautylizer — RSL-массаж тела",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/botullinoterapiya",
+      "width": 1440,
+      "h1": "Ботулинотерапия",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/droppers",
+      "width": 1440,
+      "h1": "Капельницы (IV-терапия)",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/esteticheskaya-kosmetologiya",
+      "width": 1440,
+      "h1": "Эстетическаякосметология",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/heleo",
+      "width": 1440,
+      "h1": "HELEO4 — фотодинамическая терапия",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/",
+      "width": 1440,
+      "h1": "Косметология в Москвес заботой о вас",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/injekcionnaya-cosmetologiya",
+      "width": 1440,
+      "h1": "Инъекционнаякосметология",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/kontakty-organov",
+      "width": 1440,
+      "h1": "Контакты контролирующих органов",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/kontakty",
+      "width": 1440,
+      "h1": "КонтактыPERI CLINIC",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/konturnaya-plastika",
+      "width": 1440,
+      "h1": "Контурная пластика",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/kosemotologicheskie-pilingi",
+      "width": 1440,
+      "h1": "Косметологические пилинги",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/kosmetologicheskie-chistki",
+      "width": 1440,
+      "h1": "Косметологические чистки",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/laser-epilation",
+      "width": 1440,
+      "h1": "Лазерная эпиляция Pacer One Pro",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/lipolitiki",
+      "width": 1440,
+      "h1": "Липолитики",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/loyaltyprogram",
+      "width": 1440,
+      "h1": "Программа лояльности",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/maski",
+      "width": 1440,
+      "h1": "Маски",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/mezoterapiya-i-biorevitalizaciya",
+      "width": 1440,
+      "h1": "Мезотерапия и биоревитализация",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/microtoki",
+      "width": 1440,
+      "h1": "Sensitec — удаление новообразований",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/mikrotokovaya-terapiya",
+      "width": 1440,
+      "h1": "Микротоковая терапия",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/normativno-parvovye-dokumenty",
+      "width": 1440,
+      "h1": "Нормативно-правовые документы",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/otzyvy",
+      "width": 1440,
+      "h1": "Отзывынаших пациентов",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/pigment-lumec",
+      "width": 1440,
+      "h1": "Lumecca — фотоомоложение и коррекция пигментации",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/pladuo",
+      "width": 1440,
+      "h1": "Pladuo — плазменные процедуры для кожи",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/plazmoterapiya-plazmolifting",
+      "width": 1440,
+      "h1": "Плазмотерапия (плазмолифтинг)",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/politika",
+      "width": 1440,
+      "h1": "Политика обработки персональных данных",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/polzovatelskoe-soglashenie",
+      "width": 1440,
+      "h1": "Пользовательское соглашение",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/poryadok-oplaty",
+      "width": 1440,
+      "h1": "Порядок оплаты услуг",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/profeccial",
+      "width": 1440,
+      "h1": "ProFacial — комплексный аппаратный уход",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/result",
+      "width": 1440,
+      "h1": "Результаты процедур:до и после",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/rf-lifting-inmode",
+      "width": 1440,
+      "h1": "Morpheus8 — микроигольчатый RF-лифтинг",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/soglashenie",
+      "width": 1440,
+      "h1": "Согласие на обработку персональных данных",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/spravka",
+      "width": 1440,
+      "h1": "Справка для налогового вычета",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/tesla-former",
+      "width": 1440,
+      "h1": "Tesla Former — аппаратная коррекция фигуры",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/uhodovye-procedury",
+      "width": 1440,
+      "h1": "Уходовые процедуры",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/uridicheskaya-informaciya",
+      "width": 1440,
+      "h1": "Организационные документы",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/uslugi-i-ceny",
+      "width": 1440,
+      "h1": "Услуги и цены",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/volnewmer",
+      "width": 1440,
+      "h1": "Volnewmer — монополярный RF-лифтинг",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/yuridicheskaya-informaciya",
+      "width": 1440,
+      "h1": "Юридическая информация",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/specialisty/bogatyreva",
+      "width": 1440,
+      "h1": "Богатырева Татьяна Геннадьевна",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/specialisty/botashev",
+      "width": 1440,
+      "h1": "Боташев Астемир Алексеевич",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/specialisty/gadzhieva",
+      "width": 1440,
+      "h1": "Гаджиева Пери Исамудиновна",
+      "overflow": false,
+      "hiddenText": 0
+    },
+    {
+      "path": "/specialisty/gataylina",
+      "width": 1440,
+      "h1": "Гатауллина Юлия Равилевна",
+      "overflow": false,
+      "hiddenText": 0
+    }
+  ],
+  "errors": []
+}

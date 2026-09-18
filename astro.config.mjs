@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config';
 const directusUrl = new URL(process.env.DIRECTUS_URL || 'http://127.0.0.1:8055');
 
 export default defineConfig({
-  site: 'https://www.peri-clinic.ru',
+  site: process.env.SITE_URL || 'https://www.peri-clinic.ru',
   trailingSlash: 'never',
   build: { format: 'file', inlineStylesheets: 'always' },
   image: {

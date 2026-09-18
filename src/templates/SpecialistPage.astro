@@ -1,4 +1,5 @@
 ---
+import JsonLd from '../components/seo/JsonLd.astro';
 import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import Lightbox from '../components/gallery/Lightbox.astro';
@@ -8,7 +9,8 @@ interface Props { person: Specialist }
 const { person } = Astro.props;
 const team = (await getSpecialists()).map(p => ({ id:p.id, full:p.full, title:`${p.title} · ${p.role}`, alt:p.alt }));
 ---
-<Page title={person.seoTitle || `${person.title} — PERI CLINIC`} description={person.seoDescription || `${person.title}, ${person.role}. PERI CLINIC.`} noindex={person.demo}>
+<Page title={person.seoTitle || `${person.title} — PERI CLINIC`} description={person.seoDescription || `${person.title}, ${person.role}. PERI CLINIC.`} noindex={person.demo} ogImage={person.full}>
+  <JsonLd data={{ "@context": "https://schema.org", "@type": "Person", name: person.title, jobTitle: person.role, url: new URL(`/specialisty/${person.slug}`, Astro.site).href, image: new URL(person.full, Astro.site).href, worksFor: { "@id": `${Astro.site!.href}#clinic` } }} />
   <Breadcrumbs items={[{name:'Специалисты',href:'/#approach-team'}, {name:person.title,href:`/specialisty/${person.slug}`}]} />
   <article class="specialist-page">
     <a class="back" href="/#approach-team">← К команде клиники</a>

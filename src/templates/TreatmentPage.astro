@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import JsonLd from '../components/seo/JsonLd.astro';
 import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import Faq from '../components/faq/Faq.astro';
@@ -28,6 +29,7 @@ const facts = [
 ].filter(Boolean) as Array<{ label: string; value: string }>;
 ---
 <Page title={p.seo_title || `${p.title} — PERI CLINIC`} description={p.seo_description || p.summary || p.lead || ''}>
+  <JsonLd data={{ '@context': 'https://schema.org', '@type': 'Service', name: p.title, description: p.summary || p.lead || undefined, url: new URL(`/${p.slug}`, Astro.site).href, provider: { '@id': `${Astro.site!.href}#clinic` }, areaServed: site.city, serviceType: p.category?.title.replace(/\n/g, ' ') }} />
   <Breadcrumbs slot="head" items={[...(p.category ? [{ name: p.category.title, href: `/${p.category.slug}` }] : []), { name: p.title, href: `/${p.slug}` }]} />
   <section class="treatment-hero" aria-labelledby="treatment-title">
     <div class="treatment-hero__content">

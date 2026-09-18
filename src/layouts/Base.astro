@@ -1,13 +1,15 @@
 ---
 import '../styles/tokens.css';
 import '../styles/base.css';
+import { getImage } from 'astro:assets';
+import logo from '../assets/home/logo.png';
 import { ClientRouter } from 'astro:transitions';
 import ContactSheet from '../components/shell/ContactSheet.astro';
 import CookieNotice from '../components/shell/CookieNotice.astro';
 import Metrika from '../components/shell/Metrika.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import { getSiteSettings } from '../lib/siteContent';
-import { canonicalPath, medicalClinicJsonLd } from '../lib/seo';
+import { canonicalPath, medicalClinicJsonLd, seoText, webPageJsonLd } from '../lib/seo';
 
 interface Props {
   title: string;
@@ -15,11 +17,14 @@ interface Props {
   ogImage?: string;
   noindex?: boolean;
 }
-const { title, description, ogImage, noindex = false } = Astro.props;
+const { ogImage, noindex = false } = Astro.props;
+const title = seoText(Astro.props.title);
+const description = seoText(Astro.props.description);
 const site = await getSiteSettings();
 const canonical = new URL(canonicalPath(Astro.url.pathname), Astro.site);
-const og = ogImage ?? new URL('/og-default.jpg', Astro.site).href;
-const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL('/favicon.svg', Astro.site).href);
+const logoImage = await getImage({ src: logo, format: 'png', width: 600 });
+const og = new URL(ogImage || logoImage.src, Astro.site).href;
+const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL(logoImage.src, Astro.site).href);
 ---
 
 <!doctype html>
@@ -30,7 +35,7 @@ const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL('/favic
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large"} />
     {site.yandex_verification && <meta name="yandex-verification" content={site.yandex_verification} />}
     <meta name="theme-color" content="#f6f4ef" />
     <meta property="og:type" content="website" />
@@ -39,12 +44,18 @@ const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL('/favic
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={og} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={og} />
     <meta property="og:locale" content="ru_RU" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/golos-text.woff2" as="font" type="font/woff2" crossorigin />
     <slot name="head" />
     <JsonLd data={clinicJsonLd} />
+    <JsonLd data={{ '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${Astro.site!.href}#website`, url: Astro.site!.href, name: site.name, inLanguage: 'ru-RU', publisher: { '@id': `${Astro.site!.href}#clinic` } }} />
+    <JsonLd data={webPageJsonLd(canonical.href, title, description, Astro.site!.href)} />
     {/* Client-side navigation with the default 180ms crossfade; Astro disables it under
         prefers-reduced-motion. Header, contact sheet and cookie notice carry transition:persist
         on their root elements (the directive is not forwarded from a component tag), so their

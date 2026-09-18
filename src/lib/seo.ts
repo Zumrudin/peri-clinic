@@ -6,21 +6,29 @@ interface SiteForSchema {
   email?: string | null;
   address_short?: string | null;
   hours?: string | null;
+  city?: string;
+  map_link?: string;
+  vk_url?: string;
+  telegram_url?: string;
 }
 
 export function medicalClinicJsonLd(site: SiteForSchema, url: string, logoUrl: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'MedicalClinic',
+    '@id': `${url}#clinic`,
     name: site.name,
     url,
     telephone: site.phone,
     email: site.email || undefined,
     image: logoUrl,
     address: site.address_short
-      ? { '@type': 'PostalAddress', streetAddress: site.address_short, addressCountry: 'RU' }
+      ? { '@type': 'PostalAddress', streetAddress: site.address_short, addressLocality: site.city || undefined, addressCountry: 'RU' }
       : undefined,
-    openingHours: site.hours || undefined,
+    // Schema openingHours requires day codes, not the human-readable Russian label.
+    openingHours: site.hours?.match(/ежедневно/i) ? `Mo-Su ${site.hours.match(/\d{2}:\d{2}/g)?.join('-') || ''}`.trim() : undefined,
+    hasMap: site.map_link || undefined,
+    sameAs: [site.vk_url, site.telegram_url].filter(Boolean),
     medicalSpecialty: 'Dermatology',
   };
 }
@@ -61,4 +69,19 @@ export function canonicalPath(pathname: string): string {
   let path = pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
   if (path.length > 1) path = path.replace(/\/+$/, '');
   return path.startsWith('/') ? path : `/${path}`;
+}
+
+/** CMS rich text is not HTML in a meta attribute. Preserve words, remove editor markup. */
+export function seoText(value: string): string {
+  return value.replace(/<[^>]*>/g, ' ').replace(/&nbsp;|&#160;/g, ' ')
+    .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+    .replace(/_([^_]+)_/g, '$1').replace(/\s+/g, ' ').trim();
+}
+
+export function webPageJsonLd(url: string, title: string, description: string, origin: string) {
+  return {
+    '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${url}#webpage`,
+    url, name: title, description, inLanguage: 'ru-RU',
+    isPartOf: { '@id': `${origin}#website` }, about: { '@id': `${origin}#clinic` },
+  };
 }

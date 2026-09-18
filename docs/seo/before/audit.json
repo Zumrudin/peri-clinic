@@ -1,0 +1,1383 @@
+{
+  "pages": [
+    {
+      "path": "/404",
+      "title": "Страница не найдена — PERI CLINIC",
+      "description": "Запрошенная страница не найдена.",
+      "h1": "Такой страницыне существует",
+      "canonical": "https://www.peri-clinic.ru/404",
+      "noindex": true,
+      "words": 19,
+      "images": 2,
+      "links": [
+        "/404",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/apparaty",
+      "title": "Аппараты клиники — PERI CLINIC",
+      "description": "Аппараты PERI CLINIC: описание оборудования и процедур. Выберите аппарат или обратитесь за консультацией.",
+      "h1": "Аппараты клиники",
+      "canonical": "https://www.peri-clinic.ru/apparaty",
+      "noindex": false,
+      "words": 61,
+      "images": 10,
+      "links": [
+        "/apparaty",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/rf-lifting-inmode",
+        "/volnewmer",
+        "/pigment-lumec",
+        "/profeccial",
+        "/beautylizer",
+        "/laser-epilation",
+        "/heleo",
+        "/pladuo",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/beautylizer",
+      "title": "Beautylizer — RSL-массаж тела — PERI CLINIC",
+      "description": "Beautylizer — аппаратный RSL-массаж для работы с внешним видом кожи, отёчностью и контурами тела.",
+      "h1": "Beautylizer — RSL-массаж тела",
+      "canonical": "https://www.peri-clinic.ru/beautylizer",
+      "noindex": false,
+      "words": 417,
+      "images": 4,
+      "links": [
+        "/beautylizer",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/botullinoterapiya",
+      "title": "Ботулинотерапия — PERI CLINIC",
+      "description": "Ботулинотерапия — инъекционная процедура для уменьшения выраженности мимических морщин за счёт временного снижения активности выбранных мышц.",
+      "h1": "Ботулинотерапия",
+      "canonical": "https://www.peri-clinic.ru/botullinoterapiya",
+      "noindex": false,
+      "words": 476,
+      "images": 5,
+      "links": [
+        "/botullinoterapiya",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/droppers",
+      "title": "Капельницы (IV-терапия) — PERI CLINIC",
+      "description": "IV-терапия — внутривенное введение назначенных врачом растворов; состав и необходимость процедуры определяются индивидуально.",
+      "h1": "Капельницы (IV-терапия)",
+      "canonical": "https://www.peri-clinic.ru/droppers",
+      "noindex": false,
+      "words": 370,
+      "images": 2,
+      "links": [
+        "/droppers",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/esteticheskaya-kosmetologiya",
+      "title": "Эстетическая косметология — PERI CLINIC",
+      "description": "Профессиональные уходы, пилинги и маски для лица. Программу подбирают по состоянию кожи, её чувствительности и вашим пожеланиям.",
+      "h1": "Эстетическаякосметология",
+      "canonical": "https://www.peri-clinic.ru/esteticheskaya-kosmetologiya",
+      "noindex": false,
+      "words": 26,
+      "images": 5,
+      "links": [
+        "/esteticheskaya-kosmetologiya",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/kosemotologicheskie-pilingi",
+        "/uhodovye-procedury",
+        "/maski",
+        "/kosmetologicheskie-chistki",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/heleo",
+      "title": "HELEO4 — фотодинамическая терапия — PERI CLINIC",
+      "description": "HELEO4 — световые процедуры, которые используют в программах улучшения качества кожи и восстановления после косметологических воздействий.",
+      "h1": "HELEO4 — фотодинамическая терапия",
+      "canonical": "https://www.peri-clinic.ru/heleo",
+      "noindex": false,
+      "words": 492,
+      "images": 4,
+      "links": [
+        "/heleo",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/",
+      "title": "PERI CLINIC — клиника эстетической медицины в Москве",
+      "description": "PERI CLINIC — клиника эстетической медицины в Москве. Аппаратная, инъекционная и эстетическая косметология. Забота о естественной красоте и здоровье кожи.",
+      "h1": "Начнём с заботы о вас",
+      "canonical": "https://www.peri-clinic.ru/",
+      "noindex": false,
+      "words": 296,
+      "images": 28,
+      "links": [
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/specialisty/gadzhieva",
+        "/specialisty/gataylina",
+        "/specialisty/botashev",
+        "/specialisty/bogatyreva",
+        "/yuridicheskaya-informaciya",
+        "/rf-lifting-inmode",
+        "/volnewmer",
+        "/pigment-lumec",
+        "/profeccial",
+        "/beautylizer",
+        "/laser-epilation",
+        "/heleo",
+        "/pladuo",
+        "/spravka",
+        "/loyaltyprogram",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/injekcionnaya-cosmetologiya",
+      "title": "Инъекционная косметология — PERI CLINIC",
+      "description": "Контурная пластика, ботулинотерапия, биоревитализация и другие инъекционные процедуры. Метод и препарат врач подбирает на консультации с учётом вашей задачи и показаний.",
+      "h1": "Инъекционнаякосметология",
+      "canonical": "https://www.peri-clinic.ru/injekcionnaya-cosmetologiya",
+      "noindex": false,
+      "words": 31,
+      "images": 8,
+      "links": [
+        "/injekcionnaya-cosmetologiya",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/mezoterapiya-i-biorevitalizaciya",
+        "/konturnaya-plastika",
+        "/botullinoterapiya",
+        "/plazmoterapiya-plazmolifting",
+        "/lipolitiki",
+        "/droppers",
+        "/apparaty",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/kontakty-organov",
+      "title": "Контакты контролирующих органов — PERI CLINIC",
+      "description": "Органы исполнительной власти в сфере охраны здоровья граждан и защиты прав потребителей.",
+      "h1": "Контакты контролирующих органов",
+      "canonical": "https://www.peri-clinic.ru/kontakty-organov",
+      "noindex": false,
+      "words": 67,
+      "images": 2,
+      "links": [
+        "/kontakty-organov",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/uridicheskaya-informaciya",
+        "/normativno-parvovye-dokumenty",
+        "/poryadok-oplaty",
+        "/politika",
+        "/soglashenie",
+        "/polzovatelskoe-soglashenie",
+        "/yuridicheskaya-informaciya",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram"
+      ]
+    },
+    {
+      "path": "/kontakty",
+      "title": "Контакты — PERI CLINIC",
+      "description": "PERI CLINIC — Москва, ул. Генерала Белова, 28, корпус 3. Ежедневно, 10:00–22:00. Телефон +7 925 017-77-78.",
+      "h1": "Будем радывидеть вас",
+      "canonical": "https://www.peri-clinic.ru/kontakty",
+      "noindex": false,
+      "words": 23,
+      "images": 2,
+      "links": [
+        "/kontakty",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/konturnaya-plastika",
+      "title": "Контурная пластика — PERI CLINIC",
+      "description": "Контурная пластика — инъекционная коррекция формы и объёма отдельных зон лица с учётом естественных пропорций.",
+      "h1": "Контурная пластика",
+      "canonical": "https://www.peri-clinic.ru/konturnaya-plastika",
+      "noindex": false,
+      "words": 698,
+      "images": 14,
+      "links": [
+        "/konturnaya-plastika",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/kosemotologicheskie-pilingi",
+      "title": "Косметологические пилинги — PERI CLINIC",
+      "description": "Профессиональные пилинги для обновления поверхности кожи и работы с её тоном и текстурой; состав выбирают по индивидуальной задаче.",
+      "h1": "Косметологические пилинги",
+      "canonical": "https://www.peri-clinic.ru/kosemotologicheskie-pilingi",
+      "noindex": false,
+      "words": 341,
+      "images": 2,
+      "links": [
+        "/kosemotologicheskie-pilingi",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/kosmetologicheskie-chistki",
+      "title": "Косметологические чистки — PERI CLINIC",
+      "description": "Профессиональное очищение кожи с индивидуальным сочетанием атравматических, ультразвуковых и механических этапов.",
+      "h1": "Косметологические чистки",
+      "canonical": "https://www.peri-clinic.ru/kosmetologicheskie-chistki",
+      "noindex": false,
+      "words": 325,
+      "images": 2,
+      "links": [
+        "/kosmetologicheskie-chistki",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/laser-epilation",
+      "title": "Лазерная эпиляция Pacer One Pro — PERI CLINIC",
+      "description": "Лазерная эпиляция Pacer One Pro — курсовая процедура для уменьшения роста нежелательных волос на выбранных участках лица и тела.",
+      "h1": "Лазерная эпиляция Pacer One Pro",
+      "canonical": "https://www.peri-clinic.ru/laser-epilation",
+      "noindex": false,
+      "words": 484,
+      "images": 2,
+      "links": [
+        "/laser-epilation",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/lipolitiki",
+      "title": "Липолитики — PERI CLINIC",
+      "description": "Инъекционные программы коррекции локальных жировых отложений: препарат и допустимую зону выбирает врач после осмотра.",
+      "h1": "Липолитики",
+      "canonical": "https://www.peri-clinic.ru/lipolitiki",
+      "noindex": false,
+      "words": 349,
+      "images": 2,
+      "links": [
+        "/lipolitiki",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/loyaltyprogram",
+      "title": "Программа лояльности — 500 баллов за регистрацию | PERI CLINIC",
+      "description": "Получите 500 приветственных баллов. Накапливайте кэшбэк 5%, 7% или 10% и оплачивайте бонусами до 10% стоимости услуг PERI CLINIC.",
+      "h1": "Программа лояльности",
+      "canonical": "https://www.peri-clinic.ru/loyaltyprogram",
+      "noindex": false,
+      "words": 275,
+      "images": 2,
+      "links": [
+        "/loyaltyprogram",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/maski",
+      "title": "Маски — PERI CLINIC",
+      "description": "Профессиональные маски по состоянию кожи — самостоятельный уходовый этап или часть комплексной процедуры.",
+      "h1": "Маски",
+      "canonical": "https://www.peri-clinic.ru/maski",
+      "noindex": false,
+      "words": 338,
+      "images": 2,
+      "links": [
+        "/maski",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/mezoterapiya-i-biorevitalizaciya",
+      "title": "Мезотерапия и биоревитализация — PERI CLINIC",
+      "description": "Инъекционные процедуры для работы с увлажнённостью и качеством кожи; препарат и схема подбираются по результатам консультации.",
+      "h1": "Мезотерапия и биоревитализация",
+      "canonical": "https://www.peri-clinic.ru/mezoterapiya-i-biorevitalizaciya",
+      "noindex": false,
+      "words": 647,
+      "images": 4,
+      "links": [
+        "/mezoterapiya-i-biorevitalizaciya",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/microtoki",
+      "title": "Sensitec — удаление новообразований — PERI CLINIC",
+      "description": "Удаление новообразований на Sensitec — точечная аппаратная процедура после осмотра кожи врачом.",
+      "h1": "Sensitec — удаление новообразований",
+      "canonical": "https://www.peri-clinic.ru/microtoki",
+      "noindex": false,
+      "words": 292,
+      "images": 2,
+      "links": [
+        "/microtoki",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/mikrotokovaya-terapiya",
+      "title": "Микротоковая терапия — PERI CLINIC",
+      "description": "Микротоковая терапия — неинвазивная уходовая процедура с применением слабых электрических импульсов.",
+      "h1": "Микротоковая терапия",
+      "canonical": "https://www.peri-clinic.ru/mikrotokovaya-terapiya",
+      "noindex": false,
+      "words": 380,
+      "images": 2,
+      "links": [
+        "/mikrotokovaya-terapiya",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/normativno-parvovye-dokumenty",
+      "title": "Нормативно-правовые документы — PERI CLINIC",
+      "description": "Перечень нормативных документов, размещённых клиникой.",
+      "h1": "Нормативно-правовые документы",
+      "canonical": "https://www.peri-clinic.ru/normativno-parvovye-dokumenty",
+      "noindex": false,
+      "words": 96,
+      "images": 2,
+      "links": [
+        "/normativno-parvovye-dokumenty",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/uridicheskaya-informaciya",
+        "/kontakty-organov",
+        "/poryadok-oplaty",
+        "/politika",
+        "/soglashenie",
+        "/polzovatelskoe-soglashenie",
+        "/yuridicheskaya-informaciya",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram"
+      ]
+    },
+    {
+      "path": "/otzyvy",
+      "title": "Отзывы пациентов — PERI CLINIC",
+      "description": "Отзывы пациентов клиники эстетической медицины PERI CLINIC о процедурах, враче и сервисе.",
+      "h1": "Доверие,которое для нас бесценно",
+      "canonical": "https://www.peri-clinic.ru/otzyvy",
+      "noindex": false,
+      "words": 64,
+      "images": 2,
+      "links": [
+        "/otzyvy",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/pigment-lumec",
+      "title": "Lumecca — фотоомоложение и коррекция пигментации — PERI CLINIC",
+      "description": "Lumecca — процедура на основе интенсивного импульсного света для коррекции пигментных пятен, видимых сосудов и неоднородного тона кожи.",
+      "h1": "Lumecca — фотоомоложение и коррекция пигментации",
+      "canonical": "https://www.peri-clinic.ru/pigment-lumec",
+      "noindex": false,
+      "words": 467,
+      "images": 6,
+      "links": [
+        "/pigment-lumec",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/pladuo",
+      "title": "Pladuo — плазменная терапия в Москве | PERI CLINIC",
+      "description": "Pladuo — аппаратная процедура с использованием аргоновой или азотной плазмы; режим выбирают по состоянию кожи и задаче коррекции.",
+      "h1": "Pladuo — плазменные процедуры для кожи",
+      "canonical": "https://www.peri-clinic.ru/pladuo",
+      "noindex": false,
+      "words": 1082,
+      "images": 6,
+      "links": [
+        "/pladuo",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/plazmoterapiya-plazmolifting",
+      "title": "Плазмотерапия (плазмолифтинг) — PERI CLINIC",
+      "description": "Плазмотерапия — инъекционная процедура с использованием плазмы собственной крови пациента в программах улучшения качества кожи.",
+      "h1": "Плазмотерапия (плазмолифтинг)",
+      "canonical": "https://www.peri-clinic.ru/plazmoterapiya-plazmolifting",
+      "noindex": false,
+      "words": 371,
+      "images": 2,
+      "links": [
+        "/plazmoterapiya-plazmolifting",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/politika",
+      "title": "Политика обработки персональных данных — PERI CLINIC",
+      "description": "Цели и порядок обработки персональных данных, их защита и права пользователей сайта.",
+      "h1": "Политика обработки персональных данных",
+      "canonical": "https://www.peri-clinic.ru/politika",
+      "noindex": false,
+      "words": 1045,
+      "images": 2,
+      "links": [
+        "/politika",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/uridicheskaya-informaciya",
+        "/normativno-parvovye-dokumenty",
+        "/kontakty-organov",
+        "/poryadok-oplaty",
+        "/soglashenie",
+        "/polzovatelskoe-soglashenie",
+        "/yuridicheskaya-informaciya",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram"
+      ]
+    },
+    {
+      "path": "/polzovatelskoe-soglashenie",
+      "title": "Пользовательское соглашение — PERI CLINIC",
+      "description": "Условия использования сайта PERI CLINIC, права и обязанности пользователей.",
+      "h1": "Пользовательское соглашение",
+      "canonical": "https://www.peri-clinic.ru/polzovatelskoe-soglashenie",
+      "noindex": false,
+      "words": 521,
+      "images": 2,
+      "links": [
+        "/polzovatelskoe-soglashenie",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/uridicheskaya-informaciya",
+        "/normativno-parvovye-dokumenty",
+        "/kontakty-organov",
+        "/poryadok-oplaty",
+        "/politika",
+        "/soglashenie",
+        "/yuridicheskaya-informaciya",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram"
+      ]
+    },
+    {
+      "path": "/poryadok-oplaty",
+      "title": "Порядок оплаты услуг — PERI CLINIC",
+      "description": "Способы и сроки оплаты, дополнительные услуги и расчёты при расторжении договора.",
+      "h1": "Порядок оплаты услуг",
+      "canonical": "https://www.peri-clinic.ru/poryadok-oplaty",
+      "noindex": false,
+      "words": 283,
+      "images": 2,
+      "links": [
+        "/poryadok-oplaty",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/uridicheskaya-informaciya",
+        "/normativno-parvovye-dokumenty",
+        "/kontakty-organov",
+        "/politika",
+        "/soglashenie",
+        "/polzovatelskoe-soglashenie",
+        "/yuridicheskaya-informaciya",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram"
+      ]
+    },
+    {
+      "path": "/profeccial",
+      "title": "ProFacial — комплексный аппаратный уход — PERI CLINIC",
+      "description": "ProFacial — комплексный аппаратный уход, объединяющий очищение, увлажняющий этап и дополнительные технологии для улучшения внешнего вида кожи.",
+      "h1": "ProFacial — комплексный аппаратный уход",
+      "canonical": "https://www.peri-clinic.ru/profeccial",
+      "noindex": false,
+      "words": 365,
+      "images": 2,
+      "links": [
+        "/profeccial",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/result",
+      "title": "Результаты до и после — PERI CLINIC",
+      "description": "Реальные результаты пациентов PERI CLINIC: аппаратная и инъекционная косметология, эстетические процедуры. Каждый результат индивидуален.",
+      "h1": "Результаты,которые говорят сами",
+      "canonical": "https://www.peri-clinic.ru/result",
+      "noindex": false,
+      "words": 620,
+      "images": 46,
+      "links": [
+        "/result",
+        "/",
+        "/uslugi-i-ceny",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/rf-lifting-inmode",
+      "title": "Morpheus8 — микроигольчатый RF-лифтинг — PERI CLINIC",
+      "description": "Morpheus8 — микроигольчатое радиочастотное воздействие для улучшения плотности и рельефа кожи лица и тела.",
+      "h1": "Morpheus8 — микроигольчатый RF-лифтинг",
+      "canonical": "https://www.peri-clinic.ru/rf-lifting-inmode",
+      "noindex": false,
+      "words": 510,
+      "images": 9,
+      "links": [
+        "/rf-lifting-inmode",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/soglashenie",
+      "title": "Согласие на обработку персональных данных — PERI CLINIC",
+      "description": "Условия согласия пользователя на обработку персональных данных и порядок его отзыва.",
+      "h1": "Согласие на обработку персональных данных",
+      "canonical": "https://www.peri-clinic.ru/soglashenie",
+      "noindex": false,
+      "words": 461,
+      "images": 2,
+      "links": [
+        "/soglashenie",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/uridicheskaya-informaciya",
+        "/normativno-parvovye-dokumenty",
+        "/kontakty-organov",
+        "/poryadok-oplaty",
+        "/politika",
+        "/polzovatelskoe-soglashenie",
+        "/yuridicheskaya-informaciya",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram"
+      ]
+    },
+    {
+      "path": "/spravka",
+      "title": "Справка для налогового вычета — PERI CLINIC",
+      "description": "",
+      "h1": "Справка для налогового вычета",
+      "canonical": "https://www.peri-clinic.ru/spravka",
+      "noindex": false,
+      "words": 106,
+      "images": 2,
+      "links": [
+        "/spravka",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/politika",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya"
+      ]
+    },
+    {
+      "path": "/tesla-former",
+      "title": "Tesla Former — аппаратная коррекция фигуры — PERI CLINIC",
+      "description": "Tesla Former — аппаратная процедура с функциональной магнитной стимуляцией мышц в программах коррекции фигуры.",
+      "h1": "Tesla Former — аппаратная коррекция фигуры",
+      "canonical": "https://www.peri-clinic.ru/tesla-former",
+      "noindex": false,
+      "words": 405,
+      "images": 5,
+      "links": [
+        "/tesla-former",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/uhodovye-procedury",
+      "title": "Уходовые процедуры — PERI CLINIC",
+      "description": "Индивидуальные программы профессионального ухода для увлажнения, комфорта и более свежего внешнего вида кожи.",
+      "h1": "Уходовые процедуры",
+      "canonical": "https://www.peri-clinic.ru/uhodovye-procedury",
+      "noindex": false,
+      "words": 346,
+      "images": 2,
+      "links": [
+        "/uhodovye-procedury",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/uridicheskaya-informaciya",
+      "title": "Организационные документы — PERI CLINIC",
+      "description": "Реквизиты ООО «Пери Клиник», сведения о руководителе и лицензия на медицинскую деятельность.",
+      "h1": "Организационные документы",
+      "canonical": "https://www.peri-clinic.ru/uridicheskaya-informaciya",
+      "noindex": false,
+      "words": 149,
+      "images": 2,
+      "links": [
+        "/uridicheskaya-informaciya",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/normativno-parvovye-dokumenty",
+        "/kontakty-organov",
+        "/poryadok-oplaty",
+        "/politika",
+        "/soglashenie",
+        "/polzovatelskoe-soglashenie",
+        "/yuridicheskaya-informaciya",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram"
+      ]
+    },
+    {
+      "path": "/uslugi-i-ceny",
+      "title": "Прайсы — PERI CLINIC",
+      "description": "Прайсы PERI CLINIC: стоимость косметологических процедур.",
+      "h1": "Прайс-лист",
+      "canonical": "https://www.peri-clinic.ru/uslugi-i-ceny",
+      "noindex": false,
+      "words": 1308,
+      "images": 2,
+      "links": [
+        "/uslugi-i-ceny",
+        "/",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/volnewmer",
+      "title": "Volnewmer — монополярный RF-лифтинг — PERI CLINIC",
+      "description": "Volnewmer — монополярный RF-лифтинг для работы с упругостью кожи и чёткостью контуров лица без микроигл.",
+      "h1": "Volnewmer — монополярный RF-лифтинг",
+      "canonical": "https://www.peri-clinic.ru/volnewmer",
+      "noindex": false,
+      "words": 622,
+      "images": 4,
+      "links": [
+        "/volnewmer",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/yuridicheskaya-informaciya",
+      "title": "Юридическая информация — PERI CLINIC",
+      "description": "Документы клиники, условия оказания услуг и информация о защите персональных данных.",
+      "h1": "Юридическая информация",
+      "canonical": "https://www.peri-clinic.ru/yuridicheskaya-informaciya",
+      "noindex": false,
+      "words": 97,
+      "images": 2,
+      "links": [
+        "/yuridicheskaya-informaciya",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/uridicheskaya-informaciya",
+        "/normativno-parvovye-dokumenty",
+        "/kontakty-organov",
+        "/poryadok-oplaty",
+        "/politika",
+        "/soglashenie",
+        "/polzovatelskoe-soglashenie",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram"
+      ]
+    },
+    {
+      "path": "/specialisty/bogatyreva",
+      "title": "Богатырева Татьяна Геннадьевна — PERI CLINIC",
+      "description": "Богатырева Татьяна Геннадьевна, Косметолог-эстетист. PERI CLINIC.",
+      "h1": "Богатырева Татьяна Геннадьевна",
+      "canonical": "https://www.peri-clinic.ru/specialisty/bogatyreva",
+      "noindex": false,
+      "words": 189,
+      "images": 4,
+      "links": [
+        "/specialisty/bogatyreva",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/specialisty/botashev",
+      "title": "Боташев Астемир Алексеевич — PERI CLINIC",
+      "description": "Демонстрационная страница специалиста",
+      "h1": "Боташев Астемир Алексеевич",
+      "canonical": "https://www.peri-clinic.ru/specialisty/botashev",
+      "noindex": false,
+      "words": 238,
+      "images": 7,
+      "links": [
+        "/specialisty/botashev",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/specialisty/gadzhieva",
+      "title": "Гаджиева Пери Исамудиновна — PERI CLINIC",
+      "description": "Демонстрационная страница специалиста",
+      "h1": "Гаджиева Пери Исамудиновна",
+      "canonical": "https://www.peri-clinic.ru/specialisty/gadzhieva",
+      "noindex": false,
+      "words": 83,
+      "images": 4,
+      "links": [
+        "/specialisty/gadzhieva",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    },
+    {
+      "path": "/specialisty/gataylina",
+      "title": "Гатауллина Юлия Равилевна — PERI CLINIC",
+      "description": "Демонстрационная страница специалиста",
+      "h1": "Гатауллина Юлия Равилевна",
+      "canonical": "https://www.peri-clinic.ru/specialisty/gataylina",
+      "noindex": false,
+      "words": 81,
+      "images": 4,
+      "links": [
+        "/specialisty/gataylina",
+        "/",
+        "/uslugi-i-ceny",
+        "/result",
+        "/otzyvy",
+        "/kontakty",
+        "/apparaty",
+        "/injekcionnaya-cosmetologiya",
+        "/esteticheskaya-kosmetologiya",
+        "/spravka",
+        "/loyaltyprogram",
+        "/yuridicheskaya-informaciya",
+        "/politika"
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "path": "/404",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/apparaty",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/beautylizer",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/botullinoterapiya",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/droppers",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/esteticheskaya-kosmetologiya",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/heleo",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/injekcionnaya-cosmetologiya",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/kontakty-organov",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/kontakty",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/konturnaya-plastika",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/kosemotologicheskie-pilingi",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/kosmetologicheskie-chistki",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/laser-epilation",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/lipolitiki",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/loyaltyprogram",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/maski",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/mezoterapiya-i-biorevitalizaciya",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/microtoki",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/mikrotokovaya-terapiya",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/normativno-parvovye-dokumenty",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/otzyvy",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/pigment-lumec",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/pladuo",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/plazmoterapiya-plazmolifting",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/politika",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/polzovatelskoe-soglashenie",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/poryadok-oplaty",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/profeccial",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/result",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/rf-lifting-inmode",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/soglashenie",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/spravka",
+      "issue": "Missing description"
+    },
+    {
+      "path": "/spravka",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/tesla-former",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/uhodovye-procedury",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/uridicheskaya-informaciya",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/uslugi-i-ceny",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/volnewmer",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/yuridicheskaya-informaciya",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/specialisty/bogatyreva",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/specialisty/botashev",
+      "issue": "Placeholder metadata"
+    },
+    {
+      "path": "/specialisty/botashev",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/specialisty/gadzhieva",
+      "issue": "Placeholder metadata"
+    },
+    {
+      "path": "/specialisty/gadzhieva",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/specialisty/gataylina",
+      "issue": "Placeholder metadata"
+    },
+    {
+      "path": "/specialisty/gataylina",
+      "issue": "Broken resource/link: https://www.peri-clinic.ru/og-default.jpg"
+    },
+    {
+      "path": "/specialisty/gadzhieva",
+      "issue": "Duplicate description: /specialisty/botashev"
+    },
+    {
+      "path": "/specialisty/gataylina",
+      "issue": "Duplicate description: /specialisty/gadzhieva"
+    },
+    {
+      "path": "/sitemap.xml",
+      "issue": "Duplicate URLs"
+    },
+    {
+      "path": "/microtoki",
+      "issue": "Unreachable from homepage links"
+    },
+    {
+      "path": "/mikrotokovaya-terapiya",
+      "issue": "Unreachable from homepage links"
+    },
+    {
+      "path": "/tesla-former",
+      "issue": "Unreachable from homepage links"
+    }
+  ],
+  "warnings": []
+}

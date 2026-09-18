@@ -3,12 +3,16 @@ import { Image } from 'astro:assets';
 import Page from '../layouts/Page.astro';
 import { getAllDevices } from '../lib/deviceContent';
 import { getHomeContent } from '../lib/homeContent';
+import { getAllProcedures } from '../lib/procedureContent';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import { em } from '../lib/markup';
 
 const [items, home] = await Promise.all([getAllDevices(), getHomeContent()]);
 const copy = home.devices;
+const procedures = (await getAllProcedures()).filter(p => ['apparaty', 'apparatnaya-kosmetologiya'].includes(p.data.category?.slug || ''));
 ---
 <Page title={copy.catalog_seo_title || copy.catalog_title} description={copy.catalog_seo_description}>
+  <Breadcrumbs slot="head" items={[{name: copy.catalog_title, href: "/apparaty"}]} />
   <section class="catalog" aria-labelledby="catalog-title">
     <p class="eyebrow">{copy.eyebrow}</p>
     <h1 id="catalog-title" set:html={em(copy.catalog_title)} />
@@ -21,7 +25,7 @@ const copy = home.devices;
             <div class="device-card__image">
               <span class="device-card__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
               {item.image ? (
-                <Image src={item.image.src} alt="" width={item.image.width} height={item.image.height} widths={[240, 480, 720]} sizes="(max-width: 800px) 44vw, 30vw" loading="lazy" />
+                <Image src={item.image.src} alt={item.name} width={item.image.width} height={item.image.height} widths={[240, 480, 720]} sizes="(max-width: 800px) 44vw, 30vw" loading="lazy" />
               ) : (
                 <span class="device-card__placeholder" aria-hidden="true">{item.name}</span>
               )}
@@ -36,6 +40,10 @@ const copy = home.devices;
         );
       })}
     </div>
+    <section class="catalog__procedures" aria-labelledby="device-procedures">
+      <h2 id="device-procedures">Процедуры аппаратной косметологии</h2>
+      <ul>{procedures.map(({data:p}) => <li><a href={`/${p.slug}`}>{p.title}</a>{p.summary && <p>{p.summary}</p>}</li>)}</ul>
+    </section>
     {copy.consultation_title && copy.consultation_label && <div class="catalog__consultation">
       <h2>{copy.consultation_title}</h2>
       <button class="button" type="button" data-open-sheet>{copy.consultation_label} <span aria-hidden="true">→</span></button>
@@ -43,6 +51,9 @@ const copy = home.devices;
   </section>
 </Page>
 <style>
+  .catalog__procedures { margin-top: 48px; }
+  .catalog__procedures li { margin-bottom: 20px; }
+  .catalog__procedures p { color: var(--muted); max-width: 75ch; line-height: 1.6; }
   .catalog { max-width: var(--container); margin: auto; padding: 64px var(--gutter); }
   h1 { font: 400 clamp(36px, 5vw, 64px)/1.1 var(--display); margin: 0 0 20px; }
   .catalog__lead { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 62ch; margin: 0 0 40px; }
@@ -86,7 +97,10 @@ const copy = home.devices;
   .catalog__consultation h2 { font: 400 30px/1.1 var(--display); margin: 0 0 16px; }
 
   @media (max-width: 800px) {
-    .catalog { padding: 36px 18px; }
+    .catalog__procedures { margin-top: 48px; }
+  .catalog__procedures li { margin-bottom: 20px; }
+  .catalog__procedures p { color: var(--muted); max-width: 75ch; line-height: 1.6; }
+  .catalog { padding: 36px 18px; }
     h1 { font-size: clamp(30px, 8.4vw, 40px); }
     .catalog__lead { font-size: 14px; margin-bottom: 24px; }
     .catalog__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }

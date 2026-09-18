@@ -225,6 +225,7 @@ const serviceCategories = defineCollection({
         fields: `id,sort,slug,title,short_title,tagline,description,intro_title,cover_alt,seo_title,seo_description,${fileFields('cover')}`,
         filter: JSON.stringify({ status: { _eq: 'published' } }),
         sort: 'sort',
+        limit: '-1',
       })}`,
     ),
   ),
@@ -295,6 +296,7 @@ const homeCases = defineCollection({
         fields: `id,sort,title,result,category.title,${fileFields('after')},${fileFields('combined')}`,
         filter: JSON.stringify({ status: { _eq: 'published' }, show_on_home: { _eq: true }, needs_review: { _eq: false } }),
         sort: 'sort',
+        limit: '-1',
       })}`,
     ),
   ),
@@ -316,6 +318,7 @@ const homeReviews = defineCollection({
         fields: 'id,sort,author_name,date,text,procedure_label',
         filter: JSON.stringify({ status: { _eq: 'published' }, show_on_home: { _eq: true } }),
         sort: 'sort',
+        limit: '-1',
       })}`,
     ),
   ),
@@ -368,6 +371,7 @@ const procedures = defineCollection({
         ].join(','),
         filter: JSON.stringify({ status: { _eq: 'published' } }),
         sort: 'sort',
+        limit: '-1',
       })}`,
     ),
   ),
@@ -406,6 +410,7 @@ const pages = defineCollection({
         fields: 'id,sort,slug,title,template,lead,body,noindex,seo_title,seo_description',
         filter: JSON.stringify({ status: { _eq: 'published' } }),
         sort: 'sort',
+        limit: '-1',
       })}`,
     ),
   ),
@@ -424,7 +429,7 @@ const pages = defineCollection({
 });
 
 const caseCategories = defineCollection({
-  loader: directusLoader('caseCategories', () => directusGet(`/items/case_categories${directusQuery({ fields: 'id,sort,slug,title', sort: 'sort' })}`)),
+  loader: directusLoader('caseCategories', () => directusGet(`/items/case_categories${directusQuery({ fields: 'id,sort,slug,title', sort: 'sort', limit: '-1' })}`)),
   schema: z.object({ id: z.number(), sort: z.number().nullable().optional(), slug: z.string(), title: z.string() }),
 });
 
@@ -436,6 +441,7 @@ const allCases = defineCollection({
         fields: `id,sort,title,result,category.slug,category.title,procedure.slug,${fileFields('before')},${fileFields('after')},${fileFields('combined')}`,
         filter: JSON.stringify({ status: { _eq: 'published' }, needs_review: { _eq: false } }),
         sort: 'sort',
+        limit: '-1',
       })}`,
     ),
   ),
@@ -460,6 +466,7 @@ const allFaq = defineCollection({
         fields: 'id,sort,question,answer,scope,procedure.slug',
         filter: JSON.stringify({ status: { _eq: 'published' } }),
         sort: 'sort',
+        limit: '-1',
       })}`,
     ),
   ),
@@ -505,6 +512,7 @@ const allReviews = defineCollection({
         fields: 'id,sort,author_name,date,rating,text,procedure_label,source,source_url',
         filter: JSON.stringify({ status: { _eq: 'published' } }),
         sort: 'sort',
+        limit: '-1',
       })}`,
     ),
   ),
@@ -529,7 +537,8 @@ const clinicAbout = defineCollection({
 });
 
 const aboutCollection = (name: string) => directusLoader(name, () => (import.meta.env.ABOUT_DEMO ?? process.env.ABOUT_DEMO) === 'true' ? Promise.resolve([]) : directusGet(`/items/${name}${directusQuery({
-  fields: '*,' + fileFields('image') + (name === 'specialists' ? ',media_items.*,media_items.image.id,media_items.image.width,media_items.image.height,media_items.video.id,media_items.video.type,media_items.video.filesize,media_items.video.modified_on,media_items.video.uploaded_on' : ''), filter: JSON.stringify({ status: { _eq: 'published' } }), sort: 'sort', limit: '-1',
+  fields: '*,' + fileFields('image') + (name === 'specialists' ? ',media_items.*,media_items.image.id,media_items.image.width,media_items.image.height,media_items.video.id,media_items.video.type,media_items.video.filesize,media_items.video.modified_on,media_items.video.uploaded_on' : ''), filter: JSON.stringify({ status: { _eq: 'published' } }), sort: 'sort',
+        limit: '-1',
 })}`));
 const clinicPhotos = defineCollection({ loader: aboutCollection('clinic_photos'), schema: z.object({
   is_demo: z.boolean().default(false),

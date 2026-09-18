@@ -9,14 +9,14 @@ const site = await getSiteSettings();
 const priceGroups = await getPriceListGrouped();
 ---
 
-<Page title="Прайсы — PERI CLINIC" description="Прайсы PERI CLINIC: стоимость косметологических процедур.">
+<Page title="Косметология в Москве: услуги и цены — PERI CLINIC" description="Услуги и цены PERI CLINIC в Москве: аппаратная, инъекционная и эстетическая косметология. Стоимость процедур по зонам и запись на консультацию.">
   <Breadcrumbs slot="head" items={[{ name: 'Прайсы', href: '/uslugi-i-ceny' }]} />
   {priceGroups.length > 0 && (
     <section class="section pricing" aria-labelledby="pricing-title">
       <div class="pricing__intro">
         <div>
           <p class="eyebrow">Услуги и стоимость</p>
-          <h1 id="pricing-title">Прайс-лист</h1>
+          <h1 id="pricing-title">Услуги и цены</h1>
         </div>
         <p class="pricing__hint">Выберите направление и процедуру,<br />чтобы посмотреть стоимость.</p>
       </div>

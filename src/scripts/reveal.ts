@@ -21,5 +21,13 @@ export function initReveal(): void {
     },
     { threshold: 0.12, rootMargin: '0px 0px -45px' },
   );
-  items.forEach((el) => observer.observe(el));
+  items.forEach((el) => {
+    // Content starts visible; animate only short blocks below the viewport.
+    // Long articles must not wait for a percentage of their height to intersect.
+    const rect = el.getBoundingClientRect();
+    if (rect.top >= window.innerHeight && rect.height < window.innerHeight) {
+      el.classList.add('reveal--pending');
+      observer.observe(el);
+    } else el.classList.add('is-visible');
+  });
 }
