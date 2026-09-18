@@ -71,7 +71,7 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
   }
   .price-table__icd {
     margin: 0 0 16px;
-    font-size: 12px;
+    font-size: 0.75rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--muted);
@@ -83,17 +83,17 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
   .price-table td {
     padding: 14px 0;
     border-bottom: 1px solid var(--line);
-    font-size: 14px;
+    font-size: 0.875rem;
     vertical-align: baseline;
   }
   .price-table__unit {
     color: var(--muted);
-    font-size: 12px;
+    font-size: 0.75rem;
   }
   .price-table__col-label {
     padding: 0 0 8px 20px;
     text-align: right;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 400;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -103,11 +103,11 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
     text-align: right;
     white-space: nowrap;
     padding-left: 20px;
-    font: 400 16px var(--display);
+    font: 400 1rem var(--display);
     color: var(--gold-deep);
   }
   .price-table__note {
-    font-size: 13px;
+    font-size: 0.8125rem;
     color: var(--muted);
   }
   .price-table__cta {
@@ -116,10 +116,10 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
     border: none;
     border-bottom: none;
     background: none;
-    font-size: 11px;
+    font-size: 0.6875rem;
   }
   .price-table__cta span {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
   @media (max-width: 600px) {
     .price-table--cards table, .price-table--cards tbody { display: block; }
@@ -127,7 +127,7 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
     .price-table--cards tr { display: grid; grid-template-columns: minmax(0, 1fr); padding: 20px 0; border-bottom: 1px solid var(--line); gap: 10px; }
     .price-table--cards td { display: block; padding: 0; border: 0; overflow-wrap: anywhere; }
     .price-table--cards .price-table__amount { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; white-space: normal; text-align: left; }
-    .price-table--cards .price-table__amount[data-label]::before { content: attr(data-label); font: 400 12px var(--sans); color: var(--muted); }
-    .price-table--cards .price-table__cta { min-height: 44px; font-size: 13px; }
+    .price-table--cards .price-table__amount[data-label]::before { content: attr(data-label); font: 400 0.75rem var(--sans); color: var(--muted); }
+    .price-table--cards .price-table__cta { min-height: 44px; font-size: 0.8125rem; }
   }
 </style>

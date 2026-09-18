@@ -60,8 +60,26 @@ const site = await getSiteSettings();
     height: var(--header-h-sticky);
     position: fixed;
     inset: 0 0 auto;
+    /* Floating chrome separates from content with a soft shadow, not a hairline. */
+    border-bottom-color: transparent;
     box-shadow: 0 8px 30px rgba(170, 137, 47, 0.08);
     animation: headerIn 0.3s var(--ease-out) both;
+  }
+  /* Exit mirrors the entry (header.ts adds `is-leaving`, drops both classes on animationend). */
+  .header.is-sticky.is-leaving {
+    animation: headerOut 0.25s var(--ease-out) both;
+  }
+  @keyframes headerOut {
+    to {
+      transform: translateY(-100%);
+    }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .header {
+      background: var(--ivory);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
   }
   :global(.header.is-sticky + main) {
     padding-top: var(--header-h);
@@ -95,29 +113,32 @@ const site = await getSiteSettings();
   .nav > a {
     position: relative;
     padding: 8px 0;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.035em;
   }
+  /* Underline grows on the compositor (scaleX), not by animating a layout property. */
   .nav > a::after {
     content: '';
     position: absolute;
     left: 0;
-    right: 100%;
+    right: 0;
     bottom: 2px;
     height: 1px;
     background: var(--gold);
-    transition: right var(--dur-fast);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-fast) var(--ease-out);
   }
   .nav > a:hover::after {
-    right: 0;
+    transform: scaleX(1);
   }
   .nav__mobile-extra {
     display: none;
   }
   .header-phone {
     font-family: var(--display);
-    font-size: 17px;
+    font-size: 1.0625rem;
     white-space: nowrap;
   }
   .menu-toggle {
@@ -206,7 +227,7 @@ const site = await getSiteSettings();
         visibility 0s;
     }
     .nav > a {
-      font: 400 33px/1.2 var(--display);
+      font: 400 2.0625rem/1.2 var(--display);
       letter-spacing: 0;
       padding: 15px 0;
       border-bottom: 1px solid var(--line);
@@ -226,7 +247,7 @@ const site = await getSiteSettings();
       padding-top: 30px;
     }
     .nav__phone {
-      font: 400 26px var(--display);
+      font: 400 1.625rem var(--display);
     }
     .nav__mobile-extra .button {
       width: 100%;

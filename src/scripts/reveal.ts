@@ -19,7 +19,9 @@ export function initReveal(): void {
         obs.unobserve(el);
       }
     },
-    { threshold: 0.12, rootMargin: '0px 0px -45px' },
+    // Reveal as soon as the first 40px of a block are in view: a percentage threshold made
+    // tall sections wait (and show blank space) while the user was already looking at them.
+    { threshold: 0, rootMargin: '0px 0px -40px' },
   );
   items.forEach((el) => {
     // Content starts visible; animate only short blocks below the viewport.

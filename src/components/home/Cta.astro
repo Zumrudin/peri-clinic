@@ -54,11 +54,11 @@ const quick = [
   .booking__image :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.75); }
   .booking__content { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; min-width: 0; padding: clamp(32px, 4vw, 64px); background: var(--sand); border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
   .booking__content h2 :global(em) { color: var(--gold-deep); font-style: italic; }
-  .booking__lead { color: var(--ink-2); font-size: 16px; line-height: 1.6; margin: 24px 0; max-width: 60ch; }
+  .booking__lead { color: var(--ink-2); font-size: 1rem; line-height: 1.6; margin: 24px 0; max-width: 60ch; }
   .booking__quick { list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
-  .booking__quick a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 500; color: var(--gold-deep); }
+  .booking__quick a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 0.875rem; font-weight: 500; color: var(--gold-deep); }
   .booking__quick a:hover { border-color: var(--gold-deep); }
-  .booking__hours { margin: 24px 0 0; color: var(--ink-2); font-size: 14px; line-height: 1.6; }
+  .booking__hours { margin: 24px 0 0; color: var(--ink-2); font-size: 0.875rem; line-height: 1.6; }
   @media (max-width: 1000px) { .booking { grid-template-columns: minmax(0, 1fr); } .booking__image { min-height: 0; height: 300px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; } .booking__content { border-radius: 0 0 var(--radius-lg) var(--radius-lg); } }
   @media (max-width: 600px) { .booking__image { height: 240px; } .booking__content { padding: 24px; } .booking__content .button { width: 100%; } }
 </style>

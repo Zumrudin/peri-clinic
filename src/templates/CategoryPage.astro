@@ -54,7 +54,7 @@ const copy = home.devices;
 <style>
   .catalog { max-width: var(--container); margin: auto; padding: 64px var(--gutter); }
   h1 { font: 400 clamp(36px, 5vw, 64px)/1.1 var(--display); margin: 0 0 20px; }
-  .catalog__lead { color: var(--muted); font-size: 15px; line-height: 1.7; max-width: 62ch; margin: 0 0 40px; }
+  .catalog__lead { color: var(--muted); font-size: 0.9375rem; line-height: 1.7; max-width: 62ch; margin: 0 0 40px; }
   .catalog__lead :global(> :first-child) { margin-top: 0; }
   .catalog__lead :global(> :last-child) { margin-bottom: 0; }
   .catalog__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
@@ -74,12 +74,12 @@ const copy = home.devices;
 
   .service-card__image { position: relative; height: 300px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--paper); border-bottom: 1px solid var(--line-gold); }
   .service-card__image :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .service-card__placeholder { font: 400 16px var(--display); color: var(--gold-deep); padding: 16px; text-align: center; letter-spacing: 0.16em; }
-  .service-card__index { position: absolute; top: 16px; left: 18px; z-index: 1; padding: 4px 7px; border-radius: 4px; background: var(--paper); font-size: 11px; color: var(--gold-deep); }
+  .service-card__placeholder { font: 400 1rem var(--display); color: var(--gold-deep); padding: 16px; text-align: center; letter-spacing: 0.16em; }
+  .service-card__index { position: absolute; top: 16px; left: 18px; z-index: 1; padding: 4px 7px; border-radius: 4px; background: var(--paper); font-size: 0.6875rem; color: var(--gold-deep); }
 
   .service-card__body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
-  .service-card h2 { font: 400 24px var(--display); margin: 0 0 10px; overflow-wrap: anywhere; }
-  .service-card__desc { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 0 0 14px; }
+  .service-card h2 { font: 400 1.5rem var(--display); margin: 0 0 10px; overflow-wrap: anywhere; }
+  .service-card__desc { color: var(--muted); font-size: 0.8125rem; line-height: 1.5; margin: 0 0 14px; }
   .service-card__arrow {
     align-self: flex-end;
     margin-top: auto;
@@ -90,25 +90,25 @@ const copy = home.devices;
     border-radius: 50%;
     background: var(--gold-deep);
     color: #fff;
-    font-size: 22px;
+    font-size: 1.375rem;
   }
 
   .catalog__consultation { padding: 32px; margin-top: 32px; border-radius: var(--radius-lg); background: var(--sand); text-align: center; }
-  .catalog__consultation h2 { font: 400 30px/1.1 var(--display); margin: 0 0 16px; }
+  .catalog__consultation h2 { font: 400 1.875rem/1.1 var(--display); margin: 0 0 16px; }
 
   @media (max-width: 800px) {
     .catalog { padding: 36px 18px; }
-    h1 { font-size: clamp(30px, 8.4vw, 40px); }
-    .catalog__lead { font-size: 14px; margin-bottom: 24px; }
+    h1 { font-size: clamp(1.875rem, 8.4vw, 2.5rem); }
+    .catalog__lead { font-size: 0.875rem; margin-bottom: 24px; }
     .catalog__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .service-card__image { height: clamp(145px, 42vw, 220px); }
     .service-card__index { top: 10px; left: 12px; }
     .service-card__body { padding: 14px; }
-    .service-card h2 { font-size: clamp(16px, 4.5vw, 22px); }
-    .service-card__desc { font-size: 13px; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
-    .service-card__arrow { width: 34px; height: 34px; font-size: 19px; }
+    .service-card h2 { font-size: clamp(1rem, 4.5vw, 1.375rem); }
+    .service-card__desc { font-size: 0.8125rem; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+    .service-card__arrow { width: 34px; height: 34px; font-size: 1.1875rem; }
     .catalog__consultation { padding: 20px; }
-    .catalog__consultation h2 { font-size: 24px; }
+    .catalog__consultation h2 { font-size: 1.5rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     /* keep the colour/shadow change, drop the lift */

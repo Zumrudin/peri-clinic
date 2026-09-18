@@ -55,11 +55,14 @@ const { devices } = home;
 <style>
   .equipment { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 32px 48px; }
   .equipment__intro { min-width: 0; }
-  .equipment__lead { color: var(--ink-2); font-size: 16px; line-height: 1.6; margin: 16px 0 24px; }
+  .equipment__lead { color: var(--ink-2); font-size: 1rem; line-height: 1.6; margin: 16px 0 24px; }
   .slider-controls { display: flex; gap: 8px; }
   .equipment__rail { min-width: 0; gap: 24px; }
   .machine-card { flex: 0 0 46%; min-width: 0; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); background: var(--sand); }
   .machine-card:nth-child(2n) { background: var(--home-surface-cool); }
+  /* Linked cards answer the press itself; articles without a link stay still. */
+  a.machine-card { transition: transform var(--dur-press) var(--ease-out); }
+  a.machine-card:active { transform: scale(0.985); }
   .machine-card :global(img) { width: 100%; height: clamp(240px, 25vw, 340px); padding: 20px; object-fit: contain; mix-blend-mode: multiply; transition: transform var(--dur-slow) var(--ease-out); }
   /* Same hover zoom as the home service cards (Categories.astro). */
   @media (hover: hover) and (pointer: fine) {
@@ -68,15 +71,15 @@ const { devices } = home;
   @media (prefers-reduced-motion: reduce) {
     .machine-card:hover :global(img) { transform: none; }
   }
-  .machine-card__placeholder { height: 280px; display: grid; place-items: center; font: 24px var(--display); }
+  .machine-card__placeholder { height: 280px; display: grid; place-items: center; font: 1.5rem var(--display); }
   .machine-card__body { flex: 1; display: flex; flex-direction: column; padding: 20px; }
   .machine-card h3 { font: 400 var(--home-card-title)/1.12 var(--display); margin: 0 0 8px; }
-  .machine-card p { color: var(--ink-2); font-size: 14px; line-height: 1.5; margin: 0 0 20px; }
-  .machine-card__arrow { display: grid; place-items: center; align-self: flex-end; width: 48px; height: 48px; margin-top: auto; background: var(--gold-deep); color: white; border-radius: 50%; font-size: 24px; }
+  .machine-card p { color: var(--ink-2); font-size: 0.875rem; line-height: 1.5; margin: 0 0 20px; }
+  .machine-card__arrow { display: grid; place-items: center; align-self: flex-end; width: 48px; height: 48px; margin-top: auto; background: var(--gold-deep); color: white; border-radius: 50%; font-size: 1.5rem; }
   .machine-card:hover .machine-card__arrow { background: var(--gold-hover); }
   .equipment__mobile-actions { grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
   .equipment__consultation { flex: 1 1 260px; }
-  .equipment__consultation h3 { font: 400 24px/1.2 var(--display); margin: 0 0 4px; }
+  .equipment__consultation h3 { font: 400 1.5rem/1.2 var(--display); margin: 0 0 4px; }
   @media (min-width: 801px) and (max-width: 1100px) {
     .equipment { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 32px; }
     .machine-card { flex-basis: 78%; }
@@ -90,7 +93,7 @@ const { devices } = home;
     .machine-card:nth-child(n+5) { display: none; }
     .machine-card :global(img) { height: clamp(150px, 40vw, 240px); padding: 12px; }
     .machine-card__body { padding: 16px; }
-    .machine-card h3 { font-size: 24px; }
+    .machine-card h3 { font-size: 1.5rem; }
     .equipment__mobile-actions { display: grid; margin-top: 24px; gap: 24px; }
     .equipment__all { width: 100%; }
     .equipment__consultation { padding: 20px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); }
@@ -98,6 +101,6 @@ const { devices } = home;
   @media (max-width: 360px) {
     .equipment__rail { gap: 12px; }
     .machine-card__body { padding: 12px; }
-    .machine-card h3 { font-size: 22px; }
+    .machine-card h3 { font-size: 1.375rem; }
   }
 </style>

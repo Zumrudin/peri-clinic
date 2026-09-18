@@ -78,7 +78,9 @@ const mobileTiles = await Promise.all(
 
 <style>
   .service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-  .service-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border-radius: var(--radius-lg); background: var(--sand); }
+  .service-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border-radius: var(--radius-lg); background: var(--sand); transition: transform var(--dur-press) var(--ease-out); }
+  /* Feedback on pointer-down for touch too (hover zoom below is pointer-only). */
+  .service-card:active { transform: scale(0.985); }
   .service-card:nth-child(3n+2) { background: var(--home-surface-warm); }
   .service-card:nth-child(3n+3) { background: var(--home-surface-cool); }
   .service-card picture { display: block; aspect-ratio: 4 / 3; overflow: hidden; }
@@ -92,11 +94,11 @@ const mobileTiles = await Promise.all(
   }
   .service-card__content { flex: 1; display: flex; flex-direction: column; align-items: flex-start; padding: 24px; }
   .service-card__content h3 { order: 0; margin: 0; font: 400 var(--home-card-title)/1.12 var(--display); }
-  .service-card__content p { order: 1; margin: 12px 0 20px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
-  .round-arrow { order: 2; display: grid; place-items: center; align-self: flex-end; margin-top: auto; width: 48px; height: 48px; border-radius: 50%; background: var(--gold-deep); color: white; font-size: 24px; transition: background var(--dur-fast); }
+  .service-card__content p { order: 1; margin: 12px 0 20px; font-size: 0.9375rem; line-height: 1.6; color: var(--ink-2); }
+  .round-arrow { order: 2; display: grid; place-items: center; align-self: flex-end; margin-top: auto; width: 48px; height: 48px; border-radius: 50%; background: var(--gold-deep); color: white; font-size: 1.5rem; transition: background var(--dur-fast); }
   .service-card:hover .round-arrow { background: var(--gold-hover); }
   .services__hint { display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; margin-top: 24px; padding: 20px 24px; border: 1px solid var(--line); border-radius: var(--radius-lg); }
-  .services__hint-title { margin: 0; font-size: 16px; }
+  .services__hint-title { margin: 0; font-size: 1rem; }
   @media (min-width: 601px) and (max-width: 1100px) {
     .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .service-card:first-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
@@ -107,11 +109,11 @@ const mobileTiles = await Promise.all(
     .service-card:first-child { grid-column: 1 / -1; flex-direction: row-reverse; min-height: 190px; }
     .service-card:first-child picture { flex: 0 0 44%; aspect-ratio: auto; }
     .service-card:first-child .service-card__content { min-width: 0; padding: 16px; }
-    .service-card:first-child h3 { font-size: clamp(24px, 6.5vw, 34px); }
+    .service-card:first-child h3 { font-size: clamp(1.5rem, 6.5vw, 2.125rem); }
     .service-card__content { padding: 12px; }
-    .service-card__content h3 { font-size: clamp(18px, 5vw, 26px); line-height: 1.15; }
-    .service-card__content p { margin: 10px 0 14px; font-size: 13px; line-height: 1.45; }
-    .round-arrow { width: 40px; height: 40px; font-size: 20px; }
+    .service-card__content h3 { font-size: clamp(1.125rem, 5vw, 1.625rem); line-height: 1.15; }
+    .service-card__content p { margin: 10px 0 14px; font-size: 0.8125rem; line-height: 1.45; }
+    .round-arrow { width: 40px; height: 40px; font-size: 1.25rem; }
     .services__hint { display: block; padding: 20px; }
     .services__hint-title { margin-bottom: 8px; }
   }

@@ -118,7 +118,7 @@ const mobileImages = new Map(await Promise.all(
     position: absolute;
     left: 10px;
     bottom: 10px;
-    font-size: 11px;
+    font-size: 0.6875rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
@@ -136,17 +136,17 @@ const mobileImages = new Map(await Promise.all(
   .case-card__category {
     margin: 0 0 10px;
     color: var(--gold-deep);
-    font-size: 11px;
+    font-size: 0.6875rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
   .case-card h3 {
-    font: 400 24px var(--display);
+    font: 400 1.5rem var(--display);
     margin: 0 0 10px;
   }
   .case-card__result {
     color: var(--muted);
-    font-size: 13px;
+    font-size: 0.8125rem;
     line-height: 1.5;
     margin: 0;
   }
@@ -205,8 +205,8 @@ const mobileImages = new Map(await Promise.all(
     .case-card--home-mobile :global(img) { display: block; width: 100%; height: 100%; object-fit: contain; }
     .case-card--home-mobile .case-card__image > span { display: none; }
     .case-card--home-mobile .case-card__body { display: flex; flex-direction: column; justify-content: center; min-height: 104px; padding: 14px; flex: 1; }
-    .case-card--home-mobile h3 { font-size: 22px; line-height: 1.15; margin-bottom: 6px; }
-    .case-card--home-mobile .case-card__result { font-size: 12px; }
+    .case-card--home-mobile h3 { font-size: 1.375rem; line-height: 1.15; margin-bottom: 6px; }
+    .case-card--home-mobile .case-card__result { font-size: 0.75rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     /* keep the colour/shadow change, drop the lift */
