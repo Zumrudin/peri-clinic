@@ -12,3 +12,7 @@ Run `node scripts/qa/staff-mobile-carousel.mjs <base-url>` against a running sit
 The original implementation fails the order-preservation assertion when closing the second portrait. Existing general gallery QA was updated to expect focus on the opener and handle the current CMS photo count. The edge suite's gesture checks passed; its accessibility scan reported `image-redundant-alt` in CMS content. The general gallery suite encountered an image decoding error on the development server.
 
 Result: all eight targeted scenarios passed against the static build in Chrome mobile emulation.
+
+## 2026-09-18 shared-carousel regression
+
+The original test started touch on the offscreen center of the second card and failed on the unchanged development release. The test now swipes the visible first card by 66% of its width, pauses before release for deterministic single-card movement, waits for the spring to settle, and waits for the lightbox close animation before checking focus. The second card is opened by its visible edge. All eight width/count combinations pass after extraction of shared motion.

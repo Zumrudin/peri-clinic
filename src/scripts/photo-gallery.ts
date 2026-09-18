@@ -1,75 +1,11 @@
 /** Two independent galleries; rotation reuses real cards, never duplicate links/IDs. */
-import { project, rubberband, snapTarget, createVelocityTracker } from '../lib/motion';
+import { project, rubberband } from '../lib/motion';
+import { horizontalDrag } from './horizontal-drag';
+import { initLoopCarousel } from './loop-carousel';
 import { animateSpring, reducedMotion, type SpringHandle } from './spring';
 
 // Same curve as --ease-out in tokens.css; JS animations can't read the CSS variable.
 const EASE_OUT = 'cubic-bezier(0.23, 1, 0.32, 1)';
-const DRAG_SLOP = 10;
-
-interface DragHandlers {
-  /** Called on pointerdown. Return true when the pointer grabbed something already in motion:
-   *  that counts as a drag from the first pixel (and must not turn into a click). */
-  grab: (event: PointerEvent) => boolean;
-  /** dx from the point where the drag was recognised, so nothing jumps by the slop distance. */
-  move: (dx: number) => void;
-  /** Release velocity in px/s from the last ~100 ms of movement (0 on pointercancel). */
-  release: (velocity: number) => void;
-}
-
-/** Horizontal drag recogniser shared by the rails and the lightbox photo: 10px slop, pointer
- *  capture once committed, and the click that follows a drag is swallowed in the capture phase
- *  so a swipe over a photo never opens it. */
-function horizontalDrag(element: HTMLElement, handlers: DragHandlers): void {
-  const tracker = createVelocityTracker();
-  let startX = 0;
-  let startY = 0;
-  let originX = 0;
-  let tracking = false;
-  let dragged = false;
-  element.addEventListener('dragstart', (e) => e.preventDefault());
-  element.addEventListener('pointerdown', (e) => {
-    if (e.button !== 0) return;
-    tracking = true;
-    startX = originX = e.clientX;
-    startY = e.clientY;
-    dragged = handlers.grab(e);
-    tracker.reset();
-    tracker.add(e.clientX, e.timeStamp);
-  });
-  element.addEventListener('pointermove', (e) => {
-    if (!tracking) return;
-    const dx = e.clientX - startX;
-    const dy = e.clientY - startY;
-    if (!dragged) {
-      if (Math.abs(dx) <= DRAG_SLOP || Math.abs(dx) <= Math.abs(dy)) return;
-      dragged = true;
-      originX = e.clientX;
-    }
-    if (!element.hasPointerCapture(e.pointerId)) element.setPointerCapture(e.pointerId);
-    tracker.add(e.clientX, e.timeStamp);
-    handlers.move(e.clientX - originX);
-  });
-  const end = (e: PointerEvent) => {
-    if (!tracking) return;
-    tracking = false;
-    if (!dragged) return;
-    handlers.release(e.type === 'pointercancel' ? 0 : tracker.velocity(e.timeStamp));
-  };
-  element.addEventListener('pointerup', end);
-  element.addEventListener('pointercancel', end);
-  element.addEventListener(
-    'click',
-    (e) => {
-      if (dragged) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        dragged = false;
-      }
-    },
-    true,
-  );
-}
-
 /** Transform that makes `img` occupy `thumb`'s box — the open/close morph keyframe. */
 const fitTransform = (thumb: DOMRect, img: DOMRect) =>
   `translate(${thumb.left + thumb.width / 2 - (img.left + img.width / 2)}px, ${
@@ -307,115 +243,14 @@ export function initPhotoGalleries() {
     const photos = cards.map((card) => card.querySelector<HTMLAnchorElement>('[data-photo]')!);
     const nav = root.querySelector<HTMLElement>('.gallery-nav')!;
     const status = root.querySelector<HTMLElement>('[data-gallery-status]')!;
-    // track.scrollWidth is layout width in the track's own space, unaffected by its transform.
-    const overflow = () => track.scrollWidth > rail.clientWidth + 2;
-    const cardStep = () => {
-      const first = track.firstElementChild as HTMLElement | null;
-      if (!first) return 0;
-      const style = getComputedStyle(track);
-      const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
-      return first.getBoundingClientRect().width + gap;
-    };
-
-    // Infinite carousel with one unbounded position `u` (px, negative = content moved left).
-    // `shifted` is how much of `u` the DOM has absorbed by rotating cards; the visible
-    // translate is `u - shifted`, kept within (-step, 0] so cards always cover the rail and a
-    // single flick can travel several cards without a blank edge. Every mutation of `u` goes
-    // through setPosition(), whether it comes from the finger, a spring or a button.
-    let u = 0;
-    let shifted = 0;
-    let target = 0;
-    let velocity = 0;
-    let step = 0;
-    let base = 0;
-    let spring: SpringHandle | null = null;
-    const announce = () => {
-      const first = track.querySelector<HTMLAnchorElement>('[data-photo]')!;
-      status.textContent = `Фотография ${photos.indexOf(first) + 1} из ${photos.length}`;
-    };
-    const rotate = (direction: 1 | -1) => {
-      const focus = document.activeElement as HTMLElement | null;
-      if (direction > 0) track.append(track.firstElementChild!);
-      else track.prepend(track.lastElementChild!);
-      rail.scrollLeft = 0;
-      if (focus && rail.contains(focus)) focus.focus({ preventScroll: true });
-    };
-    const setPosition = (next: number) => {
-      if (step <= 0) return;
-      u = next;
-      while (u - shifted <= -step + 0.5) {
-        rotate(1);
-        shifted -= step;
-      }
-      while (u - shifted > 0.5) {
-        rotate(-1);
-        shifted += step;
-      }
-      const applied = u - shifted;
-      track.style.transform = Math.abs(applied) < 0.5 ? '' : `translateX(${applied}px)`;
-    };
-    const finish = () => {
-      spring = null;
-      setPosition(target);
-      u = shifted = target = velocity = 0;
-      track.style.transform = '';
-      announce();
-    };
-    const run = () => {
-      spring?.cancel();
-      if (reducedMotion()) return finish();
-      spring = animateSpring(
-        { from: u, to: target, velocity, response: 0.4, damping: 1 },
-        (value, v) => {
-          velocity = v;
-          setPosition(value);
-        },
-        finish,
-      );
-    };
-    const settle = (releaseVelocity: number) => {
-      velocity = releaseVelocity;
-      target = shifted + snapTarget(u - shifted + project(releaseVelocity), step, Math.max(1, cards.length - 1));
-      run();
-    };
-    const go = (direction: 1 | -1) => {
-      if (!overflow() || cards.length < 2) return;
-      if (!spring) {
-        step = cardStep();
-        if (!step) return;
-        target = shifted + Math.round((u - shifted) / step) * step;
-        velocity = 0;
-      }
-      target -= direction * step;
-      run();
-    };
-    horizontalDrag(rail, {
-      grab: () => {
-        if (!overflow() || cards.length < 2) {
-          step = 0;
-          return false;
-        }
-        step = cardStep();
-        base = u;
-        const moving = !!spring;
-        spring?.cancel();
-        spring = null;
-        return moving;
+    initLoopCarousel({
+      rail, track, cards,
+      previous: root.querySelector<HTMLButtonElement>('[data-prev]')!,
+      next: root.querySelector<HTMLButtonElement>('[data-next]')!,
+      announce: () => {
+        const first = track.querySelector<HTMLAnchorElement>('[data-photo]')!;
+        status.textContent = `Фотография ${photos.indexOf(first) + 1} из ${photos.length}`;
       },
-      move: (dx) => {
-        if (step) setPosition(base + dx);
-      },
-      release: (releaseVelocity) => {
-        if (step) settle(releaseVelocity);
-      },
-    });
-    root.querySelector('[data-prev]')!.addEventListener('click', () => go(-1));
-    root.querySelector('[data-next]')!.addEventListener('click', () => go(1));
-    rail.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-        e.preventDefault();
-        go(e.key === 'ArrowRight' ? 1 : -1);
-      }
     });
     photos.forEach((photo) =>
       photo.addEventListener('click', (e) => {
@@ -432,7 +267,7 @@ export function initPhotoGalleries() {
       }),
     );
     new ResizeObserver(() => {
-      nav.hidden = !overflow() || cards.length < 2;
+      nav.hidden = track.scrollWidth <= rail.clientWidth + 2 || cards.length < 2;
     }).observe(rail);
   });
   // Standalone portrait opens the same team gallery, starting with this specialist.

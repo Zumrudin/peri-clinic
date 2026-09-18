@@ -8,7 +8,14 @@ export function initRails(): void {
     const next = root.querySelector<HTMLButtonElement>('[data-rail-next]');
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const mobile = window.matchMedia('(max-width: 800px)');
+    const usesMobileCarousel = () => root.hasAttribute('data-equipment-carousel') && mobile.matches;
     const update = () => {
+      if (usesMobileCarousel()) {
+        if (previous) previous.disabled = false;
+        if (next) next.disabled = false;
+        rail.tabIndex = 0;
+        return;
+      }
       const end = rail.scrollWidth - rail.clientWidth;
       if (previous) previous.disabled = rail.scrollLeft <= 2;
       if (next) next.disabled = rail.scrollLeft >= end - 2;
@@ -16,7 +23,9 @@ export function initRails(): void {
       else rail.tabIndex = 0;
     };
     const step = (dir: 1 | -1, keyboard = false) => {
-      const card = rail.firstElementChild as HTMLElement | null;
+      if (usesMobileCarousel()) return;
+      const track = rail.querySelector<HTMLElement>('[data-track]') ?? rail;
+      const card = track.firstElementChild as HTMLElement | null;
       const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
       const amount = card ? card.getBoundingClientRect().width + gap : rail.clientWidth;
       rail.scrollBy({ left: dir * amount, behavior: keyboard || reduced.matches ? 'instant' : 'smooth' });

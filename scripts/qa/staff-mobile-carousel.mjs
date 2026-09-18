@@ -24,14 +24,16 @@ try {
       const initial = await ids();
       const session = await context.newCDPSession(page);
       const swipe = async direction => {
-        const box = await gallery.locator('[data-photo]').nth(1).boundingBox();
-        const x = box.x + box.width / 2, y = box.y + box.height / 2;
+        const box = await gallery.locator('[data-photo]').first().boundingBox();
+        const x = box.x + box.width * (direction < 0 ? 0.85 : 0.15), y = box.y + box.height / 2;
         await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] });
         for (let step = 1; step <= 6; step++) {
-          await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x + direction * step * 10, y }] });
+          await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x + direction * step * box.width * 0.11, y }] });
         }
+        await page.waitForTimeout(150);
         await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-        await page.waitForTimeout(350);
+        await page.waitForTimeout(50);
+        await page.waitForFunction(() => !document.querySelector('[data-gallery="clinic-team"] [data-track]').style.transform);
         assert.equal(await page.locator('[data-lightbox]').evaluate(d => d.open), false);
         const geometry = await rail.evaluate(el => ({ scroll: el.scrollLeft, offset: el.firstElementChild.getBoundingClientRect().left - el.getBoundingClientRect().left }));
         assert.ok(Math.abs(geometry.scroll) < 2 && Math.abs(geometry.offset) < 2, `first card must be visible at rail start: ${JSON.stringify(geometry)}`);
@@ -44,16 +46,16 @@ try {
       assert.deepEqual(await ids(), initial);
       const before = await ids();
       const position = await rail.evaluate(el => el.getBoundingClientRect().top);
-      await gallery.locator('[data-photo]').nth(1).click();
+      await gallery.locator('[data-photo]').nth(1).click({ position: { x: 12, y: 40 } });
       await page.locator('[data-close]').click();
-      await page.waitForTimeout(100);
+      await page.waitForFunction(() => !document.querySelector('[data-lightbox]').open);
       assert.deepEqual(await ids(), before, 'closing a photo must preserve card order');
       assert.equal(await page.evaluate(() => document.activeElement?.getAttribute('data-id')), before[1]);
       assert.ok(Math.abs(await rail.evaluate(el => el.getBoundingClientRect().top) - position) < 2);
-      await gallery.locator('[data-photo]').nth(1).click();
+      await gallery.locator('[data-photo]').nth(1).click({ position: { x: 12, y: 40 } });
       await page.locator('[data-lightbox-next]').click();
       await page.keyboard.press('Escape');
-      await page.waitForTimeout(100);
+      await page.waitForFunction(() => !document.querySelector('[data-lightbox]').open);
       assert.deepEqual(await ids(), before, 'browsing photos must preserve card order');
       assert.equal(await page.evaluate(() => document.activeElement?.getAttribute('data-id')), before[1]);
       await swipe(-1);

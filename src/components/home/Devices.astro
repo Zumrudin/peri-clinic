@@ -1,13 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import { em } from '../../lib/markup';
+import { getAboutContent } from '../../lib/specialistContent';
 import { getHomeContent } from '../../lib/homeContent';
 
-const home = await getHomeContent();
+const [home, about] = await Promise.all([getHomeContent(), getAboutContent()]);
 const { devices } = home;
 ---
 
-<section class="home-section equipment" aria-labelledby="equipment-title" data-rail-root data-mobile-grid>
+<section class="home-section equipment" id="equipment" aria-labelledby="equipment-title" data-rail-root data-equipment-carousel>
   <div class="equipment__intro reveal">
     <p class="eyebrow">{devices.eyebrow}</p>
     <h2 id="equipment-title" set:html={em(devices.title)} />
@@ -18,31 +19,36 @@ const { devices } = home;
     </div>
   </div>
   <div class="equipment__rail rail" data-rail tabindex="0" aria-label="Аппараты клиники">
+    <div class="equipment__track" data-track>
     {
-      devices.items.map((d, i) => {
+      devices.items.map((d) => {
         const Tag = d.href ? 'a' : 'article';
         return (
-        <Tag class="machine-card reveal" href={d.href}>
+        <Tag class="machine-card" href={d.href} data-card>
+          <div class="machine-card__photo">
           {d.image && <Image
             src={d.image.src}
             inferSize
             alt=""
             width={d.image.width}
             height={d.image.height}
-            widths={[300, 500]}
-            sizes="(max-width: 800px) calc((100vw - 48px) / 2), 26vw"
+            widths={[300, 500, 700]}
+            sizes="(max-width: 600px) calc((100vw - 40px) * 0.82), (max-width: 800px) calc((100vw - 64px) * 0.64), 26vw"
             loading="lazy"
           />}
           {!d.image && <div class="machine-card__placeholder" aria-hidden="true">{d.name}</div>}
+          </div>
           <div class="machine-card__body">
           <h3>{d.name}</h3>
           <p>{d.short}</p>
-          {d.href && <span class="machine-card__arrow" aria-hidden="true">→</span>}
+          {d.href && <><span class="machine-card__arrow" aria-hidden="true">→</span><span class="machine-card__more home-text-link">{about.details_label} <span aria-hidden="true">→</span></span></>}
           </div>
         </Tag>
       );})
     }
   </div>
+  </div>
+  <p class="visually-hidden" data-equipment-status aria-live="polite"></p>
   <div class="equipment__mobile-actions">
     {devices.all_label && <a class="equipment__all button button--outline" href="/apparaty">{devices.all_label}<span aria-hidden="true">→</span></a>}
     {devices.consultation_title && devices.consultation_label && <div class="equipment__consultation">
@@ -52,13 +58,22 @@ const { devices } = home;
   </div>
 </section>
 
+<script>
+  import { initEquipmentCarousels } from '../../scripts/equipment-carousel';
+  initEquipmentCarousels();
+</script>
+
 <style>
   .equipment { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 32px 48px; }
+  .equipment { scroll-margin-top: calc(var(--header-h-sticky) + 24px); }
+  .equipment__track { display: contents; }
+  .machine-card__photo { overflow: hidden; flex-shrink: 0; }
+  .machine-card .machine-card__more { display: none; }
   .equipment__intro { min-width: 0; }
   .equipment__lead { color: var(--ink-2); font-size: 1rem; line-height: 1.6; margin: 16px 0 24px; }
   .slider-controls { display: flex; gap: 8px; }
   .equipment__rail { min-width: 0; gap: 24px; }
-  .machine-card { flex: 0 0 46%; min-width: 0; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); background: var(--sand); }
+  .machine-card { scroll-snap-align: start; flex: 0 0 46%; min-width: 0; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); background: var(--sand); }
   .machine-card:nth-child(2n) { background: var(--home-surface-cool); }
   /* Linked cards answer the press itself; articles without a link stay still. */
   a.machine-card { transition: transform var(--dur-press) var(--ease-out); }
@@ -69,7 +84,7 @@ const { devices } = home;
     .machine-card:hover :global(img) { transform: scale(1.03); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .machine-card:hover :global(img) { transform: none; }
+    .machine-card:hover :global(img), a.machine-card:active { transform: none; }
   }
   .machine-card__placeholder { height: 280px; display: grid; place-items: center; font: 1.5rem var(--display); }
   .machine-card__body { flex: 1; display: flex; flex-direction: column; padding: 20px; }
@@ -86,21 +101,29 @@ const { devices } = home;
   }
   @media (max-width: 800px) {
     .equipment { display: block; }
-    .equipment__intro { margin-bottom: 32px; }
-    .equipment__lead { margin-bottom: 0; }
-    .slider-controls { display: none; }
-    .equipment__rail { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; overflow: visible; scroll-snap-type: none; }
-    .machine-card:nth-child(n+5) { display: none; }
-    .machine-card :global(img) { height: clamp(150px, 40vw, 240px); padding: 12px; }
-    .machine-card__body { padding: 16px; }
-    .machine-card h3 { font-size: 1.5rem; }
-    .equipment__mobile-actions { display: grid; margin-top: 24px; gap: 24px; }
+    .equipment__intro { margin-bottom: 24px; }
+    .equipment__lead { margin-bottom: 24px; }
+    .slider-controls { justify-content: flex-end; }
+    .equipment__rail { display: block; overscroll-behavior-x: contain; scroll-behavior: auto; }
+    .equipment__track { display: flex; gap: 16px; }
+    .equipment[data-interactive] .equipment__rail { overflow-x: hidden; scroll-snap-type: none; touch-action: pan-y; }
+    .equipment[data-interactive] .equipment__track { will-change: transform; }
+    .machine-card, .machine-card:nth-child(2n) { flex: 0 0 64%; height: var(--equipment-card-height, auto); background: transparent; border-radius: 0; scroll-snap-align: start; }
+    a.machine-card:active { transform: none; }
+    .machine-card__photo { border-radius: 22px; background: var(--equipment-photo-bg); }
+    .machine-card :global(img) { height: auto; aspect-ratio: 3 / 4; padding: 16px; mix-blend-mode: normal; }
+    .machine-card__body { min-height: 0; padding: 16px 0 0; align-items: flex-start; }
+    .machine-card h3 { flex-shrink: 0; font-size: 1.5rem; line-height: 1.2; }
+    .machine-card p { flex-shrink: 0; margin-bottom: 0; }
+    .machine-card__arrow { display: none; }
+    .machine-card .machine-card__more { display: inline-flex; height: 44px; min-height: 21px; padding-block: 0; margin-top: auto; }
+    .machine-card:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: -3px; }
+    .equipment__mobile-actions { display: grid; margin-top: 28px; gap: 24px; }
     .equipment__all { width: 100%; }
     .equipment__consultation { padding: 20px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-lg); }
   }
-  @media (max-width: 360px) {
-    .equipment__rail { gap: 12px; }
-    .machine-card__body { padding: 12px; }
-    .machine-card h3 { font-size: 1.375rem; }
+  @media (max-width: 600px) {
+    .machine-card, .machine-card:nth-child(2n) { flex-basis: 82%; }
+    .machine-card :global(img) { height: 280px; aspect-ratio: auto; padding: 12px; }
   }
 </style>
