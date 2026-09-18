@@ -281,6 +281,9 @@ const rows = [
       padding: 14px 20px calc(24px + env(safe-area-inset-bottom));
       opacity: 1;
       transform: translateY(100%);
+      /* The panel is dragged shut with Pointer Events (contact-sheet.ts); the browser must
+         not claim vertical touches for scrolling — there is nothing to scroll inside. */
+      touch-action: none;
     }
     .sheet[open] .sheet__panel {
       transform: none;
