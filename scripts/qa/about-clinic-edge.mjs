@@ -49,7 +49,7 @@ try {
       const gallery=page.locator(`[data-gallery="${id}"]`);
       if (!(await gallery.locator('.gallery-nav').isVisible())) continue; // not overflowing at this viewport, nothing to drag
       tested++;
-      const rail=gallery.locator('[data-rail]');
+      const rail=gallery.locator('[data-track]'); // the moving element; [data-rail] only clips
       await gallery.locator('[data-photo]').first().scrollIntoViewIfNeeded(); // CDP touch coords are viewport-relative; this section starts below the fold
       const box=await gallery.locator('[data-photo]').first().boundingBox();
       const beforeId=await gallery.locator('[data-photo]').first().getAttribute('data-id');

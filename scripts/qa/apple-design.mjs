@@ -58,7 +58,7 @@ try {
       const gallery = page.locator(`[data-gallery="${id}"]`);
       if (!(await gallery.locator('.gallery-nav').isVisible())) continue;
       tested++;
-      const rail = gallery.locator('[data-rail]');
+      const rail = gallery.locator('[data-track]'); // the moving element (the rail only clips)
       const first = gallery.locator('[data-photo]').first();
       await first.scrollIntoViewIfNeeded();
       await sleep(300);
@@ -253,7 +253,7 @@ try {
     // Desktop galleries: mouse drag follows too.
     const gallery = page.locator('[data-gallery="clinic-team"]');
     if (await gallery.locator('.gallery-nav').isVisible()) {
-      const rail = gallery.locator('[data-rail]');
+      const rail = gallery.locator('[data-track]');
       const first = gallery.locator('[data-photo]').first();
       await first.scrollIntoViewIfNeeded();
       await sleep(300);

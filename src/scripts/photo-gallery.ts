@@ -300,15 +300,19 @@ export function initPhotoGalleries() {
   document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((root) => {
     root.dataset.interactive = 'true';
     const rail = root.querySelector<HTMLElement>('[data-rail]')!;
-    const cards = Array.from(rail.querySelectorAll<HTMLElement>('[data-card]'));
+    // The rail clips and receives the pointer; the track inside it is what moves. Moving the
+    // clipping element itself would drag its clip box along and leave a blank strip.
+    const track = rail.querySelector<HTMLElement>('[data-track]') ?? rail;
+    const cards = Array.from(track.querySelectorAll<HTMLElement>('[data-card]'));
     const photos = cards.map((card) => card.querySelector<HTMLAnchorElement>('[data-photo]')!);
     const nav = root.querySelector<HTMLElement>('.gallery-nav')!;
     const status = root.querySelector<HTMLElement>('[data-gallery-status]')!;
-    const overflow = () => rail.scrollWidth > rail.clientWidth + 2;
+    // track.scrollWidth is layout width in the track's own space, unaffected by its transform.
+    const overflow = () => track.scrollWidth > rail.clientWidth + 2;
     const cardStep = () => {
-      const first = rail.firstElementChild as HTMLElement | null;
+      const first = track.firstElementChild as HTMLElement | null;
       if (!first) return 0;
-      const style = getComputedStyle(rail);
+      const style = getComputedStyle(track);
       const gap = parseFloat(style.columnGap || style.gap || '0') || 0;
       return first.getBoundingClientRect().width + gap;
     };
@@ -326,13 +330,13 @@ export function initPhotoGalleries() {
     let base = 0;
     let spring: SpringHandle | null = null;
     const announce = () => {
-      const first = rail.querySelector<HTMLAnchorElement>('[data-photo]')!;
+      const first = track.querySelector<HTMLAnchorElement>('[data-photo]')!;
       status.textContent = `Фотография ${photos.indexOf(first) + 1} из ${photos.length}`;
     };
     const rotate = (direction: 1 | -1) => {
       const focus = document.activeElement as HTMLElement | null;
-      if (direction > 0) rail.append(rail.firstElementChild!);
-      else rail.prepend(rail.lastElementChild!);
+      if (direction > 0) track.append(track.firstElementChild!);
+      else track.prepend(track.lastElementChild!);
       rail.scrollLeft = 0;
       if (focus && rail.contains(focus)) focus.focus({ preventScroll: true });
     };
@@ -348,13 +352,13 @@ export function initPhotoGalleries() {
         shifted += step;
       }
       const applied = u - shifted;
-      rail.style.transform = Math.abs(applied) < 0.5 ? '' : `translateX(${applied}px)`;
+      track.style.transform = Math.abs(applied) < 0.5 ? '' : `translateX(${applied}px)`;
     };
     const finish = () => {
       spring = null;
       setPosition(target);
       u = shifted = target = velocity = 0;
-      rail.style.transform = '';
+      track.style.transform = '';
       announce();
     };
     const run = () => {
