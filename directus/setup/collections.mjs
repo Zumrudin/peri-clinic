@@ -289,6 +289,8 @@ export const collections = [
       f.id(), f.sort(),
       f.m2o('procedure', 'Процедура', 'procedures', { required: true }),
       f.str('name', 'Название позиции', { required: true }),
+      f.str('medical_service_code', 'Код медицинской услуги', { width: 'half', note: 'Подтверждённый код по номенклатуре Минздрава. Не МКБ и не код препарата.' }),
+      f.str('medical_service_name', 'Наименование по номенклатуре', { note: 'Точное название медицинского вмешательства, соответствующее коду.' }),
       f.int('price', 'Цена врача, ₽', { width: 'half' }),
       f.int('price_head_doctor', 'Цена гл. врача, ₽', { width: 'half', note: 'Пусто, если у процедуры одна цена' }),
       f.str('unit', 'Единица', { width: 'half', note: 'за зону / за 1 мл' }),

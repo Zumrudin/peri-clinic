@@ -1,0 +1,149 @@
+[
+  {
+    "id": 1,
+    "slug": "pigment-lumec",
+    "title": "Lumecca — фотоомоложение и коррекция пигментации",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 14,
+    "slug": "mezoterapiya-i-biorevitalizaciya",
+    "title": "Мезотерапия и биоревитализация",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 11,
+    "slug": "kosemotologicheskie-pilingi",
+    "title": "Косметологические пилинги",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 15,
+    "slug": "konturnaya-plastika",
+    "title": "Контурная пластика",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 2,
+    "slug": "rf-lifting-inmode",
+    "title": "Morpheus8 — микроигольчатый RF-лифтинг",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 12,
+    "slug": "uhodovye-procedury",
+    "title": "Уходовые процедуры",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 13,
+    "slug": "maski",
+    "title": "Маски",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 3,
+    "slug": "volnewmer",
+    "title": "Volnewmer — монополярный RF-лифтинг",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 16,
+    "slug": "botullinoterapiya",
+    "title": "Ботулинотерапия",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 17,
+    "slug": "plazmoterapiya-plazmolifting",
+    "title": "Плазмотерапия (плазмолифтинг)",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 21,
+    "slug": "kosmetologicheskie-chistki",
+    "title": "Косметологические чистки",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 4,
+    "slug": "tesla-former",
+    "title": "Tesla Former — аппаратная коррекция фигуры",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 5,
+    "slug": "pladuo",
+    "title": "Pladuo — плазменные процедуры для кожи",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 18,
+    "slug": "lipolitiki",
+    "title": "Липолитики",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 6,
+    "slug": "beautylizer",
+    "title": "Beautylizer — RSL-массаж тела",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 19,
+    "slug": "droppers",
+    "title": "Капельницы (IV-терапия)",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 7,
+    "slug": "laser-epilation",
+    "title": "Лазерная эпиляция Pacer One Pro",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 8,
+    "slug": "profeccial",
+    "title": "ProFacial — комплексный аппаратный уход",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 9,
+    "slug": "heleo",
+    "title": "HELEO4 — фотодинамическая терапия",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 10,
+    "slug": "mikrotokovaya-terapiya",
+    "title": "Микротоковая терапия",
+    "status": "published",
+    "icd10": null
+  },
+  {
+    "id": 20,
+    "slug": "microtoki",
+    "title": "Sensitec — удаление новообразований",
+    "status": "published",
+    "icd10": null
+  }
+]

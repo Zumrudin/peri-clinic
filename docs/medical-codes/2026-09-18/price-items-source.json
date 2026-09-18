@@ -1,0 +1,1549 @@
+[
+  {
+    "id": 212,
+    "name": "BIOREPEEL",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 168,
+    "name": "Межбровье",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 86,
+    "name": "1 процедура",
+    "procedure": {
+      "slug": "beautylizer"
+    }
+  },
+  {
+    "id": 145,
+    "name": "Коррекция носогубной складки, 1 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 49,
+    "name": "Лицо полностью",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 223,
+    "name": "Комбинированная чистка лица",
+    "procedure": {
+      "slug": "kosmetologicheskie-chistki"
+    }
+  },
+  {
+    "id": 95,
+    "name": "Процедура «Голливуд» лицо, ProFacial",
+    "procedure": {
+      "slug": "profeccial"
+    }
+  },
+  {
+    "id": 116,
+    "name": "REVI EYE",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 21,
+    "name": "Лицо",
+    "procedure": {
+      "slug": "pigment-lumec"
+    }
+  },
+  {
+    "id": 103,
+    "name": "Лицо",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 12,
+    "name": "Зона глаз, 300 импульсов",
+    "procedure": {
+      "slug": "pladuo"
+    }
+  },
+  {
+    "id": 209,
+    "name": "Экспресс-уход «Sparkling» PRXT33",
+    "procedure": {
+      "slug": "uhodovye-procedury"
+    }
+  },
+  {
+    "id": 191,
+    "name": "Стройное тело",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 189,
+    "name": "SLIM BODY / MPX, 5 мл",
+    "procedure": {
+      "slug": "lipolitiki"
+    }
+  },
+  {
+    "id": 31,
+    "name": "Первая процедура-знакомство",
+    "procedure": {
+      "slug": "tesla-former"
+    }
+  },
+  {
+    "id": 90,
+    "name": "Лимфодренаж, 20 минут (малая зона)",
+    "procedure": {
+      "slug": "mikrotokovaya-terapiya"
+    }
+  },
+  {
+    "id": 35,
+    "name": "Лицо",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 185,
+    "name": "Лицо",
+    "procedure": {
+      "slug": "plazmoterapiya-plazmolifting"
+    }
+  },
+  {
+    "id": 5,
+    "name": "300 импульсов",
+    "procedure": {
+      "slug": "volnewmer"
+    }
+  },
+  {
+    "id": 6,
+    "name": "400 импульсов",
+    "procedure": {
+      "slug": "volnewmer"
+    }
+  },
+  {
+    "id": 169,
+    "name": "Лоб + межбровье",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 186,
+    "name": "Шея + декольте",
+    "procedure": {
+      "slug": "plazmoterapiya-plazmolifting"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Лицо (лечение), 600 импульсов",
+    "procedure": {
+      "slug": "pladuo"
+    }
+  },
+  {
+    "id": 146,
+    "name": "Коррекция носослезной борозды",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 192,
+    "name": "Стройное тело (курс 5 капельниц)",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 36,
+    "name": "Шея",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 50,
+    "name": "Лоб",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 210,
+    "name": "Моделирующая процедура с королевской маской",
+    "procedure": {
+      "slug": "uhodovye-procedury"
+    }
+  },
+  {
+    "id": 190,
+    "name": "LIGHTFIT, 2 мл",
+    "procedure": {
+      "slug": "lipolitiki"
+    }
+  },
+  {
+    "id": 87,
+    "name": "Абонемент 6 процедур",
+    "procedure": {
+      "slug": "beautylizer"
+    }
+  },
+  {
+    "id": 117,
+    "name": "REVI STYLE 1 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 224,
+    "name": "Чистка спины, 1 степень",
+    "procedure": {
+      "slug": "kosmetologicheskie-chistki"
+    }
+  },
+  {
+    "id": 32,
+    "name": "Одна зона, 30 мин",
+    "procedure": {
+      "slug": "tesla-former"
+    }
+  },
+  {
+    "id": 104,
+    "name": "Лицо / Шея / Декольте",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 213,
+    "name": "PRXT33",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 22,
+    "name": "Шея",
+    "procedure": {
+      "slug": "pigment-lumec"
+    }
+  },
+  {
+    "id": 96,
+    "name": "Процедура «Голливуд» лицо, шея, декольте, ProFacial",
+    "procedure": {
+      "slug": "profeccial"
+    }
+  },
+  {
+    "id": 91,
+    "name": "Лицо, 40 минут",
+    "procedure": {
+      "slug": "mikrotokovaya-terapiya"
+    }
+  },
+  {
+    "id": 118,
+    "name": "REVI STYLE 2 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 92,
+    "name": "«Лифтинг» лицо + шея с маской",
+    "procedure": {
+      "slug": "mikrotokovaya-terapiya"
+    }
+  },
+  {
+    "id": 88,
+    "name": "Абонемент 10 процедур",
+    "procedure": {
+      "slug": "beautylizer"
+    }
+  },
+  {
+    "id": 14,
+    "name": "Лицо (лечение и омоложение), 800 импульсов",
+    "procedure": {
+      "slug": "pladuo"
+    }
+  },
+  {
+    "id": 7,
+    "name": "500 импульсов",
+    "procedure": {
+      "slug": "volnewmer"
+    }
+  },
+  {
+    "id": 214,
+    "name": "PEECH PEEL",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 211,
+    "name": "Лифтинг-программа объёмного 3D моделирования",
+    "procedure": {
+      "slug": "uhodovye-procedury"
+    }
+  },
+  {
+    "id": 23,
+    "name": "Область декольте",
+    "procedure": {
+      "slug": "pigment-lumec"
+    }
+  },
+  {
+    "id": 193,
+    "name": "Красивые волосы",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 33,
+    "name": "Курс 10 процедур",
+    "procedure": {
+      "slug": "tesla-former"
+    }
+  },
+  {
+    "id": 225,
+    "name": "Чистка спины, 2 степень",
+    "procedure": {
+      "slug": "kosmetologicheskie-chistki"
+    }
+  },
+  {
+    "id": 37,
+    "name": "Лицо, шея",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 187,
+    "name": "Волосистая часть головы",
+    "procedure": {
+      "slug": "plazmoterapiya-plazmolifting"
+    }
+  },
+  {
+    "id": 170,
+    "name": "Уголки глаз «гусиные лапки»",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 147,
+    "name": "Яблочки молодости / лифтинг средней трети, 1 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 51,
+    "name": "Щеки",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 105,
+    "name": "Спина",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 97,
+    "name": "Аквапилинг лицо (HydraFacial)",
+    "procedure": {
+      "slug": "profeccial"
+    }
+  },
+  {
+    "id": 171,
+    "name": "Спинка носа",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 8,
+    "name": "600 импульсов",
+    "procedure": {
+      "slug": "volnewmer"
+    }
+  },
+  {
+    "id": 15,
+    "name": "Лицо и шея (лечение), 1000 импульсов",
+    "procedure": {
+      "slug": "pladuo"
+    }
+  },
+  {
+    "id": 24,
+    "name": "Лицо + шея",
+    "procedure": {
+      "slug": "pigment-lumec"
+    }
+  },
+  {
+    "id": 34,
+    "name": "Курс 5 процедур",
+    "procedure": {
+      "slug": "tesla-former"
+    }
+  },
+  {
+    "id": 38,
+    "name": "Лицо, шея, декольте",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 52,
+    "name": "Виски, или бакенбарды, или нос",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 89,
+    "name": "Абонемент 12 процедур",
+    "procedure": {
+      "slug": "beautylizer"
+    }
+  },
+  {
+    "id": 93,
+    "name": "Абонемент «Лифтинг» лицо + шея с уходом, 6 процедур",
+    "procedure": {
+      "slug": "mikrotokovaya-terapiya"
+    }
+  },
+  {
+    "id": 98,
+    "name": "Аквапилинг лицо, шея, декольте (HydraFacial)",
+    "procedure": {
+      "slug": "profeccial"
+    }
+  },
+  {
+    "id": 106,
+    "name": "Кисти рук",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 119,
+    "name": "REVI SILK 1 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 148,
+    "name": "3D моделирование подбородка, 1 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 188,
+    "name": "Кисти рук (обе руки)",
+    "procedure": {
+      "slug": "plazmoterapiya-plazmolifting"
+    }
+  },
+  {
+    "id": 194,
+    "name": "Красивые волосы (курс 5 капельниц)",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 215,
+    "name": "Миндальный Enerpeel",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 99,
+    "name": "Аквапилинг Peach Peel + Пилинг (HydraFacial)",
+    "procedure": {
+      "slug": "profeccial"
+    }
+  },
+  {
+    "id": 94,
+    "name": "Абонемент «Лифтинг» лицо + шея с уходом, 10 процедур",
+    "procedure": {
+      "slug": "mikrotokovaya-terapiya"
+    }
+  },
+  {
+    "id": 16,
+    "name": "Лицо и шея (лечение, омоложение), 1200 импульсов",
+    "procedure": {
+      "slug": "pladuo"
+    }
+  },
+  {
+    "id": 172,
+    "name": "5 в 1: лоб + брови + межбровье + глаза + нос",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 39,
+    "name": "Шея, декольте",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 195,
+    "name": "Золушка",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 9,
+    "name": "800 импульсов",
+    "procedure": {
+      "slug": "volnewmer"
+    }
+  },
+  {
+    "id": 120,
+    "name": "REVI SILK 2 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 25,
+    "name": "Лицо + шея + декольте",
+    "procedure": {
+      "slug": "pigment-lumec"
+    }
+  },
+  {
+    "id": 53,
+    "name": "Малая зона (верхняя губа / подбородок / межбровье)",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 216,
+    "name": "Джесснера Enerpeel",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 107,
+    "name": "LED",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 149,
+    "name": "Заполнение височной области, 1 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 40,
+    "name": "Декольте",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 217,
+    "name": "Салициловый Enerpeel",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 196,
+    "name": "Золушка (курс 5 капельниц)",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 100,
+    "name": "RF-лифтинг, лицо",
+    "procedure": {
+      "slug": "profeccial"
+    }
+  },
+  {
+    "id": 108,
+    "name": "Комплекс: лицо (4 процедуры)",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 54,
+    "name": "Шея (передняя и задняя поверхность)",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 121,
+    "name": "REVI STRONG 1 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 10,
+    "name": "1200 импульсов",
+    "procedure": {
+      "slug": "volnewmer"
+    }
+  },
+  {
+    "id": 26,
+    "name": "Кисти рук (обе руки)",
+    "procedure": {
+      "slug": "pigment-lumec"
+    }
+  },
+  {
+    "id": 150,
+    "name": "Бланширование лба, 1 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 17,
+    "name": "Лицо и шея (шлифовка, лифтинг), 1400 импульсов",
+    "procedure": {
+      "slug": "pladuo"
+    }
+  },
+  {
+    "id": 173,
+    "name": "Крылья носа",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 18,
+    "name": "Тело (лечение), 1600 импульсов",
+    "procedure": {
+      "slug": "pladuo"
+    }
+  },
+  {
+    "id": 122,
+    "name": "REVI STRONG 2 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 55,
+    "name": "Руки полностью",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 101,
+    "name": "RF-лифтинг, лицо, шея, декольте",
+    "procedure": {
+      "slug": "profeccial"
+    }
+  },
+  {
+    "id": 197,
+    "name": "Бодрость",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 174,
+    "name": "Подбородок",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 151,
+    "name": "Нехирургическая ринопластика",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 109,
+    "name": "Комплекс: лицо (6 процедур)",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 218,
+    "name": "Жёлтый пилинг Tizo (США)",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 41,
+    "name": "Глаза",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 11,
+    "name": "1 доп. импульс",
+    "procedure": {
+      "slug": "volnewmer"
+    }
+  },
+  {
+    "id": 27,
+    "name": "Щеки",
+    "procedure": {
+      "slug": "pigment-lumec"
+    }
+  },
+  {
+    "id": 198,
+    "name": "Бодрость (курс 5 капельниц)",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 56,
+    "name": "Руки до локтя",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 110,
+    "name": "Комплекс: лицо (8 процедур)",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 152,
+    "name": "Омоложение шеи / кольца Венеры, 1 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 123,
+    "name": "MESOXANTIN 1,5 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 19,
+    "name": "Тело и спина (шлифовка), 2000 импульсов",
+    "procedure": {
+      "slug": "pladuo"
+    }
+  },
+  {
+    "id": 28,
+    "name": "Подбородок",
+    "procedure": {
+      "slug": "pigment-lumec"
+    }
+  },
+  {
+    "id": 175,
+    "name": "Лечение десневой (гингивальной) улыбки",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 102,
+    "name": "RF-лифтинг, шея, декольте",
+    "procedure": {
+      "slug": "profeccial"
+    }
+  },
+  {
+    "id": 42,
+    "name": "Живот",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 219,
+    "name": "МИЛАЙН: от пигментации, лицо",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 153,
+    "name": "Коррекция мочек уха",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 20,
+    "name": "1 доп. импульс",
+    "procedure": {
+      "slug": "pladuo"
+    }
+  },
+  {
+    "id": 176,
+    "name": "Поднятие уголков рта",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 199,
+    "name": "Антистресс",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 111,
+    "name": "Комплекс: лицо (10 процедур)",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 124,
+    "name": "MESOEYE 1 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 57,
+    "name": "Подмышки",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 220,
+    "name": "МИЛАЙН: осветление вокруг глаз",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 43,
+    "name": "Колени",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 29,
+    "name": "Крылья носа",
+    "procedure": {
+      "slug": "pigment-lumec"
+    }
+  },
+  {
+    "id": 177,
+    "name": "Кончик носа",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 154,
+    "name": "Full face, 3 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 30,
+    "name": "Минимальная зона",
+    "procedure": {
+      "slug": "pigment-lumec"
+    }
+  },
+  {
+    "id": 112,
+    "name": "Комплекс: лицо/шея/декольте (4 процедуры)",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 44,
+    "name": "Локти",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 125,
+    "name": "MESOWHARTON 1,5 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 58,
+    "name": "Пальцы рук",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 200,
+    "name": "Антистресс (курс 5 капельниц)",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 221,
+    "name": "МИЛАЙН: отбеливание подмышечных впадин",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 201,
+    "name": "Детокс",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 59,
+    "name": "Кисти рук с пальцами",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 222,
+    "name": "МИЛАЙН: отбеливание интимных зон",
+    "procedure": {
+      "slug": "kosemotologicheskie-pilingi"
+    }
+  },
+  {
+    "id": 113,
+    "name": "Комплекс: лицо/шея/декольте (6 процедур)",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 155,
+    "name": "Full face, 4 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 126,
+    "name": "NOVACUTAN Sbio 2 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 178,
+    "name": "Лифтинг бровей",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 45,
+    "name": "Руки до локтей",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 156,
+    "name": "Full face, 5 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 202,
+    "name": "Детокс (курс 5 капельниц)",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 46,
+    "name": "Кисти рук",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 127,
+    "name": "NOVACUTAN Ybio 2 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 60,
+    "name": "Кисти рук",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 179,
+    "name": "Шея (тяжи платизмы)",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 114,
+    "name": "Комплекс: лицо/шея/декольте (8 процедур)",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 61,
+    "name": "Белая линия живота",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 115,
+    "name": "Комплекс: лицо/шея/декольте (10 процедур)",
+    "procedure": {
+      "slug": "heleo"
+    }
+  },
+  {
+    "id": 128,
+    "name": "PROFHILO 2 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 47,
+    "name": "Ягодицы",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 157,
+    "name": "Full face, 6 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 180,
+    "name": "Коррекция нижней челюсти (бруксизм)",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 203,
+    "name": "Железная леди",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 129,
+    "name": "STYLAGE HYDRA 1 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 158,
+    "name": "Belotero lips contur, 0,6 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 48,
+    "name": "Область бедер",
+    "procedure": {
+      "slug": "rf-lifting-inmode"
+    }
+  },
+  {
+    "id": 204,
+    "name": "Железная леди (курс 5 капельниц)",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 181,
+    "name": "Коррекция через 2 недели, 1 ед (миотокс)",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 62,
+    "name": "Плечи",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 205,
+    "name": "Лаеннек, 2 ml",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 130,
+    "name": "JALUPRO 3 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 63,
+    "name": "Спина, нижняя треть (поясница/крестец)",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 159,
+    "name": "Belotero Intense, 1 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 182,
+    "name": "Коррекция через 2 недели, 1 ед (диспорт)",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 64,
+    "name": "Спина полностью",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 160,
+    "name": "Stylage M Lidocaine, 1 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 206,
+    "name": "Лаеннек, 2 ml (курс 5 капельниц)",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 183,
+    "name": "Лечение гипергидроза подмышки/стопы/ладони",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 131,
+    "name": "PLINEST FAST 2 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 65,
+    "name": "Живот полностью",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 132,
+    "name": "PLINEST 2 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 184,
+    "name": "Мужская ботулинотерапия",
+    "procedure": {
+      "slug": "botullinoterapiya"
+    }
+  },
+  {
+    "id": 207,
+    "name": "Лаеннек, 4 ml",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 161,
+    "name": "Stylage M, 1 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 208,
+    "name": "Лаеннек, 4 ml (курс 5 капельниц)",
+    "procedure": {
+      "slug": "droppers"
+    }
+  },
+  {
+    "id": 66,
+    "name": "Ореолы",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 133,
+    "name": "Belotero Hydro 1 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 162,
+    "name": "Stylage S, 0,8 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 163,
+    "name": "Stylage Special lips",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 67,
+    "name": "Грудь полностью",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 134,
+    "name": "Viscoderm Hydrobooster 1,1 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 164,
+    "name": "Увлажнение губ Stylage Hydro max",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 68,
+    "name": "Декольте",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 135,
+    "name": "IALEST 2 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 69,
+    "name": "Бедра, 1 зона",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 136,
+    "name": "Viscoderm Skinko E 5 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 165,
+    "name": "Aliaxin Lv, 1 ml",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 166,
+    "name": "Лонгидаза, 1 доза",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 137,
+    "name": "Viscoderm Skinko 5 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 70,
+    "name": "Бедра полностью",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 167,
+    "name": "Лонгидаза, 2 дозы",
+    "procedure": {
+      "slug": "konturnaya-plastika"
+    }
+  },
+  {
+    "id": 138,
+    "name": "NCTF 135, 3 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 71,
+    "name": "Голени с коленями",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 139,
+    "name": "NCTF 135HA, 3 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 72,
+    "name": "Колени",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 73,
+    "name": "Стопа",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 140,
+    "name": "NCTF 135HA+, 3 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 74,
+    "name": "Пальцы ног",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 141,
+    "name": "Hyalrepair-06, 5 ml, анти-акне",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 142,
+    "name": "Укрепление / рост волос, 2 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 75,
+    "name": "Стопа с пальцами ног",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 143,
+    "name": "Hair Filler 1 ml",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 76,
+    "name": "Ноги полностью",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 77,
+    "name": "Классическое бикини",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 144,
+    "name": "ASCE",
+    "procedure": {
+      "slug": "mezoterapiya-i-biorevitalizaciya"
+    }
+  },
+  {
+    "id": 78,
+    "name": "Тотальное бикини",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 79,
+    "name": "Межъягодичная зона",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 80,
+    "name": "Ягодицы",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 81,
+    "name": "№1: ноги полностью + руки полностью + тотальное бикини + подмышки",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 82,
+    "name": "№2: ноги полностью + бикини тотальное + подмышки",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 83,
+    "name": "№3: голень с коленями + бикини тотальное + подмышки",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 84,
+    "name": "№4: бикини тотальное + подмышки",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  },
+  {
+    "id": 85,
+    "name": "Мужская эпиляция",
+    "procedure": {
+      "slug": "laser-epilation"
+    }
+  }
+]

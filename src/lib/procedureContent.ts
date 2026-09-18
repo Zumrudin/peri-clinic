@@ -41,6 +41,8 @@ export interface PriceItem {
   name: string;
   price: number | null;
   priceHeadDoctor: number | null;
+  medicalServiceCode: string | null;
+  medicalServiceName: string | null;
   unit: string | null;
   note: string | null;
 }
@@ -54,6 +56,8 @@ export async function getPriceItemsForProcedure(procedureSlug: string): Promise<
       name: item.data.name,
       price: item.data.price ?? null,
       priceHeadDoctor: item.data.price_head_doctor ?? null,
+      medicalServiceCode: item.data.medical_service_code ?? null,
+      medicalServiceName: item.data.medical_service_name ?? null,
       unit: item.data.unit ?? null,
       note: item.data.note ?? null,
     }));

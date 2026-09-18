@@ -39,6 +39,11 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
                 <td>
                   {item.name}
                   {item.unit && <span class="price-table__unit"> · {item.unit}</span>}
+                  {item.medicalServiceCode && (
+                    <span class="price-table__service-code" title={item.medicalServiceName ?? undefined}>
+                      Код медицинской услуги: {item.medicalServiceCode}
+                    </span>
+                  )}
                 </td>
                 {showPrices && !noPriceAtAll ? (
                   <>
@@ -89,6 +94,13 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
   .price-table__unit {
     color: var(--muted);
     font-size: 0.75rem;
+  }
+  .price-table__service-code {
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
   }
   .price-table__col-label {
     padding: 0 0 8px 20px;
