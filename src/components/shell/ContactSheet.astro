@@ -136,6 +136,12 @@ const rows = [
       opacity: 0;
     }
   }
+  @media (prefers-reduced-transparency: reduce) {
+    .sheet::backdrop {
+      backdrop-filter: none;
+      background: rgba(36, 36, 31, 0.7);
+    }
+  }
   .sheet[open] {
     display: grid;
   }
@@ -208,6 +214,7 @@ const rows = [
   .sheet__title {
     font-size: 36px;
     line-height: 1;
+    letter-spacing: -0.02em;
     margin-bottom: 14px;
   }
   .sheet__lead {

@@ -84,11 +84,15 @@ h3,
 p {
   margin-top: 0;
 }
+/* Tracking is size-specific: the tighter value belongs to the biggest text only. */
 h1,
 h2 {
   font-family: var(--display);
   font-weight: 400;
   letter-spacing: -0.035em;
+}
+h2 {
+  letter-spacing: -0.025em;
 }
 h1 em,
 h2 em {
@@ -328,6 +332,37 @@ h2 {
   }
   .glass-chip--dark {
     background: rgba(41, 41, 35, 0.85);
+  }
+}
+/* Translucency is a preference, not a given: frost the glass when the OS asks for it, and
+   trade the luminous gradient edge for a real border when contrast is requested. */
+@media (prefers-reduced-transparency: reduce) {
+  .glass-panel,
+  .glass-chip {
+    background: rgba(255, 253, 246, 0.96);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .glass-panel--dark,
+  .glass-chip--dark {
+    background: rgba(41, 41, 35, 0.96);
+  }
+}
+@media (prefers-contrast: more) {
+  .glass-panel,
+  .glass-chip {
+    background: var(--paper);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid var(--ink);
+  }
+  .glass-panel::before {
+    display: none;
+  }
+  .glass-panel--dark,
+  .glass-chip--dark {
+    background: var(--dark);
+    border-color: var(--dark-text);
   }
 }
 

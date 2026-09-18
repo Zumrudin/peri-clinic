@@ -21,6 +21,7 @@
 .home-section h2 {
   font-size: var(--home-heading);
   line-height: 1.08;
+  letter-spacing: -0.02em; /* tracking follows size: these run 34–56px, base h1 goes to 104px */
   text-wrap: balance;
 }
 .home-section h2 em { color: inherit; font-style: normal; }
@@ -41,7 +42,9 @@
   display: inline-flex; align-items: center; gap: 12px; min-height: 44px;
   padding: 8px 0; border: 0; background: none; color: var(--gold-deep);
   font: 500 14px/1.5 var(--sans); text-decoration: underline; text-underline-offset: 5px;
+  transition: opacity var(--dur-press) var(--ease-out);
 }
+.home-section .home-text-link:active { opacity: 0.7; }
 .page--home header.header { padding-inline: var(--home-edge); gap: 24px; }
 .page--home #contacts.footer { padding: 64px var(--home-edge) 32px; background: var(--sand); }
 .page--home .footer__top { background: transparent; box-shadow: none; backdrop-filter: none; padding: 0 0 32px; border-bottom: 1px solid var(--line); border-radius: 0; }

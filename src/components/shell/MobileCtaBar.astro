@@ -24,9 +24,30 @@ const site = await getSiteSettings();
       inset: auto 0 0;
       padding: 10px 20px calc(10px + env(safe-area-inset-bottom));
       gap: 10px;
-      background: var(--ivory);
-      border-top: 1px solid var(--line);
-      box-shadow: 0 -8px 24px rgba(30, 29, 25, 0.06);
+      /* Floating chrome: translucent material with content scrolling under it, and a soft
+         scroll edge above instead of a hairline. */
+      background: rgba(246, 244, 239, 0.85);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+    }
+    .mobile-cta-bar::before {
+      content: '';
+      position: absolute;
+      inset: auto 0 100%;
+      height: 20px;
+      background: linear-gradient(to top, rgba(246, 244, 239, 0.85), rgba(246, 244, 239, 0));
+      pointer-events: none;
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .mobile-cta-bar {
+        background: var(--ivory);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: 0 -8px 24px rgba(30, 29, 25, 0.06);
+      }
+      .mobile-cta-bar::before {
+        display: none;
+      }
     }
     .mobile-cta-bar__call {
       flex: 0 0 auto;
