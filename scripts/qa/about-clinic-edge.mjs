@@ -59,8 +59,10 @@ try {
       assert.notEqual(await rail.evaluate(el=>getComputedStyle(el).transform),'none'); // live-follow mid-touch
       await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:startX-box.width*.8,y}]});
       await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+      // The release hands the finger's velocity to a spring, so the rail settles over a few
+      // hundred ms instead of snapping: poll for the resting state.
+      await page.waitForFunction(el=>getComputedStyle(el).transform==='none',await rail.elementHandle(),{timeout:2000});
       assert.notEqual(await gallery.locator('[data-photo]').first().getAttribute('data-id'),beforeId); // committed rotate, loops
-      assert.equal(await rail.evaluate(el=>getComputedStyle(el).transform),'none'); // settled
     }
     assert.ok(tested>0,'expected at least one overflowing gallery to be drag-tested at this viewport');
     await page.close();
