@@ -103,31 +103,31 @@ const { privacyUrl } = Astro.props;
 <style>
   .cert-request { margin: 32px 0; }
   [hidden] { display: none !important; }
-  .sub, .note { color: var(--ink-2); font-size: 13px; line-height: 1.65; margin-bottom: 20px; }
+  .sub, .note { color: var(--ink-2); font-size: 0.8125rem; line-height: 1.65; margin-bottom: 20px; }
   .fg { margin-bottom: 18px; min-width: 0; }
-  label.fl { display: block; font-size: 13px; line-height: 1.5; margin-bottom: 8px; }
-  input, select { width: 100%; min-width: 0; min-height: 48px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); font: 16px var(--sans); }
+  label.fl { display: block; font-size: 0.8125rem; line-height: 1.5; margin-bottom: 8px; }
+  input, select { width: 100%; min-width: 0; min-height: 48px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); font: 1rem var(--sans); }
   input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
   input[readonly] { color: var(--ink-2); }
   .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; }
   fieldset { min-width: 0; border: 1px solid var(--line-gold); border-radius: var(--radius); padding: 24px; margin: 24px 0; background: var(--gold-05); }
-  legend { padding: 0 8px; font-size: 16px; font-weight: 500; }
-  .chk { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.65; }
+  legend { padding: 0 8px; font-size: 1rem; font-weight: 500; }
+  .chk { display: flex; gap: 12px; align-items: flex-start; font-size: 0.875rem; line-height: 1.65; }
   .chk input { flex: 0 0 22px; width: 22px; min-height: 22px; height: 22px; margin-top: 2px; accent-color: var(--gold-deep); }
   .chk label { cursor: pointer; }
   a { color: var(--gold-deep); text-decoration: underline; }
   .hp { position: absolute; width: 1px; height: 1px; min-height: 0; padding: 0; overflow: hidden; clip-path: inset(50%); }
-  .err { color: #9d2929; font-size: 14px; line-height: 1.65; margin: 16px 0; }
+  .err { color: #9d2929; font-size: 0.875rem; line-height: 1.65; margin: 16px 0; }
   .err:empty { display: none; }
   button { cursor: pointer; }
   button:disabled { opacity: .6; cursor: wait; }
   .ok { padding: 32px 24px; border: 1px solid var(--line-gold); border-radius: var(--radius); background: var(--gold-05); }
-  .ok h2 { font: 40px var(--display); margin-bottom: 16px; }
+  .ok h2 { font: 2.5rem var(--display); margin-bottom: 16px; }
   .ok p { margin-bottom: 16px; }
   @media (max-width: 600px) {
     .row { grid-template-columns: minmax(0, 1fr); }
     fieldset { padding: 20px 16px; }
-    legend { font-size: 14px; }
+    legend { font-size: 0.875rem; }
     button { width: 100%; }
   }
 </style>

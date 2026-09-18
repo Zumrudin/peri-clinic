@@ -3,8 +3,8 @@
   --home-gutter: clamp(32px, 5.8vw, 96px);
   --home-edge: max(var(--home-gutter), calc((100% - 1312px) / 2));
   --home-space: clamp(64px, 6.7vw, 96px);
-  --home-heading: clamp(34px, calc(20px + 2.5vw), 56px);
-  --home-card-title: clamp(26px, calc(18px + 1vw), 32px);
+  --home-heading: clamp(2.125rem, calc(1.25rem + 2.5vw), 3.5rem);
+  --home-card-title: clamp(1.625rem, calc(1.125rem + 1vw), 2rem);
   --home-radius: 24px;
   --home-image-radius: 16px;
   --home-surface-warm: #e8e1d6;
@@ -25,15 +25,15 @@
   text-wrap: balance;
 }
 .home-section h2 em { color: inherit; font-style: normal; }
-.home-section .eyebrow { font-size: 12px; letter-spacing: .12em; margin-bottom: 16px; }
+.home-section .eyebrow { font-size: 0.75rem; letter-spacing: .12em; margin-bottom: 16px; }
 .home-section .button, .page--home .header .button {
   min-height: 48px; padding: 12px 20px; gap: 16px; border-radius: 16px;
-  font-size: 14px; line-height: 1.4; letter-spacing: 0; text-transform: none;
+  font-size: 0.875rem; line-height: 1.4; letter-spacing: 0; text-transform: none;
 }
 .home-section .home-icon-button {
   display: grid; place-items: center; flex: 0 0 auto; width: 48px; height: 48px;
   padding: 0; border: 1px solid var(--gold-deep); border-radius: 50%;
-  background: transparent; color: var(--gold-deep); font: 24px/1 var(--sans);
+  background: transparent; color: var(--gold-deep); font: 1.5rem/1 var(--sans);
   transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-press) var(--ease-out);
 }
 .home-section .home-icon-button:disabled { opacity: .4; cursor: default; }
@@ -41,7 +41,7 @@
 .home-section .home-text-link {
   display: inline-flex; align-items: center; gap: 12px; min-height: 44px;
   padding: 8px 0; border: 0; background: none; color: var(--gold-deep);
-  font: 500 14px/1.5 var(--sans); text-decoration: underline; text-underline-offset: 5px;
+  font: 500 0.875rem/1.5 var(--sans); text-decoration: underline; text-underline-offset: 5px;
   transition: opacity var(--dur-press) var(--ease-out);
 }
 .home-section .home-text-link:active { opacity: 0.7; }
@@ -50,10 +50,10 @@
 .page--home .footer__top { background: transparent; box-shadow: none; backdrop-filter: none; padding: 0 0 32px; border-bottom: 1px solid var(--line); border-radius: 0; }
 .page--home .footer__top::before { display: none; }
 .page--home .footer__grid { gap: 32px; }
-.page--home .footer__grid h3 { font-size: 12px; letter-spacing: .08em; }
-.page--home .footer__grid a, .page--home .footer__grid p { font-size: 14px; }
+.page--home .footer__grid h3 { font-size: 0.75rem; letter-spacing: .08em; }
+.page--home .footer__grid a, .page--home .footer__grid p { font-size: 0.875rem; }
 .page--home .footer__grid a { padding-block: 6px; }
-.page--home .footer__bottom { font-size: 12px; }
+.page--home .footer__bottom { font-size: 0.75rem; }
 @media (hover: hover) and (pointer: fine) {
   .home-section .home-icon-button:hover:not(:disabled) { background: var(--gold-deep); color: var(--paper); }
 }
