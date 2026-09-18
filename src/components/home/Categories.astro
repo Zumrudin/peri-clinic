@@ -78,7 +78,9 @@ const mobileTiles = await Promise.all(
 
 <style>
   .service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-  .service-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border-radius: var(--radius-lg); background: var(--sand); }
+  .service-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border-radius: var(--radius-lg); background: var(--sand); transition: transform var(--dur-press) var(--ease-out); }
+  /* Feedback on pointer-down for touch too (hover zoom below is pointer-only). */
+  .service-card:active { transform: scale(0.985); }
   .service-card:nth-child(3n+2) { background: var(--home-surface-warm); }
   .service-card:nth-child(3n+3) { background: var(--home-surface-cool); }
   .service-card picture { display: block; aspect-ratio: 4 / 3; overflow: hidden; }

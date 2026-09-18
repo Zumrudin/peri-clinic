@@ -34,7 +34,8 @@ const { id, title, items, portraits = false, detailsLabel = 'Подробнее'
   .gallery[data-interactive] .gallery-photo { touch-action: pan-y; }
   .gallery-rail::-webkit-scrollbar { display: none; }
   .gallery-card { flex: 0 0 calc((100% - 48px) / 3); min-width: 0; display: flex; flex-direction: column; scroll-snap-align: start; }
-  .gallery-photo { display: block; position: relative; border-radius: var(--radius); overflow: hidden; background: var(--sand); }
+  .gallery-photo { display: block; position: relative; border-radius: var(--radius); overflow: hidden; background: var(--sand); transition: transform var(--dur-press) var(--ease-out); }
+  .gallery-photo:active { transform: scale(0.985); }
   .gallery-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; user-select: none; }
   .portraits .gallery-card { flex-basis: calc((100% - 72px) / 4); }
   .portraits .gallery-photo { background: var(--specialist-photo-bg); }

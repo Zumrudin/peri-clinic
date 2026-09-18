@@ -60,6 +60,9 @@ const { devices } = home;
   .equipment__rail { min-width: 0; gap: 24px; }
   .machine-card { flex: 0 0 46%; min-width: 0; display: flex; flex-direction: column; overflow: hidden; border-radius: var(--radius-lg); background: var(--sand); }
   .machine-card:nth-child(2n) { background: var(--home-surface-cool); }
+  /* Linked cards answer the press itself; articles without a link stay still. */
+  a.machine-card { transition: transform var(--dur-press) var(--ease-out); }
+  a.machine-card:active { transform: scale(0.985); }
   .machine-card :global(img) { width: 100%; height: clamp(240px, 25vw, 340px); padding: 20px; object-fit: contain; mix-blend-mode: multiply; transition: transform var(--dur-slow) var(--ease-out); }
   /* Same hover zoom as the home service cards (Categories.astro). */
   @media (hover: hover) and (pointer: fine) {
