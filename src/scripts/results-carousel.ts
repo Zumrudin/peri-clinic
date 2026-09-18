@@ -28,7 +28,11 @@ export function initResultsCarousel(): void {
       index = cards.reduce((nearest, card, i) =>
         Math.abs(offset(card) - rail.scrollLeft) < Math.abs(offset(cards[nearest]) - rail.scrollLeft) ? i : nearest, 0);
       current.textContent = String(index + 1).padStart(2, '0');
-      progress.style.transform = `scaleX(${(index + 1) / cards.length})`;
+      // The bar tracks the rail 1:1 (from 1/n at the start to full at the end) instead of
+      // stepping per card, so it moves with the finger while the counter snaps by card.
+      const max = rail.scrollWidth - rail.clientWidth;
+      const fraction = max > 0 ? Math.min(1, Math.max(0, rail.scrollLeft / max)) : 1;
+      progress.style.transform = `scaleX(${1 / cards.length + (1 - 1 / cards.length) * fraction})`;
       previous.disabled = index === 0;
       next.disabled = index === cards.length - 1;
     };

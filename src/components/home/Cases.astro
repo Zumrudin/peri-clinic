@@ -88,7 +88,8 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
   .results-navigation__arrows { grid-column: 1; grid-row: 2; display: flex; gap: 8px; }
   .results-navigation__position { grid-column: 2; grid-row: 4; min-width: 0; }
   .results-navigation__track { height: 2px; background: var(--line-gold); border-radius: var(--radius-pill); overflow: hidden; }
-  .results-navigation__track span { display: block; width: 100%; height: 100%; background: var(--gold-deep); transform: scaleX(0); transform-origin: left; transition: transform var(--dur-fast); }
+  /* No transition: the bar is driven per scroll frame by results-carousel.ts and must not lag the rail. */
+  .results-navigation__track span { display: block; width: 100%; height: 100%; background: var(--gold-deep); transform: scaleX(0); transform-origin: left; }
   .results-navigation__counter { margin: 12px 0 0; color: var(--ink-2); font-size: 14px; font-variant-numeric: tabular-nums; }
   .results > .button { grid-column: 1; grid-row: 3; justify-self: start; align-self: start; }
   .results-grid:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: -3px; }
@@ -110,6 +111,5 @@ const mobileImages = await Promise.all(items.slice(0, 10).map(async (c) => {
   }
   @media (prefers-reduced-motion: reduce) {
     .results-grid { scroll-behavior: auto; }
-    .results-navigation__track span { transition: none; }
   }
 </style>
