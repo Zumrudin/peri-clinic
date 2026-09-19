@@ -7,6 +7,7 @@ import { collections } from '../../directus/setup/collections.mjs';
 
 const plan = JSON.parse(await readFile(new URL('../../docs/pricing/2026-09-19/plan.json', import.meta.url), 'utf8'));
 const refinement = JSON.parse(await readFile(new URL('../../docs/pricing/2026-09-19/refinement.json', import.meta.url), 'utf8'));
+const mensPolicy = JSON.parse(await readFile(new URL('../../docs/pricing/2026-09-19/mens-policy.json', import.meta.url), 'utf8'));
 const base = process.env.DIRECTUS_URL || 'http://127.0.0.1:8055';
 const login = await fetch(base + '/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: process.env.ADMIN_EMAIL, password: process.env.ADMIN_PASSWORD }) });
 if (!login.ok) throw Error(`Login HTTP ${login.status}`);
@@ -28,6 +29,8 @@ const procedureId = slug => {
 const equal = (a, b) => (a ?? null) === (b ?? null);
 const updates = [];
 for (const u of plan.updates) {
+  // Later user-approved notes are applied by migration 17, not the original export.
+  if (mensPolicy.notes.some(rule => rule.slug === u.match.slug && rule.name === u.match.name)) continue;
   const candidates = before.filter(r => r.procedure === procedureId(u.match.slug) && [u.match.name, u.values.name].includes(r.name));
   if (candidates.length !== 1) throw Error(`Ambiguous update: ${u.match.name}`);
   const row = candidates[0];
@@ -38,7 +41,7 @@ for (const u of plan.updates) {
 }
 const additions = [];
 for (const a of plan.additions) {
-  if (refinement.removed_source_indices.includes(a.source_index)) continue;
+  if ([...refinement.removed_source_indices, ...mensPolicy.removed_source_indices].includes(a.source_index)) continue;
   const { procedure_slug, ...values } = a.values;
   Object.assign(values, refinement.groups[values.price_group] ?? {});
   values.procedure = procedureId(procedure_slug);
