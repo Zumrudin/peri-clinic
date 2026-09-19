@@ -485,7 +485,7 @@ const allPriceItems = defineCollection({
   loader: directusLoader('allPriceItems', () =>
     directusGet(
       `/items/price_items${directusQuery({
-        fields: 'id,sort,name,price,price_max,price_group,price_head_doctor,unit,note,medical_service_code,medical_service_name,procedure.slug',
+        fields: 'id,sort,name,price,price_max,price_group,price_group_category,price_group_sort,price_head_doctor,unit,note,medical_service_code,medical_service_name,procedure.slug',
         filter: JSON.stringify({ _or: [{ procedure: { status: { _eq: 'published' } } }, { _and: [{ procedure: { _null: true } }, { price_group: { _nnull: true } }] }] }),
         sort: 'sort',
         limit: '-1',
@@ -499,6 +499,8 @@ const allPriceItems = defineCollection({
     price: z.number().nullable().optional(),
     price_max: z.number().nullable().optional(),
     price_group: z.string().nullable().optional(),
+    price_group_category: z.string().nullable().optional(),
+    price_group_sort: z.number().nullable().optional(),
     price_head_doctor: z.number().nullable().optional(),
     medical_service_code: z.string().nullable().optional(),
     medical_service_name: z.string().nullable().optional(),

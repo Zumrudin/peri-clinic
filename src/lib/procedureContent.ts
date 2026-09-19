@@ -103,19 +103,31 @@ export async function getPriceListGrouped(): Promise<PriceCategoryGroup[]> {
   // Standalone price groups do not create empty treatment pages or new SEO URLs.
   const all = bySort(await getCollection('allPriceItems'));
   const standalone = new Map<string, typeof all>();
+  const groupOrder = new Map(categories.map((cat, index) => [cat.data.slug, index + 1]));
   for (const item of all) {
     if (item.data.procedure || !item.data.price_group) continue;
-    const rows = standalone.get(item.data.price_group) ?? [];
+    const key = JSON.stringify([item.data.price_group_category, item.data.price_group]);
+    const rows = standalone.get(key) ?? [];
     rows.push(item);
-    standalone.set(item.data.price_group, rows);
+    standalone.set(key, rows);
   }
-  for (const [title, rows] of standalone) {
+  for (const rows of standalone.values()) {
+    const title = rows[0].data.price_group!;
     const slug = `additional-${rows[0].id}`;
-    groups.push({ slug, title, procedures: [{ slug, title, icd10: null, items: rows.map(({ data }) => ({
+    const procedure: PricedProcedure = { slug, title, icd10: null, items: rows.map(({ data }) => ({
       name: data.name, price: data.price ?? null, priceMax: data.price_max ?? null,
       priceHeadDoctor: data.price_head_doctor ?? null, unit: data.unit ?? null, note: data.note ?? null,
       medicalServiceCode: data.medical_service_code ?? null, medicalServiceName: data.medical_service_name ?? null,
-    })) }] });
+    })) };
+    const parentSlug = rows[0].data.price_group_category;
+    if (parentSlug) {
+      const parent = groups.find(group => group.slug === parentSlug);
+      if (!parent) throw new Error(`Unknown price group category: ${parentSlug}`);
+      parent.procedures.push(procedure);
+    } else {
+      groups.push({ slug, title, procedures: [procedure] });
+      groupOrder.set(slug, rows[0].data.price_group_sort ?? 1000);
+    }
   }
-  return groups;
+  return groups.sort((a, b) => (groupOrder.get(a.slug) ?? 1000) - (groupOrder.get(b.slug) ?? 1000));
 }

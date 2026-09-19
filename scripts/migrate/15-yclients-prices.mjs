@@ -6,6 +6,7 @@ import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { collections } from '../../directus/setup/collections.mjs';
 
 const plan = JSON.parse(await readFile(new URL('../../docs/pricing/2026-09-19/plan.json', import.meta.url), 'utf8'));
+const refinement = JSON.parse(await readFile(new URL('../../docs/pricing/2026-09-19/refinement.json', import.meta.url), 'utf8'));
 const base = process.env.DIRECTUS_URL || 'http://127.0.0.1:8055';
 const login = await fetch(base + '/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: process.env.ADMIN_EMAIL, password: process.env.ADMIN_PASSWORD }) });
 if (!login.ok) throw Error(`Login HTTP ${login.status}`);
@@ -37,7 +38,9 @@ for (const u of plan.updates) {
 }
 const additions = [];
 for (const a of plan.additions) {
+  if (refinement.removed_source_indices.includes(a.source_index)) continue;
   const { procedure_slug, ...values } = a.values;
+  Object.assign(values, refinement.groups[values.price_group] ?? {});
   values.procedure = procedureId(procedure_slug);
   const matches = before.filter(r => r.procedure === values.procedure && equal(r.price_group, values.price_group) && r.name === values.name);
   if (matches.length > 1) throw Error(`Duplicate: ${values.name}`);
@@ -50,7 +53,7 @@ const backup = new URL(`./out/yclients-prices/${Date.now()}/`, import.meta.url);
 await mkdir(backup, { recursive: true });
 await writeFile(new URL('before.json', backup), JSON.stringify({ base, fields, procedures, items: before }, null, 2));
 const schema = collections.find(c => c.collection === 'price_items').fields;
-for (const name of ['price_max', 'price_group']) {
+for (const name of ['price_max', 'price_group', 'price_group_category', 'price_group_sort']) {
   if (!fields.some(f => f.field === name)) await api('/fields/price_items', 'POST', schema.find(f => f.field === name));
 }
 const relation = fields.find(f => f.field === 'procedure');

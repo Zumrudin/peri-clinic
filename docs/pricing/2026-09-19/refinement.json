@@ -1,0 +1,8 @@
+{
+  "removed_source_indices": [130, 131, 132, 133, 134, 139],
+  "groups": {
+    "Коллагенотерапия": { "price_group_category": "injekcionnaya-cosmetologiya" },
+    "Полимолочная кислота": { "price_group_category": "injekcionnaya-cosmetologiya" },
+    "Консультации": { "price_group_sort": 0 }
+  }
+}
