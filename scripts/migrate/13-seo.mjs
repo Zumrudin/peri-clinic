@@ -46,7 +46,6 @@ for(const p of specialists.filter(p=>p.status==='published'&&!p.is_demo)) add('s
  seo_description:`${p.name} — ${p.role.toLowerCase()}. Специалист PERI CLINIC в Москве: информация, профессиональная практика и запись на консультацию.`,
 });
 add('home',home,{
- hero_title: 'Косметология в Москве\nс заботой о вас',
  devices_catalog_seo_title:'Аппаратная косметология в Москве — аппараты PERI CLINIC',
  devices_catalog_seo_description:'Аппараты и процедуры PERI CLINIC в Москве: RF-лифтинг, фотоомоложение, лазерная эпиляция и аппаратный уход. Описание методик, цены и консультация.',
 },true);
