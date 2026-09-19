@@ -25,6 +25,13 @@ export function initPricing(): void {
       if (link.hash === `#${id}`) link.setAttribute('aria-current', 'true');
       else link.removeAttribute('aria-current');
     });
+    const activeLink = mobileLinks.find((link) => link.hash === `#${id}`);
+    if (activeLink && !desktop.matches) {
+      // Keep the selected tab in the horizontal viewport without scrolling the page.
+      const navRect = mobileNavigation.getBoundingClientRect();
+      const linkRect = activeLink.getBoundingClientRect();
+      mobileNavigation.scrollLeft += linkRect.left - navRect.left - (navRect.width - linkRect.width) / 2;
+    }
   };
   activateCategory(categories[0].id);
   pricing.setAttribute('data-mobile-navigation', '');
@@ -56,6 +63,9 @@ export function initPricing(): void {
     });
     requestAnimationFrame(() => {
       target.scrollIntoView({ block: 'start' });
+      // The header becomes fixed on the first scroll and changes the page layout.
+      // Align again after that frame so a direct link stays below the sticky tabs.
+      requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
       if (!moveFocus) return;
       const focusTarget = target instanceof HTMLDetailsElement ? target.querySelector('summary') : target.querySelector('h2');
       if (focusTarget instanceof HTMLElement) {
@@ -77,10 +87,10 @@ export function initPricing(): void {
   navigation.addEventListener('click', (event) => {
     const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
     if (!link || event instanceof MouseEvent && (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)) return;
-    if (link.hash === window.location.hash) {
-      event.preventDefault();
-      revealTarget();
-    }
+    // Handle the anchor here: ClientRouter may consume the native hashchange.
+    event.preventDefault();
+    if (link.hash !== window.location.hash) history.pushState(null, '', link.hash);
+    revealTarget();
   });
   const onHashChange = () => revealTarget();
   window.addEventListener('hashchange', onHashChange);

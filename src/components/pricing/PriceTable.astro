@@ -39,6 +39,7 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
                 <td>
                   {item.name}
                   {item.unit && <span class="price-table__unit"> · {item.unit}</span>}
+                  {item.note && !noPriceAtAll && <span class="price-table__service-code">{item.note}</span>}
                   {item.medicalServiceCode && (
                     <span class="price-table__service-code" title={item.medicalServiceName ?? undefined}>
                       Код медицинской услуги: {item.medicalServiceCode}
@@ -47,7 +48,7 @@ const hasTiered = items.some((item) => item.priceHeadDoctor !== null);
                 </td>
                 {showPrices && !noPriceAtAll ? (
                   <>
-                    <td class="price-table__amount" data-label={hasTiered ? 'Врач' : 'Стоимость'}>{formatPrice(item.price) ?? '—'}</td>
+                    <td class="price-table__amount" data-label={hasTiered ? 'Врач' : 'Стоимость'}>{item.price !== null && item.priceMax != null && item.priceMax > item.price ? `${new Intl.NumberFormat('ru-RU').format(item.price)}–${formatPrice(item.priceMax)}` : formatPrice(item.price) ?? '—'}</td>
                     {hasTiered && <td class="price-table__amount" data-label="Гл. врач">{item.priceHeadDoctor !== null ? formatPrice(item.priceHeadDoctor) : '—'}</td>}
                   </>
                 ) : (

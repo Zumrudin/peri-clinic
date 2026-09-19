@@ -40,6 +40,7 @@ export async function getFaqForProcedure(procedureSlug: string) {
 export interface PriceItem {
   name: string;
   price: number | null;
+  priceMax?: number | null;
   priceHeadDoctor: number | null;
   medicalServiceCode: string | null;
   medicalServiceName: string | null;
@@ -55,6 +56,7 @@ export async function getPriceItemsForProcedure(procedureSlug: string): Promise<
     .map((item) => ({
       name: item.data.name,
       price: item.data.price ?? null,
+      priceMax: item.data.price_max ?? null,
       priceHeadDoctor: item.data.price_head_doctor ?? null,
       medicalServiceCode: item.data.medical_service_code ?? null,
       medicalServiceName: item.data.medical_service_name ?? null,
@@ -97,6 +99,23 @@ export async function getPriceListGrouped(): Promise<PriceCategoryGroup[]> {
     if (procEntries.length > 0) {
       groups.push({ slug: cat.data.slug, title: cat.data.title, procedures: procEntries });
     }
+  }
+  // Standalone price groups do not create empty treatment pages or new SEO URLs.
+  const all = bySort(await getCollection('allPriceItems'));
+  const standalone = new Map<string, typeof all>();
+  for (const item of all) {
+    if (item.data.procedure || !item.data.price_group) continue;
+    const rows = standalone.get(item.data.price_group) ?? [];
+    rows.push(item);
+    standalone.set(item.data.price_group, rows);
+  }
+  for (const [title, rows] of standalone) {
+    const slug = `additional-${rows[0].id}`;
+    groups.push({ slug, title, procedures: [{ slug, title, icd10: null, items: rows.map(({ data }) => ({
+      name: data.name, price: data.price ?? null, priceMax: data.price_max ?? null,
+      priceHeadDoctor: data.price_head_doctor ?? null, unit: data.unit ?? null, note: data.note ?? null,
+      medicalServiceCode: data.medical_service_code ?? null, medicalServiceName: data.medical_service_name ?? null,
+    })) }] });
   }
   return groups;
 }

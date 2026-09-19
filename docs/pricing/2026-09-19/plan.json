@@ -1,0 +1,2623 @@
+{
+  "source_date": "2026-09-19",
+  "updates": [
+    {
+      "id": 6,
+      "match": {
+        "slug": "volnewmer",
+        "name": "400 импульсов"
+      },
+      "source_index": 286,
+      "before": {
+        "price_max": null
+      },
+      "values": {
+        "price_max": 90000
+      }
+    },
+    {
+      "id": 7,
+      "match": {
+        "slug": "volnewmer",
+        "name": "500 импульсов"
+      },
+      "source_index": 287,
+      "before": {
+        "price_max": null
+      },
+      "values": {
+        "price_max": 120000
+      }
+    },
+    {
+      "id": 9,
+      "match": {
+        "slug": "volnewmer",
+        "name": "800 импульсов"
+      },
+      "source_index": 289,
+      "before": {
+        "price_max": null
+      },
+      "values": {
+        "price_max": 180000
+      }
+    },
+    {
+      "id": 135,
+      "match": {
+        "slug": "mezoterapiya-i-biorevitalizaciya",
+        "name": "IALEST 2 ml"
+      },
+      "source_index": 81,
+      "before": {
+        "price_head_doctor": 23000
+      },
+      "values": {
+        "price_head_doctor": 20000
+      }
+    },
+    {
+      "id": 161,
+      "match": {
+        "slug": "konturnaya-plastika",
+        "name": "Stylage M, 1 ml"
+      },
+      "source_index": 103,
+      "before": {
+        "price_head_doctor": 26000
+      },
+      "values": {
+        "price_head_doctor": 26500
+      }
+    },
+    {
+      "id": 189,
+      "match": {
+        "slug": "lipolitiki",
+        "name": "SLIM BODY / MPX, 5 мл"
+      },
+      "source_index": 31,
+      "before": {
+        "name": "SLIM BODY / MPX, 5 мл"
+      },
+      "values": {
+        "name": "SLIM BODY, 5 мл"
+      }
+    },
+    {
+      "id": 214,
+      "match": {
+        "slug": "kosemotologicheskie-pilingi",
+        "name": "PEECH PEEL"
+      },
+      "source_index": 227,
+      "before": {
+        "price": 6000,
+        "price_head_doctor": null,
+        "price_max": null,
+        "note": null
+      },
+      "values": {
+        "price": 5000,
+        "price_head_doctor": 6000,
+        "price_max": 6000,
+        "note": "Астемир Боташев: 5000 ₽; Богатырева Татьяна: 6000 ₽; Гаджиева Пери: 6000 ₽; Гатауллина Юлия: 6000 ₽"
+      }
+    },
+    {
+      "id": 85,
+      "match": {
+        "slug": "laser-epilation",
+        "name": "Мужская эпиляция"
+      },
+      "source_index": null,
+      "before": {
+        "note": "+30% к цене женской эпиляции"
+      },
+      "values": {
+        "note": "Стоимость мужской эпиляции по зонам указана отдельными строками; остальные зоны — по запросу."
+      }
+    }
+  ],
+  "additions": [
+    {
+      "source_index": 2,
+      "values": {
+        "name": "Анестезия 1 зона 30 гр",
+        "procedure_slug": null,
+        "price_group": "Дополнительные услуги",
+        "sort": 1002,
+        "price": 1500,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 3,
+      "values": {
+        "name": "Анестезия 1 зона 5 гр",
+        "procedure_slug": null,
+        "price_group": "Дополнительные услуги",
+        "sort": 1003,
+        "price": 500,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 6,
+      "values": {
+        "name": "Ботулинотерапия Ботулакс 1 ед ( 30 минут )",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1006,
+        "price": 370,
+        "price_head_doctor": 370,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 7,
+      "values": {
+        "name": "Ботулинотерапия Диспорт 1 ед ( 30 минут )",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1007,
+        "price": 150,
+        "price_head_doctor": 150,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 8,
+      "values": {
+        "name": "Ботулинотерапия Ксеомин 1 ед ( 30 минут )",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1008,
+        "price": 370,
+        "price_head_doctor": 370,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 21,
+      "values": {
+        "name": "Ботулинотерапия-Круговая мышца рта",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1021,
+        "price": 4000,
+        "price_head_doctor": 5000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 23,
+      "values": {
+        "name": "Канюля",
+        "procedure_slug": null,
+        "price_group": "Дополнительные услуги",
+        "sort": 1023,
+        "price": 1500,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 30,
+      "values": {
+        "name": "MPX, 5 мл",
+        "procedure_slug": "lipolitiki",
+        "price_group": null,
+        "sort": 1030,
+        "price": 4000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 34,
+      "values": {
+        "name": "Мезотерапия анти-акне HYALREPAIR-06 2.5ml",
+        "procedure_slug": "mezoterapiya-i-biorevitalizaciya",
+        "price_group": null,
+        "sort": 1034,
+        "price": 6000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 39,
+      "values": {
+        "name": "Мезотерапия meso-genesis 5ml",
+        "procedure_slug": "mezoterapiya-i-biorevitalizaciya",
+        "price_group": null,
+        "sort": 1039,
+        "price": 7000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 41,
+      "values": {
+        "name": "Миотокс 1ед",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1041,
+        "price": 370,
+        "price_head_doctor": 370,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 42,
+      "values": {
+        "name": "Муж. Комплекс 5в1 лоб+межбровье+глаза+нос",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1042,
+        "price": 24700,
+        "price_head_doctor": 29900,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 43,
+      "values": {
+        "name": "Муж. Кончик носа",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1043,
+        "price": 5200,
+        "price_head_doctor": 6500,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 44,
+      "values": {
+        "name": "Муж. Коррекция нижней челюсти (бруксизм)",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1044,
+        "price": 29900,
+        "price_head_doctor": 32500,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 45,
+      "values": {
+        "name": "Муж. Крылья носа",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1045,
+        "price": 3900,
+        "price_head_doctor": 5200,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 46,
+      "values": {
+        "name": "Муж. Лечение гипергидроза",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1046,
+        "price": 39000,
+        "price_head_doctor": 45500,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 47,
+      "values": {
+        "name": "Муж. Лечение десневой (гингивальной) улыбки",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1047,
+        "price": 5850,
+        "price_head_doctor": 7800,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 48,
+      "values": {
+        "name": "Муж. Лифтинг бровей",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1048,
+        "price": 11700,
+        "price_head_doctor": 13000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 49,
+      "values": {
+        "name": "Муж. Лоб+Межбровье",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1049,
+        "price": 18200,
+        "price_head_doctor": 20800,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 50,
+      "values": {
+        "name": "Муж. Межбровье",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1050,
+        "price": 9100,
+        "price_head_doctor": 10400,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 51,
+      "values": {
+        "name": "Муж. Подбородок",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1051,
+        "price": 5200,
+        "price_head_doctor": 6500,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 52,
+      "values": {
+        "name": "Муж. Поднятие уголков рта",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1052,
+        "price": 5200,
+        "price_head_doctor": 6500,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 53,
+      "values": {
+        "name": "Муж. Спинка носа",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1053,
+        "price": 5200,
+        "price_head_doctor": 6500,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 54,
+      "values": {
+        "name": "Муж. Уголки глаз \"Гусиные лапки\"",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1054,
+        "price": 7800,
+        "price_head_doctor": 9100,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 55,
+      "values": {
+        "name": "Муж. Шея (тяжи платизмы)",
+        "procedure_slug": "botullinoterapiya",
+        "price_group": null,
+        "sort": 1055,
+        "price": 24700,
+        "price_head_doctor": 27300,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 67,
+      "values": {
+        "name": "Bellarti Nucleo",
+        "procedure_slug": "mezoterapiya-i-biorevitalizaciya",
+        "price_group": null,
+        "sort": 1067,
+        "price": 20000,
+        "price_head_doctor": 23000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 72,
+      "values": {
+        "name": "Curacen",
+        "procedure_slug": "mezoterapiya-i-biorevitalizaciya",
+        "price_group": null,
+        "sort": 1072,
+        "price": 10000,
+        "price_head_doctor": 10000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 79,
+      "values": {
+        "name": "HIALREPAIR 08 1,5ml",
+        "procedure_slug": "mezoterapiya-i-biorevitalizaciya",
+        "price_group": null,
+        "sort": 1079,
+        "price": 16000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 83,
+      "values": {
+        "name": "Meso-Sculpt 1 ml ( 30 минут )",
+        "procedure_slug": "lipolitiki",
+        "price_group": null,
+        "sort": 1083,
+        "price": 18000,
+        "price_head_doctor": null,
+        "price_max": 20000,
+        "note": "Астемир Боташев: 18000 ₽; Богатырева Татьяна: 20000 ₽"
+      }
+    },
+    {
+      "source_index": 102,
+      "values": {
+        "name": "STYLAGE L",
+        "procedure_slug": "konturnaya-plastika",
+        "price_group": null,
+        "sort": 1102,
+        "price": 23000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 105,
+      "values": {
+        "name": "STYLAGE M Lidocaine BI-Soft",
+        "procedure_slug": "konturnaya-plastika",
+        "price_group": null,
+        "sort": 1105,
+        "price": 23500,
+        "price_head_doctor": 26500,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 107,
+      "values": {
+        "name": "Stylage S lidocaine",
+        "procedure_slug": "konturnaya-plastika",
+        "price_group": null,
+        "sort": 1107,
+        "price": 23500,
+        "price_head_doctor": 26000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 113,
+      "values": {
+        "name": "Введение в/в лекарства",
+        "procedure_slug": "droppers",
+        "price_group": null,
+        "sort": 1113,
+        "price": 300,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 114,
+      "values": {
+        "name": "Введение в/м и в/п лекарств",
+        "procedure_slug": "droppers",
+        "price_group": null,
+        "sort": 1114,
+        "price": 200,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 122,
+      "values": {
+        "name": "Коллост микро",
+        "procedure_slug": null,
+        "price_group": "Коллагенотерапия",
+        "sort": 1122,
+        "price": 23000,
+        "price_head_doctor": 26000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 123,
+      "values": {
+        "name": "Коллост микро 5ml + NCTF/Skinco",
+        "procedure_slug": null,
+        "price_group": "Коллагенотерапия",
+        "sort": 1123,
+        "price": 30000,
+        "price_head_doctor": 34000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 124,
+      "values": {
+        "name": "Коллост микро 5ml +плазма",
+        "procedure_slug": null,
+        "price_group": "Коллагенотерапия",
+        "sort": 1124,
+        "price": 25000,
+        "price_head_doctor": 28000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 125,
+      "values": {
+        "name": "Agentcol 003col + 004col 4ml",
+        "procedure_slug": null,
+        "price_group": "Коллагенотерапия",
+        "sort": 1125,
+        "price": 30000,
+        "price_head_doctor": 30000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 126,
+      "values": {
+        "name": "Agentcol 003col 2ml",
+        "procedure_slug": null,
+        "price_group": "Коллагенотерапия",
+        "sort": 1126,
+        "price": 18500,
+        "price_head_doctor": 18500,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 127,
+      "values": {
+        "name": "Agentcol 004col 2ml",
+        "procedure_slug": null,
+        "price_group": "Коллагенотерапия",
+        "sort": 1127,
+        "price": 18500,
+        "price_head_doctor": 18500,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 128,
+      "values": {
+        "name": "Linerase",
+        "procedure_slug": null,
+        "price_group": "Коллагенотерапия",
+        "sort": 1128,
+        "price": 28000,
+        "price_head_doctor": 30000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 129,
+      "values": {
+        "name": "NITHYA",
+        "procedure_slug": null,
+        "price_group": "Коллагенотерапия",
+        "sort": 1129,
+        "price": 25000,
+        "price_head_doctor": 28000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 130,
+      "values": {
+        "name": "Анти акне",
+        "procedure_slug": null,
+        "price_group": "Комплексы",
+        "sort": 1130,
+        "price": 19450,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 131,
+      "values": {
+        "name": "Безоперационное омоложение",
+        "procedure_slug": null,
+        "price_group": "Комплексы",
+        "sort": 1131,
+        "price": 89000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 132,
+      "values": {
+        "name": "Идеальный силуэт",
+        "procedure_slug": null,
+        "price_group": "Комплексы",
+        "sort": 1132,
+        "price": 7990,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 133,
+      "values": {
+        "name": "Сила и длина",
+        "procedure_slug": null,
+        "price_group": "Комплексы",
+        "sort": 1133,
+        "price": 6580,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 134,
+      "values": {
+        "name": "Фотошоп в жизни",
+        "procedure_slug": null,
+        "price_group": "Комплексы",
+        "sort": 1134,
+        "price": 28900,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 135,
+      "values": {
+        "name": "Дерматологическая/косметологическая консультация",
+        "procedure_slug": null,
+        "price_group": "Консультации",
+        "sort": 1135,
+        "price": 3000,
+        "price_head_doctor": 5000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 136,
+      "values": {
+        "name": "Дерматологическая\\Косметологическая консультация повторный прием",
+        "procedure_slug": null,
+        "price_group": "Консультации",
+        "sort": 1136,
+        "price": 2000,
+        "price_head_doctor": 3000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 137,
+      "values": {
+        "name": "Трихологическая консультация",
+        "procedure_slug": null,
+        "price_group": "Консультации",
+        "sort": 1137,
+        "price": 4000,
+        "price_head_doctor": 4000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 138,
+      "values": {
+        "name": "Трихологическая консультация повторный прием",
+        "procedure_slug": null,
+        "price_group": "Консультации",
+        "sort": 1138,
+        "price": 3000,
+        "price_head_doctor": 3000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 139,
+      "values": {
+        "name": "Трихоскопия",
+        "procedure_slug": null,
+        "price_group": "Консультации",
+        "sort": 1139,
+        "price": 1000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 143,
+      "values": {
+        "name": "Бритье малой зоны",
+        "procedure_slug": "laser-epilation",
+        "price_group": null,
+        "sort": 1143,
+        "price": 300,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 157,
+      "values": {
+        "name": "Муж. Классическое бикини",
+        "procedure_slug": "laser-epilation",
+        "price_group": null,
+        "sort": 1157,
+        "price": 1430,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 158,
+      "values": {
+        "name": "Муж. Межьягодичная зона",
+        "procedure_slug": "laser-epilation",
+        "price_group": null,
+        "sort": 1158,
+        "price": 1130,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 159,
+      "values": {
+        "name": "Муж. Тотальное бикини",
+        "procedure_slug": "laser-epilation",
+        "price_group": null,
+        "sort": 1159,
+        "price": 3250,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 160,
+      "values": {
+        "name": "Муж. Тотальное бикини+подмышки",
+        "procedure_slug": "laser-epilation",
+        "price_group": null,
+        "sort": 1160,
+        "price": 3770,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 161,
+      "values": {
+        "name": "Муж. Ягодицы",
+        "procedure_slug": "laser-epilation",
+        "price_group": null,
+        "sort": 1161,
+        "price": 3250,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 163,
+      "values": {
+        "name": "Одноразовая бритва 1шт",
+        "procedure_slug": "laser-epilation",
+        "price_group": null,
+        "sort": 1163,
+        "price": 200,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 198,
+      "values": {
+        "name": "AestheFill 10ml",
+        "procedure_slug": null,
+        "price_group": "Полимолочная кислота",
+        "sort": 1198,
+        "price": 50000,
+        "price_head_doctor": 60000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 199,
+      "values": {
+        "name": "Juvelook",
+        "procedure_slug": null,
+        "price_group": "Полимолочная кислота",
+        "sort": 1199,
+        "price": 50000,
+        "price_head_doctor": 60000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 200,
+      "values": {
+        "name": "Lenisna",
+        "procedure_slug": null,
+        "price_group": "Полимолочная кислота",
+        "sort": 1200,
+        "price": 50000,
+        "price_head_doctor": 60000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 201,
+      "values": {
+        "name": "Sculptra 10ml",
+        "procedure_slug": null,
+        "price_group": "Полимолочная кислота",
+        "sort": 1201,
+        "price": 60000,
+        "price_head_doctor": 70000,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 207,
+      "values": {
+        "name": "Джесснера пилинг ( 45 минут )",
+        "procedure_slug": "kosemotologicheskie-pilingi",
+        "price_group": null,
+        "sort": 1207,
+        "price": 4900,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 209,
+      "values": {
+        "name": "Жидкий лазер первичная ( 60 минут )",
+        "procedure_slug": "kosemotologicheskie-pilingi",
+        "price_group": null,
+        "sort": 1209,
+        "price": 10000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 210,
+      "values": {
+        "name": "Жидкий лазер повторная ( 60 минут )",
+        "procedure_slug": "kosemotologicheskie-pilingi",
+        "price_group": null,
+        "sort": 1210,
+        "price": 8000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 213,
+      "values": {
+        "name": "Карбокситерапия",
+        "procedure_slug": "uhodovye-procedury",
+        "price_group": null,
+        "sort": 1213,
+        "price": 5000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 217,
+      "values": {
+        "name": "Механическая чистка Z.Obagi (60 мин)",
+        "procedure_slug": "kosmetologicheskie-chistki",
+        "price_group": null,
+        "sort": 1217,
+        "price": 5500,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 224,
+      "values": {
+        "name": "Миндальный пилинг ( 45 минут )",
+        "procedure_slug": "kosemotologicheskie-pilingi",
+        "price_group": null,
+        "sort": 1224,
+        "price": 3900,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 226,
+      "values": {
+        "name": "Молочный пилинг ( 45 минут )",
+        "procedure_slug": "kosemotologicheskie-pilingi",
+        "price_group": null,
+        "sort": 1226,
+        "price": 3900,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 228,
+      "values": {
+        "name": "Прокалывание ушей",
+        "procedure_slug": null,
+        "price_group": "Дополнительные услуги",
+        "sort": 1228,
+        "price": 2500,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 229,
+      "values": {
+        "name": "Салициловый пилинг ( 45 минут)",
+        "procedure_slug": "kosemotologicheskie-pilingi",
+        "price_group": null,
+        "sort": 1229,
+        "price": 3900,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 231,
+      "values": {
+        "name": "Ультрозвуковая чистка на космоцевтике GIGI",
+        "procedure_slug": "kosmetologicheskie-chistki",
+        "price_group": null,
+        "sort": 1231,
+        "price": 3500,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 232,
+      "values": {
+        "name": "Уход Forever Young (уход с лифтинг массажем)",
+        "procedure_slug": "uhodovye-procedury",
+        "price_group": null,
+        "sort": 1232,
+        "price": 5500,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    },
+    {
+      "source_index": 258,
+      "values": {
+        "name": "Тело: руки",
+        "procedure_slug": "rf-lifting-inmode",
+        "price_group": null,
+        "sort": 1258,
+        "price": 40000,
+        "price_head_doctor": null,
+        "price_max": null
+      }
+    }
+  ],
+  "source_outcomes": [
+    {
+      "source_index": 0,
+      "action": "unchanged",
+      "existing_id": 148
+    },
+    {
+      "source_index": 1,
+      "action": "unchanged",
+      "existing_id": 172
+    },
+    {
+      "source_index": 2,
+      "action": "added"
+    },
+    {
+      "source_index": 3,
+      "action": "added"
+    },
+    {
+      "source_index": 4,
+      "action": "excluded",
+      "reason": "Общая запись «Биоревитализация», техническая цена 1 ₽."
+    },
+    {
+      "source_index": 5,
+      "action": "unchanged",
+      "existing_id": 150
+    },
+    {
+      "source_index": 6,
+      "action": "added"
+    },
+    {
+      "source_index": 7,
+      "action": "added"
+    },
+    {
+      "source_index": 8,
+      "action": "added"
+    },
+    {
+      "source_index": 9,
+      "action": "unchanged",
+      "existing_id": 177
+    },
+    {
+      "source_index": 10,
+      "action": "unchanged",
+      "existing_id": 180
+    },
+    {
+      "source_index": 11,
+      "action": "unchanged",
+      "existing_id": 173
+    },
+    {
+      "source_index": 12,
+      "action": "unchanged",
+      "existing_id": 175
+    },
+    {
+      "source_index": 13,
+      "action": "unchanged",
+      "existing_id": 178
+    },
+    {
+      "source_index": 14,
+      "action": "unchanged",
+      "existing_id": 169
+    },
+    {
+      "source_index": 15,
+      "action": "unchanged",
+      "existing_id": 168
+    },
+    {
+      "source_index": 16,
+      "action": "unchanged",
+      "existing_id": 174
+    },
+    {
+      "source_index": 17,
+      "action": "unchanged",
+      "existing_id": 176
+    },
+    {
+      "source_index": 18,
+      "action": "unchanged",
+      "existing_id": 171
+    },
+    {
+      "source_index": 19,
+      "action": "unchanged",
+      "existing_id": 170
+    },
+    {
+      "source_index": 20,
+      "action": "unchanged",
+      "existing_id": 179
+    },
+    {
+      "source_index": 21,
+      "action": "added"
+    },
+    {
+      "source_index": 22,
+      "action": "unchanged",
+      "existing_id": 149
+    },
+    {
+      "source_index": 23,
+      "action": "added"
+    },
+    {
+      "source_index": 24,
+      "action": "excluded",
+      "reason": "Общая запись «Контурная пластика», техническая цена 1 ₽."
+    },
+    {
+      "source_index": 25,
+      "action": "unchanged",
+      "existing_id": 153
+    },
+    {
+      "source_index": 26,
+      "action": "unchanged",
+      "existing_id": 145
+    },
+    {
+      "source_index": 27,
+      "action": "unchanged",
+      "existing_id": 146
+    },
+    {
+      "source_index": 28,
+      "action": "unchanged",
+      "existing_id": 183
+    },
+    {
+      "source_index": 29,
+      "action": "unchanged",
+      "existing_id": 190
+    },
+    {
+      "source_index": 30,
+      "action": "added"
+    },
+    {
+      "source_index": 31,
+      "action": "updated",
+      "existing_id": 189
+    },
+    {
+      "source_index": 32,
+      "action": "unchanged",
+      "existing_id": 166
+    },
+    {
+      "source_index": 33,
+      "action": "unchanged",
+      "existing_id": 167
+    },
+    {
+      "source_index": 34,
+      "action": "added"
+    },
+    {
+      "source_index": 35,
+      "action": "unchanged",
+      "existing_id": 142
+    },
+    {
+      "source_index": 36,
+      "action": "unchanged",
+      "existing_id": 138
+    },
+    {
+      "source_index": 37,
+      "action": "unchanged",
+      "existing_id": 139
+    },
+    {
+      "source_index": 38,
+      "action": "unchanged",
+      "existing_id": 140
+    },
+    {
+      "source_index": 39,
+      "action": "added"
+    },
+    {
+      "source_index": 40,
+      "action": "review",
+      "reason": "Конфликт с MESOXANTIN 1,5ml: у тех же сотрудников 18 000 против 20 000 ₽. Сохранена текущая строка 20 000 / 23 000 ₽."
+    },
+    {
+      "source_index": 41,
+      "action": "added"
+    },
+    {
+      "source_index": 42,
+      "action": "added"
+    },
+    {
+      "source_index": 43,
+      "action": "added"
+    },
+    {
+      "source_index": 44,
+      "action": "added"
+    },
+    {
+      "source_index": 45,
+      "action": "added"
+    },
+    {
+      "source_index": 46,
+      "action": "added"
+    },
+    {
+      "source_index": 47,
+      "action": "added"
+    },
+    {
+      "source_index": 48,
+      "action": "added"
+    },
+    {
+      "source_index": 49,
+      "action": "added"
+    },
+    {
+      "source_index": 50,
+      "action": "added"
+    },
+    {
+      "source_index": 51,
+      "action": "added"
+    },
+    {
+      "source_index": 52,
+      "action": "added"
+    },
+    {
+      "source_index": 53,
+      "action": "added"
+    },
+    {
+      "source_index": 54,
+      "action": "added"
+    },
+    {
+      "source_index": 55,
+      "action": "added"
+    },
+    {
+      "source_index": 56,
+      "action": "unchanged",
+      "existing_id": 151
+    },
+    {
+      "source_index": 57,
+      "action": "unchanged",
+      "existing_id": 152
+    },
+    {
+      "source_index": 58,
+      "action": "unchanged",
+      "existing_id": 185
+    },
+    {
+      "source_index": 59,
+      "action": "unchanged",
+      "existing_id": 188
+    },
+    {
+      "source_index": 60,
+      "action": "unchanged",
+      "existing_id": 186
+    },
+    {
+      "source_index": 61,
+      "action": "unchanged",
+      "existing_id": 187
+    },
+    {
+      "source_index": 62,
+      "action": "excluded",
+      "reason": "Общая запись «Увеличение губ», техническая цена 1 ₽."
+    },
+    {
+      "source_index": 63,
+      "action": "review",
+      "reason": "Общее название «экзосомы» совпадает по тарифам и составу сотрудников с ASCE; требуется уточнить, отдельная ли это услуга."
+    },
+    {
+      "source_index": 64,
+      "action": "unchanged",
+      "existing_id": 147
+    },
+    {
+      "source_index": 65,
+      "action": "unchanged",
+      "existing_id": 165
+    },
+    {
+      "source_index": 66,
+      "action": "unchanged",
+      "existing_id": 144
+    },
+    {
+      "source_index": 67,
+      "action": "added"
+    },
+    {
+      "source_index": 68,
+      "action": "unchanged",
+      "existing_id": 133
+    },
+    {
+      "source_index": 69,
+      "action": "unchanged",
+      "existing_id": 159
+    },
+    {
+      "source_index": 70,
+      "action": "unchanged",
+      "existing_id": 158
+    },
+    {
+      "source_index": 71,
+      "action": "excluded",
+      "reason": "Botox 1 ₽: требуется подтверждение реальной цены."
+    },
+    {
+      "source_index": 72,
+      "action": "added"
+    },
+    {
+      "source_index": 73,
+      "action": "unchanged",
+      "existing_id": 154
+    },
+    {
+      "source_index": 74,
+      "action": "excluded",
+      "reason": "Дубль Full face 3 ml: цена Астемира 60 000 ₽ уже учтена основной строкой."
+    },
+    {
+      "source_index": 75,
+      "action": "unchanged",
+      "existing_id": 155
+    },
+    {
+      "source_index": 76,
+      "action": "unchanged",
+      "existing_id": 156
+    },
+    {
+      "source_index": 77,
+      "action": "unchanged",
+      "existing_id": 157
+    },
+    {
+      "source_index": 78,
+      "action": "unchanged",
+      "existing_id": 143
+    },
+    {
+      "source_index": 79,
+      "action": "added"
+    },
+    {
+      "source_index": 80,
+      "action": "unchanged",
+      "existing_id": 141
+    },
+    {
+      "source_index": 81,
+      "action": "updated",
+      "existing_id": 135
+    },
+    {
+      "source_index": 82,
+      "action": "unchanged",
+      "existing_id": 130
+    },
+    {
+      "source_index": 83,
+      "action": "added"
+    },
+    {
+      "source_index": 84,
+      "action": "unchanged",
+      "existing_id": 124
+    },
+    {
+      "source_index": 85,
+      "action": "unchanged",
+      "existing_id": 125
+    },
+    {
+      "source_index": 86,
+      "action": "unchanged",
+      "existing_id": 123
+    },
+    {
+      "source_index": 87,
+      "action": "review",
+      "reason": "Nithia 23 000 ₽ и NITHYA 25 000 / 28 000 ₽: требуется уточнить препарат и объём; добавлена только явно названная NITHYA из категории коллагенотерапии."
+    },
+    {
+      "source_index": 88,
+      "action": "unchanged",
+      "existing_id": 126
+    },
+    {
+      "source_index": 89,
+      "action": "unchanged",
+      "existing_id": 127
+    },
+    {
+      "source_index": 90,
+      "action": "unchanged",
+      "existing_id": 132
+    },
+    {
+      "source_index": 91,
+      "action": "unchanged",
+      "existing_id": 131
+    },
+    {
+      "source_index": 92,
+      "action": "unchanged",
+      "existing_id": 128
+    },
+    {
+      "source_index": 93,
+      "action": "unchanged",
+      "existing_id": 116
+    },
+    {
+      "source_index": 94,
+      "action": "unchanged",
+      "existing_id": 119
+    },
+    {
+      "source_index": 95,
+      "action": "unchanged",
+      "existing_id": 120
+    },
+    {
+      "source_index": 96,
+      "action": "unchanged",
+      "existing_id": 121
+    },
+    {
+      "source_index": 97,
+      "action": "unchanged",
+      "existing_id": 122
+    },
+    {
+      "source_index": 98,
+      "action": "unchanged",
+      "existing_id": 117
+    },
+    {
+      "source_index": 99,
+      "action": "unchanged",
+      "existing_id": 118
+    },
+    {
+      "source_index": 100,
+      "action": "unchanged",
+      "existing_id": 136
+    },
+    {
+      "source_index": 101,
+      "action": "review",
+      "reason": "Stylage Hydro 1ml 21 000 / 24 000 ₽: на сайте STYLAGE HYDRA 1 ml 17 000 / 20 000 ₽ и Stylage Hydro max 21 000 / 24 000 ₽. Требуется уточнить препарат."
+    },
+    {
+      "source_index": 102,
+      "action": "added"
+    },
+    {
+      "source_index": 103,
+      "action": "updated",
+      "existing_id": 161
+    },
+    {
+      "source_index": 104,
+      "action": "unchanged",
+      "existing_id": 160
+    },
+    {
+      "source_index": 105,
+      "action": "added"
+    },
+    {
+      "source_index": 106,
+      "action": "unchanged",
+      "existing_id": 162
+    },
+    {
+      "source_index": 107,
+      "action": "added"
+    },
+    {
+      "source_index": 108,
+      "action": "unchanged",
+      "existing_id": 163
+    },
+    {
+      "source_index": 109,
+      "action": "unchanged",
+      "existing_id": 134
+    },
+    {
+      "source_index": 110,
+      "action": "unchanged",
+      "existing_id": 137
+    },
+    {
+      "source_index": 111,
+      "action": "unchanged",
+      "existing_id": 199
+    },
+    {
+      "source_index": 112,
+      "action": "unchanged",
+      "existing_id": 197
+    },
+    {
+      "source_index": 113,
+      "action": "added"
+    },
+    {
+      "source_index": 114,
+      "action": "added"
+    },
+    {
+      "source_index": 115,
+      "action": "unchanged",
+      "existing_id": 201
+    },
+    {
+      "source_index": 116,
+      "action": "unchanged",
+      "existing_id": 203
+    },
+    {
+      "source_index": 117,
+      "action": "unchanged",
+      "existing_id": 195
+    },
+    {
+      "source_index": 118,
+      "action": "unchanged",
+      "existing_id": 193
+    },
+    {
+      "source_index": 119,
+      "action": "unchanged",
+      "existing_id": 207
+    },
+    {
+      "source_index": 120,
+      "action": "review",
+      "reason": "Лаеннек «2/4 ml» за 5 000 ₽ неоднозначен: 4 ml отдельно стоит 8 000 ₽. Текущие 2 ml за 5 000 ₽ и 4 ml за 8 000 ₽ сохранены."
+    },
+    {
+      "source_index": 121,
+      "action": "unchanged",
+      "existing_id": 191
+    },
+    {
+      "source_index": 122,
+      "action": "added"
+    },
+    {
+      "source_index": 123,
+      "action": "added"
+    },
+    {
+      "source_index": 124,
+      "action": "added"
+    },
+    {
+      "source_index": 125,
+      "action": "added"
+    },
+    {
+      "source_index": 126,
+      "action": "added"
+    },
+    {
+      "source_index": 127,
+      "action": "added"
+    },
+    {
+      "source_index": 128,
+      "action": "added"
+    },
+    {
+      "source_index": 129,
+      "action": "added"
+    },
+    {
+      "source_index": 130,
+      "action": "added"
+    },
+    {
+      "source_index": 131,
+      "action": "added"
+    },
+    {
+      "source_index": 132,
+      "action": "added"
+    },
+    {
+      "source_index": 133,
+      "action": "added"
+    },
+    {
+      "source_index": 134,
+      "action": "added"
+    },
+    {
+      "source_index": 135,
+      "action": "added"
+    },
+    {
+      "source_index": 136,
+      "action": "added"
+    },
+    {
+      "source_index": 137,
+      "action": "added"
+    },
+    {
+      "source_index": 138,
+      "action": "added"
+    },
+    {
+      "source_index": 139,
+      "action": "added"
+    },
+    {
+      "source_index": 140,
+      "action": "unchanged",
+      "existing_id": 69
+    },
+    {
+      "source_index": 141,
+      "action": "unchanged",
+      "existing_id": 70
+    },
+    {
+      "source_index": 142,
+      "action": "unchanged",
+      "existing_id": 61
+    },
+    {
+      "source_index": 143,
+      "action": "added"
+    },
+    {
+      "source_index": 144,
+      "action": "unchanged",
+      "existing_id": 52
+    },
+    {
+      "source_index": 145,
+      "action": "unchanged",
+      "existing_id": 71
+    },
+    {
+      "source_index": 146,
+      "action": "unchanged",
+      "existing_id": 67
+    },
+    {
+      "source_index": 147,
+      "action": "unchanged",
+      "existing_id": 68
+    },
+    {
+      "source_index": 148,
+      "action": "unchanged",
+      "existing_id": 65
+    },
+    {
+      "source_index": 149,
+      "action": "unchanged",
+      "existing_id": 60
+    },
+    {
+      "source_index": 150,
+      "action": "unchanged",
+      "existing_id": 59
+    },
+    {
+      "source_index": 151,
+      "action": "unchanged",
+      "existing_id": 77
+    },
+    {
+      "source_index": 152,
+      "action": "unchanged",
+      "existing_id": 72
+    },
+    {
+      "source_index": 153,
+      "action": "unchanged",
+      "existing_id": 49
+    },
+    {
+      "source_index": 154,
+      "action": "unchanged",
+      "existing_id": 50
+    },
+    {
+      "source_index": 155,
+      "action": "unchanged",
+      "existing_id": 53
+    },
+    {
+      "source_index": 156,
+      "action": "unchanged",
+      "existing_id": 79
+    },
+    {
+      "source_index": 157,
+      "action": "added"
+    },
+    {
+      "source_index": 158,
+      "action": "added"
+    },
+    {
+      "source_index": 159,
+      "action": "added"
+    },
+    {
+      "source_index": 160,
+      "action": "added"
+    },
+    {
+      "source_index": 161,
+      "action": "added"
+    },
+    {
+      "source_index": 162,
+      "action": "unchanged",
+      "existing_id": 76
+    },
+    {
+      "source_index": 163,
+      "action": "added"
+    },
+    {
+      "source_index": 164,
+      "action": "unchanged",
+      "existing_id": 66
+    },
+    {
+      "source_index": 165,
+      "action": "unchanged",
+      "existing_id": 74
+    },
+    {
+      "source_index": 166,
+      "action": "unchanged",
+      "existing_id": 58
+    },
+    {
+      "source_index": 167,
+      "action": "unchanged",
+      "existing_id": 62
+    },
+    {
+      "source_index": 168,
+      "action": "unchanged",
+      "existing_id": 57
+    },
+    {
+      "source_index": 169,
+      "action": "unchanged",
+      "existing_id": 56
+    },
+    {
+      "source_index": 170,
+      "action": "unchanged",
+      "existing_id": 55
+    },
+    {
+      "source_index": 171,
+      "action": "unchanged",
+      "existing_id": 63
+    },
+    {
+      "source_index": 172,
+      "action": "unchanged",
+      "existing_id": 64
+    },
+    {
+      "source_index": 173,
+      "action": "unchanged",
+      "existing_id": 73
+    },
+    {
+      "source_index": 174,
+      "action": "unchanged",
+      "existing_id": 75
+    },
+    {
+      "source_index": 175,
+      "action": "unchanged",
+      "existing_id": 78
+    },
+    {
+      "source_index": 176,
+      "action": "unchanged",
+      "existing_id": 54
+    },
+    {
+      "source_index": 177,
+      "action": "unchanged",
+      "existing_id": 51
+    },
+    {
+      "source_index": 178,
+      "action": "unchanged",
+      "existing_id": 80
+    },
+    {
+      "source_index": 179,
+      "action": "unchanged",
+      "existing_id": 81
+    },
+    {
+      "source_index": 180,
+      "action": "unchanged",
+      "existing_id": 82
+    },
+    {
+      "source_index": 181,
+      "action": "unchanged",
+      "existing_id": 83
+    },
+    {
+      "source_index": 182,
+      "action": "unchanged",
+      "existing_id": 84
+    },
+    {
+      "source_index": 183,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 184,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 185,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 186,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 187,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 188,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 189,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 190,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 191,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 192,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 193,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 194,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 195,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 196,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 197,
+      "action": "review",
+      "reason": "Тариф сеанса «по абонементу»; число оплаченных сеансов/условия не указаны однозначно. Не заменяет стоимость полного курса на сайте."
+    },
+    {
+      "source_index": 198,
+      "action": "added"
+    },
+    {
+      "source_index": 199,
+      "action": "added"
+    },
+    {
+      "source_index": 200,
+      "action": "added"
+    },
+    {
+      "source_index": 201,
+      "action": "added"
+    },
+    {
+      "source_index": 202,
+      "action": "excluded",
+      "reason": "Техническая запись «Запрет на отправку», 0 ₽."
+    },
+    {
+      "source_index": 203,
+      "action": "unchanged",
+      "existing_id": 211
+    },
+    {
+      "source_index": 204,
+      "action": "unchanged",
+      "existing_id": 210
+    },
+    {
+      "source_index": 205,
+      "action": "unchanged",
+      "existing_id": 209
+    },
+    {
+      "source_index": 206,
+      "action": "unchanged",
+      "existing_id": 216
+    },
+    {
+      "source_index": 207,
+      "action": "added"
+    },
+    {
+      "source_index": 208,
+      "action": "unchanged",
+      "existing_id": 218
+    },
+    {
+      "source_index": 209,
+      "action": "added"
+    },
+    {
+      "source_index": 210,
+      "action": "added"
+    },
+    {
+      "source_index": 211,
+      "action": "unchanged",
+      "existing_id": 212
+    },
+    {
+      "source_index": 212,
+      "action": "unchanged",
+      "existing_id": 213
+    },
+    {
+      "source_index": 213,
+      "action": "added"
+    },
+    {
+      "source_index": 214,
+      "action": "unchanged",
+      "existing_id": 223
+    },
+    {
+      "source_index": 215,
+      "action": "unchanged",
+      "existing_id": 224
+    },
+    {
+      "source_index": 216,
+      "action": "unchanged",
+      "existing_id": 225
+    },
+    {
+      "source_index": 217,
+      "action": "added"
+    },
+    {
+      "source_index": 218,
+      "action": "unchanged",
+      "existing_id": 90
+    },
+    {
+      "source_index": 219,
+      "action": "unchanged",
+      "existing_id": 91
+    },
+    {
+      "source_index": 220,
+      "action": "unchanged",
+      "existing_id": 92
+    },
+    {
+      "source_index": 221,
+      "action": "unchanged",
+      "existing_id": 222
+    },
+    {
+      "source_index": 222,
+      "action": "unchanged",
+      "existing_id": 219
+    },
+    {
+      "source_index": 223,
+      "action": "unchanged",
+      "existing_id": 220
+    },
+    {
+      "source_index": 224,
+      "action": "added"
+    },
+    {
+      "source_index": 225,
+      "action": "unchanged",
+      "existing_id": 215
+    },
+    {
+      "source_index": 226,
+      "action": "added"
+    },
+    {
+      "source_index": 227,
+      "action": "updated",
+      "existing_id": 214
+    },
+    {
+      "source_index": 228,
+      "action": "added"
+    },
+    {
+      "source_index": 229,
+      "action": "added"
+    },
+    {
+      "source_index": 230,
+      "action": "unchanged",
+      "existing_id": 217
+    },
+    {
+      "source_index": 231,
+      "action": "added"
+    },
+    {
+      "source_index": 232,
+      "action": "added"
+    },
+    {
+      "source_index": 233,
+      "action": "unchanged",
+      "existing_id": 106
+    },
+    {
+      "source_index": 234,
+      "action": "unchanged",
+      "existing_id": 103
+    },
+    {
+      "source_index": 235,
+      "action": "unchanged",
+      "existing_id": 104
+    },
+    {
+      "source_index": 236,
+      "action": "unchanged",
+      "existing_id": 105
+    },
+    {
+      "source_index": 237,
+      "action": "unchanged",
+      "existing_id": 107
+    },
+    {
+      "source_index": 238,
+      "action": "unchanged",
+      "existing_id": 30
+    },
+    {
+      "source_index": 239,
+      "action": "unchanged",
+      "existing_id": 26
+    },
+    {
+      "source_index": 240,
+      "action": "unchanged",
+      "existing_id": 29
+    },
+    {
+      "source_index": 241,
+      "action": "unchanged",
+      "existing_id": 21
+    },
+    {
+      "source_index": 242,
+      "action": "unchanged",
+      "existing_id": 24
+    },
+    {
+      "source_index": 243,
+      "action": "unchanged",
+      "existing_id": 25
+    },
+    {
+      "source_index": 244,
+      "action": "unchanged",
+      "existing_id": 23
+    },
+    {
+      "source_index": 245,
+      "action": "unchanged",
+      "existing_id": 28
+    },
+    {
+      "source_index": 246,
+      "action": "unchanged",
+      "existing_id": 22
+    },
+    {
+      "source_index": 247,
+      "action": "unchanged",
+      "existing_id": 27
+    },
+    {
+      "source_index": 248,
+      "action": "unchanged",
+      "existing_id": 41
+    },
+    {
+      "source_index": 249,
+      "action": "unchanged",
+      "existing_id": 40
+    },
+    {
+      "source_index": 250,
+      "action": "unchanged",
+      "existing_id": 46
+    },
+    {
+      "source_index": 251,
+      "action": "unchanged",
+      "existing_id": 35
+    },
+    {
+      "source_index": 252,
+      "action": "unchanged",
+      "existing_id": 37
+    },
+    {
+      "source_index": 253,
+      "action": "unchanged",
+      "existing_id": 38
+    },
+    {
+      "source_index": 254,
+      "action": "unchanged",
+      "existing_id": 42
+    },
+    {
+      "source_index": 255,
+      "action": "unchanged",
+      "existing_id": 43
+    },
+    {
+      "source_index": 256,
+      "action": "unchanged",
+      "existing_id": 44
+    },
+    {
+      "source_index": 257,
+      "action": "unchanged",
+      "existing_id": 48
+    },
+    {
+      "source_index": 258,
+      "action": "added"
+    },
+    {
+      "source_index": 259,
+      "action": "unchanged",
+      "existing_id": 47
+    },
+    {
+      "source_index": 260,
+      "action": "unchanged",
+      "existing_id": 36
+    },
+    {
+      "source_index": 261,
+      "action": "unchanged",
+      "existing_id": 39
+    },
+    {
+      "source_index": 262,
+      "action": "unchanged",
+      "existing_id": 45
+    },
+    {
+      "source_index": 263,
+      "action": "unchanged",
+      "existing_id": 20
+    },
+    {
+      "source_index": 264,
+      "action": "unchanged",
+      "existing_id": 15
+    },
+    {
+      "source_index": 265,
+      "action": "unchanged",
+      "existing_id": 16
+    },
+    {
+      "source_index": 266,
+      "action": "unchanged",
+      "existing_id": 17
+    },
+    {
+      "source_index": 267,
+      "action": "unchanged",
+      "existing_id": 18
+    },
+    {
+      "source_index": 268,
+      "action": "unchanged",
+      "existing_id": 19
+    },
+    {
+      "source_index": 269,
+      "action": "unchanged",
+      "existing_id": 12
+    },
+    {
+      "source_index": 270,
+      "action": "unchanged",
+      "existing_id": 13
+    },
+    {
+      "source_index": 271,
+      "action": "unchanged",
+      "existing_id": 14
+    },
+    {
+      "source_index": 272,
+      "action": "unchanged",
+      "existing_id": 97
+    },
+    {
+      "source_index": 273,
+      "action": "unchanged",
+      "existing_id": 98
+    },
+    {
+      "source_index": 274,
+      "action": "unchanged",
+      "existing_id": 99
+    },
+    {
+      "source_index": 275,
+      "action": "unchanged",
+      "existing_id": 95
+    },
+    {
+      "source_index": 276,
+      "action": "unchanged",
+      "existing_id": 96
+    },
+    {
+      "source_index": 277,
+      "action": "unchanged",
+      "existing_id": 100
+    },
+    {
+      "source_index": 278,
+      "action": "unchanged",
+      "existing_id": 101
+    },
+    {
+      "source_index": 279,
+      "action": "unchanged",
+      "existing_id": 102
+    },
+    {
+      "source_index": 280,
+      "action": "unchanged",
+      "existing_id": 86
+    },
+    {
+      "source_index": 281,
+      "action": "unchanged",
+      "existing_id": 31
+    },
+    {
+      "source_index": 282,
+      "action": "unchanged",
+      "existing_id": 32
+    },
+    {
+      "source_index": 283,
+      "action": "unchanged",
+      "existing_id": 11
+    },
+    {
+      "source_index": 284,
+      "action": "unchanged",
+      "existing_id": 10
+    },
+    {
+      "source_index": 285,
+      "action": "unchanged",
+      "existing_id": 5
+    },
+    {
+      "source_index": 286,
+      "action": "updated",
+      "existing_id": 6
+    },
+    {
+      "source_index": 287,
+      "action": "updated",
+      "existing_id": 7
+    },
+    {
+      "source_index": 288,
+      "action": "unchanged",
+      "existing_id": 8
+    },
+    {
+      "source_index": 289,
+      "action": "updated",
+      "existing_id": 9
+    }
+  ],
+  "retained_without_match": [
+    {
+      "id": 87,
+      "slug": "beautylizer",
+      "name": "Абонемент 6 процедур",
+      "price": 29000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 192,
+      "slug": "droppers",
+      "name": "Стройное тело (курс 5 капельниц)",
+      "price": 32400,
+      "price_head_doctor": null
+    },
+    {
+      "id": 33,
+      "slug": "tesla-former",
+      "name": "Курс 10 процедур",
+      "price": 45000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 88,
+      "slug": "beautylizer",
+      "name": "Абонемент 10 процедур",
+      "price": 46000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 93,
+      "slug": "mikrotokovaya-terapiya",
+      "name": "Абонемент «Лифтинг» лицо + шея с уходом, 6 процедур",
+      "price": 25000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 34,
+      "slug": "tesla-former",
+      "name": "Курс 5 процедур",
+      "price": 23900,
+      "price_head_doctor": null
+    },
+    {
+      "id": 89,
+      "slug": "beautylizer",
+      "name": "Абонемент 12 процедур",
+      "price": 54000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 194,
+      "slug": "droppers",
+      "name": "Красивые волосы (курс 5 капельниц)",
+      "price": 27500,
+      "price_head_doctor": null
+    },
+    {
+      "id": 94,
+      "slug": "mikrotokovaya-terapiya",
+      "name": "Абонемент «Лифтинг» лицо + шея с уходом, 10 процедур",
+      "price": 40000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 108,
+      "slug": "heleo",
+      "name": "Комплекс: лицо (4 процедуры)",
+      "price": 21900,
+      "price_head_doctor": null
+    },
+    {
+      "id": 196,
+      "slug": "droppers",
+      "name": "Золушка (курс 5 капельниц)",
+      "price": 31500,
+      "price_head_doctor": null
+    },
+    {
+      "id": 109,
+      "slug": "heleo",
+      "name": "Комплекс: лицо (6 процедур)",
+      "price": 30700,
+      "price_head_doctor": null
+    },
+    {
+      "id": 110,
+      "slug": "heleo",
+      "name": "Комплекс: лицо (8 процедур)",
+      "price": 38500,
+      "price_head_doctor": null
+    },
+    {
+      "id": 198,
+      "slug": "droppers",
+      "name": "Бодрость (курс 5 капельниц)",
+      "price": 22000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 111,
+      "slug": "heleo",
+      "name": "Комплекс: лицо (10 процедур)",
+      "price": 45000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 221,
+      "slug": "kosemotologicheskie-pilingi",
+      "name": "МИЛАЙН: отбеливание подмышечных впадин",
+      "price": 9500,
+      "price_head_doctor": null
+    },
+    {
+      "id": 112,
+      "slug": "heleo",
+      "name": "Комплекс: лицо/шея/декольте (4 процедуры)",
+      "price": 31500,
+      "price_head_doctor": null
+    },
+    {
+      "id": 200,
+      "slug": "droppers",
+      "name": "Антистресс (курс 5 капельниц)",
+      "price": 28800,
+      "price_head_doctor": null
+    },
+    {
+      "id": 113,
+      "slug": "heleo",
+      "name": "Комплекс: лицо/шея/декольте (6 процедур)",
+      "price": 44200,
+      "price_head_doctor": null
+    },
+    {
+      "id": 114,
+      "slug": "heleo",
+      "name": "Комплекс: лицо/шея/декольте (8 процедур)",
+      "price": 55400,
+      "price_head_doctor": null
+    },
+    {
+      "id": 202,
+      "slug": "droppers",
+      "name": "Детокс (курс 5 капельниц)",
+      "price": 33750,
+      "price_head_doctor": null
+    },
+    {
+      "id": 115,
+      "slug": "heleo",
+      "name": "Комплекс: лицо/шея/декольте (10 процедур)",
+      "price": 65000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 129,
+      "slug": "mezoterapiya-i-biorevitalizaciya",
+      "name": "STYLAGE HYDRA 1 ml",
+      "price": 17000,
+      "price_head_doctor": 20000
+    },
+    {
+      "id": 204,
+      "slug": "droppers",
+      "name": "Железная леди (курс 5 капельниц)",
+      "price": 30000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 181,
+      "slug": "botullinoterapiya",
+      "name": "Коррекция через 2 недели, 1 ед (миотокс)",
+      "price": 370,
+      "price_head_doctor": 370
+    },
+    {
+      "id": 205,
+      "slug": "droppers",
+      "name": "Лаеннек, 2 ml",
+      "price": 5000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 182,
+      "slug": "botullinoterapiya",
+      "name": "Коррекция через 2 недели, 1 ед (диспорт)",
+      "price": 200,
+      "price_head_doctor": 200
+    },
+    {
+      "id": 206,
+      "slug": "droppers",
+      "name": "Лаеннек, 2 ml (курс 5 капельниц)",
+      "price": 22500,
+      "price_head_doctor": null
+    },
+    {
+      "id": 184,
+      "slug": "botullinoterapiya",
+      "name": "Мужская ботулинотерапия",
+      "price": null,
+      "price_head_doctor": null
+    },
+    {
+      "id": 208,
+      "slug": "droppers",
+      "name": "Лаеннек, 4 ml (курс 5 капельниц)",
+      "price": 36000,
+      "price_head_doctor": null
+    },
+    {
+      "id": 164,
+      "slug": "konturnaya-plastika",
+      "name": "Увлажнение губ Stylage Hydro max",
+      "price": 21000,
+      "price_head_doctor": 24000
+    }
+  ],
+  "deletions": []
+}

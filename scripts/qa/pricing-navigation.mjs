@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { mkdirSync } from 'node:fs';
 
 const base = process.argv[2] || 'http://127.0.0.1:4346';
-const out = 'docs/qa/pricing-navigation';
+const out = process.argv[3] || 'docs/qa/pricing-navigation';
 mkdirSync(out, { recursive: true });
 const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--no-sandbox'] });
 try {
@@ -23,7 +23,7 @@ try {
     const categoryLinks = mobile.locator('a');
     const firstId = await categoryLinks.nth(0).getAttribute('href');
     const secondId = await categoryLinks.nth(1).getAttribute('href');
-    const procedureLink = desktop.locator('.pricing__nav-group').last().locator('.pricing__subnav a').nth(1);
+    const procedureLink = desktop.locator('.pricing__nav-group').last().locator('.pricing__subnav a').last();
     const procedureId = await procedureLink.getAttribute('href');
     const lastCategoryId = await categoryLinks.last().getAttribute('href');
 

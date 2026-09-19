@@ -136,7 +136,8 @@ const priceGroups = await getPriceListGrouped();
     .pricing__sidebar { z-index: 10; top: calc(var(--header-h-sticky) + 8px); }
     .pricing__navigation, .pricing__sidebar-note { display: none; }
     .pricing__sidebar { background: var(--ivory); }
-    .pricing__mobile-categories { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 5px; background: var(--paper); border: 1px solid var(--line-gold); border-radius: 16px; }
+    .pricing__mobile-categories { display: flex; overflow-x: auto; scrollbar-width: thin; gap: 4px; padding: 5px; background: var(--paper); border: 1px solid var(--line-gold); border-radius: 16px; }
+    .pricing__mobile-categories a { flex: 1 0 auto; padding-inline: 12px; white-space: nowrap; }
     .pricing__mobile-categories a { display: flex; align-items: center; justify-content: center; min-height: 46px; padding: 8px 2px; border-radius: 11px; color: var(--ink-2); font-size: clamp(0.6875rem, 2.9vw, 0.8125rem); line-height: 1.4; overflow-wrap: anywhere; transition: background var(--dur-fast), color var(--dur-fast); }
     .pricing__mobile-categories a:hover { color: var(--gold-deep); background: var(--gold-05); }
     .pricing__mobile-categories a[aria-current] { background: var(--gold-05); color: var(--gold-deep); box-shadow: inset 0 -1px var(--line-gold); }
