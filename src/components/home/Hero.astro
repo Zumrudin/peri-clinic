@@ -292,7 +292,7 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
 
   @media (max-width: 800px) {
     .hero__content {
-      padding: 108px 18px 32px;
+      padding: 32px 18px 32px;
     }
     .hero__top,
     .hero__bottom {
@@ -336,14 +336,7 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
       align-self: flex-start;
     }
     .hero__address {
-      top: 14px;
-      right: 14px;
-      padding: 10px 14px;
-      gap: 10px;
-      max-width: calc(100vw - 28px);
-    }
-    .hero__address p {
-      font-size: 0.75rem;
+      display: none;
     }
   }
 </style>
