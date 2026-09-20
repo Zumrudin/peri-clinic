@@ -5,11 +5,12 @@ import { em, telHref, whatsappHref } from '../lib/markup';
 import { getSiteSettings } from '../lib/siteContent';
 
 const site = await getSiteSettings();
+const telegramAddress = site.telegram_url ? new URL(site.telegram_url).pathname.replace(/^\/+/, '') : '';
 
 const links = [
   { label: 'Позвонить', value: site.phone, href: telHref(site.phone) },
   site.email && { label: 'Написать на почту', value: site.email, href: `mailto:${site.email}` },
-  site.telegram_url && { label: 'Telegram', value: '@peri_clinic', href: site.telegram_url },
+  site.telegram_url && { label: 'Telegram', value: telegramAddress.startsWith('+') ? telegramAddress : `@${telegramAddress}`, href: site.telegram_url },
   { label: 'WhatsApp', value: 'Написать в чат', href: whatsappHref(site.phone, site.whatsapp_text) },
   site.max_url && { label: 'MAX', value: 'Написать в мессенджер', href: site.max_url },
 ].filter(Boolean) as Array<{ label: string; value: string; href: string }>;
