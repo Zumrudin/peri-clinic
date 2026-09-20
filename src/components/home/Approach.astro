@@ -13,7 +13,7 @@ const [content, rooms, team] = await Promise.all([getAboutContent(), getClinicPh
   </div>
   <Gallery id="clinic-rooms" title={content.rooms_title} items={rooms} />
   <div id="approach-team"><Gallery id="clinic-team" title={content.team_title} items={team} portraits detailsLabel={content.details_label} /></div>
-  <Reels team={team} content={content} />
+  <Reels content={content} />
   {content.license_href && content.license_label && <a class="legal-link home-text-link" href={content.license_href}>{content.license_label}</a>}
 </section>
 <Lightbox />

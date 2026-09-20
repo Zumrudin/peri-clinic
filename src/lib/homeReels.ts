@@ -1,11 +1,7 @@
-import type { SpecialistMedia } from './specialistMedia';
-import { reelVideoUrl, reelHlsUrl } from './reelVideoUrl.ts';
+import type { VideoFile } from './videoFiles';
 
-export function collectHomeReels(team: { title: string; demo: boolean; media: SpecialistMedia[] }[]) {
-  const seen = new Set<string>();
-  return team.filter(person => !person.demo).flatMap(person => person.media.flatMap(item => {
-    if (!item.video_url || seen.has(item.video_url)) return [];
-    seen.add(item.video_url);
-    return [{ ...item, video_url: reelVideoUrl(item.video_url), hls_url: reelHlsUrl(item.video_url), author: person.title }];
-  }));
+/** Preserve explicitly configured cards, even if editors reuse a file with another caption. */
+export function selectHomeReels<T extends { id: number; status: string; sort?: number | null; title: string; video?: VideoFile | null }>(items: T[]) {
+  return items.filter(item => item.status === 'published' && item.title.trim() && item.video)
+    .sort((a, b) => (a.sort ?? Infinity) - (b.sort ?? Infinity) || a.id - b.id);
 }

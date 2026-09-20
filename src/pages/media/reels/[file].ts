@@ -9,14 +9,10 @@ import { directusUrl, directusToken } from '../../../lib/directus';
 
 export async function getStaticPaths() {
   const files = new Map<string, VideoFile>();
-  for (const { data: person } of await getCollection('specialists')) {
-    if (!person.image?.id || person.is_demo) continue;
-    for (const item of person.media_items || []) {
-      if (item.title.trim() && item.video) {
-        const name = reelVideoUrl(`/media/specialists/${videoFileName(item.video)}`).split('/').pop()!;
-        files.set(name, item.video);
-      }
-    }
+  for (const { data: item } of await getCollection('homeReels')) {
+    if (item.status !== 'published' || !item.title.trim() || !item.video) continue;
+    const name = reelVideoUrl(`/media/specialists/${videoFileName(item.video)}`).split('/').pop()!;
+    files.set(name, item.video);
   }
   return [...files].map(([file, video]) => ({ params: { file }, props: { video } }));
 }

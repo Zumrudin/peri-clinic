@@ -561,7 +561,20 @@ const specialists = defineCollection({ loader: aboutCollection('specialists'), s
   media_items: z.array(z.object({ id: z.number(), sort: z.number().nullable().optional(), title: z.string(), description: z.string().nullable().optional(), image: fileRef, image_alt: z.string().nullable().optional(), video: z.object({ id: z.string(), type: z.string(), filesize: z.union([z.number(), z.string()]), modified_on: z.string().nullable().optional(), uploaded_on: z.string().nullable().optional() }).nullable().optional() })).nullable().optional(),
 }) });
 
+const homeReels = defineCollection({
+  loader: directusLoader('homeReels', () => directusGet(`/items/home_reels${directusQuery({
+    fields: 'id,status,sort,title,description,' + fileFields('image') + ',video.id,video.type,video.filesize,video.modified_on,video.uploaded_on',
+    filter: JSON.stringify({ status: { _eq: 'published' } }), sort: 'sort,id', limit: '-1',
+  })}`)),
+  schema: z.object({
+    id: z.number(), status: z.string(), sort: z.number().nullable().optional(), title: z.string(),
+    description: z.string().nullable().optional(), image: fileRef,
+    video: z.object({ id: z.string(), type: z.string(), filesize: z.union([z.number(), z.string()]), modified_on: z.string().nullable().optional(), uploaded_on: z.string().nullable().optional() }).nullable().optional(),
+  }),
+});
+
 export const collections = {
+  homeReels,
   clinicAbout,
   clinicPhotos,
   specialists,

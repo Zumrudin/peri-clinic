@@ -65,7 +65,7 @@ export const f = {
   int: (field, label, o = {}) => base(field, 'integer', label, { interface: 'input', width: o.width || 'half', note: o.note }),
   image: (field, label, o = {}) =>
     base(field, 'uuid', label, { interface: 'file-image', special: ['file'], width: o.width || 'half', note: o.note, required: o.required }),
-  file: (field, label, o = {}) => base(field, 'uuid', label, { interface: 'file', special: ['file'], width: o.width || 'half', note: o.note, options: o.options }),
+  file: (field, label, o = {}) => base(field, 'uuid', label, { interface: 'file', special: ['file'], width: o.width || 'half', note: o.note, options: o.options, required: o.required }),
   date: (field, label) => base(field, 'date', label, { interface: 'datetime', width: 'half' }),
   select: (field, label, choices, o = {}) =>
     base(field, 'string', label, { interface: 'select-dropdown', width: o.width || 'half', options: { choices } }, { default_value: o.default }),
@@ -457,6 +457,19 @@ collections.push(
     ...seo(),
   ] },
 );
+
+collections.push({ collection: 'home_reels', meta: {
+  icon: 'video_library', group: 'group_content', sort_field: 'sort', display_template: '{{title}}',
+  translations: ru('Жизнь клиники'), note: 'Видео для главной страницы. Загружайте новые файлы или выбирайте существующие. Порядок меняется перетаскиванием строк.',
+}, fields: [
+  f.id(), f.status(),
+  { ...f.sort(), meta: { ...f.sort().meta, hidden: false, width: 'half', note: 'Меньшее число — раньше в ленте. Также можно перетаскивать строки списка.' } },
+  f.str('title', 'Подпись к видео', { required: true }),
+  f.str('description', 'Дополнительная подпись', { note: 'Необязательно: например, имя врача.' }),
+  f.file('video', 'Видео', { required: true, width: 'full', note: 'Загрузите MP4/WebM до 50 МБ или выберите ранее загруженное видео из библиотеки файлов, в том числе материалы сотрудников.', options: { mimeTypes: ['video/mp4', 'video/webm'] } }),
+  f.image('image', 'Обложка', { note: 'Необязательно. Можно загрузить или выбрать изображение из библиотеки.' }),
+  ...timestamps(),
+] });
 
 collections.push({ collection: 'specialist_media', meta: { icon: 'perm_media', hidden: true, sort_field: 'sort', display_template: '{{title}}', translations: ru('Материалы специалистов') }, fields: [
   f.id(), f.sort(), { ...f.m2o('specialist', 'Специалист', 'specialists', { required: true, template: '{{name}}' }), meta: { ...f.m2o('specialist', 'Специалист', 'specialists', { required: true, template: '{{name}}' }).meta, hidden: true } },

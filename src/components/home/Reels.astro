@@ -1,12 +1,10 @@
 ---
-import type { Specialist } from '../../lib/specialistContent';
-import { collectHomeReels } from '../../lib/homeReels';
+import { getHomeReels } from '../../lib/homeReelContent';
 interface Props {
-  team: Specialist[];
   content: { reels_title?: string | null; reels_description?: string | null; reels_hint?: string | null };
 }
-const { team, content } = Astro.props;
-const items = collectHomeReels(team);
+const { content } = Astro.props;
+const items = await getHomeReels();
 ---
 {items.length > 0 && content.reels_title && <section class="reels" data-home-reels aria-labelledby="reels-title">
   <header class="reels-heading">
@@ -16,11 +14,10 @@ const items = collectHomeReels(team);
   <div class="reels-rail" data-reels-rail tabindex="0" aria-label={content.reels_title}>
     {items.map((item, index) => <article class="reel" data-reel aria-labelledby={`reel-title-${index}`}>
       <video data-reel-video data-src={item.video_url} data-hls={item.hls_url} data-poster={item.image_url} muted playsinline loop preload="none" aria-labelledby={`reel-title-${index}`}>
-        {item.captions_url && <track kind="captions" data-src={item.captions_url} srclang="ru" label="Русский" default />}
       </video>
       <div class="reel-overlay">
         <h3 id={`reel-title-${index}`}>{item.title}</h3>
-        <p class="reel-author">{item.author}</p>
+        {item.author && <p class="reel-author">{item.author}</p>}
         <div class="reel-controls" data-reel-controls hidden>
           <button type="button" data-reel-toggle aria-label="Воспроизвести видео">
             <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 4 12 8-12 8Z" /></svg>
