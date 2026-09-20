@@ -8,3 +8,14 @@
 
 Основной домен www.peri-clinic.ru остаётся на Wix; production нового сайта —
 https://prod.peri-clinic.zumrudin.ru. DNS и Wix не меняются.
+
+## Выполнено
+
+Dev: бэкап `scripts/migrate/out/volnewmer-tiers/1789898148151/`.
+Prod: бэкап `/srv/peri/site/scripts/migrate/out/volnewmer-tiers/1789898201297/`.
+В каждой базе исправлены только три поля `price_max`, все 271 строки и
+остальные поля проверены после записи. Обе сборки завершились успешно.
+
+Внешние GET `/uslugi-i-ceny` и `/volnewmer` на dev и prod: HTTP 200.
+На всех четырёх страницах проверены семь точных пар «Врач / Гл. врач»;
+диапазонов Volnewmer нет. Полная проверка текущего прайса прошла на обеих средах.
