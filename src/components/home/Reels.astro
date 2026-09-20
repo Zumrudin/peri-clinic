@@ -13,11 +13,14 @@ const items = await getHomeReels();
   </header>
   <div class="reels-rail" data-reels-rail tabindex="0" aria-label={content.reels_title}>
     {items.map((item, index) => <article class="reel" data-reel aria-labelledby={`reel-title-${index}`}>
-      <video data-reel-video data-src={item.video_url} data-hls={item.hls_url} data-poster={item.image_url} muted playsinline loop preload="none" aria-labelledby={`reel-title-${index}`}>
+      <video data-reel-video data-src={item.video_url} data-hls={item.hls_url} data-poster={item.image_url} muted playsinline preload="none" aria-labelledby={`reel-title-${index}`}>
       </video>
+      <button type="button" class="reel-caption-toggle" data-reel-caption-toggle aria-label="Скрыть подпись" aria-expanded="true" aria-controls={`reel-caption-${index}`}></button>
       <div class="reel-overlay">
-        <h3 id={`reel-title-${index}`}>{item.title}</h3>
-        {item.author && <p class="reel-author">{item.author}</p>}
+        <div class="reel-caption" id={`reel-caption-${index}`}>
+          <h3 id={`reel-title-${index}`}>{item.title}</h3>
+          {item.author && <p class="reel-author">{item.author}</p>}
+        </div>
         <div class="reel-controls" data-reel-controls hidden>
           <button type="button" data-reel-toggle aria-label="Воспроизвести видео">
             <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 4 12 8-12 8Z" /></svg>
@@ -55,10 +58,13 @@ const items = await getHomeReels();
     .reels-rail::-webkit-scrollbar { display: none; }
     .reel { position: relative; flex: 0 0 min(calc(100% - 44px), 360px); aspect-ratio: 9 / 16; overflow: hidden; border-radius: 18px; background: var(--sand); scroll-snap-align: start; scroll-snap-stop: always; isolation: isolate; }
     video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .reel-overlay { position: absolute; inset: auto 0 0; padding: 64px 16px 10px; color: white; background: linear-gradient(transparent,rgba(0,0,0,.72) 45%,rgba(0,0,0,.78)); }
+    .reel-overlay { position: absolute; inset: auto 0 0; padding: 0 16px 10px; color: white; background: rgba(0,0,0,.78); }
+    .reel-caption { position: absolute; inset: auto 0 100%; padding: 64px 16px 0; background: linear-gradient(transparent,rgba(0,0,0,.72) 45%,rgba(0,0,0,.78)); pointer-events: none; transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out); }
+    .reel[data-caption-hidden] .reel-caption { transform: translateY(100%); opacity: 0; }
+    .reel .reel-caption-toggle { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border-radius: inherit; }
     .reel h3 { margin: 0 0 8px; font: 400 clamp(1.375rem, 6vw, 1.875rem)/1.12 var(--display); overflow-wrap: anywhere; }
     .reel-author { font-size: .75rem; line-height: 1.45; margin: 0 0 6px; }
-    .reel-controls { display: flex; align-items: center; gap: 8px; }
+    .reel-controls { position: relative; display: flex; align-items: center; gap: 8px; }
     .reel button { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; padding: 10px; border: 0; background: transparent; color: white; cursor: pointer; }
     .reel button svg { width: 24px; height: 24px; fill: currentColor; }
     .sound-on, .sound-off { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
@@ -79,5 +85,5 @@ const items = await getHomeReels();
     .reels-rail:focus-visible, .reels-dots button:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: -2px; }
     [hidden] { display: none; }
   }
-  @media (prefers-reduced-motion: reduce) { .reels-dots span { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .reels-dots span { transition: none; } .reel-caption { transition-property: opacity; } .reel[data-caption-hidden] .reel-caption { transform: none; } }
 </style>

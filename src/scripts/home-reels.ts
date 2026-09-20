@@ -11,6 +11,26 @@ export function initHomeReels() {
     const mobile = matchMedia('(max-width: 800px)');
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const paused = new Set<number>();
+    const captionButtons = cards.map(card => card.querySelector<HTMLButtonElement>('[data-reel-caption-toggle]')!);
+    let captionTimer = 0;
+    let captionStarted = 0;
+    let captionRemaining = 1500;
+    const showCaption = (index: number, shown: boolean) => {
+      cards[index].toggleAttribute('data-caption-hidden', !shown);
+      captionButtons[index].setAttribute('aria-expanded', String(shown));
+      captionButtons[index].setAttribute('aria-label', shown ? 'Скрыть подпись' : 'Показать подпись');
+    };
+    const pauseCaptionTimer = () => {
+      if (!captionTimer) return;
+      clearTimeout(captionTimer);
+      captionTimer = 0;
+      captionRemaining = Math.max(0, captionRemaining - (performance.now() - captionStarted));
+    };
+    const resetCaption = (index: number) => {
+      pauseCaptionTimer();
+      captionRemaining = 1500;
+      showCaption(index, true);
+    };
     let active = 0;
     let sound = false;
     let frame = 0;
@@ -49,6 +69,7 @@ export function initHomeReels() {
       return mobile.matches && !document.hidden && !document.querySelector('dialog[open]') && shown >= Math.min(box.height, innerHeight) * .5;
     };
     const stop = () => {
+      pauseCaptionTimer();
       playGeneration++;
       pending = -1;
       videos.forEach(video => video.pause());
@@ -78,7 +99,7 @@ export function initHomeReels() {
         if (Math.abs(card.getBoundingClientRect().left - left) < Math.abs(cards[closest].getBoundingClientRect().left - left)) closest = index;
       });
       if (closest !== active) {
-        stop(); active = closest;
+        stop(); active = closest; resetCaption(active);
       }
       cards.forEach((card, index) => {
         card.inert = index !== active;
@@ -117,6 +138,35 @@ export function initHomeReels() {
       video.addEventListener('reel-source-ready', () => {
         if (index === active && visible() && !paused.has(index)) { pending = -1; play(); }
       }, { signal });
+      video.addEventListener('playing', () => {
+        if (index !== active || captionTimer || captionRemaining <= 0 || !visible()) return;
+        captionStarted = performance.now();
+        captionTimer = window.setTimeout(() => {
+          captionTimer = 0;
+          captionRemaining = 0;
+          showCaption(index, false);
+        }, captionRemaining);
+      }, { signal });
+      ['pause', 'waiting', 'seeking'].forEach(event => video.addEventListener(event, () => {
+        if (index === active) pauseCaptionTimer();
+      }, { signal }));
+      captionButtons[index].addEventListener('click', () => {
+        if (index !== active) return;
+        pauseCaptionTimer();
+        captionRemaining = 0;
+        showCaption(index, card.hasAttribute('data-caption-hidden'));
+      }, { signal });
+      video.addEventListener('ended', () => {
+        if (index !== active) return;
+        // Keep scroll/visibility updates from restarting the finished clip mid-transition.
+        paused.add(index);
+        pauseCaptionTimer();
+        showCaption(index, true);
+        if (visible() && index + 1 < cards.length) {
+          paused.delete(index + 1);
+          go(index + 1);
+        }
+      }, { signal });
       ['play', 'pause', 'volumechange'].forEach(event => video.addEventListener(event, reflect, { signal }));
       video.addEventListener('timeupdate', () => {
         const fraction = Number.isFinite(video.duration) && video.duration > 0 ? video.currentTime / video.duration : 0;
@@ -127,7 +177,7 @@ export function initHomeReels() {
       toggle.addEventListener('click', () => {
         if (index !== active) return;
         if (!video.paused || pending === index) { paused.add(index); stop(); streams?.setWindow(active, false); }
-        else { paused.delete(index); play(); }
+        else { paused.delete(index); if (video.ended) { video.currentTime = 0; resetCaption(index); } play(); }
       }, { signal });
       mute.addEventListener('click', () => { sound = !sound; videos.forEach(v => { v.muted = !sound; }); }, { signal });
       reflect();
