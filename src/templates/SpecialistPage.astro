@@ -3,10 +3,15 @@ import JsonLd from '../components/seo/JsonLd.astro';
 import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import Lightbox from '../components/gallery/Lightbox.astro';
+import Reels from '../components/gallery/Reels.astro';
 import SpecialistMedia from '../components/gallery/SpecialistMedia.astro';
 import { getSpecialists, type Specialist } from '../lib/specialistContent';
 interface Props { person: Specialist }
 const { person } = Astro.props;
+const reels = person.media.filter(item => item.video_url).map(item => ({
+  ...item, author: item.description, video_url: item.video_url!,
+}));
+const photos = person.media.filter(item => !item.video_url);
 const team = (await getSpecialists()).map(p => ({ id:p.id, full:p.full, title:`${p.title} · ${p.role}`, alt:p.alt }));
 ---
 <Page title={person.seoTitle || `${person.title} — PERI CLINIC`} description={person.seoDescription || `${person.title}, ${person.role}. PERI CLINIC.`} noindex={person.demo} ogImage={person.full}>
@@ -26,7 +31,8 @@ const team = (await getSpecialists()).map(p => ({ id:p.id, full:p.full, title:`$
         {person.demo && <p class="demo-note">Демонстрационный профиль · фото и данные будут заменены. Запись — на консультацию в клинику.</p>}
       </div>
     </div>
-    <SpecialistMedia items={person.media} title={person.mediaTitle} description={person.mediaDescription} />
+    <Reels items={reels} id="specialist-reels" content={{ reels_title: person.mediaTitle, reels_description: person.mediaDescription }} />
+    <SpecialistMedia items={photos} title={person.mediaTitle} description={reels.length ? undefined : person.mediaDescription} hideHeading={reels.length > 0} />
   </article>
   <script is:inline type="application/json" data-team-photos set:html={JSON.stringify(team).replace(/</g, '\\u003c')} />
   <Lightbox />

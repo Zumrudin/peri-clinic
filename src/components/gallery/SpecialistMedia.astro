@@ -1,11 +1,11 @@
 ---
 import type { SpecialistMedia } from '../../lib/specialistMedia';
-interface Props { items: SpecialistMedia[]; title: string; description?: string }
-const { items, title, description } = Astro.props;
+interface Props { items: SpecialistMedia[]; title: string; description?: string; hideHeading?: boolean }
+const { items, title, description, hideHeading = false } = Astro.props;
 ---
 {items.length > 0 && <section class="specialist-media" data-specialist-media aria-labelledby="specialist-media-title">
   <header class="media-heading">
-    <div><h2 id="specialist-media-title">{title}</h2>
+    <div hidden={hideHeading}><h2 id="specialist-media-title">{title}</h2>
     {description && <p>{description}</p>}</div>
     <nav class="media-controls" data-media-controls aria-label="Прокрутка материалов" hidden>
       <button type="button" data-media-prev aria-label="Предыдущие материалы" aria-controls="specialist-media-rail">←</button>

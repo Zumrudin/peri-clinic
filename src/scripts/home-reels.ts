@@ -8,7 +8,7 @@ export function initHomeReels() {
     const cards = [...root.querySelectorAll<HTMLElement>('[data-reel]')];
     const videos = cards.map(card => card.querySelector<HTMLVideoElement>('video')!);
     const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-reels-dot]')];
-    const mobile = matchMedia('(max-width: 800px)');
+    const mobile = matchMedia(root.hasAttribute('data-mobile-only') ? '(max-width: 800px)' : '(min-width: 0px)');
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const paused = new Set<number>();
     const captionButtons = cards.map(card => card.querySelector<HTMLButtonElement>('[data-reel-caption-toggle]')!);

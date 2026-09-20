@@ -1,5 +1,5 @@
 import type { APIContext } from 'astro';
-import { getCollection } from 'astro:content';
+import { getReelSources } from '../../../lib/reelSources';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { cacheVideo, videoFileName, type VideoFile } from '../../../lib/videoFiles';
@@ -9,10 +9,9 @@ import { directusUrl, directusToken } from '../../../lib/directus';
 
 export async function getStaticPaths() {
   const files = new Map<string, VideoFile>();
-  for (const { data: item } of await getCollection('homeReels')) {
-    if (item.status !== 'published' || !item.title.trim() || !item.video) continue;
-    const name = reelVideoUrl(`/media/specialists/${videoFileName(item.video)}`).split('/').pop()!;
-    files.set(name, item.video);
+  for (const video of await getReelSources()) {
+    const name = reelVideoUrl(`/media/specialists/${videoFileName(video)}`).split('/').pop()!;
+    files.set(name, video);
   }
   return [...files].map(([file, video]) => ({ params: { file }, props: { video } }));
 }

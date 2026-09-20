@@ -5,6 +5,7 @@ export interface SpecialistMedia {
   image_alt?: string;
   focus_y?: number;
   video_url?: string;
+  hls_url?: string;
   captions_url?: string;
 }
 

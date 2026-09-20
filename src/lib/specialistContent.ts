@@ -4,6 +4,7 @@ import type { ImageMetadata } from 'astro';
 import { bySort } from './directus';
 import { directusImage } from './media';
 import { videoFileName } from './videoFiles';
+import { reelVideoUrl, reelHlsUrl } from './reelVideoUrl';
 import { normalizeSpecialistMedia, type SpecialistMedia } from './specialistMedia';
 import reception from '../assets/about/reception.webp';
 import cabinet from '../assets/about/cabinet.webp';
@@ -36,7 +37,7 @@ export async function getSpecialists(): Promise<Specialist[]> {
       const photo = source ? await picture(source.src, source.width, source.height) : null;
       return { ...item, image_url: photo?.full || (item.video ? (await picture(img.src, img.width, img.height)).full : undefined), video_url: item.video ? `/media/specialists/${videoFileName(item.video)}` : undefined };
     }));
-    return { id: String(p.id), slug: p.slug, title: p.name, role: p.role, alt: p.image_alt || p.name, body: p.body || '', seoTitle: p.seo_title || '', seoDescription: p.seo_description || '', mediaTitle: (!p.media_title || p.media_title.trim() === 'Знакомство со специалистом') ? 'Практика и события' : p.media_title, mediaDescription: p.media_description || 'Видео о процедурах, обучение и конгрессы', media: [...normalizeSpecialistMedia(uploaded), ...normalizeSpecialistMedia(p.media)], ...await picture(img.src, img.width, img.height), focus: p.focus_y ?? 35, demo: p.is_demo };
+    return { id: String(p.id), slug: p.slug, title: p.name, role: p.role, alt: p.image_alt || p.name, body: p.body || '', seoTitle: p.seo_title || '', seoDescription: p.seo_description || '', mediaTitle: (!p.media_title || p.media_title.trim() === 'Знакомство со специалистом') ? 'Практика и события' : p.media_title, mediaDescription: p.media_description || 'Видео о процедурах, обучение и конгрессы', media: [...normalizeSpecialistMedia(uploaded).map(item => item.video_url ? { ...item, video_url: reelVideoUrl(item.video_url), hls_url: reelHlsUrl(item.video_url) } : item), ...normalizeSpecialistMedia(p.media)], ...await picture(img.src, img.width, img.height), focus: p.focus_y ?? 35, demo: p.is_demo };
   }));
   const room = await picture(cabinet, cabinet.width, cabinet.height);
   const space = await picture(waiting, waiting.width, waiting.height);
