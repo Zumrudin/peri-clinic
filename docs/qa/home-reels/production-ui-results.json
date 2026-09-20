@@ -1,0 +1,55 @@
+[
+  {
+    "width": 320,
+    "ratio": 0.5619047619047619,
+    "swipe": true,
+    "neighbourPreloaded": true,
+    "resumePosition": true,
+    "playback": true,
+    "pause": true,
+    "sound": true,
+    "keyboard": true,
+    "hiddenTabEvent": true,
+    "offscreen": true,
+    "reducedMotion": true,
+    "axe": "pass"
+  },
+  {
+    "width": 375,
+    "ratio": 0.562862669245648,
+    "swipe": true,
+    "neighbourPreloaded": true,
+    "resumePosition": true,
+    "playback": true,
+    "pause": true,
+    "sound": true,
+    "keyboard": true,
+    "hiddenTabEvent": true,
+    "offscreen": true,
+    "reducedMotion": true,
+    "axe": "pass"
+  },
+  {
+    "width": 800,
+    "ratio": 0.5625,
+    "swipe": true,
+    "neighbourPreloaded": true,
+    "resumePosition": true,
+    "playback": true,
+    "pause": true,
+    "sound": true,
+    "keyboard": true,
+    "hiddenTabEvent": true,
+    "offscreen": true,
+    "reducedMotion": true,
+    "axe": "pass"
+  },
+  {
+    "width": 1440,
+    "desktopHidden": true,
+    "videoRequests": 0
+  },
+  {
+    "failedVideoFallback": true
+  }
+]
