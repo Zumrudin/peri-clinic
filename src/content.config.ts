@@ -539,6 +539,7 @@ const allReviews = defineCollection({
 const clinicAbout = defineCollection({
   loader: directusLoader('clinicAbout', () => (import.meta.env.ABOUT_DEMO ?? process.env.ABOUT_DEMO) === 'true' ? Promise.resolve(aboutDemoContent) : directusGet('/items/clinic_about')),
   schema: z.object({ eyebrow: z.string(), title: z.string(), description: z.string(), rooms_title: z.string(), team_title: z.string(), details_label: z.string(),
+    reels_title: z.string().nullable().optional(), reels_description: z.string().nullable().optional(), reels_hint: z.string().nullable().optional(),
     license_label: z.string().nullable().optional(), license_href: z.string().regex(/^\/(?!\/)[^\s]*$/).nullable().optional(), demo_notice: z.string(), }),
 });
 

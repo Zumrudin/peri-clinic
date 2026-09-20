@@ -1,0 +1,24 @@
+{
+  "top": {
+    "navigation": [
+      {
+        "ttfb": 13.299999952316284,
+        "load": 1869.6000000238419
+      }
+    ],
+    "paints": [
+      {
+        "name": "first-paint",
+        "start": 520
+      },
+      {
+        "name": "first-contentful-paint",
+        "start": 520
+      }
+    ],
+    "bytes": 307415,
+    "videoRequests": 0
+  },
+  "firstStart": 3345,
+  "videoRequests": 1
+}

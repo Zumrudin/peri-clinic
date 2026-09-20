@@ -1,0 +1,18 @@
+import {chromium} from 'playwright-core';
+import {writeFileSync} from 'node:fs';
+const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox']});
+const page=await browser.newPage({viewport:{width:393,height:852},isMobile:true,hasTouch:true});
+const cdp=await page.context().newCDPSession(page);
+await cdp.send('Network.enable');await cdp.send('Network.setCacheDisabled',{cacheDisabled:true});
+await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:100,downloadThroughput:200000,uploadThroughput:100000});
+const requests=[];page.on('request',r=>{if(r.url().includes('/media/'))requests.push(r.url())});
+await page.goto(process.argv[2] || 'https://peri.zumrudin.ru/',{waitUntil:'load',timeout:120000});
+await page.waitForTimeout(1000);
+const top=await page.evaluate(()=>({navigation:performance.getEntriesByType('navigation').map(n=>({ttfb:n.responseStart,load:n.loadEventEnd})),paints:performance.getEntriesByType('paint').map(p=>({name:p.name,start:p.startTime})),bytes:performance.getEntriesByType('resource').reduce((n,r)=>n+r.transferSize,0)}));
+top.videoRequests=requests.length;
+await page.locator('[data-cookie-accept]').click();
+const start=Date.now();await page.locator('[data-home-reels]').scrollIntoViewIfNeeded();
+await page.waitForFunction(()=>document.querySelector('[data-reel-video]').currentTime>.1,{}, {timeout:90000});
+const firstStart=Date.now()-start;
+const result={top,firstStart,videoRequests:requests.length};console.log(result);writeFileSync(process.argv[3] || 'docs/qa/home-reels/network-after.json',JSON.stringify(result,null,2));
+await browser.close();

@@ -1,0 +1,124 @@
+[
+  {
+    "engine": "chromium",
+    "network": "1.6 Mbps / 100ms, cold HTTP cache",
+    "top": {
+      "loadMs": 2069,
+      "resourceBytes": 306970,
+      "streamingLibraryLoaded": false
+    },
+    "firstStart": 6467,
+    "initial": [
+      {
+        "mode": "hls",
+        "buffer": 3.970611,
+        "paused": false
+      },
+      {
+        "mode": "hls",
+        "buffer": 3.970611,
+        "paused": true
+      }
+    ],
+    "switches": [
+      {
+        "index": 1,
+        "ms": 112,
+        "before": 0,
+        "after": 0.058221
+      },
+      {
+        "index": 0,
+        "ms": 40,
+        "before": 0.147525,
+        "after": 0.207069
+      },
+      {
+        "index": 1,
+        "ms": 59,
+        "before": 0.275229,
+        "after": 0.32818
+      },
+      {
+        "index": 0,
+        "ms": 25,
+        "before": 0.404502,
+        "after": 0.473495
+      },
+      {
+        "index": 1,
+        "ms": 46,
+        "before": 0.545338,
+        "after": 0.610557
+      },
+      {
+        "index": 0,
+        "ms": 57,
+        "before": 0.666101,
+        "after": 0.727952
+      }
+    ],
+    "requests": 21
+  },
+  {
+    "engine": "webkit",
+    "network": "unthrottled",
+    "top": {
+      "loadMs": 1049,
+      "resourceBytes": 224203,
+      "streamingLibraryLoaded": false
+    },
+    "firstStart": 856,
+    "initial": [
+      {
+        "mode": "hls",
+        "buffer": 10.004359,
+        "paused": false
+      },
+      {
+        "mode": "hls",
+        "buffer": 2.016695,
+        "paused": true
+      }
+    ],
+    "switches": [
+      {
+        "index": 1,
+        "ms": 121,
+        "before": 0,
+        "after": 0.103026338
+      },
+      {
+        "index": 0,
+        "ms": 46,
+        "before": 0.12262273,
+        "after": 0.170096211
+      },
+      {
+        "index": 1,
+        "ms": 67,
+        "before": 0.28719,
+        "after": 0.375919982
+      },
+      {
+        "index": 0,
+        "ms": 66,
+        "before": 0.384351225,
+        "after": 0.442422637
+      },
+      {
+        "index": 1,
+        "ms": 110,
+        "before": 0.578596759,
+        "after": 0.679279605
+      },
+      {
+        "index": 0,
+        "ms": 68,
+        "before": 0.649777532,
+        "after": 0.711371887
+      }
+    ],
+    "requests": 20
+  }
+]

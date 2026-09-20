@@ -434,6 +434,9 @@ collections.push(
   { collection: 'clinic_about', meta: { icon: 'local_hospital', group: 'group_content', singleton: true, translations: ru('О клинике — тексты блока') }, fields: [
     f.id(), f.str('eyebrow', 'Надзаголовок', { required: true }), f.text('title', 'Заголовок'), f.text('description', 'Описание клиники'),
     f.str('rooms_title', 'Заголовок интерьеров'), f.str('team_title', 'Заголовок команды'), f.str('details_label', 'Кнопка страницы специалиста'),
+    f.str('reels_title', 'Заголовок мобильной видеоленты', { default: 'Жизнь клиники' }),
+    f.str('reels_description', 'Описание мобильной видеоленты', { default: 'Врачи, процедуры и жизнь клиники' }),
+    f.str('reels_hint', 'Подсказка видеоленты', { default: 'Листайте влево и вправо' }),
     f.str('license_label', 'Подпись ссылки на документы'), f.str('license_href', 'Адрес документов'), f.text('demo_notice', 'Пометка временных фотографий'),
   ] },
   { collection: 'clinic_photos', meta: { icon: 'photo_library', group: 'group_content', sort_field: 'sort', translations: ru('Фотографии клиники') }, fields: [

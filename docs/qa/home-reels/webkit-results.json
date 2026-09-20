@@ -1,0 +1,11 @@
+{
+  "engine": "WebKit (Linux, mobile viewport; not physical iPhone)",
+  "noVideoAboveFold": true,
+  "firstAutoplay": true,
+  "nextHlsBuffered": true,
+  "offlineReturn": true,
+  "positionsPreserved": true,
+  "existingLayoutWarnings": [
+    "ResizeObserver loop completed with undelivered notifications."
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "base": "https://peri.zumrudin.ru",
+  "neighbourBufferedBeforeSwipe": true,
+  "offlineRoundTrips": 6,
+  "timings": [
+    {
+      "target": 1,
+      "before": 0,
+      "after": 0.127647,
+      "resumeMs": 228
+    },
+    {
+      "target": 0,
+      "before": 0.049393,
+      "after": 0.166337,
+      "resumeMs": 154
+    },
+    {
+      "target": 1,
+      "before": 0.191162,
+      "after": 0.315477,
+      "resumeMs": 151
+    },
+    {
+      "target": 0,
+      "before": 0.208346,
+      "after": 0.325112,
+      "resumeMs": 157
+    },
+    {
+      "target": 1,
+      "before": 0.380677,
+      "after": 0.504971,
+      "resumeMs": 146
+    },
+    {
+      "target": 0,
+      "before": 0.381053,
+      "after": 0.505322,
+      "resumeMs": 144
+    }
+  ]
+}
