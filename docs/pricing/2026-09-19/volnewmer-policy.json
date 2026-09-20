@@ -1,0 +1,47 @@
+{
+  "slug": "volnewmer",
+  "rows": [
+    {
+      "name": "300 импульсов",
+      "price": 67500,
+      "price_head_doctor": 75000,
+      "price_max": null
+    },
+    {
+      "name": "400 импульсов",
+      "price": 81000,
+      "price_head_doctor": 90000,
+      "price_max": null
+    },
+    {
+      "name": "500 импульсов",
+      "price": 108000,
+      "price_head_doctor": 120000,
+      "price_max": null
+    },
+    {
+      "name": "600 импульсов",
+      "price": 130500,
+      "price_head_doctor": 145000,
+      "price_max": null
+    },
+    {
+      "name": "800 импульсов",
+      "price": 162000,
+      "price_head_doctor": 180000,
+      "price_max": null
+    },
+    {
+      "name": "1200 импульсов",
+      "price": 252000,
+      "price_head_doctor": 280000,
+      "price_max": null
+    },
+    {
+      "name": "1 доп. импульс",
+      "price": 270,
+      "price_head_doctor": 270,
+      "price_max": null
+    }
+  ]
+}

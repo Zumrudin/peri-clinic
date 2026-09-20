@@ -29,6 +29,8 @@ const procedureId = slug => {
 const equal = (a, b) => (a ?? null) === (b ?? null);
 const updates = [];
 for (const u of plan.updates) {
+  // The user clarified Volnewmer's two columns; migration 18 removes the ranges.
+  if (u.match.slug === 'volnewmer') continue;
   // Later user-approved notes are applied by migration 17, not the original export.
   if (mensPolicy.notes.some(rule => rule.slug === u.match.slug && rule.name === u.match.name)) continue;
   const candidates = before.filter(r => r.procedure === procedureId(u.match.slug) && [u.match.name, u.values.name].includes(r.name));
