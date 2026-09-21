@@ -120,6 +120,7 @@ async function main() {
     default_language: 'ru-RU',
     project_descriptor: 'Управление сайтом',
   });
+  await import('./photo-mask-schema.mjs');
   log('schema applied');
 }
 

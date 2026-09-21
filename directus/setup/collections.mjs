@@ -64,7 +64,7 @@ export const f = {
     base(field, 'boolean', label, { interface: 'boolean', width: o.width || 'half', note: o.note, special: ['cast-boolean'] }, { default_value: def }),
   int: (field, label, o = {}) => base(field, 'integer', label, { interface: 'input', width: o.width || 'half', note: o.note }),
   image: (field, label, o = {}) =>
-    base(field, 'uuid', label, { interface: 'file-image', special: ['file'], width: o.width || 'half', note: o.note, required: o.required }),
+    base(field, 'uuid', label, { interface: 'peri-photo-mask', special: ['file'], width: o.width || 'half', note: o.note, required: o.required }),
   file: (field, label, o = {}) => base(field, 'uuid', label, { interface: 'file', special: ['file'], width: o.width || 'half', note: o.note, options: o.options, required: o.required }),
   date: (field, label) => base(field, 'date', label, { interface: 'datetime', width: 'half' }),
   select: (field, label, choices, o = {}) =>

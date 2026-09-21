@@ -1,0 +1,40 @@
+{
+  "name": "directus-extension-peri-photo-mask",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "directus-extension build",
+    "test": "node --test test/*.test.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "directus:extension": {
+    "type": "bundle",
+    "path": {
+      "app": "dist/app.js",
+      "api": "dist/api.js"
+    },
+    "entries": [
+      {
+        "type": "interface",
+        "name": "peri-photo-mask-interface",
+        "source": "src/interface.js"
+      },
+      {
+        "type": "endpoint",
+        "name": "peri-photo-mask",
+        "source": "src/endpoint.js"
+      }
+    ],
+    "host": "^12.0.0"
+  },
+  "dependencies": {
+    "sharp": "0.35.4"
+  },
+  "devDependencies": {
+    "@directus/extensions-sdk": "18.0.4",
+    "vue": "^3.5.0"
+  }
+}

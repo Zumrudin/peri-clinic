@@ -1,0 +1,100 @@
+/** Disposable CMS only: node scripts/qa/photo-mask.mjs. Never uploads patient photos. */
+import assert from 'node:assert/strict';
+import { writeFile } from 'node:fs/promises';
+import sharp from 'sharp';
+import { chromium } from 'playwright-core';
+process.loadEnvFile('/tmp/peri-mask-cms/.env');
+const base = 'http://127.0.0.1:8058';
+const auth = await fetch(base+'/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:process.env.ADMIN_EMAIL,password:process.env.ADMIN_PASSWORD}) });
+assert.equal(auth.status,200);
+const token=(await auth.json()).data.access_token;
+async function api(path, method='GET', body) {
+ const r=await fetch(base+path,{method,headers:{Authorization:`Bearer ${token}`,...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined});
+ const data=await r.json();assert.ok(r.ok,JSON.stringify(data));return data.data;
+}
+const input=await sharp({create:{width:900,height:600,channels:3,background:'#e8c3a0'}}).jpeg().withMetadata({orientation:6}).toBuffer();
+const form=new FormData();form.append('file',new Blob([input],{type:'image/jpeg'}),'mask-test.jpg');
+const upload=await fetch(base+'/files',{method:'POST',headers:{Authorization:`Bearer ${token}`},body:form});
+assert.equal(upload.status,200);const source=(await upload.json()).data;
+const masks=[{x:.5,y:.3,width:.6,height:.12,angle:0},{x:.5,y:.7,width:.5,height:.1,angle:15}];
+assert.equal((await fetch(base+`/peri-photo-mask/${source.id}`)).status,403);
+const copy=await api(`/peri-photo-mask/${source.id}`,'POST',{masks});
+assert.notEqual(copy.id,source.id);
+const saved=await api(`/files/${copy.id}`); assert.equal(saved.width,600);assert.equal(saved.height,900);
+const reopened=await api(`/peri-photo-mask/${copy.id}`);assert.equal(reopened.source,source.id);assert.deepEqual(reopened.masks,masks);
+const second=await api(`/peri-photo-mask/${copy.id}`,'POST',{masks:[{...masks[0],y:.5}]});
+assert.equal((await api(`/peri-photo-mask/${second.id}`)).source,source.id);
+const original=Buffer.from(await (await fetch(base+`/assets/${source.id}`,{headers:{Authorization:`Bearer ${token}`}})).arrayBuffer());
+assert.deepEqual(original,input);
+assert.equal((await fetch(base+`/peri-photo-mask/${source.id}`,{method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({masks:[]})})).status,400);
+const item=await api('/items/clinic_photos','POST',{title:'Проверка плашек',image:null,status:'draft'});
+const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
+try {
+ const page=await browser.newPage({viewport:{width:1280,height:900}});
+ await page.addLocatorHandler(page.getByRole('button',{name:'Skip',exact:true}),async()=>{await page.getByRole('button',{name:'Skip',exact:true}).click();});
+ await page.addLocatorHandler(page.getByRole('button',{name:'Remind Later',exact:true}),async()=>{await page.getByRole('button',{name:'Remind Later',exact:true}).click();});
+ const issues=[];page.on('pageerror',e=>issues.push(e.message));
+ await page.goto(base+'/admin/login');
+ await page.locator('input[type=email]').fill(process.env.ADMIN_EMAIL);
+ await page.locator('input[type=password]').fill(process.env.ADMIN_PASSWORD);
+ await page.locator('button[type=submit]').click();
+ await page.waitForURL('**/admin/content**');
+ await page.goto(base+`/admin/content/clinic_photos/${item.id}`);
+ // Cover the empty field and replacement of an existing photo through the actual file picker.
+ const picker = page.locator('.peri-mask-field').first();
+ async function uploadFromDevice(button) {
+  const chooser = page.waitForEvent('filechooser');
+  await picker.getByRole('button', { name: button, exact: true }).click();
+  const response = page.waitForResponse(r => r.url().endsWith('/files') && r.request().method() === 'POST');
+  await (await chooser).setFiles({ name: 'device-photo.jpg', mimeType: 'image/jpeg', buffer: input });
+  const result = await response;
+  assert.equal(result.status(), 200);
+  await picker.getByText('Фото загружено. Сохраните запись, чтобы применить его на сайте.', { exact: true }).waitFor();
+  return (await result.json()).data.id;
+ }
+ const firstUpload = await uploadFromDevice('Загрузить фото с устройства');
+ const replacement = await uploadFromDevice('Заменить фото с устройства');
+ assert.notEqual(firstUpload, replacement);
+ assert.ok(await api('/files/' + firstUpload));
+ const uploadedSaved = page.waitForResponse(r => r.url().includes('/items/clinic_photos/' + item.id) && r.request().method() === 'PATCH');
+ await page.keyboard.press('Control+s'); await uploadedSaved;
+ assert.equal((await api('/items/clinic_photos/' + item.id)).image, replacement);
+ await page.reload();
+ await picker.getByRole('button', { name: 'Заменить фото с устройства', exact: true }).waitFor();
+ // A rejected upload must keep the existing photo and allow retrying.
+ await page.route('**/files', route => route.request().method() === 'POST' ? route.fulfill({status: 403, contentType: 'application/json', body: JSON.stringify({errors:[{message:'Тест: загрузка запрещена'}]})}) : route.continue());
+ const rejectedChooser = page.waitForEvent('filechooser');
+ await picker.getByRole('button', { name: 'Заменить фото с устройства', exact: true }).click();
+ await (await rejectedChooser).setFiles({ name: 'device-photo.jpg', mimeType: 'image/jpeg', buffer: input });
+ await picker.getByRole('alert').filter({hasText:'Тест: загрузка запрещена'}).waitFor();
+ assert.equal((await api('/items/clinic_photos/' + item.id)).image, replacement);
+ await page.unroute('**/files');
+ await uploadFromDevice('Заменить фото с устройства');
+ await page.getByText('Закрыть глаза / изменить плашки',{exact:true}).click({timeout:10000}).catch(async e=>{console.log('DIALOG',await page.locator('#dialog-outlet').innerText());await page.screenshot({path:'/tmp/peri-mask-debug.png'});throw e;});
+ await page.locator('.peri-mask-stage img').waitFor();
+ await page.waitForFunction(()=>document.querySelector('.peri-mask-stage img')?.naturalWidth>0);
+ const strip=page.locator('.peri-mask-overlay g[role=button]').first();
+ const bounds=await strip.boundingBox();
+ await page.mouse.move(bounds.x+bounds.width/2,bounds.y+bounds.height/2);await page.mouse.down();await page.mouse.move(bounds.x+bounds.width/2+25,bounds.y+bounds.height/2+20);await page.mouse.up();
+ await strip.focus();await page.keyboard.press('ArrowRight');
+ await page.getByRole('button',{name:'Добавить плашку',exact:true}).click();
+ await page.getByLabel('Наклон').press('ArrowRight');
+ await page.screenshot({path:'/tmp/peri-mask-desktop.png'});
+ const copyResponse=page.waitForResponse(r=>r.url().includes('/peri-photo-mask/')&&r.request().method()==='POST');
+ await page.getByRole('button',{name:'Сохранить копию',exact:true}).click();
+ const uiCopy=(await (await copyResponse).json()).data.id;
+ await page.locator('.peri-mask-dialog').waitFor({state:'hidden'});
+ await page.getByText('Закрыть глаза / изменить плашки',{exact:true}).click();
+ await page.locator('.peri-mask-stage img').waitFor();
+ assert.equal(await page.locator('.peri-mask-overlay g[role=button]').count(),2);
+ await page.setViewportSize({width:390,height:844});
+ await page.screenshot({path:'/tmp/peri-mask-mobile.png'});
+ assert.equal(await page.locator('.peri-mask-dialog').evaluate(el=>el.scrollWidth<=el.clientWidth),true);
+ await page.getByRole('button',{name:'Отмена',exact:true}).click();
+ const recordSaved=page.waitForResponse(r=>r.url().includes('/items/clinic_photos/'+item.id)&&r.request().method()==='PATCH');
+ await page.keyboard.press('Control+s');await recordSaved;
+ assert.equal((await api('/items/clinic_photos/'+item.id)).image,uiCopy);
+ assert.deepEqual(issues,[]);
+ console.log('PASS: device upload, replacement, persistence, failed upload/retry, API auth, EXIF orientation, immutable source, duplicate, reopen, validation, desktop/mobile UI, keyboard and multiple masks');
+} finally {await browser.close();}
+await writeFile('/tmp/peri-mask-fixture.json',JSON.stringify({source:source.id,copy:copy.id,item:item.id}));
