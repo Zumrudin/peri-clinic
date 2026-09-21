@@ -8,6 +8,7 @@ interface ImgRef {
 }
 interface Props {
   title: string;
+  naturalFrame?: boolean;
   preserveAspect?: boolean;
   preserveDesktopAspect?: boolean;
   preserveMobileAspect?: boolean;
@@ -21,10 +22,10 @@ interface Props {
   /** Unique per page; lets the /result filter morph cards with the View Transitions API. */
   transitionName?: string;
 }
-const { title, result, category, categorySlug, before, after, combined, transitionName, preserveAspect = false, preserveDesktopAspect = false, preserveMobileAspect = false, mobileHomeStyle = false } = Astro.props;
+const { naturalFrame = false, title, result, category, categorySlug, before, after, combined, transitionName, preserveAspect = false, preserveDesktopAspect = false, preserveMobileAspect = false, mobileHomeStyle = false } = Astro.props;
 const hasPair = before && after;
 const single = combined ?? after ?? before;
-const imageHeight = (img: ImgRef, width: number, fallback: number) => (preserveAspect || preserveDesktopAspect) && img.width > 0 && img.height > 0 ? Math.round(width * img.height / img.width) : fallback;
+const imageHeight = (img: ImgRef, width: number, fallback: number) => (naturalFrame || preserveAspect || preserveDesktopAspect) && img.width > 0 && img.height > 0 ? Math.round(width * img.height / img.width) : fallback;
 // Mobile needs the full source as well as object-fit: contain, including when
 // the default desktop assets are cropped during optimization.
 const mobileImages = new Map(await Promise.all(
@@ -41,7 +42,7 @@ const mobileImages = new Map(await Promise.all(
 ));
 ---
 
-<article class:list={['case-card reveal', { 'case-card--uncropped': preserveAspect, 'case-card--desktop-uncropped': preserveDesktopAspect, 'case-card--mobile-uncropped': preserveMobileAspect, 'case-card--home-mobile': mobileHomeStyle }]} data-category={categorySlug ?? ''} style={transitionName ? `view-transition-name: ${transitionName}` : undefined}>
+<article class:list={['case-card reveal', { 'case-card--natural-frame': naturalFrame, 'case-card--uncropped': preserveAspect, 'case-card--desktop-uncropped': preserveDesktopAspect, 'case-card--mobile-uncropped': preserveMobileAspect, 'case-card--home-mobile': mobileHomeStyle }]} data-category={categorySlug ?? ''} style={transitionName ? `view-transition-name: ${transitionName}` : undefined}>
   {
     hasPair ? (
       <div class="case-card__pair">
@@ -207,6 +208,14 @@ const mobileImages = new Map(await Promise.all(
     .case-card--home-mobile .case-card__body { display: flex; flex-direction: column; justify-content: center; min-height: 104px; padding: 14px; flex: 1; }
     .case-card--home-mobile h3 { font-size: 1.375rem; line-height: 1.15; margin-bottom: 6px; }
     .case-card--home-mobile .case-card__result { font-size: 0.75rem; }
+  }
+  /* The source ratio removes letterboxing without cropping either comparison. */
+  .case-card.case-card--natural-frame .case-card__image { aspect-ratio: auto; }
+  .case-card.case-card--natural-frame .case-card__image :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
   @media (prefers-reduced-motion: reduce) {
     /* keep the colour/shadow change, drop the lift */

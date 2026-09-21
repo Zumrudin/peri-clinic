@@ -341,6 +341,7 @@ export const collections = [
       f.image('before', 'Фото «до»'),
       f.image('after', 'Фото «после»'),
       f.image('combined', 'Общее фото до/после (если одно)', { note: 'Используется, если нет раздельных фото' }),
+      f.bool('natural_frame', 'Рамка по пропорциям фото', false, { note: 'Показывает общее фото целиком без полей и обрезки.' }),
       f.text('result', 'Что сделано / результат'),
       f.tags('result_points', 'Тезисы результата'),
       f.date('date', 'Дата'),

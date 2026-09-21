@@ -438,7 +438,7 @@ const allCases = defineCollection({
   loader: directusLoader('allCases', () =>
     directusGet(
       `/items/before_after_cases${directusQuery({
-        fields: `id,sort,title,result,category.slug,category.title,procedure.slug,${fileFields('before')},${fileFields('after')},${fileFields('combined')}`,
+        fields: `id,sort,title,result,natural_frame,category.slug,category.title,procedure.slug,${fileFields('before')},${fileFields('after')},${fileFields('combined')}`,
         filter: JSON.stringify({ status: { _eq: 'published' }, needs_review: { _eq: false } }),
         sort: 'sort',
         limit: '-1',
@@ -449,6 +449,7 @@ const allCases = defineCollection({
     id: z.number(),
     sort: z.number().nullable().optional(),
     title: z.string(),
+    natural_frame: z.boolean().nullable().optional(),
     result: z.string().nullable().optional(),
     category: z.object({ slug: z.string(), title: z.string() }).nullable().optional(),
     procedure: z.object({ slug: z.string() }).nullable().optional(),

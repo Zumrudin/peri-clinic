@@ -22,6 +22,7 @@ export async function getCasesForProcedure(procedureSlug: string) {
   const all = bySort(await getCollection('allCases'));
   return all.filter((c) => c.data.procedure?.slug === procedureSlug).map((c) => ({
     title: c.data.title,
+    naturalFrame: c.data.natural_frame ?? false,
     result: c.data.result ?? '',
     before: directusImage(c.data.before),
     after: directusImage(c.data.after),

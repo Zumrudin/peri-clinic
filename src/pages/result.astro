@@ -40,6 +40,7 @@ const categories = bySort(await getCollection('caseCategories')).filter((cat) =>
         cases.map((c, i) => (
           <CaseCard
             transitionName={`case-${i}`}
+            naturalFrame={c.data.natural_frame ?? false}
             preserveDesktopAspect
             preserveMobileAspect
             title={c.data.title}
