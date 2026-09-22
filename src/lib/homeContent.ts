@@ -107,6 +107,18 @@ export async function getHomeContent() {
         procedure_label: r.procedure_label || '',
       })),
     },
+    giftCertificate: {
+      eyebrow: h.gift_eyebrow || '',
+      title: h.gift_title || '',
+      lead: h.gift_lead || '',
+      button_label: h.gift_button_label || '',
+      context: h.gift_context || '',
+      video_url: h.gift_video_url || '',
+      poster_url: h.gift_poster_url || '',
+      video_label: h.gift_video_label || '',
+      play_label: h.gift_play_label || '',
+      pause_label: h.gift_pause_label || '',
+    },
     cta: {
       eyebrow: h.cta_eyebrow,
       title: h.cta_title,

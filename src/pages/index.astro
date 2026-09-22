@@ -8,6 +8,7 @@ import Approach from '../components/home/Approach.astro';
 import Devices from '../components/home/Devices.astro';
 import Cases from '../components/home/Cases.astro';
 import Reviews from '../components/home/Reviews.astro';
+import GiftCertificate from '../components/home/GiftCertificate.astro';
 import Cta from '../components/home/Cta.astro';
 import { getHomeContent } from '../lib/homeContent';
 
@@ -23,6 +24,7 @@ const home = await getHomeContent();
   <Devices />
   <Cases />
   <Reviews />
+  <GiftCertificate />
   <Cta />
   </div>
 </Page>
