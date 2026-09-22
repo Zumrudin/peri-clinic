@@ -8,7 +8,7 @@ export const nav = [
   { label: 'Услуги', href: '/#services' },
   { label: 'Результаты', href: '/result' },
   { label: 'Прайс', href: '/uslugi-i-ceny' },
-  { label: 'Отзывы', href: '/otzyvy' },
+  { label: 'Отзывы', href: '/#reviews' },
   { label: 'Контакты', href: '/kontakty' },
 ];
 

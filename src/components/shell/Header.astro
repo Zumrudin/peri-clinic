@@ -14,7 +14,7 @@ const site = await getSiteSettings();
 
   <nav class="nav" id="main-nav" aria-label="Основная навигация">
     {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
-    {site.shop_url && <a class="nav__shop" href={site.shop_url} target="_blank" rel="noopener">Интернет магазин профессиональной косметики</a>}
+    {site.shop_url && <a class="nav__shop" href={site.shop_url} target="_blank" rel="noopener">Интернет магазин</a>}
     <div class="nav__mobile-extra">
       <a class="nav__phone" href={telHref(site.phone)}>{site.phone}</a>
       <button class="button" type="button" data-open-sheet>Записаться <span>↗</span></button>
