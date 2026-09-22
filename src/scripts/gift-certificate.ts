@@ -2,7 +2,6 @@ const root = document.querySelector<HTMLElement>('[data-gift-certificate]');
 if (root) {
   const video = root.querySelector<HTMLVideoElement>('video')!;
   const button = root.querySelector<HTMLButtonElement>('.gift__play')!;
-  const mobile = matchMedia('(max-width: 800px)');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
   let visible = false;
@@ -13,7 +12,7 @@ if (root) {
     if (!video.getAttribute('src')) video.src = video.dataset.src!;
   };
   const sync = () => {
-    if (!mobile.matches || !visible || document.hidden) { video.pause(); return; }
+    if (!visible || document.hidden) { video.pause(); return; }
     if (!video.poster) video.poster = video.dataset.poster!;
     if (manuallyPaused || (!manuallyStarted && (reduced.matches || connection?.saveData))) return;
     prepare();
@@ -40,7 +39,6 @@ if (root) {
   };
   video.addEventListener('play', updateButton);
   video.addEventListener('pause', updateButton);
-  mobile.addEventListener('change', sync);
   reduced.addEventListener('change', () => {
     if (reduced.matches) { manuallyStarted = false; video.pause(); }
     sync();

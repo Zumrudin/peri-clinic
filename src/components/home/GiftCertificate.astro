@@ -7,8 +7,14 @@ const enabled = gift.title && gift.video_url && gift.poster_url;
 {enabled && (
   <section class="home-section gift" id="gift-certificate" aria-labelledby="gift-title" data-gift-certificate>
     <div class="gift__inner">
-      <p class="eyebrow">{gift.eyebrow}</p>
-      <h2 id="gift-title" set:html={em(gift.title)} />
+      <div class="gift__copy">
+        <p class="eyebrow">{gift.eyebrow}</p>
+        <h2 id="gift-title" set:html={em(gift.title)} />
+        <p class="gift__lead">{gift.lead}</p>
+        <button class="button gift__cta" type="button" data-open-sheet data-context={gift.context}>
+          {gift.button_label}<span aria-hidden="true">↗</span>
+        </button>
+      </div>
       <div class="gift__film">
         <video muted playsinline loop preload="none" width="720" height="1280"
           data-src={gift.video_url} data-poster={gift.poster_url} aria-label={gift.video_label} />
@@ -19,17 +25,15 @@ const enabled = gift.title && gift.video_url && gift.poster_url;
         </button>
         <noscript><img src={gift.poster_url} width="720" height="1280" alt={gift.video_label} loading="lazy" /></noscript>
       </div>
-      <p class="gift__lead">{gift.lead}</p>
-      <button class="button gift__cta" type="button" data-open-sheet data-context={gift.context}>
-        {gift.button_label}<span aria-hidden="true">↗</span>
-      </button>
     </div>
   </section>
 )}
 <script>import '../../scripts/gift-certificate';</script>
 <style>
-  .gift { display: none; background: var(--paper); }
-  .gift__inner { max-width: 420px; margin-inline: auto; text-align: center; }
+  .gift { background: var(--paper); }
+  .gift__inner { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: clamp(48px, 7vw, 100px); align-items: center; }
+  .gift__copy { max-width: 650px; }
+  .gift .eyebrow { margin-bottom: 24px; }
   .gift h2 { margin-bottom: 28px; }
   .gift h2 :global(em) { color: var(--gold-deep); font-style: italic; }
   .gift__film { position: relative; aspect-ratio: 9 / 16; overflow: hidden; border-radius: var(--home-image-radius); background: var(--ivory); }
@@ -39,7 +43,21 @@ const enabled = gift.title && gift.video_url && gift.poster_url;
   .gift[data-ready] .gift__play { display: grid; }
   .gift__pause-icon, .gift[data-playing] .gift__play-icon { display: none; }
   .gift[data-playing] .gift__pause-icon { display: block; }
-  .gift__lead { margin: 24px 0 20px; color: var(--ink-2); font-size: 0.9375rem; line-height: 1.65; text-wrap: pretty; }
-  .gift__cta { width: 100%; justify-content: center; }
-  @media (max-width: 800px) { .gift { display: block; } }
+  .gift__lead { max-width: 420px; margin: 24px 0 30px; color: var(--ink-2); font-size: 0.9375rem; line-height: 1.65; text-wrap: pretty; }
+  .gift__cta { justify-content: center; }
+  @media (min-width: 801px) {
+    .gift h2 { max-width: 450px; font-size: clamp(48px, 4.45vw, 64px); line-height: 1.05; }
+    .gift__lead { font-size: 1.0625rem; line-height: 1.7; }
+  }
+  @media (min-width: 801px) and (max-width: 1100px) {
+    .gift__inner { grid-template-columns: minmax(0, 1fr) 300px; gap: 40px; }
+  }
+  @media (max-width: 800px) {
+    .gift__inner { display: flex; flex-direction: column; gap: 0; max-width: 420px; margin-inline: auto; text-align: center; }
+    .gift__copy { display: contents; }
+    .gift .eyebrow { margin-bottom: 16px; }
+    .gift__film { order: 1; width: 100%; }
+    .gift__lead { order: 2; margin: 24px 0 20px; }
+    .gift__cta { order: 3; width: 100%; }
+  }
 </style>
