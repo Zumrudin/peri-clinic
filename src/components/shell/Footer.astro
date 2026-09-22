@@ -27,7 +27,7 @@ const socials = [
   <div class="footer__grid">
     <div>
       <h3>Навигация</h3>
-      {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      {site.nav.map((item) => <a href={item.href === '/#reviews' ? '/otzyvy' : item.href}>{item.label}</a>)}
     </div>
     <div>
       <h3>Услуги</h3>
