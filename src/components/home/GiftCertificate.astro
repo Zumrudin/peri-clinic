@@ -30,7 +30,10 @@ const [film, poster] = enabled ? await getGiftMedia() : [];
     </div>
   </section>
 )}
-<script>import '../../scripts/gift-certificate';</script>
+<script>
+  import { initGiftCertificate } from '../../scripts/gift-certificate';
+  document.addEventListener('astro:page-load', initGiftCertificate);
+</script>
 <style>
   .gift { background: var(--paper); }
   .gift__inner { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: clamp(48px, 7vw, 100px); align-items: center; }
