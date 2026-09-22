@@ -12,7 +12,7 @@ export function initMobileMenu(toggle: HTMLButtonElement | null, nav: HTMLElemen
   toggle.addEventListener('click', () => set(toggle.getAttribute('aria-expanded') !== 'true'));
   nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 800) set(false);
+    if (window.innerWidth > 1100) set(false);
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') set(false);

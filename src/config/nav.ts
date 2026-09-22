@@ -4,9 +4,10 @@
  */
 
 export const nav = [
-  { label: 'Прайсы', href: '/uslugi-i-ceny' },
   { label: 'О клинике', href: '/#approach' },
+  { label: 'Услуги', href: '/#services' },
   { label: 'Результаты', href: '/result' },
+  { label: 'Прайс', href: '/uslugi-i-ceny' },
   { label: 'Отзывы', href: '/otzyvy' },
   { label: 'Контакты', href: '/kontakty' },
 ];

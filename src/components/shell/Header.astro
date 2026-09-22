@@ -14,6 +14,7 @@ const site = await getSiteSettings();
 
   <nav class="nav" id="main-nav" aria-label="Основная навигация">
     {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    {site.shop_url && <a class="nav__shop" href={site.shop_url} target="_blank" rel="noopener">Интернет магазин профессиональной косметики</a>}
     <div class="nav__mobile-extra">
       <a class="nav__phone" href={telHref(site.phone)}>{site.phone}</a>
       <button class="button" type="button" data-open-sheet>Записаться <span>↗</span></button>
@@ -46,7 +47,7 @@ const site = await getSiteSettings();
     height: var(--header-h);
     display: flex;
     align-items: center;
-    gap: 38px;
+    gap: 24px;
     padding: 0 4.1vw;
     border-bottom: 1px solid var(--line);
     background: rgba(246, 244, 239, 0.82);
@@ -86,7 +87,7 @@ const site = await getSiteSettings();
   }
   /* Astro may emit a script between the header and main. Preserve the header's
      flow space on desktop so anchor navigation does not slide under it. */
-  @media (min-width:801px) {
+  @media (min-width:1101px) {
     :global(.header.is-sticky ~ main) { padding-top:var(--header-h); }
   }
   @keyframes headerIn {
@@ -107,8 +108,9 @@ const site = await getSiteSettings();
   }
   .nav {
     display: flex;
-    gap: 29px;
+    gap: 20px;
     margin-left: auto;
+    align-items: center;
   }
   .nav > a {
     position: relative;
@@ -116,6 +118,11 @@ const site = await getSiteSettings();
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.035em;
+    white-space: nowrap;
+  }
+  .nav > .nav__shop {
+    max-width: 190px;
+    white-space: normal;
   }
   /* Underline grows on the compositor (scaleX), not by animating a layout property. */
   .nav > a::after {
@@ -145,7 +152,7 @@ const site = await getSiteSettings();
     display: none;
   }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1400px) {
     .nav {
       gap: 17px;
     }
@@ -154,7 +161,7 @@ const site = await getSiteSettings();
     }
   }
 
-  @media (max-width: 800px) {
+  @media (max-width: 1100px) {
     .header {
       padding: 0 18px;
       gap: 0;
@@ -204,6 +211,7 @@ const site = await getSiteSettings();
       height: calc(100dvh - var(--header-h));
       display: flex;
       flex-direction: column;
+      align-items: stretch;
       gap: 0;
       padding: 35px 24px;
       background: var(--ivory);
@@ -234,6 +242,9 @@ const site = await getSiteSettings();
     }
     .nav > a::after {
       display: none;
+    }
+    .nav > .nav__shop {
+      max-width: none;
     }
     .header.is-sticky .nav {
       inset: var(--header-h-sticky) 0 auto;
