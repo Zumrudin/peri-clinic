@@ -1,8 +1,10 @@
 ---
 import { getHomeContent } from '../../lib/homeContent';
+import { getGiftMedia } from '../../lib/giftMedia';
 import { em } from '../../lib/markup';
 const { giftCertificate: gift } = await getHomeContent();
 const enabled = gift.title && gift.video_url && gift.poster_url;
+const [film, poster] = enabled ? await getGiftMedia() : [];
 ---
 {enabled && (
   <section class="home-section gift" id="gift-certificate" aria-labelledby="gift-title" data-gift-certificate>
@@ -16,14 +18,14 @@ const enabled = gift.title && gift.video_url && gift.poster_url;
         </button>
       </div>
       <div class="gift__film">
+        <img class="gift__poster" src={poster.url} width="720" height="1280" alt="" loading="lazy" />
         <video muted playsinline loop preload="none" width="720" height="1280"
-          data-src={gift.video_url} data-poster={gift.poster_url} aria-label={gift.video_label} />
+          data-src={film.url} poster={poster.url} aria-label={gift.video_label} />
         <button class="gift__play" type="button" aria-label={gift.play_label}
           data-play-label={gift.play_label} data-pause-label={gift.pause_label}>
           <svg class="gift__play-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 4v16l13-8z" /></svg>
           <svg class="gift__pause-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h4v16H6zm8 0h4v16h-4z" /></svg>
         </button>
-        <noscript><img src={gift.poster_url} width="720" height="1280" alt={gift.video_label} loading="lazy" /></noscript>
       </div>
     </div>
   </section>
@@ -38,7 +40,8 @@ const enabled = gift.title && gift.video_url && gift.poster_url;
   .gift h2 :global(em) { color: var(--gold-deep); font-style: italic; }
   .gift__film { position: relative; aspect-ratio: 9 / 16; overflow: hidden; border-radius: var(--home-image-radius); background: var(--ivory); }
   .gift__film video, .gift__film img { display: block; width: 100%; height: 100%; object-fit: contain; }
-  .gift__film noscript img { position: absolute; inset: 0; }
+  .gift__film video { position: absolute; inset: 0; opacity: 0; }
+  .gift[data-frame] video { opacity: 1; }
   .gift__play { position: absolute; bottom: 14px; right: 14px; display: none; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: var(--paper); cursor: pointer; }
   .gift[data-ready] .gift__play { display: grid; }
   .gift__pause-icon, .gift[data-playing] .gift__play-icon { display: none; }

@@ -8,12 +8,13 @@ if (root) {
   let manuallyPaused = false;
   let manuallyStarted = false;
   const prepare = () => {
-    if (!video.poster) video.poster = video.dataset.poster!;
+    video.muted = true;
+    video.defaultMuted = true;
+    if (video.error) video.load();
     if (!video.getAttribute('src')) video.src = video.dataset.src!;
   };
   const sync = () => {
     if (!visible || document.hidden) { video.pause(); return; }
-    if (!video.poster) video.poster = video.dataset.poster!;
     if (manuallyPaused || (!manuallyStarted && (reduced.matches || connection?.saveData))) return;
     prepare();
     void video.play().catch(() => {}); // Autoplay may be denied by the browser; the play button remains available.
@@ -37,6 +38,10 @@ if (root) {
     root.toggleAttribute('data-playing', !video.paused);
     button.setAttribute('aria-label', (video.paused ? button.dataset.playLabel : button.dataset.pauseLabel)!);
   };
+  // Keep the independent image visible until the decoder actually produces a frame.
+  video.addEventListener('playing', () => root.setAttribute('data-frame', ''));
+  video.addEventListener('error', () => { root.removeAttribute('data-frame'); updateButton(); });
+  video.addEventListener('emptied', () => root.removeAttribute('data-frame'));
   video.addEventListener('play', updateButton);
   video.addEventListener('pause', updateButton);
   reduced.addEventListener('change', () => {
