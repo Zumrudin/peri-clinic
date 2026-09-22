@@ -1,0 +1,17 @@
+---
+import { reviewUrl } from '../../lib/reviewLinks';
+interface Props { platforms: { label: string; url: string }[] }
+const { platforms } = Astro.props;
+---
+{platforms.length > 0 && <div class="review-platforms">
+  {platforms.filter(p => reviewUrl(p.url)).map(p => <a href={p.url} target="_blank" rel="noopener noreferrer">
+    <span>{p.label}</span>
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M10 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/></svg>
+  </a>)}
+</div>}
+<style>
+  .review-platforms { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  a { display: inline-flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 48px; padding: 12px 18px; border: 1px solid currentColor; border-radius: 999px; color: inherit; font-size: .8125rem; text-decoration: none; }
+  a:hover { background: rgba(180, 150, 90, .15); }
+  a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+</style>

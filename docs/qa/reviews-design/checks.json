@@ -1,0 +1,53 @@
+[
+  {
+    "width": 375,
+    "cards": 8,
+    "linked": 5,
+    "platforms": [
+      {
+        "text": "Яндекс Карты",
+        "href": "https://yandex.ru/maps/org/peri_clinic/38588977489/reviews/"
+      },
+      {
+        "text": "2ГИС",
+        "href": "https://2gis.ru/moscow/firm/70000001057552313/tab/reviews"
+      }
+    ],
+    "overflow": false,
+    "seriousCritical": 0
+  },
+  {
+    "width": 800,
+    "cards": 8,
+    "linked": 5,
+    "platforms": [
+      {
+        "text": "Яндекс Карты",
+        "href": "https://yandex.ru/maps/org/peri_clinic/38588977489/reviews/"
+      },
+      {
+        "text": "2ГИС",
+        "href": "https://2gis.ru/moscow/firm/70000001057552313/tab/reviews"
+      }
+    ],
+    "overflow": false,
+    "seriousCritical": 0
+  },
+  {
+    "width": 1440,
+    "cards": 8,
+    "linked": 5,
+    "platforms": [
+      {
+        "text": "Яндекс Карты",
+        "href": "https://yandex.ru/maps/org/peri_clinic/38588977489/reviews/"
+      },
+      {
+        "text": "2ГИС",
+        "href": "https://2gis.ru/moscow/firm/70000001057552313/tab/reviews"
+      }
+    ],
+    "overflow": false,
+    "seriousCritical": 0
+  }
+]

@@ -1,4 +1,5 @@
 ---
+import ReviewPlatforms from './ReviewPlatforms.astro';
 import { em } from '../../lib/markup';
 import { getHomeContent } from '../../lib/homeContent';
 
@@ -7,7 +8,7 @@ const { reviews } = home;
 const stars = '★★★★★';
 ---
 
-<section class="home-section reviews" id="reviews" aria-labelledby="reviews-title" data-rail-root>
+<section class="home-section reviews" id="reviews" aria-labelledby="reviews-title" data-rail-root data-rail-page>
 
   <div class="reviews__head reveal">
     <p class="eyebrow">{reviews.eyebrow}</p>
@@ -19,20 +20,21 @@ const stars = '★★★★★';
         <small>{reviews.rating_label}</small>
       </span>
     </div>
+    <ReviewPlatforms platforms={reviews.platforms} />
   </div>
-  <div class="review-list rail" data-rail tabindex="0" role="group" aria-label="Отзывы пациентов">
+  <div class="review-list rail" id="home-reviews-rail" data-rail tabindex="0" role="group" aria-label="Отзывы пациентов">
     {
       reviews.items.map((r) => (
-        <article class="review-card reveal">
+        <article class:list={['review-card', 'reveal', { 'review-card--mobile-only': !r.desktop }]} >
           <div class="review-card__top">
-            <span aria-label="5 из 5">{stars}</span>
+            <span aria-label={r.rating ? `${r.rating} из 5` : undefined}>{r.rating ? stars.slice(0, r.rating) : null}</span>
             <small>{r.date}</small>
           </div>
           <blockquote>«{r.text}»</blockquote>
           <div class="review-card__author">
             <span aria-hidden="true">{r.author.charAt(0)}</span>
             <p>
-              <strong>{r.author}</strong>
+              <strong>{r.url ? <a class="review-card__link" href={r.url} target="_blank" rel="noopener noreferrer">{r.author}<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a> : r.author}</strong>
               <small>{r.procedure_label}</small>
             </p>
           </div>
@@ -41,8 +43,8 @@ const stars = '★★★★★';
     }
   </div>
   <div class="reviews__controls">
-    <button class="home-icon-button" type="button" data-rail-prev aria-label="Предыдущий отзыв">←</button>
-    <button class="home-icon-button" type="button" data-rail-next aria-label="Следующий отзыв">→</button>
+    <button class="home-icon-button" type="button" data-rail-prev aria-label="Предыдущие отзывы" aria-controls="home-reviews-rail">←</button>
+    <button class="home-icon-button" type="button" data-rail-next aria-label="Следующие отзывы" aria-controls="home-reviews-rail">→</button>
   </div>
 </section>
 
@@ -53,24 +55,30 @@ const stars = '★★★★★';
   .rating > strong { font: 3.5rem/1 var(--display); }
   .rating > span { color: var(--gold-light); font-size: 0.875rem; letter-spacing: .08em; }
   .rating small { display: block; color: #c8c5ba; font-size: 0.75rem; letter-spacing: 0; margin-top: 8px; }
-  .review-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; overflow: visible; min-width: 0; }
-  .review-card { min-width: 0; padding: 24px; display: flex; flex-direction: column; border: 1px solid var(--line-on-dark); border-radius: var(--radius-lg); background: rgba(255,255,255,.03); }
-  .review-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .review-list { display: grid; grid-template-rows: repeat(2, auto); grid-auto-flow: column; grid-auto-columns: calc((100% - 24px) / 2); grid-column: 2; grid-row: 1 / 3; gap: 24px; overflow-x: auto; overscroll-behavior-x: contain; min-width: 0; }
+  .review-card { position: relative; min-width: 0; padding: 24px; display: flex; flex-direction: column; border: 1px solid var(--line-on-dark); border-radius: var(--radius-lg); background: rgba(255,255,255,.03); }
+  .review-card__link { color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 12px; }
+  .review-card__link::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius-lg); }
+  .review-card__link:hover::after { border: 1px solid var(--gold-light); }
+  .review-card__link:focus-visible { outline: none; }
+  .review-card__link:focus-visible::after { outline: 2px solid var(--gold-light); outline-offset: 3px; }
   .review-card__top { display: flex; justify-content: space-between; gap: 12px; color: var(--gold-light); font-size: 0.8125rem; }
   .review-card__top small { color: #c8c5ba; font-size: 0.75rem; }
-  .review-card blockquote { font: 1.375rem/1.5 var(--display); margin: 24px 0; }
+  .review-card blockquote { font: 1.375rem/1.5 var(--display); margin: 24px 0; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 7; overflow: hidden; }
   .review-card__author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
   .review-card__author > span { width: 36px; height: 36px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; background: var(--gold-deep); color: white; font: 1.125rem var(--display); }
   .review-card__author p { margin: 0; }
   .review-card__author strong, .review-card__author small { display: block; font-size: 0.875rem; }
   .review-card__author small { margin-top: 4px; color: #c8c5ba; }
-  .reviews__controls { display: none; }
+  .reviews__controls { display: flex; gap: 8px; grid-column: 1; grid-row: 2; align-self: start; }
+  .reviews__controls .home-icon-button { color: var(--gold-light); border-color: var(--gold-light); }
   .review-list:focus-visible { outline: 2px solid var(--gold-light); outline-offset: -3px; }
-  @media (max-width: 1100px) { .reviews { grid-template-columns: minmax(0, 1fr); } }
+  @media (min-width: 801px) { .review-card--mobile-only { display: none; } }
+  @media (max-width: 1100px) { .reviews { grid-template-columns: minmax(0, 1fr); } .review-list { grid-column: 1; grid-row: 2; } .reviews__controls { grid-row: 3; } }
   @media (max-width: 800px) {
     .reviews { display: block; }
     .rating { margin: 24px 0 32px; }
-    .review-list { display: flex; overflow-x: auto; gap: 16px; margin-right: calc(-1 * var(--gutter)); padding-right: var(--gutter); }
+    .review-list { margin-top: 24px; display: flex; overflow-x: auto; gap: 16px; margin-right: calc(-1 * var(--gutter)); padding-right: var(--gutter); }
     .review-card { flex: 0 0 min(82vw, 440px); scroll-snap-align: start; }
     .reviews__controls { display: flex; gap: 8px; margin-top: 24px; }
     .reviews__controls .home-icon-button { color: var(--gold-light); border-color: var(--gold-light); }

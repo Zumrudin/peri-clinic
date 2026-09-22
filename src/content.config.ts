@@ -80,6 +80,8 @@ const homeFields = [
   'reviews_title',
   'reviews_rating',
   'reviews_rating_label',
+  // New optional scalar fields can roll out after the code without breaking builds.
+  '*',
   'gift_eyebrow',
   'gift_title',
   'gift_lead',
@@ -142,6 +144,7 @@ const home = defineCollection({
     reviews_title: z.string(),
     reviews_rating: z.string().nullable().optional(),
     reviews_rating_label: z.string().nullable().optional(),
+    reviews_platforms: z.array(z.object({ label: z.string(), url: z.string() })).nullish(),
     gift_eyebrow: z.string().nullable().optional(),
     gift_title: z.string().nullable().optional(),
     gift_lead: z.string().nullable().optional(),
@@ -335,7 +338,7 @@ const homeReviews = defineCollection({
   loader: directusLoader('homeReviews', () =>
     directusGet(
       `/items/reviews${directusQuery({
-        fields: 'id,sort,author_name,date,text,procedure_label',
+        fields: 'id,sort,author_name,date,text,procedure_label,rating,source,source_url',
         filter: JSON.stringify({ status: { _eq: 'published' }, show_on_home: { _eq: true } }),
         sort: 'sort',
         limit: '-1',
@@ -345,6 +348,9 @@ const homeReviews = defineCollection({
   schema: z.object({
     id: z.number(),
     sort: z.number().nullable().optional(),
+    rating: z.number().nullable().optional(),
+    source: z.string().nullable().optional(),
+    source_url: z.string().nullable().optional(),
     author_name: z.string(),
     date: z.string().nullable().optional(),
     text: z.string(),

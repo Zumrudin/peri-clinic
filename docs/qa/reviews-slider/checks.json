@@ -1,0 +1,54 @@
+[
+  {
+    "width": 375,
+    "initial": [
+      0
+    ],
+    "second": [
+      1
+    ],
+    "seriousCritical": 0
+  },
+  {
+    "width": 800,
+    "initial": [
+      0
+    ],
+    "second": [
+      1
+    ],
+    "seriousCritical": 0
+  },
+  {
+    "width": 1024,
+    "initial": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "second": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "seriousCritical": 0
+  },
+  {
+    "width": 1440,
+    "initial": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "second": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "seriousCritical": 0
+  }
+]

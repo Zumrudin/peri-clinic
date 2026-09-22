@@ -1,13 +1,17 @@
 ---
+import ReviewPlatforms from '../components/home/ReviewPlatforms.astro';
+import { getHomeContent } from '../lib/homeContent';
+import { reviewUrl, reviewRating } from '../lib/reviewLinks';
 import Page from '../layouts/Page.astro';
 import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import { formatRuDate } from '../lib/markup';
 import { getCollection } from 'astro:content';
 import { bySort } from '../lib/directus';
 
+const { reviews: homeReviews } = await getHomeContent();
 const reviews = bySort(await getCollection('allReviews'));
 const stars = '★★★★★';
-const SOURCE_LABEL: Record<string, string> = { site: 'Сайт', yandex: 'Яндекс', '2gis': '2ГИС', prodoctorov: 'ПроДокторов' };
+const SOURCE_LABEL: Record<string, string> = { google: 'Google Maps', site: 'Сайт', yandex: 'Яндекс', '2gis': '2ГИС', prodoctorov: 'ПроДокторов' };
 ---
 
 <Page title="Отзывы пациентов о PERI CLINIC в Москве" description="Отзывы пациентов клиники эстетической медицины PERI CLINIC о процедурах, враче и сервисе.">
@@ -16,6 +20,7 @@ const SOURCE_LABEL: Record<string, string> = { site: 'Сайт', yandex: 'Янд
   <section class="reviews-hero reveal">
     <p class="eyebrow">Отзывы пациентов</p>
     <h1>Отзывы<br /><em>наших пациентов</em></h1>
+    <ReviewPlatforms platforms={homeReviews.platforms} />
   </section>
 
   <section class="section reviews-grid">
@@ -24,7 +29,7 @@ const SOURCE_LABEL: Record<string, string> = { site: 'Сайт', yandex: 'Янд
         reviews.map((r) => (
           <article class="review-card reveal">
             <div class="review-card__top">
-              <span aria-label={`${r.data.rating ?? 5} из 5`}>{stars.slice(0, r.data.rating ?? 5)}</span>
+              <span aria-label={`${reviewRating(r.data.rating) ?? 0} из 5`}>{stars.slice(0, reviewRating(r.data.rating) ?? 0)}</span>
               <small>{formatRuDate(r.data.date)}</small>
             </div>
             <blockquote>«{r.data.text}»</blockquote>
@@ -34,8 +39,8 @@ const SOURCE_LABEL: Record<string, string> = { site: 'Сайт', yandex: 'Янд
                 <strong>{r.data.author_name}</strong>
                 {r.data.procedure_label && <small>{r.data.procedure_label}</small>}
               </p>
-              {r.data.source && r.data.source !== 'site' && (
-                <a class="review-card__source" href={r.data.source_url || '#'} target="_blank" rel="noopener">
+              {r.data.source && reviewUrl(r.data.source_url) && (
+                <a class="review-card__source" href={reviewUrl(r.data.source_url)!} target="_blank" rel="noopener noreferrer">
                   {SOURCE_LABEL[r.data.source] ?? r.data.source}
                 </a>
               )}
@@ -70,6 +75,7 @@ const SOURCE_LABEL: Record<string, string> = { site: 'Сайт', yandex: 'Янд
     gap: 18px;
   }
   .review-card {
+    position: relative;
     min-height: 260px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -123,6 +129,8 @@ const SOURCE_LABEL: Record<string, string> = { site: 'Сайт', yandex: 'Янд
     margin-top: 3px;
     color: var(--muted);
   }
+  .review-card__source::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius); }
+  .review-card__source:hover::after, .review-card__source:focus-visible::after { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
   .review-card__source {
     margin-left: auto;
     font-size: 0.6875rem;

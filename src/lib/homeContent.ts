@@ -1,6 +1,7 @@
 import { getEntry, getCollection } from 'astro:content';
 import { directusImage } from './media';
 import { formatRuDate } from './markup';
+import { reviewUrl, reviewRating } from './reviewLinks';
 import { bySort } from './directus';
 import { getAllDevices } from './deviceContent';
 
@@ -22,13 +23,18 @@ export async function getHomeContent() {
   if (!home) throw new Error('Directus "home" singleton is empty — run directus/setup/seed-home.mjs');
   const h = home.data;
 
-  const [categories, devices, cases, reviews, allDevices] = await Promise.all([
+  const [categories, devices, cases, reviews, allDevices, publishedReviews] = await Promise.all([
     getCollection('serviceCategories').then(bySort),
     getCollection('devices').then(bySort),
     getCollection('homeCases').then(bySort),
     getCollection('homeReviews').then(bySort),
     getAllDevices(),
+    getCollection('allReviews').then(bySort),
   ]);
+
+  const desktopReviewIds = new Set(reviews.map(r => r.id));
+  // Keep the desktop selection/order; append other published reviews for mobile only.
+  const reviewItems = [...reviews, ...publishedReviews.filter(r => !desktopReviewIds.has(r.id))];
 
   return {
     seo: { title: h.seo_title || 'PERI CLINIC', description: h.seo_description || '' },
@@ -100,8 +106,12 @@ export async function getHomeContent() {
       title: h.reviews_title,
       rating: h.reviews_rating || '5.0',
       rating_label: h.reviews_rating_label || 'рейтинг клиники',
-      items: reviews.map(({ data: r }) => ({
+      platforms: (h.reviews_platforms || []).filter(p => reviewUrl(p.url)),
+      items: reviewItems.map(({ id, data: r }) => ({
+        desktop: desktopReviewIds.has(id),
         author: r.author_name,
+        url: reviewUrl(r.source_url),
+        rating: reviewRating(r.rating),
         date: formatRuDate(r.date),
         text: r.text,
         procedure_label: r.procedure_label || '',

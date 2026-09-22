@@ -27,7 +27,8 @@ export function initRails(): void {
       const track = rail.querySelector<HTMLElement>('[data-track]') ?? rail;
       const card = track.firstElementChild as HTMLElement | null;
       const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
-      const amount = card ? card.getBoundingClientRect().width + gap : rail.clientWidth;
+      const pageStep = root.hasAttribute('data-rail-page') && !mobile.matches;
+      const amount = pageStep ? rail.clientWidth + gap : card ? card.getBoundingClientRect().width + gap : rail.clientWidth;
       rail.scrollBy({ left: dir * amount, behavior: keyboard || reduced.matches ? 'instant' : 'smooth' });
     };
     previous?.addEventListener('click', () => step(-1));
