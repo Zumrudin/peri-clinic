@@ -5,6 +5,9 @@ interface SiteForSchema {
   phone: string;
   email?: string | null;
   address_short?: string | null;
+  nearest_metro?: string | null;
+  metro_walk_time?: string | null;
+  metro_directions?: string | null;
   hours?: string | null;
   city?: string;
   map_link?: string;
@@ -28,6 +31,12 @@ export function medicalClinicJsonLd(site: SiteForSchema, url: string, logoUrl: s
     // Schema openingHours requires day codes, not the human-readable Russian label.
     openingHours: site.hours?.match(/ежедневно/i) ? `Mo-Su ${site.hours.match(/\d{2}:\d{2}/g)?.join('-') || ''}`.trim() : undefined,
     hasMap: site.map_link || undefined,
+    amenityFeature: site.nearest_metro ? {
+      '@type': 'LocationFeatureSpecification',
+      name: `Метро ${site.nearest_metro}${site.metro_walk_time ? ` — ${site.metro_walk_time}` : ''}`,
+      value: true,
+    } : undefined,
+    directions: site.metro_directions || undefined,
     sameAs: [site.vk_url, site.telegram_url].filter(Boolean),
     medicalSpecialty: 'Dermatology',
   };

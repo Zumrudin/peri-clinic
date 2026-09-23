@@ -16,7 +16,7 @@ const links = [
 ].filter(Boolean) as Array<{ label: string; value: string; href: string }>;
 ---
 
-<Page title="Контакты PERI CLINIC в Москве — адрес, телефон, запись" description={`PERI CLINIC — ${site.address_short}. ${site.hours}. Телефон ${site.phone}.`}>
+<Page title={`Контакты PERI CLINIC у метро ${site.nearest_metro || 'Домодедовская'} — адрес и маршрут`} description={`PERI CLINIC — ${site.address_short}. ${site.nearest_metro ? `Метро ${site.nearest_metro}${site.metro_walk_time ? `, ${site.metro_walk_time}` : ''}. ` : ''}${site.hours}. Телефон ${site.phone}.`}>
   <Breadcrumbs slot="head" items={[{ name: 'Контакты', href: '/kontakty' }]} />
 
   <section class="contacts reveal">
@@ -24,6 +24,16 @@ const links = [
       <p class="eyebrow">Контакты</p>
       <h1>Контакты<br /><em>PERI CLINIC</em></h1>
       <p class="contacts__address" set:html={em(site.address_lines || site.address_short)} />
+      {site.nearest_metro && (
+        <div class="contacts__metro">
+          <span class="contacts__metro-mark" aria-hidden="true">М</span>
+          <p>
+            <strong>Метро {site.nearest_metro}</strong>
+            {site.metro_walk_time && <span>{site.metro_walk_time}</span>}
+          </p>
+        </div>
+      )}
+      {site.metro_directions && <p class="contacts__directions">{site.metro_directions}</p>}
       <p class="contacts__hours">{site.hours}</p>
       {site.map_link && (
         <a class="text-link" href={site.map_link} target="_blank" rel="noopener">
@@ -103,6 +113,41 @@ const links = [
     color: var(--muted);
     font-size: 0.875rem;
     margin: 0 0 28px;
+  }
+  .contacts__metro {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 22px 0 12px;
+  }
+  .contacts__metro-mark {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--gold-deep);
+    border-radius: 50%;
+    color: var(--gold-deep);
+    font: 600 0.75rem var(--body);
+  }
+  .contacts__metro p {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+  }
+  .contacts__metro strong {
+    font: 400 1.125rem var(--display);
+  }
+  .contacts__metro span,
+  .contacts__directions {
+    color: var(--muted);
+    font-size: 0.8125rem;
+  }
+  .contacts__directions {
+    max-width: 48ch;
+    margin: 0 0 18px 42px;
+    line-height: 1.55;
   }
   .contacts__list {
     list-style: none;

@@ -20,9 +20,11 @@ test('SEO metadata removes CMS formatting while preserving text', () => {
 });
 test('Clinic and pages share stable IDs on the configured origin', () => {
   const origin = 'https://prod.peri-clinic.zumrudin.ru/';
-  const clinic = medicalClinicJsonLd({name:'PERI CLINIC',phone:'+79250177778',city:'Москва',address_short:'ул. Генерала Белова, 28',hours:'Ежедневно, 10:00–22:00'},origin,origin+'logo.png');
+  const clinic = medicalClinicJsonLd({name:'PERI CLINIC',phone:'+79250177778',city:'Москва',address_short:'ул. Генерала Белова, 28',hours:'Ежедневно, 10:00–22:00',nearest_metro:'Домодедовская',metro_walk_time:'7 минут пешком',metro_directions:'Выход к улице Генерала Белова.'},origin,origin+'logo.png');
   assert.equal(clinic['@id'], origin+'#clinic');
   assert.equal(clinic.openingHours, 'Mo-Su 10:00-22:00');
   assert.equal(clinic.address?.addressLocality, 'Москва');
+  assert.equal(clinic.amenityFeature?.name, 'Метро Домодедовская — 7 минут пешком');
+  assert.equal(clinic.directions, 'Выход к улице Генерала Белова.');
   assert.equal(webPageJsonLd(origin+'result','Результаты','Фото',origin).about['@id'],clinic['@id']);
 });
