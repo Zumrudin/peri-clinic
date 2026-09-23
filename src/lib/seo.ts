@@ -36,7 +36,11 @@ export function medicalClinicJsonLd(site: SiteForSchema, url: string, logoUrl: s
       name: `Метро ${site.nearest_metro}${site.metro_walk_time ? ` — ${site.metro_walk_time}` : ''}`,
       value: true,
     } : undefined,
-    directions: site.metro_directions || undefined,
+    additionalProperty: site.metro_directions ? {
+      '@type': 'PropertyValue',
+      name: 'Как пройти от метро',
+      value: site.metro_directions,
+    } : undefined,
     sameAs: [site.vk_url, site.telegram_url].filter(Boolean),
     medicalSpecialty: 'Dermatology',
   };

@@ -25,6 +25,6 @@ test('Clinic and pages share stable IDs on the configured origin', () => {
   assert.equal(clinic.openingHours, 'Mo-Su 10:00-22:00');
   assert.equal(clinic.address?.addressLocality, 'Москва');
   assert.equal(clinic.amenityFeature?.name, 'Метро Домодедовская — 7 минут пешком');
-  assert.equal(clinic.directions, 'Выход к улице Генерала Белова.');
+  assert.equal(clinic.additionalProperty?.value, 'Выход к улице Генерала Белова.');
   assert.equal(webPageJsonLd(origin+'result','Результаты','Фото',origin).about['@id'],clinic['@id']);
 });
