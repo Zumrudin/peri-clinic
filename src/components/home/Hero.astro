@@ -79,11 +79,23 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
     </div>
   </div>
 
-  <div class="hero__address glass-panel glass-panel--dark reveal">
-    <span class="glass-chip glass-chip--dark">{site.city}</span>
-    <p set:html={em(site.address_lines)} />
-  </div>
 </section>
+
+{
+  site.nearest_metro && (
+    <a class="hero-location" href="/kontakty" aria-label={`Адрес и маршрут до PERI CLINIC: метро ${site.nearest_metro}`}>
+      <span class="hero-location__mark" aria-hidden="true"></span>
+      <span class="hero-location__text">
+        {site.city}
+        <i aria-hidden="true">·</i>
+        {site.metro_walk_time} от метро {site.nearest_metro}
+        <i aria-hidden="true">·</i>
+        {site.address_short.replace(/^Москва,\s*/i, '')}
+      </span>
+      <span class="hero-location__arrow" aria-hidden="true">↗</span>
+    </a>
+  )
+}
 
 <style>
   .hero {
@@ -176,25 +188,43 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
       rgba(20, 18, 12, 0.82) 100%
     );
   }
-  .hero__address {
-    position: absolute;
-    z-index: 2;
-    top: 24px;
-    right: 24px;
+  .hero-location {
+    min-height: 76px;
+    padding: 0 4.1vw;
+    border-bottom: 1px solid var(--line);
+    background: var(--ivory);
+    color: var(--ink-2);
     display: flex;
-    gap: 16px;
     align-items: center;
-    padding: 14px 20px;
-    color: #fff;
+    justify-content: center;
+    gap: 15px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
   }
-  .hero__address span {
-    font-size: 0.6875rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+  .hero-location__mark {
+    width: 7px;
+    height: 7px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 5px var(--gold-10);
   }
-  .hero__address p {
-    font: 1.0625rem/1.2 var(--display);
-    margin: 0;
+  .hero-location__text i {
+    margin: 0 7px;
+    color: var(--gold);
+    font-style: normal;
+  }
+  .hero-location__arrow {
+    margin-left: 4px;
+    color: var(--gold-deep);
+    font-size: 0.9375rem;
+    transition: transform var(--dur-press) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hero-location:hover .hero-location__arrow {
+      transform: translate(3px, -3px);
+    }
   }
   .hero__content {
     position: relative;
@@ -283,13 +313,6 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
     }
   }
 
-  @media (max-width: 1100px) {
-    .hero__address {
-      top: 18px;
-      right: 18px;
-    }
-  }
-
   @media (max-width: 800px) {
     .hero__content {
       padding: 32px 18px 32px;
@@ -335,8 +358,23 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
     .hero__actions .text-link {
       align-self: flex-start;
     }
-    .hero__address {
-      display: none;
+    .hero-location {
+      min-height: 86px;
+      padding: 12px 22px;
+      justify-content: flex-start;
+      gap: 13px;
+      font-size: 0.75rem;
+      line-height: 1.55;
+    }
+    .hero-location__text {
+      max-width: 290px;
+    }
+    .hero-location__text i {
+      margin: 0 4px;
+    }
+    .hero-location__arrow {
+      flex: none;
+      margin-left: auto;
     }
   }
 </style>
