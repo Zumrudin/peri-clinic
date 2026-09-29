@@ -10,6 +10,7 @@ const configResponse = await fetch(base + api + '/config');
 assert.equal(configResponse.status, 200);
 const config = await configResponse.json();
 assert.ok(config.years.length > 0);
+assert.ok(config.consent?.version, "Deploy the versioned consent API before running this live integration check");
 assert.equal(configResponse.headers.get('cache-control'), 'no-store');
 assert.equal((await fetch(base + '/api/public/cert-requests/clinic-2/config')).status, 404);
 const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || ['/usr/bin/google-chrome', '/usr/bin/chromium'].find(existsSync), args: ['--no-sandbox'] });
@@ -87,6 +88,9 @@ try {
   assert.equal(posts.at(-1).payer_phone, '+79991234567');
   assert.equal(posts.at(-1).patient_phone, '+79991234567');
   assert.equal(posts.at(-1).payer_is_patient, false);
+  assert.equal(posts.at(-1).consent, true);
+  assert.equal(posts.at(-1).consent_version, config.consent.version);
+  assert.equal(posts.at(-1).consent_sha256, config.consent.sha256);
   assert.equal(posts.at(-1).patient_doc_type_code, '03');
   const download = page.waitForEvent('download');
   await page.locator('#cr-download').click();

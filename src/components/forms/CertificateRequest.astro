@@ -1,4 +1,6 @@
 ---
+import { getCertificateConsent } from '../../lib/certificateConsent';
+const consent = await getCertificateConsent();
 interface Props { privacyUrl: string; }
 const { privacyUrl } = Astro.props;
 ---
@@ -8,7 +10,7 @@ const { privacyUrl } = Astro.props;
       <p class="note">Заполните данные для подготовки справки. Поля со звёздочкой обязательны.</p>
       <div class="sub" id="cr-clinic"></div>
 
-      <form id="cr-form" autocomplete="off" novalidate>
+      <form id="cr-form" autocomplete="off" novalidate data-consent-version={consent.version} data-consent-sha256={consent.sha256}>
         <div class="fg">
           <label class="fl" for="cr-report_year">Отчётный год *</label>
           <select id="cr-report_year"></select>
@@ -43,6 +45,7 @@ const { privacyUrl } = Astro.props;
 
         <fieldset id="cr-patient-block" hidden>
           <legend>Пациент (кому оказаны услуги)</legend>
+          <p class="note">Передавайте данные другого пациента только при наличии законного основания. Ваше согласие не заменяет согласия другого совершеннолетнего пациента. При необходимости клиника проверит полномочия и запросит отдельное согласие; если основания нет, свяжитесь с клиникой до отправки данных.</p>
           <div class="note" style="margin-bottom:8px">Укажите телефон пациента — по нему мы найдём оплаты в нашей базе.</div>
           <div class="row">
             <div class="fg"><label class="fl" for="cr-patient_last">Фамилия *</label><input id="cr-patient_last"></div>
@@ -71,9 +74,10 @@ const { privacyUrl } = Astro.props;
 
         <div class="fg chk">
           <input type="checkbox" id="cr-consent">
-          <label for="cr-consent">Я согласен(на) на обработку персональных данных в соответствии с
-            <a id="cr-policy" href={privacyUrl} target="_blank" rel="noopener">политикой</a> (152-ФЗ) *</label>
+          <label for="cr-consent">Даю <a id="cr-consent-document" href={consent.url} target="_blank" rel="noopener">согласие на обработку персональных данных для подготовки справки</a> *</label>
         </div>
+
+        <p class="note"><a id="cr-policy" href={privacyUrl} target="_blank" rel="noopener">Политика обработки персональных данных</a></p>
 
         <!-- Honeypot is part of the existing LoyalPro API contract. -->
         <input class="hp" aria-hidden="true" id="cr-website" tabindex="-1" autocomplete="off" placeholder="Не заполняйте">

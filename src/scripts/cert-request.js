@@ -24,6 +24,7 @@ export function initCertRequest() {
   const FIELD_MESSAGES = {
     report_year: 'Выберите отчётный год.',
     consent: 'Поставьте отметку о согласии на обработку персональных данных.',
+    consent_version: 'Редакция согласия изменилась. Обновите страницу, ознакомьтесь с текстом и подтвердите согласие заново.',
     payer_name: 'Укажите фамилию, имя и отчество получателя справки.',
     payer_birthdate: 'Укажите дату рождения получателя.',
     payer_adult: 'Получателем справки (плательщиком) может быть только совершеннолетний — 18 лет и старше.',
@@ -138,6 +139,9 @@ export function initCertRequest() {
     $('cr-retry').hidden = true;
     $('cr-loading').hidden = false;
     $('cr-error').textContent = '';
+    ready = false;
+    $('cr-submit').disabled = true;
+    $('cr-consent').checked = false;
     try {
       const response = await api(`${base}/config`);
       if (!response.ok) throw new Error('config');
@@ -145,6 +149,11 @@ export function initCertRequest() {
       if (!Array.isArray(cfg.years) || !cfg.years.length ||
           !cfg.years.every(Number.isInteger) || !Array.isArray(cfg.relationships) ||
           !cfg.relationships.every(r => typeof r.code === 'string' && typeof r.label === 'string')) throw new Error('config');
+      const revision = $('cr-form').dataset;
+      if (cfg.consent?.version !== revision.consentVersion || cfg.consent?.sha256 !== revision.consentSha256) {
+        $('cr-error').textContent = FIELD_MESSAGES.consent_version;
+        return;
+      }
       $('cr-clinic').textContent = cfg.clinicName || '';
       $('cr-report_year').replaceChildren(...cfg.years.map(y => new Option(String(y), String(y))));
       $('cr-relationship').replaceChildren(new Option('Выберите степень родства', ''),
@@ -204,7 +213,9 @@ export function initCertRequest() {
     $('cr-error').innerHTML = '';
     const same = $('cr-payer_is_patient').checked;
     const body = { report_year: Number($('cr-report_year').value), payer_is_patient: same,
-      consent: $('cr-consent').checked, relationship: $('cr-relationship').value, website: $('cr-website').value };
+      consent: $('cr-consent').checked,
+      consent_version: $('cr-form').dataset.consentVersion, consent_sha256: $('cr-form').dataset.consentSha256,
+      relationship: $('cr-relationship').value, website: $('cr-website').value };
     for (const f of TEXT_FIELDS) {
       if (same && f.startsWith('patient_')) continue;
       body[f] = $('cr-' + f).value.trim();
@@ -228,7 +239,10 @@ export function initCertRequest() {
       const resp = await api(base, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const data = await resp.json().catch(() => ({}));
       if (!resp.ok) {
-        if (data.error === 'validation') showErrors(data.fields);
+        if (data.error === 'validation') {
+          showErrors(data.fields);
+          if (data.fields?.includes('consent_version')) { ready = false; $('cr-consent').checked = false; }
+        }
         else $('cr-error').textContent = data.error === 'too_many_requests'
           ? 'Слишком много заявок с этого устройства. Попробуйте позже.'
           : 'Не удалось отправить заявку. Повторите попытку.';
@@ -242,7 +256,7 @@ export function initCertRequest() {
       $('cr-success-title').focus();
     } catch {
       $('cr-error').textContent = 'Не удалось получить подтверждение отправки. Если связь прервалась, заявка могла быть принята — уточните в клинике перед повторной отправкой.';
-    } finally { sending = false; btn.disabled = false; btn.textContent = 'Отправить заявку'; }
+    } finally { sending = false; btn.disabled = !ready; btn.textContent = 'Отправить заявку'; }
   }
 
   init();
