@@ -1,7 +1,8 @@
 import {chromium} from 'playwright-core';
 import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
 const base=process.argv[2]||'http://127.0.0.1:4322';
-const pages=JSON.parse(readFileSync('docs/seo/after/audit.json','utf8')).pages;
+// The historical audit includes the Sensitec service retired in September 2026.
+const pages=JSON.parse(readFileSync('docs/seo/after/audit.json','utf8')).pages.filter(p=>p.path!=='/microtoki');
 const browser=await chromium.launch({executablePath:'/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
 const errors=[],results=[];
 for(const width of [390,1440]){
@@ -17,8 +18,8 @@ for(const width of [390,1440]){
 const page=await browser.newPage({viewport:{width:1440,height:900}});
 await page.goto(base,{waitUntil:'networkidle'});
 await page.locator('a[href="/apparaty"]').first().click();await page.waitForURL('**/apparaty');
-if(!await page.locator('a[href="/microtoki"]').count())errors.push({issue:'Missing formerly orphaned service link'});
-await page.locator('a[href="/microtoki"]').first().click();await page.waitForURL('**/microtoki');
+if(await page.locator('a[href="/microtoki"]').count())errors.push({issue:'Retired Sensitec service is still linked'});
+await page.locator('a[href="/volnewmer"]').first().click();await page.waitForURL('**/volnewmer');
 await page.getByRole('button',{name:/Записаться на консультацию/}).first().click();
 if(!await page.locator('dialog[open]').count())errors.push({issue:'Booking dialog failed'});
 await browser.close();
