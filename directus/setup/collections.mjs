@@ -488,7 +488,7 @@ collections.push({ collection: 'home_reels', meta: {
   { ...f.sort(), meta: { ...f.sort().meta, hidden: false, width: 'half', note: 'Меньшее число — раньше в ленте. Также можно перетаскивать строки списка.' } },
   f.str('title', 'Подпись к видео', { required: true }),
   f.str('description', 'Дополнительная подпись', { note: 'Необязательно: например, имя врача.' }),
-  f.file('video', 'Видео', { required: true, width: 'full', note: 'Загрузите MP4/WebM до 50 МБ или выберите ранее загруженное видео из библиотеки файлов, в том числе материалы сотрудников.', options: { mimeTypes: ['video/mp4', 'video/webm'] } }),
+  f.file('video', 'Видео', { required: true, width: 'full', note: 'Загрузите MP4/WebM/MOV до 60 МБ или выберите ранее загруженное видео из библиотеки файлов, в том числе материалы сотрудников.', options: { mimeTypes: ['video/mp4', 'video/webm', 'video/quicktime'] } }),
   f.image('image', 'Обложка', { note: 'Необязательно. Можно загрузить или выбрать изображение из библиотеки.' }),
   ...timestamps(),
 ] });
@@ -498,7 +498,7 @@ collections.push({ collection: 'specialist_media', meta: { icon: 'perm_media', h
   f.str('title', 'Заголовок', { required: true }), f.text('description', 'Подпись'),
   f.image('image', 'Фотография / обложка видео', { note: 'Для видео необязательно: без обложки показывается портрет специалиста.' }),
   f.str('image_alt', 'Описание фотографии'),
-  f.file('video', 'Видеофайл', { note: 'MP4 (H.264/AAC) или WebM, до 50 МБ. Для видео с телефона выберите экспорт в MP4.', options: { mimeTypes: ['video/mp4', 'video/webm'] } }),
+  f.file('video', 'Видеофайл', { note: 'MP4, WebM или MOV, до 60 МБ. При публикации видео автоматически конвертируется для сайта.', options: { mimeTypes: ['video/mp4', 'video/webm', 'video/quicktime'] } }),
   ...timestamps(),
 ] });
 

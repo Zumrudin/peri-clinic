@@ -25,3 +25,8 @@ test('HLS packages are versioned and external videos keep native delivery', () =
   assert.equal(reelHlsUrl('/media/specialists/abcd-1234.mp4'), '/media/reels/abcd-1234-hls-v1/master.m3u8');
   assert.equal(reelHlsUrl('https://example.com/clip.mp4'), undefined);
 });
+
+test('MOV sources use browser-compatible derived streams', () => {
+  assert.equal(reelVideoUrl('/media/specialists/abcd-1234.mov'), '/media/reels/abcd-1234-mobile-v1.mp4');
+  assert.equal(reelHlsUrl('/media/specialists/abcd-1234.mov'), '/media/reels/abcd-1234-hls-v1/master.m3u8');
+});

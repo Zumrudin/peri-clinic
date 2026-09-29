@@ -9,8 +9,10 @@ const file = { id:'12345678-1234-1234-1234-123456789abc', type:'video/mp4', file
 
 test('video names reject unsupported files and change on replacement', () => {
   assert.match(videoFileName(file), /^[a-f0-9-]+\.mp4$/);
+  assert.match(videoFileName({...file,type:'video/quicktime'}), /\.mov$/);
+  assert.doesNotThrow(() => videoFileName({...file, filesize:60*1024*1024}));
   assert.notEqual(videoFileName(file), videoFileName({...file,modified_on:'2026-09-13T11:00:00Z'}));
-  for (const invalid of [{...file,id:'../secret'}, {...file,type:'video/quicktime'}, {...file,filesize:51*1024*1024}, {...file,uploaded_on:''}]) assert.throws(() => videoFileName(invalid));
+  for (const invalid of [{...file,id:'../secret'}, {...file,type:'application/octet-stream'}, {...file,filesize:60*1024*1024+1}, {...file,uploaded_on:''}]) assert.throws(() => videoFileName(invalid));
 });
 
 test('authenticated downloads are cached; truncated bodies are not published', async () => {

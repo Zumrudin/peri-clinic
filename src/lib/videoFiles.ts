@@ -12,14 +12,14 @@ export interface VideoFile {
   modified_on?: string | null;
   uploaded_on?: string | null;
 }
-export const maxVideoBytes = 50 * 1024 * 1024;
+export const maxVideoBytes = 60 * 1024 * 1024;
 
 export function videoFileName(file: VideoFile): string {
-  const extension = ({ 'video/mp4': 'mp4', 'video/webm': 'webm' } as Record<string, string>)[file.type];
+  const extension = ({ 'video/mp4': 'mp4', 'video/webm': 'webm', 'video/quicktime': 'mov' } as Record<string, string>)[file.type];
   const size = Number(file.filesize);
   const version = file.modified_on || file.uploaded_on;
   if (!/^[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}$/i.test(file.id) || !extension || !version || !Number.isFinite(Date.parse(version)) || !Number.isSafeInteger(size) || size <= 0 || size > maxVideoBytes) {
-    throw new Error('Некорректное видео: требуется MP4/WebM до 50 МБ с метаданными файла.');
+    throw new Error('Некорректное видео: требуется MP4/WebM/MOV до 60 МБ с метаданными файла.');
   }
   // Replacing a file must change the public URL and invalidate the download cache.
   const hash = createHash('sha256').update(`${version}:${size}`).digest('hex').slice(0, 16);
@@ -43,7 +43,7 @@ export async function cacheVideo(file: VideoFile, options: { baseUrl: string; to
     await pipeline(Readable.fromWeb(response.body as import('node:stream/web').ReadableStream), new Transform({
       transform(chunk, _encoding, callback) {
         bytes += chunk.length;
-        callback(bytes > maxVideoBytes ? new Error('Видео превышает 50 МБ') : null, chunk);
+        callback(bytes > maxVideoBytes ? new Error('Видео превышает 60 МБ') : null, chunk);
       },
     }), createWriteStream(temporary, { flags: 'wx' }));
     if (bytes !== Number(file.filesize)) throw new Error(`Неполная загрузка видео ${file.id}`);
