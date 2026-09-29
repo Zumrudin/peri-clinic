@@ -61,6 +61,7 @@ const socials = [
   <div class="footer__bottom">
     <span>© {site.name}, {year}</span>
     <a href={site.privacy_url}>Политика конфиденциальности</a>
+    <button type="button" class="footer__cookie-settings" data-cookie-settings>{site.cookie_notice.settings}</button>
     <p>{site.non_offer_text}</p>
   </div>
 </footer>
@@ -131,12 +132,13 @@ const socials = [
   .footer__bottom {
     padding-top: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-columns: 1fr 1fr 1fr 2fr;
     gap: 20px;
     color: #66635a;
     font-size: 0.6875rem;
     line-height: 1.5;
   }
+  .footer__cookie-settings { border: 0; padding: 0; background: none; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; min-height: 44px; }
   .footer__bottom a {
     text-align: center;
   }
@@ -152,7 +154,7 @@ const socials = [
   }
   @media (max-width: 800px) {
     .footer {
-      padding: 60px 18px 25px;
+      padding: 60px 18px calc(110px + env(safe-area-inset-bottom));
     }
     .footer__top {
       display: flex;

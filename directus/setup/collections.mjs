@@ -154,6 +154,7 @@ export const collections = [
       f.text('instagram_disclaimer', 'Пометка про Instagram/Meta'),
       f.divider('d_misc', 'Прочее'),
       f.text('tagline', 'Слоган в подвале'),
+      { field: 'cookie_notice', type: 'json', meta: { interface: 'input-code', options: { language: 'json' }, translations: ru('Cookie: тексты уведомления'), special: ['cast-json'] }, schema: { is_nullable: true } },
       f.str('metrika_id', 'Яндекс.Метрика: номер счётчика', { width: 'half' }),
       f.str('yandex_verification', 'Яндекс.Вебмастер: код подтверждения', { width: 'half' }),
       f.bool('show_prices', 'Показывать цены на сайте', false),

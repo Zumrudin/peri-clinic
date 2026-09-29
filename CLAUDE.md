@@ -103,7 +103,7 @@ Directus REST ──► src/lib/directus.ts (plain fetch, no SDK)
 
 ## Booking, analytics, legal
 
-There is **no booking form**. Any `[data-open-sheet]` element opens the `<dialog>` contact sheet (Позвонить / Telegram / WhatsApp / MAX); `data-context` prefills the WhatsApp message with the procedure name. Clicks dispatch `peri:contact` with a goal name; `Metrika.astro` listens and calls `ym(..., 'reachGoal', ...)`, and only loads Yandex Metrika after consent (`peri:consent` event / `localStorage.peri_consent`) when `metrika_requires_consent` is on. Legal blocks (licence, ОГРН/ИНН, contraindication disclaimer, Instagram/Meta note, non-offer text) all come from `site_settings`.
+There is **no booking form**. Any `[data-open-sheet]` element opens the `<dialog>` contact sheet (Позвонить / Telegram / WhatsApp / MAX); `data-context` prefills the WhatsApp message with the procedure name. Clicks dispatch `peri:contact` with a goal name; `Metrika.astro` listens and calls `ym(..., 'reachGoal', ...)`, and only loads Yandex Metrika after an explicit, current analytics choice (`localStorage.peri_analytics_consent`, managed by `src/scripts/cookie-consent.ts`). Consent is always required; the legacy `metrika_requires_consent` field cannot bypass it. Cookie texts are in `site_settings.cookie_notice`; the footer opens settings for refusal/revocation. Legal blocks (licence, ОГРН/ИНН, contraindication disclaimer, Instagram/Meta note, non-offer text) all come from `site_settings`.
 
 ## CMS schema & deployment
 

@@ -47,6 +47,7 @@ export async function getSiteSettings() {
     license_number: s.license_number || '',
     license_date: s.license_date || '',
     license_issuer: s.license_issuer || '',
+    cookie_notice: s.cookie_notice,
     metrika_id: s.metrika_id || '',
     metrika_requires_consent: s.metrika_requires_consent ?? true,
     yandex_verification: s.yandex_verification || '',
