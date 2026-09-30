@@ -7,14 +7,17 @@ import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import { formatRuDate } from '../lib/markup';
 import { getCollection } from 'astro:content';
 import { bySort } from '../lib/directus';
+import { getSiteSettings } from '../lib/siteContent';
+import { localTitle } from '../lib/seo';
 
 const { reviews: homeReviews } = await getHomeContent();
 const reviews = bySort(await getCollection('allReviews'));
+const { nearest_metro: metro } = await getSiteSettings();
 const stars = '★★★★★';
 const SOURCE_LABEL: Record<string, string> = { google: 'Google Maps', site: 'Сайт', yandex: 'Яндекс', '2gis': '2ГИС', prodoctorov: 'ПроДокторов' };
 ---
 
-<Page title="Отзывы пациентов о PERI CLINIC в Москве" description="Отзывы пациентов клиники эстетической медицины PERI CLINIC о процедурах, враче и сервисе.">
+<Page title={localTitle('Отзывы пациентов о PERI CLINIC в Москве', metro)} description={`Отзывы пациентов клиники эстетической медицины PERI CLINIC${metro ? ` (Москва, метро ${metro})` : ''} о процедурах, враче и сервисе.`}>
   <Breadcrumbs slot="head" items={[{ name: 'Отзывы', href: '/otzyvy' }]} />
 
   <section class="reviews-hero reveal">

@@ -5,14 +5,16 @@ import CaseCard from '../components/results/CaseCard.astro';
 import { directusImage } from '../lib/media';
 import { getCollection } from 'astro:content';
 import { bySort } from '../lib/directus';
+import { getSiteSettings } from '../lib/siteContent';
 
+const { nearest_metro: metro } = await getSiteSettings();
 const cases = bySort(await getCollection('allCases'));
 const categories = bySort(await getCollection('caseCategories')).filter((cat) =>
   cases.some((c) => c.data.category?.slug === cat.data.slug),
 );
 ---
 
-<Page title="Косметология: фото до и после — PERI CLINIC, Москва" description="Реальные результаты пациентов PERI CLINIC: аппаратная и инъекционная косметология, эстетические процедуры. Каждый результат индивидуален.">
+<Page title="Косметология: фото до и после — PERI CLINIC, Москва" description={`Реальные результаты пациентов PERI CLINIC${metro ? ` (Москва, метро ${metro})` : ''}: аппаратная и инъекционная косметология, эстетические процедуры. Каждый результат индивидуален.`}>
   <Breadcrumbs slot="head" items={[{ name: 'Результаты', href: '/result' }]} />
 
   <section class="results-hero reveal">

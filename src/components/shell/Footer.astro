@@ -38,6 +38,7 @@ const socials = [
       <h3>Контакты</h3>
       <a href={`mailto:${site.email}`}>{site.email}</a>
       <p set:html={em(site.address_short.replace(', 28', ',\n28'))} />
+      {site.nearest_metro && <p>м. {site.nearest_metro}{site.metro_walk_time && ` · ${site.metro_walk_time}`}</p>}
       <p>{site.hours}</p>
     </div>
     <div>

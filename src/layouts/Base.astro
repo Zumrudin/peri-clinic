@@ -9,7 +9,8 @@ import CookieNotice from '../components/shell/CookieNotice.astro';
 import Metrika from '../components/shell/Metrika.astro';
 import JsonLd from '../components/seo/JsonLd.astro';
 import { getSiteSettings } from '../lib/siteContent';
-import { canonicalPath, medicalClinicJsonLd, seoText, webPageJsonLd } from '../lib/seo';
+import { location } from '../config/location';
+import { canonicalPath, geoMeta, medicalClinicJsonLd, seoText, webPageJsonLd } from '../lib/seo';
 
 interface Props {
   title: string;
@@ -24,7 +25,7 @@ const site = await getSiteSettings();
 const canonical = new URL(canonicalPath(Astro.url.pathname), Astro.site);
 const logoImage = await getImage({ src: logo, format: 'png', width: 600 });
 const og = new URL(ogImage || logoImage.src, Astro.site).href;
-const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL(logoImage.src, Astro.site).href);
+const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL(logoImage.src, Astro.site).href, location);
 ---
 
 <!doctype html>
@@ -37,6 +38,7 @@ const clinicJsonLd = medicalClinicJsonLd(site, Astro.site!.href, new URL(logoIma
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={noindex ? "noindex, follow" : "index, follow, max-image-preview:large"} />
     {site.yandex_verification && <meta name="yandex-verification" content={site.yandex_verification} />}
+    {Object.entries(geoMeta(site.city, location)).map(([name, content]) => <meta name={name} content={content} />)}
     <meta name="theme-color" content="#f6f4ef" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />

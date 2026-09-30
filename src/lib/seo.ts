@@ -15,19 +15,70 @@ interface SiteForSchema {
   telegram_url?: string;
 }
 
-export function medicalClinicJsonLd(site: SiteForSchema, url: string, logoUrl: string) {
+/** Structural copy of `src/config/location.ts`, so this module stays importable by plain `node --test`. */
+interface PlaceForSchema {
+  district: string;
+  okrug: string;
+  okrugShort: string;
+  postalCode: string;
+  regionCode: string;
+  latitude: number;
+  longitude: number;
+}
+
+/**
+ * District → okrug → city, narrowest first. Both okrug spellings are listed because people search
+ * «ЮАО» but the official name is the long one.
+ */
+export function areaServedJsonLd(city: string | undefined, place?: PlaceForSchema) {
+  return [place?.district, place?.okrug, place?.okrugShort, city]
+    .filter((name): name is string => Boolean(name))
+    .map((name) => ({ '@type': 'AdministrativeArea', name }));
+}
+
+/** Legacy geo meta tags: invisible, cheap, read by Yandex/Bing as a hint at most. */
+export function geoMeta(city: string | undefined, place: PlaceForSchema): Record<string, string> {
+  return {
+    'geo.region': place.regionCode,
+    'geo.placename': [city, place.okrugShort, place.district].filter(Boolean).join(', '),
+    'geo.position': `${place.latitude};${place.longitude}`,
+    ICBM: `${place.latitude}, ${place.longitude}`,
+  };
+}
+
+/** Titles of code-owned pages say «в Москве»; people search by metro. CMS titles are edited in the CMS instead. */
+export function localTitle(title: string, metro: string | null | undefined): string {
+  return metro ? title.replace(/в Москве/, `метро ${metro}`) : title;
+}
+
+export function medicalClinicJsonLd(site: SiteForSchema, url: string, logoUrl: string, place?: PlaceForSchema) {
+  const whereabouts = place ? [place.district, place.okrugShort, site.city].filter(Boolean).join(', ') : '';
   return {
     '@context': 'https://schema.org',
     '@type': 'MedicalClinic',
     '@id': `${url}#clinic`,
     name: site.name,
+    description: place
+      ? `${site.name}${site.nearest_metro ? ` — метро ${site.nearest_metro}` : ''}, ${whereabouts}`
+      : undefined,
     url,
     telephone: site.phone,
     email: site.email || undefined,
     image: logoUrl,
     address: site.address_short
-      ? { '@type': 'PostalAddress', streetAddress: site.address_short, addressLocality: site.city || undefined, addressCountry: 'RU' }
+      ? {
+          '@type': 'PostalAddress',
+          // Editors write «Москва, ул. …» for readers; the city already has its own property.
+          streetAddress: place && site.city ? site.address_short.replace(new RegExp(`^${site.city},\\s*`), '') : site.address_short,
+          addressLocality: site.city || undefined,
+          addressRegion: place ? site.city || undefined : undefined,
+          postalCode: place?.postalCode,
+          addressCountry: 'RU',
+        }
       : undefined,
+    geo: place ? { '@type': 'GeoCoordinates', latitude: place.latitude, longitude: place.longitude } : undefined,
+    areaServed: place ? areaServedJsonLd(site.city, place) : undefined,
+    containedInPlace: place ? { '@type': 'AdministrativeArea', name: whereabouts } : undefined,
     // Schema openingHours requires day codes, not the human-readable Russian label.
     openingHours: site.hours?.match(/ежедневно/i) ? `Mo-Su ${site.hours.match(/\d{2}:\d{2}/g)?.join('-') || ''}`.trim() : undefined,
     hasMap: site.map_link || undefined,

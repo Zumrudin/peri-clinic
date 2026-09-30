@@ -4,12 +4,14 @@ import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import PriceTable from '../components/pricing/PriceTable.astro';
 import { getPriceListGrouped } from '../lib/procedureContent';
 import { getSiteSettings } from '../lib/siteContent';
+import { localTitle } from '../lib/seo';
 
 const site = await getSiteSettings();
+const metroNote = site.nearest_metro ? `, метро ${site.nearest_metro}` : '';
 const priceGroups = await getPriceListGrouped();
 ---
 
-<Page title="Косметология в Москве: услуги и цены — PERI CLINIC" description="Услуги и цены PERI CLINIC в Москве: аппаратная, инъекционная и эстетическая косметология. Стоимость процедур по зонам и запись на консультацию.">
+<Page title={localTitle('Косметология в Москве: услуги и цены — PERI CLINIC', site.nearest_metro)} description={`Услуги и цены PERI CLINIC в Москве${metroNote}: аппаратная, инъекционная и эстетическая косметология. Стоимость процедур по зонам и запись на консультацию.`}>
   <Breadcrumbs slot="head" items={[{ name: 'Прайсы', href: '/uslugi-i-ceny' }]} />
   {priceGroups.length > 0 && (
     <section class="section pricing" aria-labelledby="pricing-title">

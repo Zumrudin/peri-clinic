@@ -28,3 +28,40 @@ test('Clinic and pages share stable IDs on the configured origin', () => {
   assert.equal(clinic.additionalProperty?.value, 'Выход к улице Генерала Белова.');
   assert.equal(webPageJsonLd(origin+'result','Результаты','Фото',origin).about['@id'],clinic['@id']);
 });
+
+import { areaServedJsonLd, geoMeta, localTitle } from './seo.ts';
+
+const place = { district: 'Орехово-Борисово Южное', okrug: 'Южный административный округ', okrugShort: 'ЮАО', postalCode: '115583', regionCode: 'RU-MOW', latitude: 55.6049, longitude: 37.7217 };
+
+test('Clinic JSON-LD carries the district, okrug and coordinates without any visible copy', () => {
+  const origin = 'https://www.peri-clinic.ru/';
+  const clinic = medicalClinicJsonLd({name:'PERI CLINIC',phone:'+79250177778',city:'Москва',address_short:'Москва, ул. Генерала Белова, 28, корпус 3',nearest_metro:'Домодедовская'},origin,origin+'logo.png',place);
+  // The CMS address starts with the city for readers; schema wants the street alone.
+  assert.equal(clinic.address?.streetAddress, 'ул. Генерала Белова, 28, корпус 3');
+  assert.equal(clinic.address?.postalCode, '115583');
+  assert.deepEqual(clinic.geo, { '@type': 'GeoCoordinates', latitude: 55.6049, longitude: 37.7217 });
+  assert.deepEqual(clinic.areaServed?.map((a) => a.name), ['Орехово-Борисово Южное', 'Южный административный округ', 'ЮАО', 'Москва']);
+  assert.deepEqual(clinic.containedInPlace, { '@type': 'AdministrativeArea', name: 'Орехово-Борисово Южное, ЮАО, Москва' });
+  assert.match(clinic.description ?? '', /метро Домодедовская/);
+  assert.match(clinic.description ?? '', /ЮАО/);
+});
+test('Without location facts the clinic node stays as before', () => {
+  const clinic = medicalClinicJsonLd({name:'PERI CLINIC',phone:'+7',city:'Москва',address_short:'ул. Генерала Белова, 28'},'https://x/','https://x/l.png');
+  assert.equal(clinic.geo, undefined);
+  assert.equal(clinic.areaServed, undefined);
+  assert.equal(clinic.address?.postalCode, undefined);
+});
+test('areaServedJsonLd(): city alone when no location facts are passed', () => {
+  assert.deepEqual(areaServedJsonLd('Москва').map((a) => a.name), ['Москва']);
+});
+test('geoMeta(): region, place name and both coordinate notations', () => {
+  assert.deepEqual(geoMeta('Москва', place), {
+    'geo.region': 'RU-MOW', 'geo.placename': 'Москва, ЮАО, Орехово-Борисово Южное',
+    'geo.position': '55.6049;37.7217', ICBM: '55.6049, 37.7217',
+  });
+});
+test('localTitle(): swaps the city-wide phrase for the metro, leaves other titles alone', () => {
+  assert.equal(localTitle('Косметология в Москве: услуги и цены — PERI CLINIC', 'Домодедовская'), 'Косметология метро Домодедовская: услуги и цены — PERI CLINIC');
+  assert.equal(localTitle('Косметология в Москве: услуги и цены — PERI CLINIC', ''), 'Косметология в Москве: услуги и цены — PERI CLINIC');
+  assert.equal(localTitle('Контакты PERI CLINIC у метро Домодедовская', 'Домодедовская'), 'Контакты PERI CLINIC у метро Домодедовская');
+});
