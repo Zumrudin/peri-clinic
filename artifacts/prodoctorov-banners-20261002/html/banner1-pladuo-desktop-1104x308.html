@@ -1,0 +1,43 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><style>
+@font-face{font-family:'Cormorant Garamond';src:url('file:///root/peri-clinnic.ru/public/fonts/cormorant-garamond.woff2') format('woff2');font-weight:300 700;font-style:normal}
+@font-face{font-family:'Cormorant Garamond';src:url('file:///root/peri-clinnic.ru/public/fonts/cormorant-garamond-italic.woff2') format('woff2');font-weight:300 700;font-style:italic}
+@font-face{font-family:'Golos Text';src:url('file:///root/peri-clinnic.ru/public/fonts/golos-text.woff2') format('woff2');font-weight:400 900}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1104px;height:308px;background:#F4EFE6}
+.banner{position:relative;width:1104px;height:308px;overflow:hidden;background:#F4EFE6;color:#35322A;font-family:'Golos Text',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.banner::before{content:'';position:absolute;inset:0;background:radial-gradient(90% 130% at 8% 0%,#FAF7F1 0%,rgba(255,255,255,0) 62%)}
+.copy{position:absolute;left:46px;top:0;bottom:0;width:700px;display:flex;flex-direction:column;justify-content:center;padding-bottom:30px}
+.logo{display:block;height:34px;width:auto;align-self:flex-start;margin-bottom:20px}
+.title{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:43px;line-height:1.04;letter-spacing:-.005em;white-space:nowrap;}
+.title span,.title em{display:inline}
+.title em{font-style:italic;color:#7C5F27}
+.rule{display:block;width:56px;height:2px;background:#C9A96B;margin:16px 0}
+.name{font-weight:600;font-size:28px;line-height:1.22}
+.role{font-weight:400;font-size:22px;line-height:1.3;color:#5F594C;margin-top:6px;max-width:700px}
+.role span{display:inline}
+
+.note{position:absolute;left:46px;bottom:18px;font-size:13.5px;line-height:1.2;color:#5F594C}
+.art{position:absolute;inset:0;pointer-events:none}
+.arch{position:absolute;bottom:0;border-radius:999px 999px 0 0}
+.arch--line{left:974px;width:150px;height:252px;border:2px solid #C9A96B;border-bottom:0;background:rgba(255,255,255,.5)}
+.arch--side{left:758px;width:136px;height:206px;background:#C9A96B}
+.arch--front{left:836px;width:216px;height:288px;background:#B7C9B8;box-shadow:0 24px 46px -22px rgba(53,50,42,.30);overflow:hidden;}
+.arch--front::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 70% at 30% 0%,rgba(255,255,255,.16),rgba(255,255,255,0) 60%)}
+.subject{position:absolute;display:block;z-index:1;height:268px;width:auto;left:50%;transform:translateX(-50%);top:14px;filter:drop-shadow(0 6px 10px rgba(53,50,42,.30));}
+.floor{position:absolute;z-index:0;left:50%;transform:translateX(-50%);top:270px;width:134px;height:16px;background:radial-gradient(ellipse at center,rgba(53,50,42,.30) 0%,rgba(0,0,0,0) 70%)}
+</style></head><body>
+<div class="banner" data-layout="desktop">
+  <div class="copy">
+    <img class="logo" src="file:///root/peri-clinnic.ru/artifacts/prodoctorov-banners-20261002/assets/logo-bronze.png" alt="PERI CLINIC">
+    <h1 class="title"><span>В клинике появился</span> <em>новый аппарат</em></h1>
+    <i class="rule"></i>
+    <p class="name">Pladuo</p>
+    <p class="role"><span>аргоновая и азотная плазма</span><span class="dot"> · </span><span>ShenB, Южная Корея</span></p>
+  </div>
+  <div class="art" aria-hidden="true">
+    <span class="arch arch--line"></span>
+    <span class="arch arch--side"></span>
+    <span class="arch arch--front"><i class="floor"></i><img class="subject" src="file:///root/peri-clinnic.ru/artifacts/prodoctorov-banners-20261002/assets/pladuo-fade.png" alt=""></span>
+  </div>
+  <p class="note">Изображение носит иллюстративный характер</p>
+</div></body></html>

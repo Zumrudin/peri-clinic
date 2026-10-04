@@ -1,0 +1,23 @@
+[
+  {
+    "created_at": "2026-10-02T09:11:18.657493Z",
+    "display_name": "Nano Banana Pro",
+    "id": "62cfe8ee-0380-4046-ad9a-c530f1db3de0",
+    "job_type": "nano_banana_pro",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/hf_20261002_091118_62cfe8ee-0380-4046-ad9a-c530f1db3de0_min.webp",
+    "params": {
+      "application": null,
+      "aspect_ratio": "3:4",
+      "batch_size": 1,
+      "height": 2400,
+      "input_image": null,
+      "input_images": [],
+      "prompt": "Editorial photograph, vertical portrait. An adult woman in her thirties reclines on a treatment bed in a calm, softly lit aesthetic-medicine room, wearing opaque dark protective eyewear for light therapy. A cosmetologist's hand in a white nitrile glove, wrist and sleeve of a white clinic coat only, no face visible, holds a compact intense-pulsed-light handpiece just above her cheek, with a gentle soft glow at its tip. Medium close-up from the shoulders up, face centered with generous headroom, shallow depth of field, 85mm lens, natural window light from the left. Muted, harmonious colour palette: warm ivory linens and walls, pale sage-mint tones in the background, subtle brass-gold accents, soft neutral skin tones, gentle film-like grading, no saturated colours. Calm, clean, trustworthy mood. No text, no logos, no watermarks, no brand marks on the device.",
+      "resolution": "2k",
+      "surface": null,
+      "width": 1792
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/hf_20261002_091118_62cfe8ee-0380-4046-ad9a-c530f1db3de0.png",
+    "status": "completed"
+  }
+]

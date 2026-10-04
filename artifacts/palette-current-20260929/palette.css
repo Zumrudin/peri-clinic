@@ -1,0 +1,35 @@
+:root {
+  --ivory: #F4EFE6 !important;
+  --paper: #F4EFE6 !important;
+  --gold: #C9A96B !important;
+  --gold-light: #C9A96B !important;
+  --gold-deep: #76603A !important;
+  --gold-hover: #B8975B !important;
+  --sand: #B7C9B8 !important;
+  --gold-05: #F4EFE6 !important;
+  --gold-10: #E9E0CF !important;
+  --gold-15: #DED0B5 !important;
+  --gold-25: #C9A96B !important;
+  --dark-text: #F4EFE6 !important;
+  --line: rgba(75, 82, 69, .2) !important;
+}
+.page--home {
+  --home-surface-warm: #E9E0CF !important;
+  --home-surface-cool: #B7C9B8 !important;
+}
+header.header { background: #F4EFE6 !important; }
+.button:not(.button--outline), .round-arrow, .machine-card__arrow, .floating-contact,
+.review-card__author > span {
+  background: #C9A96B !important;
+  border-color: #C9A96B !important;
+  color: #24241f !important;
+}
+.hero-location, .ticker { background: #B7C9B8 !important; }
+.ticker i { color: #76603A !important; }
+.hero__lead, .hero__facts span, .text-link--light { color: #F4EFE6 !important; }
+.reviews { background: #B7C9B8 !important; color: #24241f !important; }
+.reviews .eyebrow, .reviews .rating > span, .review-card__top,
+.reviews .home-icon-button { color: #76603A !important; border-color: #76603A !important; }
+.reviews small { color: #56544c !important; }
+.review-card { background: #F4EFE6 !important; border-color: #F4EFE6 !important; }
+.mobile-cta-bar { background: #F4EFE6 !important; }

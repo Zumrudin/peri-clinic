@@ -1,0 +1,29 @@
+[
+  {
+    "created_at": "2026-10-03T14:48:57.01226Z",
+    "display_name": "Nano Banana Pro",
+    "id": "cb9dfb70-52d7-46cb-9dcc-c44df550066e",
+    "job_type": "nano_banana_pro",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/hf_20261003_144857_cb9dfb70-52d7-46cb-9dcc-c44df550066e_min.webp",
+    "params": {
+      "application": null,
+      "aspect_ratio": "21:9",
+      "batch_size": 1,
+      "height": 2688,
+      "input_image": null,
+      "input_images": [
+        {
+          "id": "3c654cf2-e6a5-465b-9ce6-004f9f79dc32",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/3c654cf2-e6a5-465b-9ce6-004f9f79dc32_resize.jpg"
+        }
+      ],
+      "prompt": "Create an empty interior background plate based on this PERI CLINIC reception. Remove every person entirely. Adapt the room for a wide banner displaying seven medical devices later: unobstructed continuous pale ivory stone floor across the foreground, no furniture or desk blocking the central full-width display area. Retain elegant pale sage mint wall, warm ivory side walls, restrained brushed brass details, subtle marble accents and softly glowing pendant lamps at extreme sides. Preserve the gold PERI CLINIC name and distinctive gold woman-profile-and-butterflies logo, arranged as a SMALL horizontal brand lockup high at center, confined to the upper central wall. The floor should begin at 70 percent down image. Camera straight-on at natural device eye-level; understated photoreal architectural photography, soft diffused warm daylight, quiet upscale aesthetic medical clinic. Keep central 85 percent width clear. No people, no devices, no pedestals, no chairs in foreground, no new text. This is an EMPTY background plate. Ultra-wide panoramic composition suitable for cropping to 3:1: concentrate the brand lockup within y=20%-35% of this 21:9 output; keep floor visible in y=70%-85%. All essential scene content within center 78% image height.",
+      "resolution": "4k",
+      "surface": null,
+      "width": 6336
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/hf_20261003_144857_cb9dfb70-52d7-46cb-9dcc-c44df550066e.png",
+    "status": "completed"
+  }
+]

@@ -1,0 +1,64 @@
+[
+  {
+    "created_at": "2026-10-03T15:21:43.162786Z",
+    "display_name": "Nano Banana Pro",
+    "id": "e2c089e4-12c1-4b09-b707-d555b3a5c2e6",
+    "job_type": "nano_banana_pro",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/hf_20261003_152143_e2c089e4-12c1-4b09-b707-d555b3a5c2e6_min.webp",
+    "params": {
+      "application": null,
+      "aspect_ratio": "3:2",
+      "batch_size": 1,
+      "height": 1696,
+      "input_image": null,
+      "input_images": [
+        {
+          "id": "7fcc31e4-5b5a-48c3-bdff-f85c2694c203",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/7fcc31e4-5b5a-48c3-bdff-f85c2694c203_resize.jpg"
+        },
+        {
+          "id": "1fde5d63-e9d6-4c8c-b24b-a854994102ec",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/1fde5d63-e9d6-4c8c-b24b-a854994102ec_resize.jpg"
+        },
+        {
+          "id": "54b9033c-ba23-48c4-b2b6-22964fdc1f23",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/54b9033c-ba23-48c4-b2b6-22964fdc1f23.png"
+        },
+        {
+          "id": "f57400d2-d6cd-4bb1-bc64-2a61528be402",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/f57400d2-d6cd-4bb1-bc64-2a61528be402.png"
+        },
+        {
+          "id": "583a2c17-7e79-4483-af13-6e7f2ebe5127",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/583a2c17-7e79-4483-af13-6e7f2ebe5127.png"
+        },
+        {
+          "id": "3f05187a-8e15-4834-9890-1d395e55fb13",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/3f05187a-8e15-4834-9890-1d395e55fb13.png"
+        },
+        {
+          "id": "19c559a1-56ad-4c72-b666-51dbbdda38f6",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/19c559a1-56ad-4c72-b666-51dbbdda38f6.png"
+        },
+        {
+          "id": "858b5eb7-4caa-4d9c-bf07-4c150fd48778",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/858b5eb7-4caa-4d9c-bf07-4c150fd48778.png"
+        }
+      ],
+      "prompt": "Create a MOBILE version of the approved PERI CLINIC equipment composition in image 1. Target delivery aspect 700:480 (approximately 3:2), NOT a panoramic banner crop. Recompose the entire scene to fit all seven medical devices clearly in this compact frame. Retain the actual clinic's warm ivory walls, white marble floor and reception desk, gold PERI CLINIC lettering and woman/butterflies emblem, warm brass crystal lighting, beige scalloped chairs and brass shelves. No people. Device reference images 2 through 8 correspond to devices 1 through 7. EXACTLY seven devices, one of each. CENTRAL FRONT group: 1 tall white VOLNEWMER twin arms on left of center, 2 white INMODE broad black screen at center, 3 black PLADUO to right of center. FLANKS further back: 4 red/white FMS and 5 white Beautylizer with red luminous band on left; 6 mint ProFacial bottles cart and 7 white Pacer One Pro blue screen on right. Arrange in a shallow, natural arc with modest staggered depth, slight inward orientations and tasteful spacing. Keep each device visibly identifiable with its main screen and body unobscured; no front device hiding a whole rear device. Original equipment silhouettes, controls and markings from individual references. Avoid distorted or invented product logos. All wheels physically touching the SAME marble floor, with realistic contact occlusion and soft cast shadows, no floating. Unified soft warm photographic light. Device group fills most frame width with room around side edges. Gold clinic brand visible in the top center above devices. Show entire tallest device arms and entire wheels with at least 5 percent safety margins. Premium architectural product photography, restrained natural perspective, mobile-readable composition. Do not include slogans, overlay text, numbering, additional devices, or collage panels. Output 3:2 landscape with all essential objects inside a centered 700:480 safe region.",
+      "resolution": "2k",
+      "surface": null,
+      "width": 2528
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/hf_20261003_152143_e2c089e4-12c1-4b09-b707-d555b3a5c2e6.png",
+    "status": "completed"
+  }
+]

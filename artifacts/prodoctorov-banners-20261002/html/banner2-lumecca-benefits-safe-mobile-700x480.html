@@ -1,0 +1,46 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><style>
+@font-face{font-family:'Cormorant Garamond';src:url('file:///root/peri-clinnic.ru/public/fonts/cormorant-garamond.woff2') format('woff2');font-weight:300 700;font-style:normal}
+@font-face{font-family:'Cormorant Garamond';src:url('file:///root/peri-clinnic.ru/public/fonts/cormorant-garamond-italic.woff2') format('woff2');font-weight:300 700;font-style:italic}
+@font-face{font-family:'Golos Text';src:url('file:///root/peri-clinnic.ru/public/fonts/golos-text.woff2') format('woff2');font-weight:400 900}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:700px;height:480px;background:#B7C9B8}
+.banner{position:relative;width:700px;height:480px;overflow:hidden;background:#B7C9B8;color:#26312A;font-family:'Golos Text',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.banner::before{content:'';position:absolute;inset:0;background:radial-gradient(90% 130% at 8% 0%,#C3D3C4 0%,rgba(255,255,255,0) 62%)}
+.copy{position:absolute;left:38px;top:0;bottom:0;width:410px;display:flex;flex-direction:column;justify-content:center;padding-bottom:80px}
+.logo{display:block;height:28px;width:auto;align-self:flex-start;margin-bottom:14px}
+.title{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:35px;line-height:1.06;letter-spacing:-.004em;}
+.title span{display:block}
+.title em{font-style:italic;color:#55401A}
+.rule{display:block;width:56px;height:2px;background:#C9A96B;margin:13px 0 15px}
+.lab{font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:#55401A;margin-bottom:8px}
+.list{display:flex;flex-direction:column;column-gap:0px;row-gap:8px;max-width:384px;list-style:none}
+
+.list li{display:flex;align-items:flex-start;gap:10px;font-weight:500;font-size:20px;line-height:24px;}
+.ic{flex:none;display:grid;place-items:center;width:21px;height:21px;margin-top:1.5px;border-radius:50%;background:#C9A96B}
+.ic svg{width:64%;height:64%}
+.ic.dot{background:none;position:relative}
+.ic.dot::after{content:'';position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#C9A96B}
+.note span{display:inline}
+.note{position:absolute;left:38px;bottom:20px;width:396px;font-size:14.5px;line-height:1.3;color:#44503F}
+.art{position:absolute;inset:0;pointer-events:none}
+.arch{position:absolute;bottom:0;border-radius:999px 999px 0 0}
+.arch--line{left:632px;width:130px;height:330px;border:2px solid #F4EFE6;border-bottom:0;background:rgba(244,239,230,.22)}
+.arch--side{left:442px;width:100px;height:170px;background:#C9A96B}
+.arch--front{left:474px;width:206px;height:420px;background:#C9A96B;box-shadow:0 24px 46px -22px rgba(38,49,42,.34);overflow:hidden;border:6px solid #F4EFE6;border-bottom:0}
+.subject{position:absolute;display:block;z-index:1;inset:0;width:100%;height:100%;object-fit:cover}
+</style></head><body>
+<div class="banner" data-layout="mobile">
+  <div class="copy">
+    <img class="logo" src="file:///root/peri-clinnic.ru/artifacts/prodoctorov-banners-20261002/assets/logo-deep.png" alt="PERI CLINIC">
+    <h1 class="title"><span><em>Фотоомоложение</em> на аппарате</span> <span>Lumecca InMode</span></h1>
+    <i class="rule"></i>
+    <p class="lab">Применяется при:</p>
+    <ul class="list"><li><i class="ic dot"></i><span>пигментных пятнах</span></li><li><i class="ic dot"></i><span>видимых сосудах и покраснении</span></li><li><i class="ic dot"></i><span>неоднородном тоне кожи</span></li><li><i class="ic dot"></i><span>изменениях кожи после<br>воздействия солнца</span></li></ul>
+  </div>
+  <div class="art" aria-hidden="true">
+    <span class="arch arch--line"></span>
+    <span class="arch arch--side"></span>
+    <span class="arch arch--front"><img class="subject" src="file:///root/peri-clinnic.ru/artifacts/prodoctorov-banners-20261002/assets/lumecca-girl-mobile.jpg" alt=""></span>
+  </div>
+  <p class="note"><span>Изображение носит иллюстративный характер. Результат индивидуален.</span> <span>Возможность процедуры определяет врач после осмотра.</span></p>
+</div></body></html>

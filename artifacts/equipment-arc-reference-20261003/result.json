@@ -1,0 +1,69 @@
+[
+  {
+    "created_at": "2026-10-03T15:12:46.744505Z",
+    "display_name": "Nano Banana Pro",
+    "id": "3b0958a5-9261-41b6-af36-2092037067ed",
+    "job_type": "nano_banana_pro",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/hf_20261003_151246_3b0958a5-9261-41b6-af36-2092037067ed_min.webp",
+    "params": {
+      "application": null,
+      "aspect_ratio": "21:9",
+      "batch_size": 1,
+      "height": 1344,
+      "input_image": null,
+      "input_images": [
+        {
+          "id": "735921f9-f945-4b7b-9b27-427f3ccbc8a0",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/735921f9-f945-4b7b-9b27-427f3ccbc8a0_resize.jpg"
+        },
+        {
+          "id": "c20d9a0b-ebc9-41b1-9a51-1e6d2764e517",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/c20d9a0b-ebc9-41b1-9a51-1e6d2764e517_resize.jpg"
+        },
+        {
+          "id": "7e0d4c9f-b5e2-432c-9d17-9e85f6c47446",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/7e0d4c9f-b5e2-432c-9d17-9e85f6c47446_resize.jpg"
+        },
+        {
+          "id": "efb8cd5d-79d5-4cba-a761-20f42365f497",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/efb8cd5d-79d5-4cba-a761-20f42365f497.png"
+        },
+        {
+          "id": "86dcd273-1d77-4b11-bd9e-c9eaeaeface9",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/86dcd273-1d77-4b11-bd9e-c9eaeaeface9.png"
+        },
+        {
+          "id": "dff1cec2-1495-4715-8845-5cdfe172c87e",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/dff1cec2-1495-4715-8845-5cdfe172c87e.png"
+        },
+        {
+          "id": "04641c37-cc19-417d-9bee-f88f149df4c6",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/04641c37-cc19-417d-9bee-f88f149df4c6.png"
+        },
+        {
+          "id": "24b1542f-0db3-44a0-9635-e81d6e2403d5",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/24b1542f-0db3-44a0-9635-e81d6e2403d5.png"
+        },
+        {
+          "id": "1cd3bf31-d9c1-4c5a-b895-e85131099bd0",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/1cd3bf31-d9c1-4c5a-b895-e85131099bd0.png"
+        }
+      ],
+      "prompt": "Create one photorealistic composition reference for a panoramic PERI CLINIC website banner, no people. Images 1 and 2 show the REAL clinic reception: retain its recognizable warm ivory walls, white marble reception counter and marble tiled floor, golden woman-profile butterfly logo and PERI CLINIC lettering, gold crystal chandelier, slender teardrop pendant lights, brass product shelving, warm beige scalloped velvet chairs. Use these actual design details; do not invent a mint green showroom.\nImages 3 through 9 are EXACT medical device references numbered 1 through 7 respectively. Include exactly one of each, seven devices total, preserving each distinctive casing, colors, handpieces, screen and markings. Arrange them elegantly in a gentle shallow arc with believable physical depth, not a straight line or a pasted catalog collage. Devices 1 (tall white VOLNEWMER with twin upright arms), 2 (white INMODE with broad black rectangular screen), and 3 (black PLADUO with slim upper arms) form the central hero group, in that left-to-right order, nearer the camera. Device 4 (red/white FMS cabinet) and device 5 (white Beautylizer with glowing red band and dark angled top) stand to the LEFT, slightly farther back. Devices 6 (mint/white ProFacial cart with bottles) and 7 (white Pacer One Pro with blue display) stand to the RIGHT, slightly farther back. Therefore total reading order across image is 4,5,1,2,3,6,7. Use generous but natural breathing room, small changes in orientation toward the central viewing axis, staggered floor positions. No device may obscure another device's key identifying body or screen. Ground every wheel physically on the same marble floor plane: strong subtle contact occlusion immediately beneath each wheel, soft consistent cast shadows, restrained floor reflections, no floating or miniature appliances. Coherent perspective and scale, camera at approximately screen height with a wide architectural lens. Reception counter in background, gold clinic logo visibly above central group. Warm soft photographic light, ivory and brass palette, clean premium clinic atmosphere. Panoramic 21:9 landscape concept reference. Show whole devices including every wheel, leave floor margin at bottom. No added slogans, captions, labels, numbering, borders, collage panels, people or extra devices. This is an aesthetic layout reference, not a product specification diagram.",
+      "resolution": "2k",
+      "surface": null,
+      "width": 3168
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/hf_20261003_151246_3b0958a5-9261-41b6-af36-2092037067ed.png",
+    "status": "completed"
+  }
+]

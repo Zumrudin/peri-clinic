@@ -1,0 +1,22 @@
+[
+  {
+    "label": "desktop",
+    "geometryUnchanged": true,
+    "colors": {
+      "header.header": "rgb(244, 239, 230)",
+      ".service-card": "rgb(183, 201, 184)",
+      ".button": "rgb(201, 169, 107)",
+      ".reviews": "rgb(183, 201, 184)"
+    }
+  },
+  {
+    "label": "mobile",
+    "geometryUnchanged": true,
+    "colors": {
+      "header.header": "rgb(244, 239, 230)",
+      ".service-card": "rgb(183, 201, 184)",
+      ".button": "rgb(201, 169, 107)",
+      ".reviews": "rgb(183, 201, 184)"
+    }
+  }
+]

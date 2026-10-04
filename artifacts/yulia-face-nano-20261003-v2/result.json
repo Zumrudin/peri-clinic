@@ -1,0 +1,34 @@
+[
+  {
+    "created_at": "2026-10-03T11:25:39.944917Z",
+    "display_name": "Nano Banana Pro",
+    "id": "0eb7ec24-c9d4-4500-8bb9-b9bf34c2c58e",
+    "job_type": "nano_banana_pro",
+    "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/hf_20261003_112539_0eb7ec24-c9d4-4500-8bb9-b9bf34c2c58e_min.webp",
+    "params": {
+      "application": null,
+      "aspect_ratio": "4:5",
+      "batch_size": 1,
+      "height": 4608,
+      "input_image": null,
+      "input_images": [
+        {
+          "id": "da0c5aa0-400f-42a2-b9c5-87cd14541f1a",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/da0c5aa0-400f-42a2-b9c5-87cd14541f1a.png"
+        },
+        {
+          "id": "46395b87-6fbf-4593-9889-19ca80a3e2b3",
+          "type": "media_input",
+          "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/46395b87-6fbf-4593-9889-19ca80a3e2b3.png"
+        }
+      ],
+      "prompt": "STRICT IDENTITY TRANSFER, NOT BEAUTIFICATION. Image 1 is the target cropped group portrait. Image 2 is the actual woman Yulia, whose exact recognizable face MUST replace the face of the central woman in image 1. The previous attempt looked like another person because it beautified and averaged her features. Her identity from image 2 is the absolute highest priority. Treat image 2 as a face transplant source, not inspiration. Preserve her natural apparent age, real asymmetry, heavier upper eyelids and exact eye spacing, eyebrow angles, wider nasal tip and nostril shape, cheek fullness, broad lower face, jaw and chin contours, nasolabial structure and distinctive full upper and lower lips. Keep her mouth shape and slightly parted lips as in image 2 rather than inventing a generic smile. Do not slim, ovalize, symmetrize or rejuvenate her face. Do not enlarge eyes, lift brows, narrow nose or soften bone structure. A recognizable faithful reproduction is more important than glamour or perfect skin. Retain natural skin texture with gentle diffuse light, no dark stripes or blotches. Image 1 supplies ONLY head placement, scale, hair and hairstyle, clothing, body pose and environment. The new face should have Image 2's exact proportions at the existing target head size, with no change to the overall composition. Everything else in image 1 remains unchanged, including neighboring people and background. No video UI or screenshot overlays. Output the exact 4:5 crop composition of image 1. Do not borrow the old target facial features; replace them faithfully with the reference identity.",
+      "resolution": "4k",
+      "surface": null,
+      "width": 3712
+    },
+    "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_39pyC0o4dfmriMbkX4tbIzw3m9u/hf_20261003_112539_0eb7ec24-c9d4-4500-8bb9-b9bf34c2c58e.png",
+    "status": "completed"
+  }
+]

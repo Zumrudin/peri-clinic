@@ -1,0 +1,53 @@
+:root {
+  --ivory: #F3EEE8 !important;
+  --paper: #F3EEE8 !important;
+  --gold: #B69A70 !important;
+  --gold-light: #B69A70 !important;
+  --gold-deep: #7E6547 !important;
+  --gold-hover: #A78A60 !important;
+  --sand: #E6DACB !important;
+  --gold-05: #F3EEE8 !important;
+  --gold-10: #EFE5D9 !important;
+  --gold-15: #DFCEB7 !important;
+  --gold-25: #B69A70 !important;
+  --dark-text: #F3EEE8 !important;
+  --line: rgba(75, 82, 69, .2) !important;
+}
+.page--home {
+  --home-surface-warm: #EFE5D9 !important;
+  --home-surface-cool: #E6DACB !important;
+}
+header.header { background: #F3EEE8 !important; }
+.button:not(.button--outline), .round-arrow, .machine-card__arrow, .floating-contact,
+.review-card__author > span {
+  background: #B69A70 !important;
+  border-color: #B69A70 !important;
+  color: #594A3A !important;
+}
+.hero-location, .ticker { background: #E6DACB !important; }
+.ticker i { color: #7E6547 !important; }
+.hero__lead, .hero__facts span, .text-link--light { color: #F3EEE8 !important; }
+.reviews { background: #E6DACB !important; color: #594A3A !important; }
+.reviews .eyebrow, .reviews .rating > span, .review-card__top,
+.reviews .home-icon-button { color: #7E6547 !important; border-color: #7E6547 !important; }
+.reviews small { color: #746655 !important; }
+.review-card { background: #F3EEE8 !important; border-color: #F3EEE8 !important; }
+.mobile-cta-bar { background: #F3EEE8 !important; }
+
+:root {
+  --ink: #594A3A !important;
+  --ink-2: #746655 !important;
+  --muted: #7B6D5D !important;
+  --ivory: #FEFAF1 !important;
+  --paper: #F3EEE8 !important;
+}
+.hero__scrim {
+  background: linear-gradient(180deg, rgba(243,238,232,.66) 0%, rgba(243,238,232,.22) 34%, rgba(243,238,232,0) 57%, rgba(243,238,232,.88) 100%) !important;
+}
+.hero h1, .hero__lead, .hero__facts span, .hero .text-link--light { color: #594A3A !important; }
+.hero .eyebrow, .hero__facts strong, .hero .text-link span { color: #7E6547 !important; }
+.hero .text-link--light { border-color: #7E6547 !important; }
+.hero__facts div { border-color: rgba(126,101,71,.25) !important; }
+.hero__backdrop img { filter: blur(60px) brightness(1.1) !important; }
+.hero-location, .ticker { background: #F2EAE2 !important; }
+.reviews { background: #E6DACB !important; }

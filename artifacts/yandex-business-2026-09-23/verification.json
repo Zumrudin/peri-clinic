@@ -1,0 +1,128 @@
+[
+  {
+    "file": "peri-yandex-import.xlsx",
+    "status": 200,
+    "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "sha256": "df2d6fdcf24aaa7ebb4ffe43155bed8e661b71833ac3899da262a8e40c7acaa3"
+  },
+  {
+    "file": "preview.html",
+    "status": 200,
+    "content_type": "text/html",
+    "sha256": "be99a3d8e89813c68b410732fa188fb4fd3d285a189e0a3b8c808d5a23969cf2"
+  },
+  {
+    "file": "photos/aesthetic.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "174d99aa48416b1ae5c57bd8e9dc727c61e13673c63ca356250c8b38b635e068"
+  },
+  {
+    "file": "photos/beautylizer.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "dd2b00bf62b191aa1f80df15427a308dbece0ae3f62ee13ccc23f43b21a60728"
+  },
+  {
+    "file": "photos/consultation.png",
+    "status": 200,
+    "content_type": "image/png",
+    "sha256": "e7adb517474c95f58a7517ecc6ed5200c1989ceaa0a6ade48a6f67fafed5ed68"
+  },
+  {
+    "file": "photos/droppers.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "8d19b42320c9434fcdbfb14b8e541c69eb63bae3128a680f2e07804a10d63cc2"
+  },
+  {
+    "file": "photos/heleo.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "5468fd9ffe0088c3d867a65a6f178e95e2a8e82bf4181c566232093810437b46"
+  },
+  {
+    "file": "photos/injections.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "443c68b94c31f9e3b31b54affed0a7d56bc4a3978237f698ffbffb758116bf62"
+  },
+  {
+    "file": "photos/konturnaya-plastika.png",
+    "status": 200,
+    "content_type": "image/png",
+    "sha256": "9da27e6b9ed256f327aaaed5fe99bb4becb0f571b7d2f66fe1e2e7fc798fc47e"
+  },
+  {
+    "file": "photos/kosemotologicheskie-pilingi.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "4d9a21c253540ec17720b407fc967521fd6e2d30f2b30f09779723550e584ee3"
+  },
+  {
+    "file": "photos/laser-epilation.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "0f8dc4d9c28cc5210f834d9a856d5ec34354f1fdb845436001c6de553dc7cd71"
+  },
+  {
+    "file": "photos/lipolitiki.png",
+    "status": 200,
+    "content_type": "image/png",
+    "sha256": "f703608f779bdfcba4d7d68d3933639528ea81d6ed375d84a10108d8ee9610a6"
+  },
+  {
+    "file": "photos/mezoterapiya-i-biorevitalizaciya.png",
+    "status": 200,
+    "content_type": "image/png",
+    "sha256": "5720e9fe04736c31ee4c2c0e4505e905daa92765ddda85c80a13903764b309c4"
+  },
+  {
+    "file": "photos/mikrotokovaya-terapiya.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "6b08ed020989dca1b7d6b7825b8795b07ea3a1d154408549629bb86019c0cd0e"
+  },
+  {
+    "file": "photos/pigment-lumec.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "3cf9caa712a80cc98b0706a42fcd9ee1581d9009f900d6ef6f4b157c35ad75d9"
+  },
+  {
+    "file": "photos/pladuo.png",
+    "status": 200,
+    "content_type": "image/png",
+    "sha256": "f6ae24b4cfae198540c89cba8fcdf9a4f29ba70335e9f237104d149f885871e5"
+  },
+  {
+    "file": "photos/plazmoterapiya-plazmolifting.png",
+    "status": 200,
+    "content_type": "image/png",
+    "sha256": "a14c7459c5b7d219ce95fc769f70cb04d2cfcb58b90efffd3b2a24078e0e05cb"
+  },
+  {
+    "file": "photos/profeccial.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "5b9fd9deae960c05d6d232dc5f6b411769a416544154e42fc24b2c0665f2fc17"
+  },
+  {
+    "file": "photos/rf-lifting-inmode.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "f71dc4da989bdefb4078228925b663a1c5a7bbc9487eaab5dae4e56341a36cf1"
+  },
+  {
+    "file": "photos/tesla-former.jpg",
+    "status": 200,
+    "content_type": "image/jpeg",
+    "sha256": "5ee9166bf41e472cfc1f9aaeafbb76e134e7bad6872f8cb16fd0530ec6f63f0e"
+  },
+  {
+    "file": "photos/volnewmer.png",
+    "status": 200,
+    "content_type": "image/png",
+    "sha256": "87217c149a9c51055a9477f2a85c2d773abf8bd2d39c4557517bf7c388568178"
+  }
+]
