@@ -7,6 +7,10 @@ import { directusImage } from './media';
 
 export async function getHomeReels() {
   const items = selectHomeReels((await getCollection('homeReels')).map(entry => entry.data));
+  return prepareReels(items);
+}
+
+export async function prepareReels(items: Array<{ title: string; description?: string | null; video?: import('./videoFiles').VideoFile | null; image?: { id: string; width?: number | null; height?: number | null } | null }>) {
   return Promise.all(items.map(async item => {
     const source = `/media/specialists/${videoFileName(item.video!)}`;
     const image = directusImage(item.image);

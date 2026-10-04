@@ -1,3 +1,6 @@
+import { prepareReels } from './homeReelContent';
+import { selectHomeReels } from './homeReels';
+import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import { directusImage } from './media';
 import { bySort } from './directus';
@@ -131,4 +134,8 @@ export async function getPriceListGrouped(): Promise<PriceCategoryGroup[]> {
     }
   }
   return groups.sort((a, b) => (groupOrder.get(a.slug) ?? 1000) - (groupOrder.get(b.slug) ?? 1000));
+}
+
+export async function getProcedureReels(procedure: CollectionEntry<'procedures'>) {
+  return prepareReels(selectHomeReels(procedure.data.videos || []));
 }

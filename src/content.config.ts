@@ -404,6 +404,10 @@ const procedures = defineCollection({
           'seo_title',
           'seo_description',
           fileFields('cover'),
+          'videos_title',
+          'videos.id,videos.status,videos.sort,videos.title,videos.description',
+          fileFields('videos.image'),
+          'videos.video.id,videos.video.type,videos.video.filesize,videos.video.modified_on,videos.video.uploaded_on',
           'gallery.directus_files_id.id',
           'gallery.directus_files_id.width',
           'gallery.directus_files_id.height',
@@ -438,6 +442,12 @@ const procedures = defineCollection({
     cover_alt: z.string().nullable().optional(),
     seo_title: z.string().nullable().optional(),
     seo_description: z.string().nullable().optional(),
+    videos_title: z.string().nullable().optional(),
+    videos: z.array(z.object({
+      id: z.number(), status: z.string(), sort: z.number().nullable().optional(),
+      title: z.string(), description: z.string().nullable().optional(), image: fileRef,
+      video: z.object({ id: z.string(), type: z.string(), filesize: z.union([z.number(), z.string()]), modified_on: z.string().nullable().optional(), uploaded_on: z.string().nullable().optional() }).nullable().optional(),
+    })).nullable().optional(),
     gallery: z.array(galleryFileRef).catch([]),
   }),
 });

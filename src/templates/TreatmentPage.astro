@@ -6,9 +6,10 @@ import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 import Faq from '../components/faq/Faq.astro';
 import CaseCard from '../components/results/CaseCard.astro';
 import ResultsNavigation from '../components/results/ResultsNavigation.astro';
+import Reels from '../components/gallery/Reels.astro';
 import PriceTable from '../components/pricing/PriceTable.astro';
 import { getSiteSettings } from '../lib/siteContent';
-import { getCasesForProcedure, getFaqForProcedure, getPriceItemsForProcedure } from '../lib/procedureContent';
+import { getCasesForProcedure, getFaqForProcedure, getPriceItemsForProcedure, getProcedureReels } from '../lib/procedureContent';
 import { em, formatPrice } from '../lib/markup';
 import { areaServedJsonLd } from '../lib/seo';
 import { location } from '../config/location';
@@ -16,8 +17,9 @@ import { location } from '../config/location';
 interface Props { procedure: CollectionEntry<'procedures'>; device?: boolean }
 const { procedure, device = false } = Astro.props;
 const p = procedure.data;
-const [site, allCases, faq, prices] = await Promise.all([
+const [site, allCases, faq, prices, reels] = await Promise.all([
   getSiteSettings(), getCasesForProcedure(p.slug), getFaqForProcedure(p.slug), getPriceItemsForProcedure(p.slug),
+  getProcedureReels(procedure),
 ]);
 // A lone “after” photograph is not a before/after comparison.
 const cases = allCases.filter(c => c.combined || (c.before && c.after));
@@ -64,6 +66,10 @@ const facts = [
       {p.benefits.length > 0 && <div class="treatment-benefits">{p.benefits.map(b => <article><h3>{b.title}</h3><p>{b.text}</p></article>)}</div>}
     </div>
   </section>
+
+  {reels.length > 0 && <div class="treatment-videos">
+    <Reels id="treatment-reels" items={reels} content={{ reels_title: p.videos_title || p.title }} mobileOnly />
+  </div>}
 
   {(device || cases.length > 0) && <section id="results" class="section treatment-results reveal" data-results-carousel data-results-limit={cases.length} aria-labelledby="results-title">
     <p class="eyebrow">Результаты</p><h2 id="results-title">До и после</h2>
@@ -148,6 +154,7 @@ const facts = [
   .treatment-benefits article { padding-top: 20px; border-top: 1px solid var(--line); }
   .treatment-medical--single { grid-template-columns: 1fr; }
   .treatment-medical .prose { max-width: 70ch; }
+  .treatment-videos { display: none; }
   .treatment-about :global(.prose), .treatment-medical :global(.prose), .treatment-facts dd { overflow-wrap: anywhere; }
   .treatment-nav a { min-height: 44px; display: inline-flex; align-items: center; }
   @media (max-width: 900px) {
@@ -168,6 +175,9 @@ const facts = [
     .treatment-nav { gap: 4px 20px; }
   }
   @media (max-width: 800px) {
+    .treatment-videos { display: block; padding: 0 var(--gutter) 56px; --home-gutter: var(--gutter); }
+    .treatment-videos :global(.reels) { margin-top: 0; }
+    .treatment-videos :global(.reels-heading h2) { font-size: clamp(2rem, 8vw, 2.625rem); line-height: 1.1; overflow-wrap: anywhere; }
     .treatment-results { --results-card-width: min(70vw, 280px, 32svh); }
     .treatment-cases {
       display: flex;

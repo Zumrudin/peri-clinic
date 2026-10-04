@@ -292,6 +292,8 @@ export const collections = [
       f.html('indications', 'Показания'),
       f.html('contraindications', 'Противопоказания'),
       f.o2m('faq', 'Вопросы и ответы', { template: '{{question}}' }),
+      f.str('videos_title', 'Заголовок блока видео', { default: 'Видео о процедуре' }),
+      f.o2m('videos', 'Видео об услуге', { note: 'Создайте карточку и загрузите видео или выберите файл из библиотеки. Публикуются только карточки со статусом «Опубликовано». Порядок меняется перетаскиванием.' }),
       f.o2m('cases', 'Результаты до/после'),
       f.o2m('price_items', 'Цены', { template: '{{name}} — {{price}} ₽' }),
       f.bool('show_on_home', 'Показывать на главной', false),
@@ -493,6 +495,16 @@ collections.push({ collection: 'home_reels', meta: {
   ...timestamps(),
 ] });
 
+collections.push({ collection: 'procedure_videos', meta: { icon: 'video_library', hidden: true, sort_field: 'sort', display_template: '{{title}}', translations: ru('Видео услуг') }, fields: [
+  f.id(), f.status(), f.sort(),
+  { ...f.m2o('procedure', 'Услуга', 'procedures'), meta: { ...f.m2o('procedure', 'Услуга', 'procedures').meta, hidden: true } },
+  f.str('title', 'Подпись к видео', { required: true }),
+  f.text('description', 'Дополнительная подпись'),
+  f.file('video', 'Видео', { required: true, width: 'full', note: 'Загрузите MP4/WebM/MOV до 60 МБ или выберите ранее загруженный файл. Один файл можно использовать для нескольких услуг.', options: { mimeTypes: ['video/mp4', 'video/webm', 'video/quicktime'] } }),
+  f.image('image', 'Обложка видео', { note: 'Необязательно: загрузите или выберите изображение.' }),
+  ...timestamps(),
+] });
+
 collections.push({ collection: 'specialist_media', meta: { icon: 'perm_media', hidden: true, sort_field: 'sort', display_template: '{{title}}', translations: ru('Материалы специалистов') }, fields: [
   f.id(), f.sort(), { ...f.m2o('specialist', 'Специалист', 'specialists', { required: true, template: '{{name}}' }), meta: { ...f.m2o('specialist', 'Специалист', 'specialists', { required: true, template: '{{name}}' }).meta, hidden: true } },
   f.str('title', 'Заголовок', { required: true }), f.text('description', 'Подпись'),
@@ -517,6 +529,7 @@ export const groups = [
 
 /** Relations: [collection, field, related_collection, {one_field, sort_field}] */
 export const relations = [
+  ['procedure_videos', 'procedure', 'procedures', { one_field: 'videos', sort_field: 'sort', on_delete: 'CASCADE', one_deselect_action: 'delete' }],
   ['specialist_media', 'specialist', 'specialists', { one_field: 'media_items', sort_field: 'sort', on_delete: 'CASCADE', one_deselect_action: 'delete' }],
   ['procedures', 'category', 'service_categories', { one_field: 'procedures', sort_field: 'sort' }],
   ['procedures', 'device', 'devices', {}],
@@ -545,5 +558,8 @@ export const filesJunctions = [
 
 /** Folders for uploads. */
 export const folders = ['Главная', 'Направления', 'Процедуры', 'Аппараты', 'До-после', 'Документы', 'Лого'];
+
+const procedureVideos = collections.find(c => c.collection === 'procedures').fields.find(field => field.field === 'videos');
+procedureVideos.meta.options.enableSelect = false;
 
 export const contentCollections = collections.map((c) => c.collection).filter((c) => c !== 'build_log');
