@@ -34,11 +34,8 @@ try {
     if (await cookie.isVisible()) await cookie.click();
     await page.locator('[data-reels-rail]').scrollIntoViewIfNeeded();
     for (let i = 0; i < entry.items.length; i++) {
-     await page.evaluate(index => {
-      const rail = document.querySelector('[data-reels-rail]');
-      const card = document.querySelectorAll('[data-reel]')[index];
-      rail.scrollTo({ left: rail.scrollLeft + card.getBoundingClientRect().left - rail.getBoundingClientRect().left, behavior: 'instant' });
-     }, i);
+     // Dots choose a card both in the mobile carousel and in the desktop row; a single card has none.
+     await page.evaluate(index => document.querySelectorAll('[data-reels-dot]')[index]?.click(), i);
      await page.waitForFunction(index => {
       const v = document.querySelectorAll('[data-reel-video]')[index];
       return !v.paused && v.currentTime > .15 && v.videoWidth > 0 && !v.error;

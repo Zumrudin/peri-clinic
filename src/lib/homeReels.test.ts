@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { selectHomeReels } from './homeReels.ts';
-import { reelVideoUrl, reelHlsUrl } from './reelVideoUrl.ts';
+import { reelVideoUrl, reelHlsUrl, reelPosterUrl } from './reelVideoUrl.ts';
 
 test('mobile encodes are versioned and only replace owned specialist files', () => {
   assert.equal(reelVideoUrl('/media/specialists/abcd-1234.mp4'), '/media/reels/abcd-1234-mobile-v1.mp4');
@@ -24,6 +24,11 @@ test('independent feed respects publication and manual order, retains reused fil
 test('HLS packages are versioned and external videos keep native delivery', () => {
   assert.equal(reelHlsUrl('/media/specialists/abcd-1234.mp4'), '/media/reels/abcd-1234-hls-v1/master.m3u8');
   assert.equal(reelHlsUrl('https://example.com/clip.mp4'), undefined);
+});
+
+test('first-frame posters are versioned and served with image types', () => {
+  assert.equal(reelPosterUrl('/media/specialists/abcd-1234.mov'), '/media/posters/abcd-1234-v1.webp');
+  assert.equal(reelPosterUrl('https://example.com/clip.mp4'), undefined);
 });
 
 test('MOV sources use browser-compatible derived streams', () => {

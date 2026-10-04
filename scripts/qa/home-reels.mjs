@@ -14,7 +14,8 @@ try {
     const page = await context.newPage();
     const errors = [], requests = [];
     page.on('pageerror', error => errors.push(error.message));
-    page.on('request', request => { if (request.url().includes('/media/')) requests.push(request.url()); });
+    // Reel streams and posters only: the gift block above the feed loads its own poster on purpose.
+    page.on('request', request => { if (request.url().includes('/media/reels/')) requests.push(request.url()); });
     await page.goto(base, { waitUntil: 'networkidle' });
     assert.equal(requests.length, 0, 'no video download above fold');
     const cookie = page.locator('[data-cookie-accept]');

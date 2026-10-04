@@ -68,7 +68,7 @@ const facts = [
   </section>
 
   {reels.length > 0 && <div class="treatment-videos">
-    <Reels id="treatment-reels" items={reels} content={{ reels_title: p.videos_title || p.title }} mobileOnly />
+    <Reels id="treatment-reels" items={reels} content={{ reels_title: p.videos_title || p.title }} />
   </div>}
 
   {(device || cases.length > 0) && <section id="results" class="section treatment-results reveal" data-results-carousel data-results-limit={cases.length} aria-labelledby="results-title">
@@ -154,7 +154,9 @@ const facts = [
   .treatment-benefits article { padding-top: 20px; border-top: 1px solid var(--line); }
   .treatment-medical--single { grid-template-columns: 1fr; }
   .treatment-medical .prose { max-width: 70ch; }
-  .treatment-videos { display: none; }
+  .treatment-videos { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter) var(--section); --reels-gutter: var(--gutter); }
+  .treatment-videos :global(.reels) { margin-top: 0; }
+  .treatment-videos :global(.reels-heading h2) { font-size: var(--t-h2-s); line-height: 1.1; overflow-wrap: anywhere; }
   .treatment-about :global(.prose), .treatment-medical :global(.prose), .treatment-facts dd { overflow-wrap: anywhere; }
   .treatment-nav a { min-height: 44px; display: inline-flex; align-items: center; }
   @media (max-width: 900px) {
@@ -175,9 +177,8 @@ const facts = [
     .treatment-nav { gap: 4px 20px; }
   }
   @media (max-width: 800px) {
-    .treatment-videos { display: block; padding: 0 var(--gutter) 56px; --home-gutter: var(--gutter); }
-    .treatment-videos :global(.reels) { margin-top: 0; }
-    .treatment-videos :global(.reels-heading h2) { font-size: clamp(2rem, 8vw, 2.625rem); line-height: 1.1; overflow-wrap: anywhere; }
+    .treatment-videos { padding-bottom: 56px; }
+    .treatment-videos :global(.reels-heading h2) { font-size: clamp(2rem, 8vw, 2.625rem); }
     .treatment-results { --results-card-width: min(70vw, 280px, 32svh); }
     .treatment-cases {
       display: flex;

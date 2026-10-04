@@ -175,7 +175,8 @@ export class ReelStreams {
     for (const [index, player] of this.players) {
       if (index === active - 1) { player.hls?.stopLoad(); continue; }
       if (index >= active && index <= end) continue;
-      this.positions[index] = this.videos[index].currentTime || this.positions[index];
+      // Unloading clears `ended`, so a finished clip must resume from its start, not instantly end again.
+      this.positions[index] = this.videos[index].ended ? 0 : this.videos[index].currentTime || this.positions[index];
       player.hls?.destroy(); this.videos[index].pause();
       this.videos[index].removeAttribute('src'); this.videos[index].load();
       delete this.videos[index].dataset.streamMode;

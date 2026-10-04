@@ -8,8 +8,13 @@ export function initHomeReels() {
     const cards = [...root.querySelectorAll<HTMLElement>('[data-reel]')];
     const videos = cards.map(card => card.querySelector<HTMLVideoElement>('video')!);
     const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-reels-dot]')];
-    const mobile = matchMedia(root.hasAttribute('data-mobile-only') ? '(max-width: 800px)' : '(min-width: 0px)');
+    const mobileOnly = root.hasAttribute('data-mobile-only');
+    const mobile = matchMedia(mobileOnly ? '(max-width: 800px)' : '(min-width: 0px)');
+    // Wide screens show several whole cards, so the chosen card, not the scroll position, is active.
+    const wide = matchMedia('(min-width: 801px)');
+    const row = () => !mobileOnly && wide.matches;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    let reducedSeen = reduced.matches;
     const paused = new Set<number>();
     const captionButtons = cards.map(card => card.querySelector<HTMLButtonElement>('[data-reel-caption-toggle]')!);
     let captionTimer = 0;
@@ -66,7 +71,9 @@ export function initHomeReels() {
     const visible = () => {
       const box = cards[active].getBoundingClientRect();
       const shown = Math.min(box.bottom, innerHeight) - Math.max(box.top, 0);
-      return mobile.matches && !document.hidden && !document.querySelector('dialog[open]') && shown >= Math.min(box.height, innerHeight) * .5;
+      const bounds = rail.getBoundingClientRect();
+      const across = Math.min(box.right, bounds.right) - Math.max(box.left, bounds.left);
+      return mobile.matches && !document.hidden && !document.querySelector('dialog[open]') && shown >= Math.min(box.height, innerHeight) * .5 && (!row() || across >= box.width * .5);
     };
     const stop = () => {
       pauseCaptionTimer();
@@ -92,17 +99,25 @@ export function initHomeReels() {
     };
     const update = () => {
       frame = 0;
+      // Chrome evaluates a media change a frame late and drops the change event of a query whose
+      // .matches already returned the new value — as a scheduled update may — so notice it here too.
+      if (reduced.matches !== reducedSeen) { reducedSeen = reduced.matches; stop(); }
       if (!mobile.matches) { stop(); streams?.setWindow(active, false); return; }
-      const left = rail.getBoundingClientRect().left;
-      let closest = 0;
-      cards.forEach((card, index) => {
-        if (Math.abs(card.getBoundingClientRect().left - left) < Math.abs(cards[closest].getBoundingClientRect().left - left)) closest = index;
-      });
-      if (closest !== active) {
-        stop(); active = closest; resetCaption(active);
+      if (!row()) {
+        const left = rail.getBoundingClientRect().left;
+        let closest = 0;
+        cards.forEach((card, index) => {
+          if (Math.abs(card.getBoundingClientRect().left - left) < Math.abs(cards[closest].getBoundingClientRect().left - left)) closest = index;
+        });
+        if (closest !== active) {
+          stop(); active = closest; resetCaption(active);
+        }
       }
       cards.forEach((card, index) => {
-        card.inert = index !== active;
+        card.inert = !row() && index !== active;
+        // In a row a click anywhere on a waiting card starts it; keyboards and screen readers use its play button.
+        if (row() && index !== active) { captionButtons[index].tabIndex = -1; captionButtons[index].setAttribute('aria-hidden', 'true'); }
+        else { captionButtons[index].removeAttribute('tabindex'); captionButtons[index].removeAttribute('aria-hidden'); }
         if (index !== active) videos[index].pause();
         if (dots[index]) {
           if (index === active) dots[index].setAttribute('aria-current', 'true');
@@ -110,7 +125,7 @@ export function initHomeReels() {
         }
       });
       const canPrepare = (isNear || visible()) && !document.hidden && !document.querySelector('dialog[open]') && !paused.has(active);
-      if (canPrepare) videos.slice(Math.max(0, active - 1), active + 3).forEach(v => { if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster; });
+      if (canPrepare) (row() ? videos : videos.slice(Math.max(0, active - 1), active + 3)).forEach(v => { if (v.dataset.poster && !v.poster) v.poster = v.dataset.poster; });
       if (canPrepare && (!reduced.matches || !videos[active].paused)) {
         if (!streams) void initialize();
         streams?.setWindow(active, true, !reduced.matches);
@@ -119,9 +134,26 @@ export function initHomeReels() {
       if (!reduced.matches) play();
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    // A row scrolls only to uncover a clipped card, stopping at the nearest card start that shows it whole.
+    const reveal = (index: number, behavior: ScrollBehavior) => {
+      const bounds = rail.getBoundingClientRect();
+      const end = bounds.right - parseFloat(getComputedStyle(rail).paddingRight);
+      const card = cards[index].getBoundingClientRect();
+      const starts = cards.map(c => c.getBoundingClientRect().left - bounds.left);
+      const shift = card.left < bounds.left - 1 ? card.left - bounds.left
+        : card.right > end + 1 ? starts.find(start => start >= card.right - end - 1) ?? card.left - bounds.left : 0;
+      if (shift) rail.scrollTo({ left: rail.scrollLeft + shift, behavior });
+    };
     const go = (index: number, keyboard = false) => {
       const target = Math.max(0, Math.min(cards.length - 1, index));
-      rail.scrollTo({ left: rail.scrollLeft + cards[target].getBoundingClientRect().left - rail.getBoundingClientRect().left, behavior: keyboard || reduced.matches ? 'instant' : 'smooth' });
+      const behavior = keyboard || reduced.matches ? 'instant' : 'smooth';
+      if (row()) {
+        if (target !== active) { stop(); showCaption(active, true); active = target; resetCaption(active); }
+        reveal(target, behavior);
+        schedule();
+        return;
+      }
+      rail.scrollTo({ left: rail.scrollLeft + cards[target].getBoundingClientRect().left - rail.getBoundingClientRect().left, behavior });
     };
     videos.forEach((video, index) => {
       const card = cards[index];
@@ -151,7 +183,7 @@ export function initHomeReels() {
         if (index === active) pauseCaptionTimer();
       }, { signal }));
       captionButtons[index].addEventListener('click', () => {
-        if (index !== active) return;
+        if (index !== active) { if (row()) toggle.click(); return; }
         pauseCaptionTimer();
         captionRemaining = 0;
         showCaption(index, card.hasAttribute('data-caption-hidden'));
@@ -175,11 +207,17 @@ export function initHomeReels() {
       video.addEventListener('error', () => { card.querySelector<HTMLElement>('[data-reel-error]')!.hidden = false; }, { signal });
       video.addEventListener('loadeddata', () => { card.querySelector<HTMLElement>('[data-reel-error]')!.hidden = true; }, { signal });
       toggle.addEventListener('click', () => {
-        if (index !== active) return;
-        if (!video.paused || pending === index) { paused.add(index); stop(); streams?.setWindow(active, false); }
-        else { paused.delete(index); if (video.ended) { video.currentTime = 0; resetCaption(index); } play(); }
+        if (index === active && (!video.paused || pending === index)) { paused.add(index); stop(); streams?.setWindow(active, false); return; }
+        if (index !== active && !row()) return;
+        // Scrolling a row by hand can clip even the active card, and a mostly hidden card never plays.
+        if (row()) go(index);
+        paused.delete(index); if (video.ended) { video.currentTime = 0; resetCaption(index); } play();
       }, { signal });
-      mute.addEventListener('click', () => { sound = !sound; videos.forEach(v => { v.muted = !sound; }); }, { signal });
+      mute.addEventListener('click', () => {
+        sound = !sound; videos.forEach(v => { v.muted = !sound; });
+        // In a row the sound button of a waiting card also starts that card instead of changing another one.
+        if (index !== active && row()) toggle.click();
+      }, { signal });
       reflect();
     });
     dots.forEach((dot, index) => dot.addEventListener('click', event => go(index, event.detail === 0), { signal }));
@@ -194,12 +232,18 @@ export function initHomeReels() {
     document.addEventListener('visibilitychange', update, { signal });
     window.addEventListener('pagehide', () => { stop(); streams?.setWindow(active, false); }, { signal });
     window.addEventListener('pageshow', schedule, { signal });
-    reduced.addEventListener('change', () => { stop(); update(); }, { signal });
+    reduced.addEventListener('change', () => { reducedSeen = reduced.matches; stop(); update(); }, { signal });
+    let rowMode = row();
     const layout = () => {
-      if (mobile.matches) {
-
+      const leavingRow = rowMode && !row();
+      rowMode = row();
+      // A row never pads its end: there every card can be chosen without scrolling it to the left edge.
+      if (rowMode) rail.style.setProperty('--reels-tail', '0px');
+      else if (mobile.matches) {
         const style = getComputedStyle(rail);
         rail.style.setProperty('--reels-tail', `${Math.max(0, rail.clientWidth - cards[0].getBoundingClientRect().width - parseFloat(style.paddingRight) - parseFloat(style.gap))}px`);
+        // The carousel reads the active card from the scroll position, so the chosen clip moves to the start.
+        if (leavingRow) rail.scrollTo({ left: rail.scrollLeft + cards[active].getBoundingClientRect().left - rail.getBoundingClientRect().left, behavior: 'instant' });
       }
       schedule();
     };
@@ -209,6 +253,7 @@ export function initHomeReels() {
     }, { rootMargin: '1200px 0px' });
     near.observe(root);
     mobile.addEventListener('change', layout, { signal });
+    wide.addEventListener('change', layout, { signal });
     const resize = new ResizeObserver(layout);
     resize.observe(rail);
     // Contact sheets and photo dialogs should silence the page behind them.
