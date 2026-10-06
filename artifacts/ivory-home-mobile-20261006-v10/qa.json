@@ -1,0 +1,477 @@
+{
+  "errors": [],
+  "results": [
+    {
+      "axe": []
+    },
+    {
+      "width": 390,
+      "layout": {
+        "width": 390,
+        "scroll": 390,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 9918,
+        "pageHeight": 9918,
+        "removedStripCount": 0,
+        "heroFactsBelowPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionSpacing": [
+          {
+            "id": "services",
+            "top": "48px",
+            "bottom": "24px"
+          },
+          {
+            "id": "approach",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "equipment",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "results",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "reviews",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "gift-certificate",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "booking",
+            "top": "24px",
+            "bottom": "24px"
+          }
+        ],
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 320,
+      "layout": {
+        "width": 320,
+        "scroll": 320,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 10051,
+        "pageHeight": 10051,
+        "removedStripCount": 0,
+        "heroFactsBelowPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionSpacing": [
+          {
+            "id": "services",
+            "top": "48px",
+            "bottom": "24px"
+          },
+          {
+            "id": "approach",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "equipment",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "results",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "reviews",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "gift-certificate",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "booking",
+            "top": "24px",
+            "bottom": "24px"
+          }
+        ],
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 375,
+      "layout": {
+        "width": 375,
+        "scroll": 375,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 9854,
+        "pageHeight": 9854,
+        "removedStripCount": 0,
+        "heroFactsBelowPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionSpacing": [
+          {
+            "id": "services",
+            "top": "48px",
+            "bottom": "24px"
+          },
+          {
+            "id": "approach",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "equipment",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "results",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "reviews",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "gift-certificate",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "booking",
+            "top": "24px",
+            "bottom": "24px"
+          }
+        ],
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 430,
+      "layout": {
+        "width": 430,
+        "scroll": 430,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 9941,
+        "pageHeight": 9941,
+        "removedStripCount": 0,
+        "heroFactsBelowPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionSpacing": [
+          {
+            "id": "services",
+            "top": "48px",
+            "bottom": "24px"
+          },
+          {
+            "id": "approach",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "equipment",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "results",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "reviews",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "gift-certificate",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "booking",
+            "top": "24px",
+            "bottom": "24px"
+          }
+        ],
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 600,
+      "layout": {
+        "width": 600,
+        "scroll": 600,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 9860,
+        "pageHeight": 9860,
+        "removedStripCount": 0,
+        "heroFactsBelowPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionSpacing": [
+          {
+            "id": "services",
+            "top": "48px",
+            "bottom": "24px"
+          },
+          {
+            "id": "approach",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "equipment",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "results",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "reviews",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "gift-certificate",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "booking",
+            "top": "24px",
+            "bottom": "24px"
+          }
+        ],
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 800,
+      "layout": {
+        "width": 800,
+        "scroll": 800,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 11015,
+        "pageHeight": 11015,
+        "removedStripCount": 0,
+        "heroFactsBelowPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionSpacing": [
+          {
+            "id": "services",
+            "top": "48px",
+            "bottom": "24px"
+          },
+          {
+            "id": "approach",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "equipment",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "results",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "reviews",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "gift-certificate",
+            "top": "24px",
+            "bottom": "24px"
+          },
+          {
+            "id": "booking",
+            "top": "24px",
+            "bottom": "24px"
+          }
+        ],
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 1440,
+      "layout": {
+        "width": 1440,
+        "scroll": 1440,
+        "headerHeight": 68,
+        "buttonHeight": 40,
+        "textureHeight": 8347,
+        "pageHeight": 8347,
+        "removedStripCount": 0,
+        "heroFactsBelowPhoto": false,
+        "heroButtonHidden": false,
+        "heroActionsHidden": false,
+        "heroLeadHidden": false,
+        "textureCoversPage": true,
+        "sectionSpacing": [
+          {
+            "id": "services",
+            "top": "100px",
+            "bottom": "100px"
+          },
+          {
+            "id": "approach",
+            "top": "100px",
+            "bottom": "100px"
+          },
+          {
+            "id": "equipment",
+            "top": "100px",
+            "bottom": "100px"
+          },
+          {
+            "id": "results",
+            "top": "100px",
+            "bottom": "100px"
+          },
+          {
+            "id": "reviews",
+            "top": "100px",
+            "bottom": "100px"
+          },
+          {
+            "id": "gift-certificate",
+            "top": "100px",
+            "bottom": "100px"
+          },
+          {
+            "id": "booking",
+            "top": "100px",
+            "bottom": "100px"
+          }
+        ],
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    }
+  ]
+}
