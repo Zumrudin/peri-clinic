@@ -1,0 +1,24 @@
+
+
+#approach{position:relative!important;isolation:isolate!important}
+#approach::before{content:'';position:absolute;inset:-35px 0;pointer-events:none;z-index:-1;background:linear-gradient(180deg,rgba(248,245,239,0),rgba(248,245,239,.83) 14%,rgba(248,245,239,.83) 86%,rgba(248,245,239,0))}
+#approach .gallery-photo{border-radius:6px!important}
+#approach .room-caption{background:rgba(248,245,239,.91)!important;padding:14px 18px!important;color:#6c5b50!important;font-size:14px!important}
+#approach .person-caption{padding:20px 0 0!important}
+#approach .person-caption h4{font-size:25px!important;line-height:1.18!important;width:100%!important;white-space:normal!important;text-wrap:balance!important}
+#approach .person-caption p{font-size:14px!important;line-height:1.6!important}
+#approach .person-more{font-weight:400!important}
+#approach .photo-expand{background:rgba(248,245,239,.92)!important;border:1px solid rgba(198,164,106,.22)!important;color:#6c5b50!important}
+
+/* The approved veil is shared by content sections; the document-wide botanical layer remains intact. */
+#home-page > .home-section,#contacts.footer{position:relative!important;isolation:isolate!important}
+#home-page > .home-section::before,#contacts.footer::before{content:'';position:absolute;inset:-35px 0;pointer-events:none;z-index:-1;background:linear-gradient(180deg,rgba(248,245,239,0),rgba(248,245,239,.83) 18%,rgba(248,245,239,.83) 82%,rgba(248,245,239,0))}
+#home-page > #approach::before{background:linear-gradient(180deg,rgba(248,245,239,0),rgba(248,245,239,.83) 14%,rgba(248,245,239,.83) 86%,rgba(248,245,239,0))}
+#contacts.footer::before{inset:-35px 0 0;background:linear-gradient(180deg,rgba(248,245,239,0),rgba(248,245,239,.83) 24%)}
+#services .service-card__content h3{font-size:30px!important;line-height:1.15!important}
+#services .service-card__content p{font-size:13px!important}
+#services .service-card picture{border-radius:6px!important}
+#services .service-card__content{padding-top:23px!important}
+#equipment .machine-card{background:rgba(234,226,216,.65)!important;border:1px solid rgba(181,167,156,.14)!important}
+@media(max-width:800px){#services .service-card__content h3{font-size:25px!important}#approach .person-caption h4{font-size:24px!important}#home-page > .home-section::before{inset:-20px 0}#services .service-card__content{padding-top:16px!important}}
+@media(max-width:600px){#services .service-card__content h3{font-size:21px!important}}

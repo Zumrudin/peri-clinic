@@ -1,0 +1,10 @@
+
+/* Match the 68 px reference header while retaining the official logo geometry. */
+.page--home header.header{height:68px!important;min-height:68px!important;align-items:center!important}
+:root,.page,.page--home{--header-h:68px!important;--header-h-sticky:68px!important}
+.page--home header .logo{display:flex!important;align-items:center!important;width:260px!important;height:44px!important;flex:0 0 260px!important;overflow:visible!important}
+.page--home header .logo img{display:block!important;width:260px!important;height:auto!important;margin:0!important;max-width:100%!important;object-fit:contain!important}
+.page--home .header .header-book{height:40px!important;min-height:40px!important;padding:9px 17px!important}
+@media(min-width:801px) and (max-width:1150px){.page--home header .logo{width:215px!important;flex-basis:215px!important}.page--home header .logo img{width:215px!important}}
+@media(max-width:800px){.page--home header .logo{width:215px!important;flex-basis:215px!important}.page--home header .logo img{width:215px!important}}
+@media(max-width:360px){.page--home header .logo{width:185px!important;flex-basis:185px!important}.page--home header .logo img{width:185px!important}}

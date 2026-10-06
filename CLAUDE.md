@@ -94,6 +94,8 @@ Directus REST ──► src/lib/directus.ts (plain fetch, no SDK)
 
 ## Design system
 
+**New branding source (2026-10-06, updated with IDENTITY):** Before design/brand work read `docs/brand/2026-10-06-branding.md`. All 15 Yandex Disk files studied, including all 9 pages of `PERI CLINIC IDENTITY.pdf`. Its page 6 defines Taupe `#B5A79C`, Brass `#C6A46A`, Ivory `#F4EFE6`, Dark Taupe `#6C5B50`; earlier Mint/Brass values are historical, not the default palette. Preserve original SVG colour `#A38359` separately; its difference from Brass is unexplained. Page 4 gives print minimum sizes. Site implementation below remains legacy; study did not migrate it.
+
 `src/styles/tokens.css` (colours, glass/glow, type scale, spacing, radii) + `src/styles/base.css` (fonts, reset, buttons, `.prose`, `.rail`, `.reveal`, `.glass-panel`, `.glow`). Ivory/gold, Cormorant Garamond display + Golos Text body, self-hosted subset woff2.
 
 - Global utilities are composed onto elements (`class="hero__note glass-panel"`). **Never redeclare a global utility inside a component's scoped `<style>`** — Astro's scoping breaks it.

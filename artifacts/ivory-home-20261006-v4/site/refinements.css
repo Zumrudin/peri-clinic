@@ -1,0 +1,19 @@
+@font-face{font-family:'Venetian 301';src:url('./fonts/venetian-301-regular.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:'Venetian 301';src:url('./fonts/venetian-301-demi.woff2') format('woff2');font-style:normal;font-weight:600;font-display:swap}
+@font-face{font-family:'Venetian 301';src:url('./fonts/venetian-301-italic.woff2') format('woff2');font-style:italic;font-weight:400;font-display:swap}
+body{position:relative!important;isolation:isolate!important;background:#f4efe6!important}
+/* One decorative layer follows the document, independently of section boundaries. */
+.page-texture{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;opacity:.38}
+.page-texture span{display:block;height:max(1100px,125vw);margin-top:-100px;background:url('./relief.jpg') center/100% 100% no-repeat;mask-image:linear-gradient(transparent,#000 12%,#000 88%,transparent)}
+.page-texture span:first-child{margin-top:0;mask-image:linear-gradient(#000 88%,transparent)}
+.page-texture span:nth-child(even){transform:scaleX(-1)}
+html body .page,html body main,html body #home-page,html body .home-section,html body .hero,html body .hero-location,html body .ticker,html body .page--home #contacts.footer,html body .page--home header.header{background:transparent!important}
+html body .hero::before{display:none!important}
+html body .gift{background-image:none!important}
+.page--home header.header{height:76px!important;min-height:76px!important}
+.page--home .header .header-book{min-width:130px!important;min-height:42px!important;height:42px!important;padding:10px 17px!important;font-size:13px!important;gap:13px!important;line-height:1.2!important}
+:root,.page,.page--home{--header-h:76px!important;--header-h-sticky:76px!important}
+.brand-latin{font-family:'Venetian 301',Georgia,serif!important;font-synthesis:none!important}
+.machine-card h3.brand-latin{font-size:29px!important;line-height:1.2!important;letter-spacing:-.01em!important}
+.hero__facts strong.brand-latin{font-size:23px!important;font-weight:400!important}
+@media(max-width:800px){.page--home header.header{height:68px!important;min-height:68px!important}:root,.page,.page--home{--header-h:68px!important;--header-h-sticky:68px!important}.page-texture{opacity:.28}.page-texture span{background-size:auto 100%;height:1200px}.machine-card h3.brand-latin{font-size:26px!important}}

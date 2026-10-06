@@ -1,0 +1,1 @@
+import{t as e}from"./results-carousel.C5-klZjF.js";document.addEventListener(`astro:page-load`,e);
