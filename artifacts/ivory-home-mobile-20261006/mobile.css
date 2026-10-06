@@ -1,0 +1,80 @@
+/* Mobile continuation of the approved desktop v4; desktop composition stays inherited. */
+@media (max-width: 800px) {
+  .page--home {
+    --home-gutter: 22px;
+    --home-space: 60px !important;
+    --home-heading: clamp(36px, 9vw, 48px) !important;
+  }
+  .page--home header.header { padding-inline: 22px !important; gap: 16px !important; }
+  .page--home header .logo { width: 204px !important; flex-basis: 204px !important; }
+  .page--home header .logo img { width: 204px !important; }
+  .menu-toggle { flex-shrink: 0; }
+  .nav { padding: 20px 22px calc(28px + env(safe-area-inset-bottom)) !important; gap: 0 !important; }
+  .nav > a { font-size: 28px !important; padding-block: 13px !important; }
+  .nav .nav__phone { font-size: 25px !important; }
+  body:has(.nav.is-open) .mobile-cta-bar { visibility: hidden; }
+
+  /* CSS crop keeps the original photograph: client, doctor, bouquet and wall monogram. */
+  .hero__content { display: contents !important; }
+  .hero__top { order: 0; padding: 32px 22px 26px; width: 100%; max-width: none !important; }
+  .hero .eyebrow { font-size: 10px !important; line-height: 1.7 !important; letter-spacing: .09em !important; margin-bottom: 16px !important; max-width: 310px !important; }
+  .hero h1 { font-size: clamp(46px, 12.8vw, 66px) !important; line-height: 1 !important; letter-spacing: -.025em !important; max-width: 6em !important; }
+  .hero .hero__media { order: 1 !important; flex: none !important; aspect-ratio: 4 / 5 !important; height: auto !important; max-height: 680px; }
+  .hero .hero__photo img { object-fit: cover !important; object-position: 80% center !important; }
+  .hero__bottom { order: 2; padding: 26px 22px 30px; width: 100%; max-width: none !important; }
+  .hero__lead { font-size: 16px !important; line-height: 1.55 !important; margin-bottom: 20px !important; max-width: 30ch; }
+  .hero__actions { gap: 18px !important; }
+  .hero__actions .button { padding: 16px 18px !important; }
+  .hero__actions .text-link { min-height: 44px; display: inline-flex; align-items: center; font-size: 14px !important; }
+  .hero__facts { display: grid !important; grid-template-columns: .8fr 1.35fr .8fr; gap: 12px !important; margin: 24px 0 0 !important; padding-top: 24px; border-top: 1px solid var(--line); }
+  .hero__facts div { padding: 0 !important; }
+  .hero__facts span { font-size: 11px !important; line-height: 1.5; }
+  .hero-location { padding: 16px 22px !important; font-size: 12px !important; }
+  .ticker { padding-block: 14px; }
+  .ticker__track { flex-wrap: wrap; gap: 10px 16px; white-space: normal; padding-inline: 22px; }
+  .ticker__track > [aria-hidden="true"] { display: none; }
+
+  .section-heading { gap: 20px; margin-bottom: 28px; }
+  .section-heading__lead, .approach-description { font-size: 15px !important; line-height: 1.65 !important; }
+  .service-grid { grid-template-columns: 1fr !important; gap: 30px !important; }
+  .service-card, .service-card:nth-child(n) { display: flex !important; flex-direction: column !important; grid-column: auto !important; background: transparent !important; }
+  .service-card picture, .service-card:first-child picture { aspect-ratio: 3 / 2 !important; height: auto !important; }
+  #services .service-card__content { padding: 18px 0 0 !important; }
+  #services .service-card__content h3 { font-size: 30px !important; padding-right: 40px !important; }
+  #services .service-card__content p { font-size: 14px !important; max-width: 32ch !important; }
+  .round-arrow { position: absolute !important; top: 15px !important; right: 0 !important; width: 36px !important; height: 36px !important; }
+  .services__hint { margin-top: 28px !important; }
+  .approach-intro { margin-bottom: 30px !important; }
+  .gallery-track { gap: 16px !important; }
+  #approach-team { margin-top: 48px !important; }
+  .gallery-heading h3 { font-size: 28px !important; }
+  #approach .person-caption h4 { font-size: 26px !important; text-wrap: pretty !important; }
+  #equipment .machine-card { border-radius: 6px !important; overflow: hidden; }
+  .machine-card__body { padding: 18px !important; }
+  .machine-card h3.brand-latin { font-size: 24px !important; }
+  .equipment__consultation { background: rgba(248,245,239,.85) !important; }
+  .review-card { padding: 24px !important; }
+  .gift__inner { max-width: 480px !important; }
+  .booking__content { padding: 26px 22px !important; background: rgba(234,226,216,.65) !important; }
+  .booking__content .button { padding-inline: 16px !important; font-size: 14px !important; }
+  .footer__logo img { width: 280px !important; margin-left: -42px !important; }
+  .mobile-cta-bar { background: rgba(244,239,230,.96) !important; border-top: 1px solid var(--line); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)) !important; }
+  .mobile-cta-bar::before { display: none !important; }
+  .mobile-cta-bar__call { border-radius: 3px !important; }
+  .cookie-notice { bottom: calc(86px + env(safe-area-inset-bottom)) !important; }
+  .sheet__panel { background: var(--paper); }
+}
+@media (max-width: 360px) {
+  .page--home { --home-gutter: 18px; }
+  .page--home header.header { padding-inline: 18px !important; }
+  .page--home header .logo { width: 185px !important; flex-basis: 185px !important; }
+  .page--home header .logo img { width: 185px !important; }
+  .hero__top, .hero__bottom { padding-inline: 18px; }
+  .hero__facts { gap: 8px !important; }
+  .machine-card__body { padding: 14px !important; }
+}
+@media (min-width: 601px) and (max-width: 800px) {
+  .hero .hero__media { aspect-ratio: 1 !important; }
+  .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .service-card:first-child { grid-column: 1 / -1 !important; }
+}
