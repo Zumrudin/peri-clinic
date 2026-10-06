@@ -1,0 +1,218 @@
+{
+  "errors": [],
+  "results": [
+    {
+      "axe": []
+    },
+    {
+      "width": 390,
+      "layout": {
+        "width": 390,
+        "scroll": 390,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 10443,
+        "pageHeight": 10443,
+        "heroFactsOnPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 320,
+      "layout": {
+        "width": 320,
+        "scroll": 320,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 10590,
+        "pageHeight": 10590,
+        "heroFactsOnPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 375,
+      "layout": {
+        "width": 375,
+        "scroll": 375,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 10379,
+        "pageHeight": 10379,
+        "heroFactsOnPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 430,
+      "layout": {
+        "width": 430,
+        "scroll": 430,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 10465,
+        "pageHeight": 10465,
+        "heroFactsOnPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 600,
+      "layout": {
+        "width": 600,
+        "scroll": 600,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 10385,
+        "pageHeight": 10385,
+        "heroFactsOnPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 800,
+      "layout": {
+        "width": 800,
+        "scroll": 800,
+        "headerHeight": 68,
+        "buttonHeight": 0,
+        "textureHeight": 11618,
+        "pageHeight": 11618,
+        "heroFactsOnPhoto": true,
+        "heroButtonHidden": true,
+        "heroActionsHidden": true,
+        "heroLeadHidden": true,
+        "textureCoversPage": true,
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    },
+    {
+      "width": 1440,
+      "layout": {
+        "width": 1440,
+        "scroll": 1440,
+        "headerHeight": 68,
+        "buttonHeight": 40,
+        "textureHeight": 8592,
+        "pageHeight": 8592,
+        "heroFactsOnPhoto": false,
+        "heroButtonHidden": false,
+        "heroActionsHidden": false,
+        "heroLeadHidden": false,
+        "textureCoversPage": true,
+        "sectionBackgrounds": [
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)",
+          "rgba(0, 0, 0, 0)"
+        ],
+        "venetianLoaded": true,
+        "broken": []
+      },
+      "bookingWorks": true
+    }
+  ]
+}
