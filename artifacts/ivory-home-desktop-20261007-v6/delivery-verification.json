@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://dev.zumrudin.ru/peri-concepts/ivory-home-desktop-20261007-v6/index.html",
+    "status": 200,
+    "contentType": "text/html",
+    "sha256": "c71b7f569ffda28cbd414f40edea93f712464098e55a7ff10751f1c84523eb33"
+  },
+  {
+    "url": "https://dev.zumrudin.ru/peri-concepts/ivory-home-desktop-20261007-v6/cards.css",
+    "status": 200,
+    "contentType": "text/css",
+    "sha256": "609da4e499d76785cecc48ca8c8a18ef61b3891799fd0aad6fea961ed560e81d"
+  }
+]

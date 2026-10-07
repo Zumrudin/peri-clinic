@@ -1,0 +1,11 @@
+/* Same transparent photo wrappers as the approved mobile concept. */
+@media (min-width: 801px) {
+  html body #approach .portraits .gallery-card,
+  html body #approach .portraits .gallery-photo,
+  html body #approach .portraits .gallery-photo picture,
+  html body #approach .portraits .gallery-photo img,
+  html body #equipment .machine-card,
+  html body #equipment .machine-card__photo,
+  html body #equipment .machine-card__photo picture,
+  html body #equipment .machine-card__photo img { background: transparent !important; }
+}
