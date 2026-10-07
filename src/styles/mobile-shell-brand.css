@@ -85,6 +85,7 @@
   body:has(.nav.is-open) .mobile-cta-bar { visibility: hidden; }
   .mobile-cta-bar { background: rgba(244,239,230,.96) !important; border-top: 1px solid var(--line); }
   .mobile-cta-bar::before { display: none !important; }
+  .cookie-notice a { color: var(--dark-text) !important; }
 
   /* Keep text legible over the relief without flattening cards, photos or dark callouts. */
   html body .page:not(.page--home) main {
