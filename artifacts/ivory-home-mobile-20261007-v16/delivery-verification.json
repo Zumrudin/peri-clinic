@@ -1,0 +1,20 @@
+[
+  {
+    "url": "https://dev.zumrudin.ru/peri-concepts/ivory-home-mobile-20261007-v16/index.html",
+    "status": 200,
+    "contentType": "text/html",
+    "sha256": "501da21f10ee569b32dbc32c465c49d267db48650a14d38d0a3efdeba8ca5273"
+  },
+  {
+    "url": "https://dev.zumrudin.ru/peri-concepts/ivory-home-mobile-20261007-v16/staff-carousel.js",
+    "status": 200,
+    "contentType": "application/javascript",
+    "sha256": "c13f784e7d7e71dbebb71e1f79dce3d06b776e72637238a44c6aac3572feb1e2"
+  },
+  {
+    "url": "https://dev.zumrudin.ru/peri-concepts/ivory-home-mobile-20261007-v16/_astro/Lightbox.astro_astro_type_script_index_0_lang.BZRaFjRo.js",
+    "status": 200,
+    "contentType": "application/javascript",
+    "sha256": "3923860bab7524eadc17b3f943908a34dd4835b345e3023cea4bc63525455482"
+  }
+]

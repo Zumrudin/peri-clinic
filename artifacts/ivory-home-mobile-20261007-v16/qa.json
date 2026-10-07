@@ -1,0 +1,42 @@
+[
+  {
+    "width": 375,
+    "reduced": false,
+    "swipes": 5,
+    "smallSwipeReturns": true,
+    "verticalScroll": true,
+    "profileTap": true
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "swipes": 5,
+    "smallSwipeReturns": true,
+    "verticalScroll": true,
+    "profileTap": true
+  },
+  {
+    "width": 430,
+    "reduced": false,
+    "swipes": 5,
+    "smallSwipeReturns": true,
+    "verticalScroll": true,
+    "profileTap": true
+  },
+  {
+    "width": 800,
+    "reduced": false,
+    "swipes": 5,
+    "smallSwipeReturns": true,
+    "verticalScroll": true,
+    "profileTap": true
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "swipes": 5,
+    "smallSwipeReturns": true,
+    "verticalScroll": true,
+    "profileTap": true
+  }
+]
