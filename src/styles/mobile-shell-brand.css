@@ -1,5 +1,4 @@
-/* Shared mobile shell: the approved home branding also survives ClientRouter navigation. */
-@media (max-width: 800px) {
+/* Inline shared branding so cached pages never depend on a removed release stylesheet. */
   html:root {
     --ivory: #f4efe6;
     --paper: #f8f5ef;
@@ -19,8 +18,6 @@
     --gold-10: #eee6d8;
     --gold-15: #e3d6c0;
     --gold-25: #c6a46a;
-    --header-h: 68px;
-    --header-h-sticky: 68px;
   }
 
   html { background: var(--ivory); }
@@ -47,6 +44,10 @@
     background: transparent !important;
   }
 
+.cookie-notice a { color: var(--dark-text) !important; }
+
+@media (max-width: 800px) {
+  html:root { --header-h: 68px; --header-h-sticky: 68px; }
   .page header.header {
     position: relative !important;
     height: 68px !important;
@@ -74,7 +75,6 @@
     object-fit: contain !important;
     filter: none !important;
   }
-  .page .logo .legacy-logo, .page .footer__logo .legacy-logo { display: none !important; }
   .page .logo .mobile-brand-logo, .page .footer__logo .mobile-brand-logo { display: block !important; }
   .page:not(.page--home) .footer__logo img { width: 190px; height: auto; }
   .page .menu-toggle { flex-shrink: 0; }
@@ -85,7 +85,8 @@
   body:has(.nav.is-open) .mobile-cta-bar { visibility: hidden; }
   .mobile-cta-bar { background: rgba(244,239,230,.96) !important; border-top: 1px solid var(--line); }
   .mobile-cta-bar::before { display: none !important; }
-  .cookie-notice a { color: var(--dark-text) !important; }
+
+}
 
   /* Keep text legible over the relief without flattening cards, photos or dark callouts. */
   html body .page:not(.page--home) main {
@@ -103,10 +104,14 @@
     z-index: -1;
     background: linear-gradient(180deg, rgba(248,245,239,0), rgba(248,245,239,.83) 24%);
   }
-}
 
 @media (max-width: 360px) {
   .page header.header { padding-inline: 18px !important; }
   .page header .logo { width: 185px !important; flex-basis: 185px !important; }
   .page header .logo img { width: 185px !important; }
+}
+
+@media (min-width: 801px) {
+  .page:not(.page--home) .logo img { width: 204px; height: auto; }
+  .page:not(.page--home) .footer__logo img { width: 190px; height: auto; }
 }

@@ -1,7 +1,7 @@
 ---
 import type { GalleryItem, Specialist } from '../../lib/specialistContent';
-interface Props { id: string; title: string; items: GalleryItem[]; portraits?: boolean; detailsLabel?: string; summaries?: Record<string, { specialty: string; reason: string }>; }
-const { id, title, items, portraits = false, detailsLabel = 'Подробнее', summaries = {} } = Astro.props;
+interface Props { id: string; title: string; items: GalleryItem[]; portraits?: boolean; profileLinks?: boolean; detailsLabel?: string; summaries?: Record<string, { specialty: string; reason: string }>; }
+const { id, title, items, portraits = false, profileLinks = false, detailsLabel = 'Подробнее', summaries = {} } = Astro.props;
 ---
 {items.length > 0 && <section class:list={['gallery', { portraits }]} data-gallery={id} aria-labelledby={`${id}-title`}>
   <div class="gallery-heading">
@@ -16,10 +16,10 @@ const { id, title, items, portraits = false, detailsLabel = 'Подробнее'
         element itself would drag its clip box along and leave a blank strip on the right. */}
     <div class="gallery-track" data-track>
     {items.map(item => <article class="gallery-card" data-card>
-      <a class="gallery-photo" href={item.full} data-photo data-id={item.id} data-caption={portraits ? `${item.title} · ${(item as Specialist).role}` : item.title} aria-label={`Увеличить фото: ${item.title}`}>
+      <a class="gallery-photo" href={profileLinks ? `/specialisty/${(item as Specialist).slug}` : item.full} data-photo={profileLinks ? undefined : true} data-id={item.id} data-caption={portraits ? `${item.title} · ${(item as Specialist).role}` : item.title} aria-label={`${profileLinks ? 'Открыть страницу' : 'Увеличить фото'}: ${item.title}`}>
         <img src={item.thumbnail} alt={item.alt} width={item.width} height={item.height} loading="lazy" decoding="async" style={`object-position: 50% ${portraits ? 100 : item.focus}%`} />
         {!portraits && <span class="room-caption">{item.title}</span>}
-        <span class="photo-expand" aria-hidden="true">+</span>
+        {!profileLinks && <span class="photo-expand" aria-hidden="true">+</span>}
       </a>
       {portraits && <div class="person-caption"><h4>{item.title}</h4><p>{(item as Specialist).role}</p>{summaries[(item as Specialist).slug] && <div class="person-expertise"><strong>{summaries[(item as Specialist).slug].specialty}</strong><p>{summaries[(item as Specialist).slug].reason}</p></div>}<a class="person-more home-text-link" href={`/specialisty/${(item as Specialist).slug}`}>{detailsLabel} <span aria-hidden="true">→</span></a></div>}
     </article>)}

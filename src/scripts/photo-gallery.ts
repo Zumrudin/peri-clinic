@@ -240,7 +240,7 @@ export function initPhotoGalleries() {
     // clipping element itself would drag its clip box along and leave a blank strip.
     const track = rail.querySelector<HTMLElement>('[data-track]') ?? rail;
     const cards = Array.from(track.querySelectorAll<HTMLElement>('[data-card]'));
-    const photos = cards.map((card) => card.querySelector<HTMLAnchorElement>('[data-photo]')!);
+    const photos = cards.map((card) => card.querySelector<HTMLAnchorElement>('.gallery-photo')!);
     const nav = root.querySelector<HTMLElement>('.gallery-nav')!;
     const status = root.querySelector<HTMLElement>('[data-gallery-status]')!;
     initLoopCarousel({
@@ -248,16 +248,12 @@ export function initPhotoGalleries() {
       previous: root.querySelector<HTMLButtonElement>('[data-prev]')!,
       next: root.querySelector<HTMLButtonElement>('[data-next]')!,
       announce: () => {
-        const first = track.querySelector<HTMLAnchorElement>('[data-photo]')!;
+        const first = track.querySelector<HTMLAnchorElement>('.gallery-photo')!;
         status.textContent = `Фотография ${photos.indexOf(first) + 1} из ${photos.length}`;
       },
     });
-    photos.forEach((photo) =>
+    photos.filter(photo => photo.hasAttribute('data-photo')).forEach((photo) =>
       photo.addEventListener('click', (e) => {
-        if (root.closest('.page--home') && root.classList.contains('portraits') && matchMedia('(max-width: 800px)').matches) {
-          const profile = photo.closest('[data-card]')?.querySelector<HTMLAnchorElement>('.person-more');
-          if (profile) { e.preventDefault(); profile.click(); return; }
-        }
         e.preventDefault();
         open(
           photos,

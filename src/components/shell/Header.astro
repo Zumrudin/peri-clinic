@@ -1,15 +1,12 @@
 ---
-import { Image } from 'astro:assets';
 import { getSiteSettings } from '../../lib/siteContent';
 import { telHref } from '../../lib/markup';
-import logo from '../../assets/home/logo.png';
 
 const site = await getSiteSettings();
 ---
 
 <header class="header" data-header transition:persist="header">
   <a class="logo" href="/" aria-label={`${site.name} — на главную`}>
-    <Image class="legacy-logo" src={logo} alt={site.name} width={184} densities={[1, 2, 3]} quality={100} loading="eager" />
     <img class="mobile-brand-logo" src="/brand/mobile-20261007/header-logo.svg" alt={site.name} width={260} height={39} loading="eager" />
   </a>
 
@@ -44,7 +41,7 @@ const site = await getSiteSettings();
 </script>
 
 <style>
-  .mobile-brand-logo { display: none; }
+  .mobile-brand-logo { display: block; }
   .header {
     height: var(--header-h);
     display: flex;
