@@ -4,6 +4,7 @@ import Header from '../components/shell/Header.astro';
 import Footer from '../components/shell/Footer.astro';
 import FloatingContact from '../components/shell/FloatingContact.astro';
 import MobileCtaBar from '../components/shell/MobileCtaBar.astro';
+import mobileShellStyles from '../styles/mobile-shell-brand.css?url';
 
 interface Props {
   title: string;
@@ -16,8 +17,11 @@ const props = Astro.props;
 ---
 
 <Base {...props}>
-  <slot name="head" slot="head" />
-  {props.home && <div class="page-texture" aria-hidden="true">{Array.from({ length: 24 }, () => <span />)}</div>}
+  <Fragment slot="head">
+    <slot name="head" />
+    <link rel="stylesheet" href={mobileShellStyles} media="(max-width: 800px)" />
+  </Fragment>
+  <div class:list={["page-texture", { "page-texture--internal": !props.home }]} aria-hidden="true">{Array.from({ length: 24 }, () => <span />)}</div>
   <nav aria-label="Пропуск навигации">
     <a href="#main-content" class="skip-link">Перейти к содержимому</a>
   </nav>
@@ -31,3 +35,9 @@ const props = Astro.props;
   <FloatingContact />
   <MobileCtaBar />
 </Base>
+
+<style>
+  @media (min-width: 801px) {
+    .page-texture--internal { display: none; }
+  }
+</style>

@@ -1,0 +1,111 @@
+/* Shared mobile shell: the approved home branding also survives ClientRouter navigation. */
+@media (max-width: 800px) {
+  html:root {
+    --ivory: #f4efe6;
+    --paper: #f8f5ef;
+    --ink: #6c5b50;
+    --ink-2: #6c5b50;
+    --muted: #6c5b50;
+    --gold: #c6a46a;
+    --gold-light: #c6a46a;
+    --gold-deep: #6c5b50;
+    --gold-hover: #514238;
+    --dark: #6c5b50;
+    --dark-text: #f4efe6;
+    --sand: #eae2d8;
+    --line: #6c5b502b;
+    --line-gold: #c6a46a55;
+    --gold-05: #f4efe6;
+    --gold-10: #eee6d8;
+    --gold-15: #e3d6c0;
+    --gold-25: #c6a46a;
+    --header-h: 68px;
+    --header-h-sticky: 68px;
+  }
+
+  html { background: var(--ivory); }
+  body { position: relative; isolation: isolate; background: var(--ivory); }
+  .page-texture {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: .38;
+  }
+  .page-texture span {
+    display: block;
+    height: max(600px, 125vw);
+    margin-top: -60px;
+    background: url('/brand/mobile-20261007/relief.jpg') center / 100% 100% no-repeat;
+    mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent);
+  }
+  .page-texture span:first-child { margin-top: 0; mask-image: linear-gradient(#000 88%, transparent); }
+  .page-texture span:nth-child(even) { transform: scaleX(-1); }
+  html body .page, html body main, html body .page header.header, html body .page #contacts.footer {
+    background: transparent !important;
+  }
+
+  .page header.header {
+    position: relative !important;
+    height: 68px !important;
+    min-height: 68px !important;
+    padding-inline: 22px !important;
+    gap: 16px !important;
+    border-bottom: 1px solid var(--line) !important;
+    box-shadow: none !important;
+  }
+  /* The mobile header stays in flow, so it needs no sticky placeholder. */
+  .page:not(.page--home) .header.is-sticky ~ main { padding-top: 0; }
+  .page header .logo {
+    display: flex !important;
+    align-items: center !important;
+    width: 204px !important;
+    height: 44px !important;
+    flex: 0 0 204px !important;
+    overflow: visible !important;
+  }
+  .page header .logo img {
+    width: 204px !important;
+    height: auto !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    filter: none !important;
+  }
+  .page .logo .legacy-logo, .page .footer__logo .legacy-logo { display: none !important; }
+  .page .logo .mobile-brand-logo, .page .footer__logo .mobile-brand-logo { display: block !important; }
+  .page:not(.page--home) .footer__logo img { width: 190px; height: auto; }
+  .page .menu-toggle { flex-shrink: 0; }
+  .page .nav { padding: 20px 22px calc(28px + env(safe-area-inset-bottom)) !important; gap: 0 !important; }
+  .page .nav > a { font-size: 28px !important; font-weight: 400 !important; letter-spacing: 0 !important; padding-block: 13px !important; }
+  .page .nav .nav__phone { font-size: 25px !important; }
+  .page .nav .button { min-height: 52px; border-radius: 16px; background: var(--gold-deep); color: #fff; letter-spacing: 0; text-transform: none; }
+  body:has(.nav.is-open) .mobile-cta-bar { visibility: hidden; }
+  .mobile-cta-bar { background: rgba(244,239,230,.96) !important; border-top: 1px solid var(--line); }
+  .mobile-cta-bar::before { display: none !important; }
+
+  /* Keep text legible over the relief without flattening cards, photos or dark callouts. */
+  html body .page:not(.page--home) main {
+    background: linear-gradient(180deg, rgba(248,245,239,0), rgba(248,245,239,.83) 120px, rgba(248,245,239,.83) calc(100% - 80px), rgba(248,245,239,0)) !important;
+  }
+  .page:not(.page--home) #contacts.footer {
+    position: relative;
+    isolation: isolate;
+  }
+  .page:not(.page--home) #contacts.footer::before {
+    content: '';
+    position: absolute;
+    inset: -35px 0 0;
+    pointer-events: none;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(248,245,239,0), rgba(248,245,239,.83) 24%);
+  }
+}
+
+@media (max-width: 360px) {
+  .page header.header { padding-inline: 18px !important; }
+  .page header .logo { width: 185px !important; flex-basis: 185px !important; }
+  .page header .logo img { width: 185px !important; }
+}
