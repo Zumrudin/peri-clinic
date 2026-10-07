@@ -9,7 +9,8 @@ const site = await getSiteSettings();
 
 <header class="header" data-header transition:persist="header">
   <a class="logo" href="/" aria-label={`${site.name} — на главную`}>
-    <Image src={logo} alt={site.name} width={184} densities={[1, 2, 3]} quality={100} loading="eager" />
+    <Image class="legacy-logo" src={logo} alt={site.name} width={184} densities={[1, 2, 3]} quality={100} loading="eager" />
+    <img class="mobile-brand-logo" src="/brand/mobile-20261007/header-logo.svg" alt={site.name} width={260} height={39} loading="eager" />
   </a>
 
   <nav class="nav" id="main-nav" aria-label="Основная навигация">
@@ -43,6 +44,7 @@ const site = await getSiteSettings();
 </script>
 
 <style>
+  .mobile-brand-logo { display: none; }
   .header {
     height: var(--header-h);
     display: flex;

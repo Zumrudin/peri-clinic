@@ -254,6 +254,10 @@ export function initPhotoGalleries() {
     });
     photos.forEach((photo) =>
       photo.addEventListener('click', (e) => {
+        if (root.closest('.page--home') && root.classList.contains('portraits') && matchMedia('(max-width: 800px)').matches) {
+          const profile = photo.closest('[data-card]')?.querySelector<HTMLAnchorElement>('.person-more');
+          if (profile) { e.preventDefault(); profile.click(); return; }
+        }
         e.preventDefault();
         open(
           photos,

@@ -39,7 +39,7 @@ const { devices } = home;
           {!d.image && <div class="machine-card__placeholder" aria-hidden="true">{d.name}</div>}
           </div>
           <div class="machine-card__body">
-          <h3>{d.name}</h3>
+          <h3 class:list={{ "brand-latin": /^[\x00-\x7F]+$/.test(d.name) }}>{d.name}</h3>
           <p>{d.short}</p>
           {d.href && <><span class="machine-card__arrow" aria-hidden="true">→</span><span class="machine-card__more home-text-link">{about.details_label} <span aria-hidden="true">→</span></span></>}
           </div>

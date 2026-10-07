@@ -34,6 +34,7 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
     {images.map(({ sources, fallback }, index) => (
       <div class={index === 0 ? 'hero__backdrop' : 'hero__photo'}>
         <picture>
+          <source media="(max-width: 800px)" type="image/webp" srcset="/brand/mobile-20261007/hero-final-badge-1920.webp 1920w, /brand/mobile-20261007/hero-final-badge-3200.webp 3200w" sizes="100vw" />
           {sources.map(({ media, type, image }) => (
             <source media={media} type={type} srcset={image.srcSet.attribute} sizes="100vw" />
           ))}
@@ -66,7 +67,7 @@ const images = await Promise.all([true, false].map(async (backdrop) => {
         {
           hero.facts.map((f) => (
             <div>
-              <strong>{f.value}</strong>
+              <strong class="brand-latin">{f.value}</strong>
               <span set:html={em(f.label)} />
             </div>
           ))

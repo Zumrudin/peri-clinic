@@ -1,4 +1,5 @@
 ---
+import ReelsScroll from '../home/ReelsScroll.astro';
 interface ReelItem { title: string; author?: string; video_url: string; hls_url?: string; image_url?: string; captions_url?: string; focus_y?: number }
 interface Props {
   items: ReelItem[];
@@ -39,6 +40,7 @@ const { content, items, id = 'reels', mobileOnly = false } = Astro.props;
       </div>
     </article>)}
   </div>
+  {mobileOnly && items.length > 1 && <ReelsScroll count={items.length} />}
   {items.length > 1 && <div class="reels-navigation" data-reels-navigation hidden>
     <div class="reels-dots" aria-label="Выбор видео">{items.map((item, index) => <button type="button" data-reels-dot aria-label={`Видео ${index + 1}: ${item.title}`} aria-current={index === 0 ? 'true' : undefined}><span></span></button>)}</div>
     {content.reels_hint && <p>{content.reels_hint}</p>}

@@ -17,6 +17,7 @@ const props = Astro.props;
 
 <Base {...props}>
   <slot name="head" slot="head" />
+  {props.home && <div class="page-texture" aria-hidden="true">{Array.from({ length: 24 }, () => <span />)}</div>}
   <nav aria-label="Пропуск навигации">
     <a href="#main-content" class="skip-link">Перейти к содержимому</a>
   </nav>

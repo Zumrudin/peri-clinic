@@ -1,5 +1,6 @@
 ---
 import '../styles/home.css';
+import mobileBrandStyles from '../styles/home-mobile-brand.css?url';
 import Page from '../layouts/Page.astro';
 import Hero from '../components/home/Hero.astro';
 import Ticker from '../components/home/Ticker.astro';
@@ -16,6 +17,7 @@ const home = await getHomeContent();
 ---
 
 <Page home title={home.seo.title} description={home.seo.description}>
+  <link slot="head" rel="stylesheet" href={mobileBrandStyles} media="(max-width: 800px)" />
   <div id="home-page">
   <Hero />
   <Ticker items={home.ticker} />

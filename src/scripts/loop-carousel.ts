@@ -33,6 +33,8 @@ export function initLoopCarousel({ rail, track, cards, previous, next, announce,
   let velocity = 0;
   let step = 0;
   let base = 0;
+  let swipeOrigin = 0;
+  const singleStep = () => !!rail.closest('.page--home .portraits') && matchMedia('(max-width: 800px)').matches;
   let spring: SpringHandle | null = null;
   const rotate = (direction: 1 | -1) => {
     const focus = document.activeElement as HTMLElement | null;
@@ -75,6 +77,15 @@ export function initLoopCarousel({ rail, track, cards, previous, next, announce,
     );
   };
   const settle = (releaseVelocity: number) => {
+    if (singleStep()) {
+      // A flick can finish the adjacent card, but never throw the list past a person.
+      const distance = u - swipeOrigin;
+      const intent = distance + Math.max(-step * 0.15, Math.min(step * 0.15, releaseVelocity * 0.08));
+      target = swipeOrigin + (Math.abs(intent) >= step * 0.22 ? Math.sign(intent) * step : 0);
+      velocity = 0;
+      run();
+      return;
+    }
     velocity = releaseVelocity;
     target = shifted + snapTarget(u - shifted + project(releaseVelocity), step, Math.max(1, cards.length - 1));
     run();
@@ -98,13 +109,16 @@ export function initLoopCarousel({ rail, track, cards, previous, next, announce,
       }
       step = cardStep();
       base = u;
+      swipeOrigin = shifted + Math.round((u - shifted) / step) * step;
       const moving = !!spring;
       spring?.cancel();
       spring = null;
       return moving;
     },
     move: (dx) => {
-      if (step) setPosition(base + dx);
+      if (step) setPosition(singleStep()
+        ? Math.max(swipeOrigin - step, Math.min(swipeOrigin + step, base + dx))
+        : base + dx);
     },
     release: (releaseVelocity) => {
       if (step) settle(releaseVelocity);
