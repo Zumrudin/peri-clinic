@@ -20,11 +20,11 @@ try {
       const gallery = page.locator('[data-gallery="clinic-team"]');
       const rail = gallery.locator('[data-rail]');
       await gallery.scrollIntoViewIfNeeded();
-      const ids = () => gallery.locator('[data-photo]').evaluateAll(photos => photos.map(p => p.dataset.id));
+      const ids = () => gallery.locator('.gallery-photo').evaluateAll(photos => photos.map(p => p.dataset.id));
       const initial = await ids();
       const session = await context.newCDPSession(page);
       const swipe = async direction => {
-        const box = await gallery.locator('[data-photo]').first().boundingBox();
+        const box = await gallery.locator('.gallery-photo').first().boundingBox();
         const x = box.x + box.width * (direction < 0 ? 0.85 : 0.15), y = box.y + box.height / 2;
         await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] });
         for (let step = 1; step <= 6; step++) {
@@ -44,26 +44,14 @@ try {
       }
       await swipe(1);
       assert.deepEqual(await ids(), initial);
-      const before = await ids();
-      const position = await rail.evaluate(el => el.getBoundingClientRect().top);
-      await gallery.locator('[data-photo]').nth(1).click({ position: { x: 12, y: 40 } });
-      await page.locator('[data-close]').click();
-      await page.waitForFunction(() => !document.querySelector('[data-lightbox]').open);
-      assert.deepEqual(await ids(), before, 'closing a photo must preserve card order');
-      assert.equal(await page.evaluate(() => document.activeElement?.getAttribute('data-id')), before[1]);
-      assert.ok(Math.abs(await rail.evaluate(el => el.getBoundingClientRect().top) - position) < 2);
-      await gallery.locator('[data-photo]').nth(1).click({ position: { x: 12, y: 40 } });
-      await page.locator('[data-lightbox-next]').click();
-      await page.keyboard.press('Escape');
-      await page.waitForFunction(() => !document.querySelector('[data-lightbox]').open);
-      assert.deepEqual(await ids(), before, 'browsing photos must preserve card order');
-      assert.equal(await page.evaluate(() => document.activeElement?.getAttribute('data-id')), before[1]);
-      await swipe(-1);
-      assert.equal((await ids())[0], before[1]);
-      await swipe(1);
-      assert.deepEqual(await ids(), before);
+      const photo = gallery.locator('.gallery-photo').first();
+      const profile = await photo.getAttribute('href');
+      assert(profile.startsWith('/specialisty/'));
+      await photo.tap();
+      await page.waitForURL(base.replace(/\/$/, '') + profile);
+      assert(await page.locator('h1').isVisible());
       await context.close();
-      console.log(`PASS ${width}px, ${size} cards: real touch in both directions, wrap, visible card position, close and focus restoration`);
+      console.log(`PASS ${width}px, ${size} cards: real touch in both directions, wrap, visible card position, profile tap after swipes`);
     }
   }
 } finally { await browser.close(); }
