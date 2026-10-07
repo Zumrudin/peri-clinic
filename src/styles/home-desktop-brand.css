@@ -113,4 +113,6 @@ html body #equipment .machine-card,
 html body #equipment .machine-card__photo,
 html body #equipment .machine-card__photo picture,
 html body #equipment .machine-card__photo img { background:transparent!important; }
+/* Brass is decorative; legal links need readable contrast on Dark Taupe. */
+.cookie-notice a { color:var(--dark-text)!important; }
 }
