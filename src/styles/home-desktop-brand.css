@@ -98,7 +98,7 @@ html body .page--home header .logo .legacy-logo,
 .page--home .footer__logo .legacy-logo { display:none!important; }
 html body .page--home header .logo .mobile-brand-logo,
 .page--home .footer__logo .mobile-brand-logo { display:block!important; }
-.page-texture { display:block; }
+html body .page-texture { display:block!important; }
 .hero__backdrop,.hero__scrim,.hero-location,.ticker { display:none!important; }
 .hero__bottom { display:flex;flex-direction:column; }
 .hero__lead { order:0; }
