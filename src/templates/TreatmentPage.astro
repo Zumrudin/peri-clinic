@@ -23,7 +23,11 @@ const [site, allCases, faq, prices, reels] = await Promise.all([
 ]);
 // A lone “after” photograph is not a before/after comparison.
 const cases = allCases.filter(c => c.combined || (c.before && c.after));
-const amounts = prices.flatMap(item => [item.price, item.priceHeadDoctor]).filter((price): price is number => price !== null);
+// Volnewmer's extra pulse is an add-on, not a standalone treatment package.
+const startingPrices = p.slug === 'volnewmer'
+  ? prices.filter(item => /^\d+\s+импульс/iu.test(item.name))
+  : prices;
+const amounts = startingPrices.flatMap(item => [item.price, item.priceHeadDoctor]).filter((price): price is number => price !== null);
 const startingPrice = site.show_prices && amounts.length ? formatPrice(Math.min(...amounts)) : null;
 const facts = [
   p.duration && { label: 'Длительность', value: p.duration },
