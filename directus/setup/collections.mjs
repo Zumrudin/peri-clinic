@@ -287,6 +287,7 @@ export const collections = [
       f.divider('d_content', 'Содержание'),
       f.text('lead', 'Вводный абзац'),
       f.html('body', 'Основной текст'),
+      base('approved_layout', 'json', 'Согласованная страница', { interface: 'input-code', options: { language: 'json' }, note: 'Утверждённые блоки страницы. Цены и видео подключаются из соответствующих коллекций.' }, { is_nullable: true }),
       f.repeater('steps', 'Как проходит процедура', [rep('title', 'Этап'), rep('text', 'Описание', 'text', 'input-multiline')]),
       f.repeater('benefits', 'Преимущества', [rep('title', 'Заголовок'), rep('text', 'Описание', 'text', 'input-multiline')]),
       f.html('indications', 'Показания'),

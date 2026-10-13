@@ -1,3 +1,4 @@
+import { approvedTreatmentSchema } from './lib/approvedTreatmentSchema';
 import { defineCollection, z } from 'astro:content';
 import aboutDemoContent from './data/about-demo.json';
 import type { Loader } from 'astro/loaders';
@@ -392,6 +393,7 @@ const procedures = defineCollection({
           'summary',
           'lead',
           'body',
+          'approved_layout',
           'steps',
           'benefits',
           'indications',
@@ -430,6 +432,7 @@ const procedures = defineCollection({
     summary: z.string().nullable().optional(),
     lead: z.string().nullable().optional(),
     body: z.string().nullable().optional(),
+    approved_layout: approvedTreatmentSchema.nullable().optional(),
     steps: z.array(z.object({ title: z.string(), text: z.string() })).catch([]),
     benefits: z.array(z.object({ title: z.string(), text: z.string() })).catch([]),
     indications: z.string().nullable().optional(),

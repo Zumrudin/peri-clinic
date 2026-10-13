@@ -1,0 +1,31 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Page from '../layouts/Page.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { areaServedJsonLd } from '../lib/seo';
+import { location } from '../config/location';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import Reels from '../components/gallery/Reels.astro';
+import Faq from '../components/faq/Faq.astro';
+import PriceTable from '../components/pricing/PriceTable.astro';
+import { getApprovedTreatmentContent } from '../lib/approvedTreatmentContent';
+import { getPriceItemsForProcedure } from '../lib/procedureContent';
+import { getSiteSettings } from '../lib/siteContent';
+import '../styles/approved-treatment.css';
+interface Props { procedure: CollectionEntry<'procedures'> }
+const { procedure } = Astro.props;
+const p = procedure.data;
+const [sections, prices, site] = await Promise.all([
+  getApprovedTreatmentContent(procedure), getPriceItemsForProcedure(p.slug), getSiteSettings(),
+]);
+---
+<Page title={p.seo_title || p.title} description={p.seo_description || p.summary || ''}>
+  <Breadcrumbs slot="head" items={[...(p.category ? [{ name: p.category.title, href: `/${p.category.slug}` }] : []), { name: p.title, href: `/${p.slug}` }]} />
+  <JsonLd data={{ '@context': 'https://schema.org', '@type': 'Service', name: p.title, description: p.summary || p.lead || undefined, url: new URL(`/${p.slug}`, Astro.site).href, provider: { '@id': `${Astro.site!.href}#clinic` }, areaServed: areaServedJsonLd(site.city, location), serviceType: p.category?.title.replace(/\n/g, ' ') }} />
+  <div class="approved-treatment">
+    {sections.map(section => section.kind === 'html' ? <Fragment set:html={section.html} /> :
+      section.kind === 'videos' ? <div id="videos" class="vn-section"><Reels id="treatment-reels" items={section.items} content={{ reels_title: section.title }} /></div> :
+      section.kind === 'prices' ? <section id="prices" class="section treatment-prices" aria-labelledby="prices-title"><div><p class="eyebrow">{section.eyebrow}</p><h2 id="prices-title">{section.title}</h2><p class="treatment-note">{section.description}</p></div><div><PriceTable mobileCards items={prices} showPrices={site.show_prices} contextLabel={p.title} icd10={p.icd10} /></div></section> :
+      <Faq items={section.items} title={section.title} eyebrow={section.eyebrow} />)}
+  </div>
+</Page>

@@ -1,8 +1,9 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import TreatmentPage from './TreatmentPage.astro';
+import ApprovedTreatmentPage from './ApprovedTreatmentPage.astro';
 
 interface Props { procedure: CollectionEntry<'procedures'> }
 const { procedure } = Astro.props;
 ---
-<TreatmentPage procedure={procedure} device />
+{procedure.data.approved_layout ? <ApprovedTreatmentPage procedure={procedure} /> : <TreatmentPage procedure={procedure} device />}
