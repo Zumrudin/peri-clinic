@@ -19,6 +19,10 @@ const p = page.data;
   </div>
 </Page>
 
+<script>
+  import '../scripts/loyalty-dialog';
+</script>
+
 <style>
   .loyalty-page { max-width: 1440px; margin: auto; padding: 32px var(--gutter) 100px; }
   .loyalty-page :global(.breadcrumbs) { padding: 0; }
@@ -80,5 +84,32 @@ const p = page.data;
     .loyalty-content :global(.loyalty-rules) { gap: 20px; }
     .loyalty-content :global(.loyalty-join), .loyalty-content :global(.loyalty-options article) { padding: 24px; }
     .loyalty-content :global(.button) { width: 100%; padding-left: 18px; padding-right: 18px; }
+  }
+</style>
+
+<style is:global>
+  .loyalty-dialog { width: min(620px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; padding: 0; border: 1px solid var(--line); border-radius: 24px; background: var(--paper); color: var(--ink); box-shadow: 0 24px 80px #0003; }
+  .loyalty-dialog::backdrop { background: rgb(28 24 20 / 48%); }
+  .loyalty-dialog__panel { position: relative; padding: 40px 32px 28px; }
+  .loyalty-dialog__close { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: var(--ink); font-size: 30px; cursor: pointer; }
+  .loyalty-dialog .loyalty-eyebrow { padding-right: 24px; }
+  .loyalty-dialog #loyalty-dialog-title { font-size: 38px; margin-bottom: 16px; }
+  .loyalty-dialog #loyalty-dialog-description { font-size: 14px; line-height: 1.6; }
+  .loyalty-dialog__options { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .loyalty-messenger { display: flex; flex-direction: column; gap: 12px; padding: 16px; border: 1px solid var(--line); border-radius: 16px; background: #fff; color: var(--ink); text-decoration: none; }
+  .loyalty-messenger:hover { border-color: var(--gold-deep); }
+  .loyalty-messenger:focus-visible, .loyalty-dialog__close:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 3px; }
+  .loyalty-messenger__label { display: flex; align-items: center; gap: 12px; }
+  .loyalty-messenger__icon { flex-shrink: 0; display: grid; place-items: center; width: 42px; height: 42px; }
+  .loyalty-messenger__icon--telegram { background: #229ed9; color: #fff; border-radius: 50%; }
+  .loyalty-messenger__arrow { margin-left: auto; }
+  .loyalty-messenger__qr { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
+  .loyalty-content .loyalty-dialog .loyalty-dialog__qr-note { margin: 20px 0 0; font-size: 12px; line-height: 1.6; }
+  @media (max-width: 800px) {
+    .loyalty-dialog { width: min(440px, calc(100% - 32px)); }
+    .loyalty-dialog__panel { padding: 40px 24px 24px; }
+    .loyalty-dialog #loyalty-dialog-title { font-size: 32px; }
+    .loyalty-dialog__options { grid-template-columns: 1fr; gap: 12px; }
+    .loyalty-messenger__qr, .loyalty-dialog__qr-note { display: none; }
   }
 </style>
